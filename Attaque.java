@@ -1,5 +1,5 @@
 public class Attaque extends Carte{
-    public Attaque(String n, TypeCarte t){
-        super(n, t);
+    public Attaque(TypeCarte t){
+        super(t.toString(), t);
     }
 }
