@@ -1,5 +1,5 @@
 public class Botte extends Carte{
-    public Botte(String n, TypeCarte t){
-        super(n, t);
+    public Botte(TypeCarte t){
+        super(t.toString(), t);
     }
 }
