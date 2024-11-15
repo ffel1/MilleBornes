@@ -131,7 +131,15 @@ public class Partie {
         //Melanger la pioche
         Collections.shuffle(pioche);
     }
-        
+    
+    public static int taillePioche(){
+        return pioche.size();
+    }
+
+    public static ArrayList<Carte> getPioche(){
+        return pioche;
+    }
+
     public void nouvellePartie(){};
     public void quitterPartie(){};
     public void sauvegarderPartie(){};
