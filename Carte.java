@@ -14,9 +14,4 @@ public abstract class Carte {
         return type;
     }
 
-    //setters
-    public void setNom(String n){
-        nom = n;
-    }
-
 }
