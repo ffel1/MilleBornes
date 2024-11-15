@@ -13,5 +13,4 @@ public abstract class Carte {
     public TypeCarte getType(){
         return type;
     }
-
 }
