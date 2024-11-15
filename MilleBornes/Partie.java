@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -34,15 +35,18 @@ public class Partie {
         panel.setLayout(new BorderLayout());
 
         // Bouton jouer
+        JPanel boutonJouerPanel = new JPanel();
+        boutonJouerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panel.add(boutonJouerPanel, BorderLayout.NORTH);
         JButton boutonJouer = new JButton("Jouer");
         boutonJouer.setVisible(true);
-        boutonJouer.setSize(50, 50);
+        boutonJouer.setPreferredSize(new Dimension(150, 50));
         //boutonJouer.addActionListener(e -> System.out.println("Bouton jouer"));
-        panel.add(boutonJouer, BorderLayout.NORTH);
+        boutonJouerPanel.add(boutonJouer, BorderLayout.CENTER);
 
         //  Bouton quitter
         JPanel boutonPanel = new JPanel();
-        boutonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));  // Centrer le bouton horizontalement
+        boutonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.add(boutonPanel, BorderLayout.SOUTH);
         JButton boutonQuitter = new JButton("Quitter");
         boutonQuitter.setVisible(true);
@@ -53,7 +57,16 @@ public class Partie {
         // Image
         ImageIcon image = new ImageIcon("MilleBornes.png");
         JLabel label = new JLabel(image);
-        panel.add(label);
+        label.setVisible(true);
+        JPanel imagePanel = new JPanel();
+        imagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panel.add(imagePanel, BorderLayout.CENTER);
+        imagePanel.add(label);
+
+        boutonPanel.setBackground(Color.GREEN);
+        boutonJouerPanel.setBackground(Color.GREEN);
+        //panel.add(label, BorderLayout.CENTER);
+        panel.setBackground(Color.ORANGE);
     }
 
     public void nouvellePartie(){};
