@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 public abstract class Joueur{
     private ArrayList<Carte> main;
@@ -32,7 +32,10 @@ public abstract class Joueur{
         return id;
     }
 
-    public void piocher(){}
+    public void piocher(){
+        Random hasard = new Random();
+        int indexCarte = hasard.nextInt(/*pioche.size()*/);
+    }
 
     public boolean verification(Carte c, Joueur u, Joueur cible){
         return true;
