@@ -13,4 +13,9 @@ public abstract class Carte {
     public TypeCarte getType(){
         return type;
     }
+
+    //setters
+    public void setNom(String n){
+        nom = n;
+    }
 }
