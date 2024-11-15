@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
 
 public class Partie {
     private int points;
-    private List<Joueur> joueurs;
+    private ArrayList<Joueur> joueurs;
     private static JFrame fenetreMenu;
 
     public Partie(){
