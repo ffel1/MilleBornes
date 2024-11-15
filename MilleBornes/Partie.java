@@ -19,7 +19,7 @@ public class Partie {
     public Partie(){
         points = 0;
         joueurs = new ArrayList<Joueur>();
-    }
+    } 
 
     public static void main(String[] args){
         JFrame fenetre = new JFrame();
