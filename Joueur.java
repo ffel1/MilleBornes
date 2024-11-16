@@ -33,8 +33,15 @@ public abstract class Joueur{
     }
 
     public void piocher(){
-        Random hasard = new Random();
-        int indexCarte = hasard.nextInt(/*pioche.size()*/);
+        ArrayList<Carte> pioche = Partie.getPioche();
+        Carte c;
+
+        //La pioche a déjà été mélangé dans Partie
+        for(int i = 0;i<6;i++){
+            c = pioche.get(i);
+            main.add(c);
+            pioche.remove(c);
+        }
     }
 
     public boolean verification(Carte c, Joueur u, Joueur cible){
