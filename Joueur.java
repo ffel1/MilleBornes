@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Joueur{
     private ArrayList<Carte> main;
@@ -47,6 +46,7 @@ public abstract class Joueur{
     public boolean verification(Carte c, Joueur u, Joueur cible){
         return true;
     }
+
     public void jouerCarte(Carte c){}
 
     public void appliquerAction(Carte c){}
