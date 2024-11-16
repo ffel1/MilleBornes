@@ -31,16 +31,23 @@ public abstract class Joueur{
         return id;
     }
 
+    public boolean mainPleine(){
+        return main.size() >= 6;
+    }
+
     public void piocher(){
         ArrayList<Carte> pioche = Partie.getPioche();
-        Carte c;
-
+        
         //La pioche a déjà été mélangé dans Partie
-        for(int i = 0;i<6;i++){
-            c = pioche.get(i);
+        if(!mainPleine()){
+            Carte c = pioche.getFirst();
             main.add(c);
             pioche.remove(c);
         }
+        else{
+            System.out.println("Main pleine");
+        }
+       
     }
 
     public boolean verification(Carte c, Joueur u, Joueur cible){
