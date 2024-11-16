@@ -26,7 +26,7 @@ public class Partie {
     } 
 
     public static void main(String[] args){
-        //initialiserPioche();
+        initialiserPioche();
         creerFenetreMenu();
     }
 
@@ -64,7 +64,7 @@ public class Partie {
 		imagePanel.setBounds(0, hauteur / 5, largeur, 3 * hauteur / 5);
 		imagePanel.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel);
-        ImageIcon image = new ImageIcon("MilleBornes.png");
+        ImageIcon image = new ImageIcon("Images/MilleBornes.png");
         JLabel labelImage = new JLabel();
         labelImage.setIcon(image);
         labelImage.setVerticalAlignment(JLabel.CENTER);
@@ -138,7 +138,7 @@ public class Partie {
 
         // Carte 1
         JPanel imagePanel = new JPanel();
-        ImageIcon image = new ImageIcon("200.png");
+        ImageIcon image = new ImageIcon("Images/25.png");
         imagePanel.setBackground(Color.pink);
         imagePanel.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
         imagePanel.setLayout(new BorderLayout());
@@ -152,7 +152,7 @@ public class Partie {
 
         // Carte 2
         JPanel imagePanel2 = new JPanel();
-        ImageIcon image2 = new ImageIcon("200.png");
+        ImageIcon image2 = new ImageIcon("Images/25.png");
         imagePanel2.setBackground(Color.pink);
         imagePanel2.setBounds(largeur / 2 - (125 * 2), hauteur - 250, 125, hauteur / 5);
         imagePanel2.setLayout(new BorderLayout());
@@ -166,7 +166,7 @@ public class Partie {
 
         // Carte 3
         JPanel imagePanel3 = new JPanel();
-        ImageIcon image3 = new ImageIcon("200.png");
+        ImageIcon image3 = new ImageIcon("Images/50.png");
         imagePanel3.setBackground(Color.pink);
         imagePanel3.setBounds(largeur / 2 - 125, hauteur - 250, 125, hauteur / 5);
         imagePanel3.setLayout(new BorderLayout());
@@ -180,7 +180,7 @@ public class Partie {
 
         // Carte 4
         JPanel imagePanel4 = new JPanel();
-        ImageIcon image4 = new ImageIcon("200.png");
+        ImageIcon image4 = new ImageIcon("Images/75.png");
         imagePanel4.setBackground(Color.pink);
         imagePanel4.setBounds(largeur / 2, hauteur - 250, 125, hauteur / 5);
         imagePanel4.setLayout(new BorderLayout());
@@ -194,7 +194,7 @@ public class Partie {
 
         // Carte 5
         JPanel imagePanel5 = new JPanel();
-        ImageIcon image5 = new ImageIcon("200.png");
+        ImageIcon image5 = new ImageIcon("Images/100.png");
         imagePanel5.setBackground(Color.pink);
         imagePanel5.setBounds(largeur / 2 + 125, hauteur - 250, 125, hauteur / 5);
         imagePanel5.setLayout(new BorderLayout());
@@ -208,7 +208,7 @@ public class Partie {
 
         // Carte 6
         JPanel imagePanel6 = new JPanel();
-        ImageIcon image6 = new ImageIcon("200.png");
+        ImageIcon image6 = new ImageIcon("Images/200.png");
         imagePanel6.setBackground(Color.pink);
         imagePanel6.setBounds(largeur / 2 + (125 * 2), hauteur - 250, 125, hauteur / 5);
         imagePanel6.setLayout(new BorderLayout());
@@ -222,6 +222,8 @@ public class Partie {
     }
 
     private static void initialiserPioche(){
+        pioche = new ArrayList<Carte>();
+
         //Cartes Distance
         for(int i = 0;i<12;i++){
             if(i<10){
