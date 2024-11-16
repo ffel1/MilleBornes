@@ -205,7 +205,7 @@ public class Partie {
         labelImage5.setVerticalAlignment(JLabel.CENTER);
         labelImage5.setHorizontalAlignment(JLabel.CENTER);
         imagePanel5.add(labelImage5);
-
+ 
         // Carte 6
         JPanel imagePanel6 = new JPanel();
         ImageIcon image6 = new ImageIcon("Images/200.png");
