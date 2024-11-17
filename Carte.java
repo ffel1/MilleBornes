@@ -5,7 +5,6 @@ public abstract class Carte {
     private TypeCarte type;
     private ImageIcon image;
 
-    //Constructeur avec nom, type et ImageIcon image pour les cartes
     public Carte(String n, TypeCarte t){
         nom = n;
         type = t;
