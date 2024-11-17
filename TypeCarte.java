@@ -22,43 +22,43 @@ public enum TypeCarte {
     public String toString() {
         switch (this) {
             case AS_DU_VOLANT:
-                return "As du Volant";
+                return "AS_DU_VOLANT";
             case CAMION_CITERNE:
-                return "Camion Citerne";
+                return "CAMION_CITERNE";
             case INCREVABLE:
-                return "Increvable";
+                return "INCREVABLE";
             case VEHICULE_PRIORITAIRE:
-                return "Véhicule Prioritaire";
+                return "VEHICULE_PRIORITAIRE";
             case CREVAISON:
-                return "Crevaison";
+                return "CREVAISON";
             case ACCIDENT:
-                return "Accident";
+                return "ACCIDENT";
             case PANNE_D_ESSENCE:
-                return "Panne d'Essence";
+                return "PANNE_D_ESSENCE";
             case LIMITATION_DE_VITESSE:
-                return "Limite de Vitesse";
+                return "LIMITE_DE_VITESSE";
             case FEU_ROUGE:
-                return "Feu Rouge";
+                return "FEU_ROUGE";
             case ROUE_DE_SECOURS:
-                return "Roue de Secours";
+                return "ROUE_DE_SECOURS";
             case REPARATION:
-                return "Réparation";
+                return "REPARATION";
             case ESSENCE:
-                return "Essence";
+                return "ESSENCE";
             case FIN_LIMITATION_VITESSE:
-                return "Fin Limitation Vitesse";
+                return "FIN_LIMITATION_VITESSE";
             case FEU_VERT:
-                return "Feu Vert";
+                return "FEU_VERT";
             case _25KM:
-                return "25 km";
+                return "25_KM";
             case _50KM:
-                return "50 km";
+                return "50_KM";
             case _75KM:
-                return "75 km";
+                return "75_KM";
             case _100KM:
-                return "100 km";
+                return "100_KM";
             case _200KM:
-                return "200 km";
+                return "200_KM";
             default:
                 return ""; 
         }
