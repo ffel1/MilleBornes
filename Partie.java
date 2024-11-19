@@ -146,6 +146,31 @@ public class Partie {
      * Pas fini ajouter fonction pour utiliser carte selectionee
      */
     private void afficherCartesJoueur(){
+        for(int i = 0;i<6;i++){
+            JPanel imagePanel = new JPanel();
+            Carte carte = joueurs.get(0).getMain().get(i);
+            ImageIcon image = carte.getImage();
+            imagePanel.setBackground(Color.pink);
+            imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
+            imagePanel.setLayout(new BorderLayout());
+            fenetreMenu.add(imagePanel);
+            JButton bouton = new JButton("", image);
+            bouton.setBackground(Color.PINK);
+            bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
+            bouton.setFocusPainted(false);
+            bouton.setContentAreaFilled(false);
+            int j = i;
+            bouton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    System.out.println("Carte "+(j+1)+" séléctionnée.");
+                    ajouterMessage("\n Carte "+(j+1)+" ("+carte.getNom()+")");
+                }
+            });
+            fenetreMenu.add(bouton);
+            imagePanel.add(bouton);
+        }
+        /* 
         // Carte 1
         JPanel imagePanel = new JPanel();
         Carte carte = joueurs.get(0).getMain().get(0);
@@ -285,6 +310,7 @@ public class Partie {
         });
         fenetreMenu.add(bouton6);
         imagePanel6.add(bouton6);
+        */
     }
 
     private void afficherZoneDeTexte(){
