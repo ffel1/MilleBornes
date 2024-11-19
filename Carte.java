@@ -8,7 +8,7 @@ public abstract class Carte {
     public Carte(String n, TypeCarte t){
         nom = n;
         type = t;
-        image = new ImageIcon("images/"+t.toString()+".png");
+        image = new ImageIcon("Images/" + t.toString() + ".png");
     }
 
     public String getNom(){

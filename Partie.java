@@ -17,31 +17,28 @@ public class Partie {
     private int points;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
-    private static JFrame fenetreMenu;
+    private JFrame fenetreMenu;
+    private int hauteur;
+    private int largeur;
 
     public Partie(){
+        // Initialisation
         points = 0;
         joueurs = new ArrayList<Joueur>();
         pioche = new ArrayList<Carte>();
-    } 
+        fenetreMenu = new JFrame("1000 Bornes");
 
-    public static void main(String[] args){
-        initialiserPioche();
-        creerFenetreMenu();
-    }
+        // Fenetre de la taille de l'écran
+        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        hauteur = (int)dimension.getHeight();
+        largeur  = (int)dimension.getWidth();
+        fenetreMenu.setSize(largeur, hauteur);
+    } 
 
     /*
      * Affiche la fenetre du menu de début
      */
-    private static void creerFenetreMenu(){
-        fenetreMenu = new JFrame("1000 Bornes");
-
-        // Fentre de la taille de l'écran
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int hauteur = (int)dimension.getHeight();
-        int largeur  = (int)dimension.getWidth();
-        fenetreMenu.setSize(largeur, hauteur);
-
+    public void creerFenetreMenu(){
         // Bouton jouer
         JPanel jouerPanel = new JPanel();
 		jouerPanel.setBounds(0, 0, largeur, hauteur / 5);
@@ -51,7 +48,8 @@ public class Partie {
         JButton boutonJouer = new JButton("Jouer");
         boutonJouer.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
+                nouvellePartie();
                 creerFenetreJeu();
             }
         });
@@ -90,17 +88,14 @@ public class Partie {
 		fenetreMenu.add(quitterPanel);
     }
 
-    private static void creerFenetreJeu(){
+    /*
+     * Affiche la fenêtre de jeu
+     */
+    private void creerFenetreJeu(){
         JPanel panelJeu = new JPanel();
         fenetreMenu.setContentPane(panelJeu);
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
-
-        // Fenetre de la taille de l'écran
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int hauteur = (int)dimension.getHeight();
-        int largeur  = (int)dimension.getWidth();
-        fenetreMenu.setSize(largeur, hauteur);
 
         // Eléments
         afficherCartesJoueur();
@@ -129,7 +124,10 @@ public class Partie {
 		fenetreMenu.setVisible(true);	
     }
 
-    private static void afficherCartesJoueur(){
+    /*
+     * Pas fini
+     */
+    private void afficherCartesJoueur(){
         // Fentre de la taille de l'écran
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int hauteur = (int)dimension.getHeight();
@@ -138,112 +136,160 @@ public class Partie {
 
         // Carte 1
         JPanel imagePanel = new JPanel();
-        ImageIcon image = new ImageIcon("Images/25.png");
+        ImageIcon image = joueurs.get(0).getMain().get(0).getImage();
         imagePanel.setBackground(Color.pink);
         imagePanel.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
         imagePanel.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel);
 
-        JLabel labelImage = new JLabel();
-        labelImage.setIcon(image);
-        labelImage.setVerticalAlignment(JLabel.CENTER);
-        labelImage.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel.add(labelImage);
+        JButton bouton = new JButton("", image);
+        bouton.setBackground(Color.PINK);
+        bouton.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton.setFocusPainted(false);
+        bouton.setContentAreaFilled(false);
+        bouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 1 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton);
+        imagePanel.add(bouton);
 
         // Carte 2
         JPanel imagePanel2 = new JPanel();
-        ImageIcon image2 = new ImageIcon("Images/25.png");
+        ImageIcon image2 = joueurs.get(0).getMain().get(1).getImage();
         imagePanel2.setBackground(Color.pink);
         imagePanel2.setBounds(largeur / 2 - (125 * 2), hauteur - 250, 125, hauteur / 5);
         imagePanel2.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel2);
         
-        JLabel labelImage2 = new JLabel();
-        labelImage2.setIcon(image2);
-        labelImage2.setVerticalAlignment(JLabel.CENTER);
-        labelImage2.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel2.add(labelImage2);
+        JButton bouton2 = new JButton("", image2);
+        bouton2.setBackground(Color.PINK);
+        bouton2.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton2.setFocusPainted(false);
+        bouton2.setContentAreaFilled(false);
+        bouton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 2 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton2);
+        imagePanel2.add(bouton2);
 
         // Carte 3
         JPanel imagePanel3 = new JPanel();
-        ImageIcon image3 = new ImageIcon("Images/50.png");
+        ImageIcon image3 = joueurs.get(0).getMain().get(2).getImage();
         imagePanel3.setBackground(Color.pink);
         imagePanel3.setBounds(largeur / 2 - 125, hauteur - 250, 125, hauteur / 5);
         imagePanel3.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel3);
         
-        JLabel labelImage3 = new JLabel();
-        labelImage3.setIcon(image3);
-        labelImage3.setVerticalAlignment(JLabel.CENTER);
-        labelImage3.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel3.add(labelImage3);
+        JButton bouton3 = new JButton("", image3);
+        bouton3.setBackground(Color.PINK);
+        bouton3.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton3.setFocusPainted(false);
+        bouton3.setContentAreaFilled(false);
+        bouton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 3 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton3);
+        imagePanel3.add(bouton3);
 
         // Carte 4
         JPanel imagePanel4 = new JPanel();
-        ImageIcon image4 = new ImageIcon("Images/75.png");
+        ImageIcon image4 = joueurs.get(0).getMain().get(3).getImage();
         imagePanel4.setBackground(Color.pink);
         imagePanel4.setBounds(largeur / 2, hauteur - 250, 125, hauteur / 5);
         imagePanel4.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel4);
         
-        JLabel labelImage4 = new JLabel();
-        labelImage4.setIcon(image4);
-        labelImage4.setVerticalAlignment(JLabel.CENTER);
-        labelImage4.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel4.add(labelImage4);
+        JButton bouton4 = new JButton("", image4);
+        bouton4.setBackground(Color.PINK);
+        bouton4.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton4.setFocusPainted(false);
+        bouton4.setContentAreaFilled(false);
+        bouton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 4 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton4);
+        imagePanel4.add(bouton4);
 
         // Carte 5
         JPanel imagePanel5 = new JPanel();
-        ImageIcon image5 = new ImageIcon("Images/100.png");
+        ImageIcon image5 = joueurs.get(0).getMain().get(4).getImage();
         imagePanel5.setBackground(Color.pink);
         imagePanel5.setBounds(largeur / 2 + 125, hauteur - 250, 125, hauteur / 5);
         imagePanel5.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel5);
         
-        JLabel labelImage5 = new JLabel();
-        labelImage5.setIcon(image5);
-        labelImage5.setVerticalAlignment(JLabel.CENTER);
-        labelImage5.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel5.add(labelImage5);
+        JButton bouton5 = new JButton("", image5);
+        bouton5.setBackground(Color.PINK);
+        bouton5.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton5.setFocusPainted(false);
+        bouton5.setContentAreaFilled(false);
+        bouton5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 5 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton5);
+        imagePanel5.add(bouton5);
  
         // Carte 6
         JPanel imagePanel6 = new JPanel();
-        ImageIcon image6 = new ImageIcon("Images/200.png");
+        ImageIcon image6 = joueurs.get(0).getMain().get(5).getImage();
         imagePanel6.setBackground(Color.pink);
         imagePanel6.setBounds(largeur / 2 + (125 * 2), hauteur - 250, 125, hauteur / 5);
         imagePanel6.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel6);
         
-        JLabel labelImage6 = new JLabel();
-        labelImage6.setIcon(image6);
-        labelImage6.setVerticalAlignment(JLabel.CENTER);
-        labelImage6.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel6.add(labelImage6);
+        JButton bouton6 = new JButton("", image6);
+        bouton6.setBackground(Color.PINK);
+        bouton6.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton6.setFocusPainted(false);
+        bouton6.setContentAreaFilled(false);
+        bouton6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 6 séléctionnée.");
+            }
+        });
+        fenetreMenu.add(bouton6);
+        imagePanel6.add(bouton6);
     }
 
-    private static void initialiserPioche(){
+    private void initialiserPioche(){
         pioche = new ArrayList<Carte>();
 
-        //Cartes Distance
-        for(int i = 0;i<12;i++){
-            if(i<10){
+        //Cartes Distances
+        for(int i = 0; i < 12; i++){
+            if(i < 10){
                 pioche.add(new Distance(TypeCarte._25KM, 25));
                 pioche.add(new Distance(TypeCarte._50KM, 50));
                 pioche.add(new Distance(TypeCarte._75KM, 75));
 
-                if(i<8){
+                if(i < 8){
                     pioche.add(new Distance(TypeCarte._200KM, 200));
                 }
             }
             pioche.add(new Distance(TypeCarte._100KM, 100));
         }
 
-        //Cartes Attaque
-        for(int i = 0;i<6;i++){
-            if(i<5){
+        //Cartes Attaques
+        for(int i = 0; i < 6; i++){
+            if(i < 5){
                 pioche.add(new Attaque(TypeCarte.FEU_ROUGE));
 
-                if(i<3){
+                if(i < 3){
                     pioche.add(new Attaque(TypeCarte.ACCIDENT));
                     pioche.add(new Attaque(TypeCarte.PANNE_D_ESSENCE));
                     pioche.add(new Attaque(TypeCarte.CREVAISON));
@@ -252,9 +298,9 @@ public class Partie {
             pioche.add(new Attaque(TypeCarte.LIMITATION_DE_VITESSE));
         }
 
-        //Cartes Parade
-        for(int i = 0;i<14;i++){
-            if(i<6){
+        //Cartes Parades
+        for(int i = 0; i < 14; i++){
+            if(i < 6){
                 pioche.add(new Parade(TypeCarte.REPARATION));
                 pioche.add(new Parade(TypeCarte.ESSENCE));
                 pioche.add(new Parade(TypeCarte.ROUE_DE_SECOURS));
@@ -263,7 +309,7 @@ public class Partie {
             pioche.add(new Parade(TypeCarte.FEU_VERT));
         }
 
-        //Cartes Botte
+        //Cartes Bottes
         pioche.add(new Botte(TypeCarte.AS_DU_VOLANT));
         pioche.add(new Botte(TypeCarte.CAMION_CITERNE));
         pioche.add(new Botte(TypeCarte.INCREVABLE));
@@ -273,7 +319,7 @@ public class Partie {
         Collections.shuffle(pioche);
     }
     
-    public static int taillePioche(){
+    public int taillePioche(){
         return pioche.size();
     }
 
@@ -281,7 +327,19 @@ public class Partie {
         return pioche;
     }
 
-    public void nouvellePartie(){};
+    public void nouvellePartie(){
+        initialiserPioche();
+        System.out.println(getPioche().size());
+        joueurs.add(new Utilisateur("Moi", 0, 0));
+        for(int i = 0; i < 6; i++){
+            joueurs.get(0).ajouterCarte(pioche.get(i));
+            pioche.remove(i);
+        }
+        System.out.println(joueurs.get(0).getMain().size());
+        joueurs.add(new CPUAgro("Agro", 0, 1));
+        joueurs.add(new CPUFast("Fast", 0, 2));
+        System.out.println(getPioche().size());
+    }
     public void quitterPartie(){};
     public void sauvegarderPartie(){};
     public boolean jouerCarte(Carte c, Joueur u, Joueur cible){

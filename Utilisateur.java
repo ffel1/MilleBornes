@@ -9,5 +9,7 @@ public class Utilisateur extends Joueur{
     public void jouerCarte(Carte c){};
     public void appliquerAction(Carte c){};
     public void retirerCarte(Carte c){};
-    public void ajouterCarte(Carte c){};
+    public void ajouterCarte(Carte c){
+        getMain().add(c);
+    };
 }

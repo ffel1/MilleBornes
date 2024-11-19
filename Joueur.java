@@ -64,5 +64,6 @@ public abstract class Joueur{
 
     public void ajouterCarte(Carte c){
         main.add(c);
+        System.out.println("OK");
     }
 }
