@@ -146,30 +146,145 @@ public class Partie {
      * Pas fini ajouter fonction pour utiliser carte selectionee
      */
     private void afficherCartesJoueur(){
-        for (int i = 0; i < 6; i++) {
-            JPanel imagePanel = new JPanel();
-            ImageIcon image = joueurs.get(0).getMain().get(i).getImage();
-            imagePanel.setBackground(Color.pink);
-            imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
-            imagePanel.setLayout(new BorderLayout());
-            fenetreMenu.add(imagePanel);
+        // Carte 1
+        JPanel imagePanel = new JPanel();
+        Carte carte = joueurs.get(0).getMain().get(0);
+        ImageIcon image = carte.getImage();
+        imagePanel.setBackground(Color.pink);
+        imagePanel.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        imagePanel.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel);
+        JButton bouton = new JButton("", image);
+        bouton.setBackground(Color.PINK);
+        bouton.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton.setFocusPainted(false);
+        bouton.setContentAreaFilled(false);
+        bouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 1 séléctionnée.");
+                ajouterMessage("\n Carte 1"+" ("+carte.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton);
+        imagePanel.add(bouton);
+        // Carte 2
+        JPanel imagePanel2 = new JPanel();
+        Carte carte2 = joueurs.get(0).getMain().get(1);
+        ImageIcon image2 = carte2.getImage();
+        imagePanel2.setBackground(Color.pink);
+        imagePanel2.setBounds(largeur / 2 - (125 * 2), hauteur - 250, 125, hauteur / 5);
+        imagePanel2.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel2);
+        
+        JButton bouton2 = new JButton("", image2);
+        bouton2.setBackground(Color.PINK);
+        bouton2.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton2.setFocusPainted(false);
+        bouton2.setContentAreaFilled(false);
+        bouton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 2 séléctionnée.");
+                ajouterMessage("\n Carte 2"+" ("+carte2.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton2);
+        imagePanel2.add(bouton2);
 
-            JButton bouton = new JButton("", image);
-            bouton.setBackground(Color.PINK);
-            bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
-            bouton.setFocusPainted(false);
-            bouton.setContentAreaFilled(false);
-            int finalI = i;
-            bouton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    System.out.println("Carte " + (finalI + 1) + " séléctionnée.");
-                    ajouterMessage("\n Carte " + (finalI + 1));
-                }
-            });
-            fenetreMenu.add(bouton);
-            imagePanel.add(bouton);
-        }
+        // Carte 3
+        JPanel imagePanel3 = new JPanel();
+        Carte carte3 = joueurs.get(0).getMain().get(2);
+        ImageIcon image3 = carte3.getImage();
+        imagePanel3.setBackground(Color.pink);
+        imagePanel3.setBounds(largeur / 2 - 125, hauteur - 250, 125, hauteur / 5);
+        imagePanel3.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel3);
+        
+        JButton bouton3 = new JButton("", image3);
+        bouton3.setBackground(Color.PINK);
+        bouton3.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton3.setFocusPainted(false);
+        bouton3.setContentAreaFilled(false);
+        bouton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 3 séléctionnée.");
+                ajouterMessage("\n Carte 3"+" ("+carte3.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton3);
+        imagePanel3.add(bouton3);
+        // Carte 4
+        JPanel imagePanel4 = new JPanel();
+        Carte carte4 = joueurs.get(0).getMain().get(3);
+        ImageIcon image4 = carte4.getImage();
+        imagePanel4.setBackground(Color.pink);
+        imagePanel4.setBounds(largeur / 2, hauteur - 250, 125, hauteur / 5);
+        imagePanel4.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel4);
+        
+        JButton bouton4 = new JButton("", image4);
+        bouton4.setBackground(Color.PINK);
+        bouton4.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton4.setFocusPainted(false);
+        bouton4.setContentAreaFilled(false);
+        bouton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 4 séléctionnée.");
+                ajouterMessage("\n Carte 4"+" ("+carte4.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton4);
+        imagePanel4.add(bouton4);
+        // Carte 5
+        JPanel imagePanel5 = new JPanel();
+        Carte carte5 = joueurs.get(0).getMain().get(4);
+        ImageIcon image5 = carte5.getImage();
+        imagePanel5.setBackground(Color.pink);
+        imagePanel5.setBounds(largeur / 2 + 125, hauteur - 250, 125, hauteur / 5);
+        imagePanel5.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel5);
+        
+        JButton bouton5 = new JButton("", image5);
+        bouton5.setBackground(Color.PINK);
+        bouton5.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton5.setFocusPainted(false);
+        bouton5.setContentAreaFilled(false);
+        bouton5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 5 séléctionnée.");
+                ajouterMessage("\n Carte 5"+" ("+carte5.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton5);
+        imagePanel5.add(bouton5);
+ 
+        // Carte 6
+        JPanel imagePanel6 = new JPanel();
+        Carte carte6 = joueurs.get(0).getMain().get(5);
+        ImageIcon image6 = carte6.getImage();
+        imagePanel6.setBackground(Color.pink);
+        imagePanel6.setBounds(largeur / 2 + (125 * 2), hauteur - 250, 125, hauteur / 5);
+        imagePanel6.setLayout(new BorderLayout());
+        fenetreMenu.add(imagePanel6);
+        
+        JButton bouton6 = new JButton("", image6);
+        bouton6.setBackground(Color.PINK);
+        bouton6.setBounds(largeur / 2 - (125 * 3), hauteur - 250, 125, hauteur / 5);
+        bouton6.setFocusPainted(false);
+        bouton6.setContentAreaFilled(false);
+        bouton6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Carte 6 séléctionnée.");
+                ajouterMessage("\n Carte 6"+" ("+carte6.getNom()+")");
+            }
+        });
+        fenetreMenu.add(bouton6);
+        imagePanel6.add(bouton6);
     }
 
     private void afficherZoneDeTexte(){
