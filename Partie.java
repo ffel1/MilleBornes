@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
  
 public class Partie {
     private int points;
@@ -20,6 +23,8 @@ public class Partie {
     private JFrame fenetreMenu;
     private int hauteur;
     private int largeur;
+    private JTextArea textArea;
+    private JScrollPane scrollPane;
 
     public Partie(){
         // Initialisation
@@ -99,6 +104,7 @@ public class Partie {
 
         // Eléments
         afficherCartesJoueur();
+        afficherZoneDeTexte();
 
         // Bouton quitter
         JPanel quitterPanel = new JPanel();
@@ -112,28 +118,15 @@ public class Partie {
         quitterPanel.add(labelQuitter);
         fenetreMenu.add(quitterPanel);
 
-        // Zone affichage des messages
-        JPanel messagePanel = new JPanel();
-		messagePanel.setBackground(Color.GRAY);
-		messagePanel.setBounds(0, hauteur / 2, 250, hauteur / 2);
-		messagePanel.setLayout(new BorderLayout());
-        fenetreMenu.add(messagePanel);
-
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);	
     }
 
     /*
-     * Pas fini
+     * Pas fini ajouter fonction pour utiliser carte selectionee
      */
     private void afficherCartesJoueur(){
-        // Fentre de la taille de l'écran
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int hauteur = (int)dimension.getHeight();
-        int largeur  = (int)dimension.getWidth();
-        fenetreMenu.setSize(largeur, hauteur);
-
         // Carte 1
         JPanel imagePanel = new JPanel();
         ImageIcon image = joueurs.get(0).getMain().get(0).getImage();
@@ -151,6 +144,7 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 1 séléctionnée.");
+                ajouterMessage("\n Carte 1");
             }
         });
         fenetreMenu.add(bouton);
@@ -173,6 +167,7 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 2 séléctionnée.");
+                ajouterMessage("\n Carte 2");
             }
         });
         fenetreMenu.add(bouton2);
@@ -195,6 +190,7 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 3 séléctionnée.");
+                ajouterMessage("\n Carte 3");
             }
         });
         fenetreMenu.add(bouton3);
@@ -217,6 +213,7 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 4 séléctionnée.");
+                ajouterMessage("\n Carte 4");
             }
         });
         fenetreMenu.add(bouton4);
@@ -239,6 +236,7 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 5 séléctionnée.");
+                ajouterMessage("\n Carte 5");
             }
         });
         fenetreMenu.add(bouton5);
@@ -261,10 +259,37 @@ public class Partie {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Carte 6 séléctionnée.");
+                ajouterMessage("\n Carte 6");
             }
         });
         fenetreMenu.add(bouton6);
         imagePanel6.add(bouton6);
+    }
+
+    private void afficherZoneDeTexte(){
+        // Zone affichage des messages
+        JPanel messagePanel = new JPanel();
+		messagePanel.setBackground(Color.GRAY);
+		messagePanel.setBounds(0, hauteur / 2, 250, hauteur / 2 - 75);
+		messagePanel.setLayout(new BorderLayout());
+        fenetreMenu.add(messagePanel);
+
+        textArea = new JTextArea("Début de la partie");
+        textArea.setBounds(0, hauteur / 2, 250, hauteur / 2);
+        textArea.setEditable(false);
+        textArea.setBackground(Color.PINK);
+        fenetreMenu.add(textArea);
+
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(0, hauteur / 2, 250, hauteur / 2);
+        fenetreMenu.add(scrollPane);
+        messagePanel.add(scrollPane);
+    }
+
+    private void ajouterMessage(String message){
+        textArea.append(message);
+        JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
+        verticalBar.setValue(verticalBar.getMaximum());
     }
 
     private void initialiserPioche(){
