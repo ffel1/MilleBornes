@@ -28,9 +28,7 @@ public class Partie {
 
     public Partie(){
         // Initialisation
-        points = 0;
-        joueurs = new ArrayList<Joueur>();
-        pioche = new ArrayList<Carte>();
+        
         fenetreMenu = new JFrame("1000 Bornes");
 
         // Fenetre de la taille de l'écran
@@ -54,6 +52,9 @@ public class Partie {
         boutonJouer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                points = 0;
+                joueurs = new ArrayList<Joueur>();
+                pioche = new ArrayList<Carte>();
                 nouvellePartie();
                 creerFenetreJeu();
             }
@@ -97,6 +98,7 @@ public class Partie {
      * Affiche la fenêtre de jeu
      */
     private void creerFenetreJeu(){
+
         JPanel panelJeu = new JPanel();
         fenetreMenu.setContentPane(panelJeu);
         fenetreMenu.revalidate();
