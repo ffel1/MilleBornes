@@ -148,7 +148,7 @@ public class Partie {
      * Pas fini ajouter fonction pour utiliser carte selectionee
      */
     private void afficherCartesJoueur(){
-        for(int i = 0;i<6;i++){
+        for(int i = 0; i < 6; i++){
             JPanel imagePanel = new JPanel();
             Carte carte = joueurs.get(0).getMain().get(i);
             ImageIcon image = carte.getImage();
@@ -165,8 +165,8 @@ public class Partie {
             bouton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    System.out.println("Carte "+(j+1)+" séléctionnée.");
-                    ajouterMessage("\n Carte "+(j+1)+" ("+carte.getNom()+")");
+                    ajouterMessage("\n Carte " + (j + 1) + " (" + carte.getNom()+")");
+                    joueurs.get(0).jouerCarte(carte);
                 }
             });
             fenetreMenu.add(bouton);
@@ -200,6 +200,9 @@ public class Partie {
         verticalBar.setValue(verticalBar.getMaximum());
     }
 
+    /*
+     * Initialisation de la pioche FINI
+     */
     private void initialiserPioche(){
         pioche = new ArrayList<Carte>();
 
@@ -260,6 +263,10 @@ public class Partie {
         return pioche;
     }
 
+    /*
+     * Création de la partie
+     * PAS FINI
+     */
     public void nouvellePartie(){
         initialiserPioche();
         System.out.println(getPioche().size());
@@ -272,16 +279,39 @@ public class Partie {
         joueurs.add(new CPUAgro("Agro", 0, 1));
         joueurs.add(new CPUFast("Fast", 0, 2));
         System.out.println(getPioche().size());
+
+        jouer();
     }
-    public void quitterPartie(){};
-    public void sauvegarderPartie(){};
+
+    /*
+     * Verifie si la carte est jouable
+     * PAS FINI
+     */
     public boolean jouerCarte(Carte c, Joueur u, Joueur cible){
         return true;
-    };
-    public void jouer(Carte c, Joueur u, Joueur cible){};
+    }
+
+    /*
+     * Boucle du jeu
+     * PAS FINI
+     */
+    private void jouer(){
+        while(!gagnant()){
+            
+        }
+    }
+
+    /*
+     * Renvoie vrai si un joueur a gagné a au moins 700 km
+     * PAS FINI
+     */
+    private boolean gagnant(){
+        return false;
+    }
+    
     public void afficherAction(Carte c, Joueur u, Joueur cible){};
     public void ajouterHistorique(Carte c, Joueur u, Joueur cible){};
     public void nouvelleManche(){};
-
-    
+    public void quitterPartie(){};
+    public void sauvegarderPartie(){};
 }

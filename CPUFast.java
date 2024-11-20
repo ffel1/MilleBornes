@@ -4,10 +4,13 @@ public class CPUFast extends CPU{
         super(nom, k, id);
     }
 
-    public void piocher(){};
-    public boolean verification(Carte c, Joueur u, Joueur cible){return true;};
-    public void jouerCarte(Carte c){};
+    /*
+     * Choisi de jouer une carte, en priorité des carte distances
+     */
+    public void choisirCarte(){
+        // A Completer
+        jouerCarte(null);
+    }
+    
     public void appliquerAction(Carte c){};
-    public void retirerCarte(Carte c){};
-    public void ajouterCarte(Carte c){};
 }

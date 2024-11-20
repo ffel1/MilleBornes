@@ -50,20 +50,73 @@ public abstract class Joueur{
        
     }
 
-    public boolean verification(Carte c, Joueur u, Joueur cible){
-        return true;
-    }
-
-    public void jouerCarte(Carte c){}
-
-    public void appliquerAction(Carte c){}
-
     public void retirerCarte(Carte c){
         main.remove(c);
     }
 
     public void ajouterCarte(Carte c){
         main.add(c);
-        System.out.println("OK");
     }
+
+    /*
+     * Choisir l'action en fonction du type de carte
+     * PAS FINI
+     */
+    public void jouerCarte(Carte c){
+        switch(c.getType()){
+            /* Les cartes bottes */
+            case AS_DU_VOLANT :
+            case CAMION_CITERNE :
+            case INCREVABLE :
+            case VEHICULE_PRIORITAIRE :
+                if(verification(c, this, null)){ // null car pas besoin de cible
+                    jouerBotte(c);
+                }
+                break;
+            // Continuer
+            default:
+                break;
+        }
+    }
+
+    /*
+     * Joue une carte botte au joueur
+     * PAS FINI
+     */
+    public void jouerBotte(Carte c){
+
+    }
+
+    /*
+     * Joue une carte parade et enleve le malus
+     * PAS FINI
+     */
+    public void jouerParade(Carte c){
+
+    }
+
+    /*
+     * Joue une carte attaque et demande sur quel joueur
+     * PAS FINI
+     */
+    public void jouerAttaque(Carte c){
+
+    }
+
+    /*
+     * Augmente le nombre de km du joueur
+     * PAS FINI
+     */
+    public void jouerDistance(Carte c){
+
+    }
+
+    /*
+     * Vérifie qu'une carte soit jouable
+     */
+    public boolean verification(Carte c, Joueur u, Joueur cible){
+        return true;
+    }
+
+    public void appliquerAction(Carte c){}
 }
