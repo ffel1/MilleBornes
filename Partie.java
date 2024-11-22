@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.*;
  
 public class Partie {
     private int points;
@@ -115,7 +116,16 @@ public class Partie {
         JLabel labelQuitter = new JLabel();
         JButton boutonQuitter = new JButton("Quitter");
         boutonQuitter.setBounds(0, 0, 150, 50);
-        boutonQuitter.addActionListener(e -> System.exit(0));
+        boutonQuitter.addActionListener(e -> {
+            int option = JOptionPane.showConfirmDialog(fenetreMenu, "Voulez-vous vraiment quitter ?", "Confirmer", JOptionPane.YES_NO_OPTION);
+            // Vérifier la réponse de l'utilisateur
+            if (option == JOptionPane.YES_OPTION) {
+                fenetreMenu.getContentPane().removeAll();
+                fenetreMenu.repaint();
+                fenetreMenu.revalidate();
+                creerFenetreMenu(); 
+            }
+        }); 
         labelQuitter.add(boutonQuitter);
         quitterPanel.add(labelQuitter);
         fenetreMenu.add(quitterPanel);
@@ -127,7 +137,7 @@ public class Partie {
         mainPanel.setBounds(largeur - 155, hauteur / 2 - 75, largeur, hauteur / 5);
         mainPanel.setLayout(new BorderLayout());
         JLabel labelMain = new JLabel();
-        JButton boutonMain = new JButton("Nouvelle Partie");
+        JButton boutonMain = new JButton("Nouvelle partie");
         boutonMain.setBounds(0, 0, 150, 50);
         boutonMain.addActionListener(e -> {
             fenetreMenu.getContentPane().removeAll();
@@ -137,8 +147,7 @@ public class Partie {
             joueurs = new ArrayList<Joueur>();
             pioche = new ArrayList<Carte>();
             nouvellePartie();
-            creerFenetreJeu();
-             
+            creerFenetreMenu(); 
         });
 
         labelMain.add(boutonMain);
@@ -285,7 +294,7 @@ public class Partie {
         joueurs.add(new CPUFast("Fast", 0, 2));
         System.out.println(getPioche().size());
 
-        jouer();
+        //jouer();
     }
 
     /*
@@ -301,12 +310,7 @@ public class Partie {
      * PAS FINI
      */
     private void jouer(){
-        /* 
-        while(!gagnant()){
-            
-
-        }
-        */
+        
     }
 
     /*
