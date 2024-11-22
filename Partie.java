@@ -301,9 +301,12 @@ public class Partie {
      * PAS FINI
      */
     private void jouer(){
+        /* 
         while(!gagnant()){
             
+
         }
+        */
     }
 
     /*
