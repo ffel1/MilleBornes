@@ -147,7 +147,7 @@ public class Partie {
             joueurs = new ArrayList<Joueur>();
             pioche = new ArrayList<Carte>();
             nouvellePartie();
-            creerFenetreMenu(); 
+            creerFenetreJeu(); 
         });
 
         labelMain.add(boutonMain);
