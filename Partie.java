@@ -127,13 +127,18 @@ public class Partie {
         mainPanel.setBounds(largeur - 155, hauteur / 2 - 75, largeur, hauteur / 5);
         mainPanel.setLayout(new BorderLayout());
         JLabel labelMain = new JLabel();
-        JButton boutonMain = new JButton("Écran principal");
+        JButton boutonMain = new JButton("Nouvelle Partie");
         boutonMain.setBounds(0, 0, 150, 50);
         boutonMain.addActionListener(e -> {
             fenetreMenu.getContentPane().removeAll();
             fenetreMenu.repaint();
             fenetreMenu.revalidate();
-            creerFenetreMenu(); 
+            points = 0;
+            joueurs = new ArrayList<Joueur>();
+            pioche = new ArrayList<Carte>();
+            nouvellePartie();
+            creerFenetreJeu();
+             
         });
 
         labelMain.add(boutonMain);
