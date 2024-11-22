@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public abstract class Joueur{
     private ArrayList<Carte> main;
+    private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometre;
     //private Etat etat;
@@ -9,6 +10,7 @@ public abstract class Joueur{
 
     public Joueur(String name, int km, int id){
         main = new ArrayList<Carte>();
+        botteAttaque = new ArrayList<Carte>();
         nom = name;
         kilometre = km;
         //etat = null;
@@ -17,6 +19,9 @@ public abstract class Joueur{
 
     public ArrayList<Carte> getMain(){
         return main;
+    }
+    public ArrayList<Carte> getBotteAttaque(){
+        return botteAttaque;
     }
     public String getNom(){
         return nom;
@@ -63,19 +68,12 @@ public abstract class Joueur{
      * PAS FINI
      */
     public void jouerCarte(Carte c){
-        switch(c.getType()){
-            /* Les cartes bottes */
-            case AS_DU_VOLANT :
-            case CAMION_CITERNE :
-            case INCREVABLE :
-            case VEHICULE_PRIORITAIRE :
-                if(verification(c, this, null)){ // null car pas besoin de cible
-                    jouerBotte(c);
-                }
-                break;
-            // Continuer
-            default:
-                break;
+        Carte carteAJouer = c;
+
+        if (carteAJouer != null){
+            appliquerAction(carteAJouer);
+            retirerCarte(carteAJouer);
+            System.out.println(getNom() + " joue : " + carteAJouer.getNom());
         }
     }
 
@@ -84,7 +82,16 @@ public abstract class Joueur{
      * PAS FINI
      */
     public void jouerBotte(Carte c){
-
+        switch(c.getType()){
+            /* Les cartes bottes */
+            case AS_DU_VOLANT :
+            case CAMION_CITERNE :
+            case INCREVABLE :
+            case VEHICULE_PRIORITAIRE :
+                break;
+            default:
+                break;
+        }
     }
 
     /*
@@ -115,6 +122,49 @@ public abstract class Joueur{
      * Vérifie qu'une carte soit jouable
      */
     public boolean verification(Carte c, Joueur u, Joueur cible){
+        if (c instanceof Attaque){
+            for (Carte carte : cible.getBotteAttaque()) {
+                switch (c.getType()) {
+                    case CREVAISON:
+                        if (carte.getType() == TypeCarte.INCREVABLE) return false;
+                        break;
+                    case ACCIDENT:
+                        if (carte.getType() == TypeCarte.AS_DU_VOLANT) return false;
+                        break;
+                    case PANNE_D_ESSENCE:
+                        if (carte.getType() == TypeCarte.CAMION_CITERNE) return false;
+                        break;
+                    case LIMITATION_DE_VITESSE:
+                    case FEU_ROUGE:
+                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE) return false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } else if (c instanceof Parade || c instanceof Botte){
+            for (Carte carte : u.getBotteAttaque()){
+                switch (c.getType()) {
+                    case FEU_VERT:
+                        if (carte.getType() != TypeCarte.FEU_ROUGE) return false;
+                        break;
+                    case FIN_LIMITATION_VITESSE:
+                        if (carte.getType() != TypeCarte.LIMITATION_DE_VITESSE) return false;
+                        break;
+                    case ESSENCE:
+                        if (carte.getType() != TypeCarte.PANNE_D_ESSENCE) return false;
+                        break;
+                    case ROUE_DE_SECOURS:
+                        if (carte.getType() != TypeCarte.CREVAISON) return false;
+                        break;
+                    case REPARATION:
+                        if (carte.getType() != TypeCarte.ACCIDENT) return false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         return true;
     }
 
