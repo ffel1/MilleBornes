@@ -45,7 +45,7 @@ public abstract class Joueur{
         
         //La pioche a déjà été mélangé dans Partie
         if(!mainPleine()){
-            Carte c = pioche.getFirst();
+            Carte c = pioche.get(0);
             main.add(c);
             pioche.remove(c);
         }
