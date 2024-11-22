@@ -109,15 +109,15 @@ public class Partie {
         afficherCartesJoueur();
         afficherZoneDeTexte();
 
-        // Bouton quitter
+        // Bouton Menu principal
         JPanel quitterPanel = new JPanel();
 		quitterPanel.setBounds(largeur - 155, hauteur / 2, largeur, hauteur / 5);
 		quitterPanel.setLayout(new BorderLayout());
         JLabel labelQuitter = new JLabel();
-        JButton boutonQuitter = new JButton("Quitter");
+        JButton boutonQuitter = new JButton("Menu Principal");
         boutonQuitter.setBounds(0, 0, 150, 50);
         boutonQuitter.addActionListener(e -> {
-            int option = JOptionPane.showConfirmDialog(fenetreMenu, "Voulez-vous vraiment quitter ?", "Confirmer", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(fenetreMenu, "Voulez-vous vraiment retourner au menu principal ?", "Confirmer", JOptionPane.YES_NO_OPTION);
             // Vérifier la réponse de l'utilisateur
             if (option == JOptionPane.YES_OPTION) {
                 fenetreMenu.getContentPane().removeAll();
@@ -215,7 +215,7 @@ public class Partie {
     }
 
     /*
-     * Initialisation de la pioche FINI
+     * Initialisation de la pioche #FINI
      */
     private void initialiserPioche(){
         pioche = new ArrayList<Carte>();
