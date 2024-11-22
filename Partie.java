@@ -142,7 +142,7 @@ public class Partie {
         boutonMain.addActionListener(e -> {
             fenetreMenu.getContentPane().removeAll();
             fenetreMenu.repaint();
-            fenetreMenu.revalidate();
+            fenetreMenu.revalidate(); 
             points = 0;
             joueurs = new ArrayList<Joueur>();
             pioche = new ArrayList<Carte>();
