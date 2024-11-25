@@ -56,5 +56,7 @@ public class Controleur {
                 }
             }, i);
         }
+        vue.getFenetre().setLayout(null);
+		vue.getFenetre().setVisible(true);
     }
 }
