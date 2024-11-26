@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Joueur{
+public abstract class Joueur implements Serializable{
     private ArrayList<Carte> main;
     private ArrayList<Carte> botteAttaque;
     private String nom;

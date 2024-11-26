@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.BoxLayout;
@@ -17,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.*;
  
-public class Partie {
+public class Partie implements Serializable{
     private int points;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
@@ -104,6 +105,14 @@ public class Partie {
         return joueurs.get(0);
     }
 
+    public Joueur getJoueur2(){
+        return joueurs.get(1);
+    }
+
+    public Joueur getJoueur3(){
+        return joueurs.get(2);
+    }
+
     /*
      * Création de la partie
      * PAS FINI
@@ -112,13 +121,17 @@ public class Partie {
         initialiserPioche();
         System.out.println(getPioche().size());
         joueurs.add(0, new Utilisateur("Moi", 0, 0));
+        joueurs.add(1, new CPUAgro("Agro", 0, 1));
+        joueurs.add(2, new CPUFast("Fast", 0, 2));
         for(int i = 0; i < 6; i++){
             joueurs.get(0).ajouterCarte(pioche.get(i));
             pioche.remove(i);
+            joueurs.get(1).ajouterCarte(pioche.get(i));
+            pioche.remove(i);
+            joueurs.get(2).ajouterCarte(pioche.get(i));
+            pioche.remove(i);
         }
         System.out.println(joueurs.get(0).getMain().size());
-        joueurs.add(1, new CPUAgro("Agro", 0, 1));
-        joueurs.add(2, new CPUFast("Fast", 0, 2));
         System.out.println(getPioche().size());
     }
 

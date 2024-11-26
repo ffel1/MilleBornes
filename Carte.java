@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
-public abstract class Carte {
+public abstract class Carte implements Serializable{
     private String nom;
     private TypeCarte type;
     private ImageIcon image;

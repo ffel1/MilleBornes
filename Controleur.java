@@ -1,5 +1,13 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
@@ -42,6 +50,16 @@ public class Controleur {
             modele.nouvellePartie();
             nouvellePartie(); 
         });  
+
+        vue.ajouterActionBoutonSauvegarder(e -> {
+            sauvegarder();
+        });  
+
+        vue.ajouterActionBoutonChargerSauvegarde(e -> {
+            chargerSauvegarder();
+            vue.creerFenetreJeu();
+            nouvellePartie();
+        });  
     }
 
     private void nouvellePartie(){
@@ -58,5 +76,23 @@ public class Controleur {
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
+    }
+
+    private void sauvegarder(){
+        try (FileOutputStream fichier = new FileOutputStream("save.ser"); ObjectOutputStream oos = new ObjectOutputStream(fichier)){
+            oos.writeObject(modele);
+            System.out.println("Sauvegarde OK !");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+        }
+    }
+
+    private void chargerSauvegarder(){
+        try (FileInputStream fichier = new FileInputStream("save.ser"); ObjectInputStream ois = new ObjectInputStream(fichier)) {
+            Partie mod = (Partie)ois.readObject();
+            modele = mod;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Erreur lors du chargement : " + e.getMessage());
+        }
     }
 }
