@@ -24,8 +24,7 @@ public class Controleur {
             @Override
             public void actionPerformed(ActionEvent e){
                 vue.creerFenetreJeu();
-                modele.nouvellePartie();
-                nouvellePartie();
+                nouvellePartie(true);
             }
         });
 
@@ -47,8 +46,7 @@ public class Controleur {
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate(); 
             vue.creerFenetreJeu();
-            modele.nouvellePartie();
-            nouvellePartie(); 
+            nouvellePartie(true); 
         });  
 
         vue.ajouterActionBoutonSauvegarder(e -> {
@@ -58,11 +56,14 @@ public class Controleur {
         vue.ajouterActionBoutonChargerSauvegarde(e -> {
             chargerSauvegarder();
             vue.creerFenetreJeu();
-            nouvellePartie();
-        });  
+            nouvellePartie(false);
+        });
     }
 
-    private void nouvellePartie(){
+    private void nouvellePartie(boolean b){
+        if(b){
+            modele.nouvellePartie();
+        }
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         for(int i = 0; i < 6; i++){
@@ -73,6 +74,7 @@ public class Controleur {
                     vue.ajouterMessage("\n Carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
                 }
             }, i);
+            System.out.println(main.get(j).getNom());
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
@@ -89,8 +91,8 @@ public class Controleur {
 
     private void chargerSauvegarder(){
         try (FileInputStream fichier = new FileInputStream("save.ser"); ObjectInputStream ois = new ObjectInputStream(fichier)) {
-            Partie mod = (Partie)ois.readObject();
-            modele = mod;
+            modele = (Partie)ois.readObject();
+            System.out.println(modele.getJoueur1().getMain().get(0));
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Erreur lors du chargement : " + e.getMessage());
         }

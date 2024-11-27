@@ -41,7 +41,7 @@ public class Partie implements Serializable{
     /*
      * Initialisation de la pioche #FINI
      */
-    private void initialiserPioche(){
+    public void initialiserPioche(){
         pioche = new ArrayList<Carte>();
 
         //Cartes Distances
