@@ -92,17 +92,21 @@ public class FenetreJeu {
      * Permet de connecter une action au bouton "Sauvegarder"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
+    /* 
     public void ajouterActionBoutonSauvegarder(ActionListener action){
         boutonSauvegarder.addActionListener(action);
     }
+    */
 
     /**
      * Permet de connecter une action au bouton "Charger sauvegarde"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
+    /* 
     public void ajouterActionBoutonChargerSauvegarde(ActionListener action){
         boutonChargerSauvegarde.addActionListener(action);
     }
+    */
 
     /**
      * Permet de connecter une action au bouton "Carte"
@@ -125,6 +129,7 @@ public class FenetreJeu {
         labelJouer.add(boutonJouer);
         jouerPanel.add(labelJouer);
         
+        /* 
         // Bouton charger
         JPanel chargerPanel = new JPanel();
 		chargerPanel.setBounds(0, hauteur / 5 - 75, largeur, hauteur / 5);
@@ -133,13 +138,14 @@ public class FenetreJeu {
         boutonChargerSauvegarde.setBounds(largeur / 2 - 75, hauteur / 5 - 75, 150, 50);
         labelCharger.add(boutonChargerSauvegarde);
         chargerPanel.add(labelCharger);
+        */
 
         // Image
         JPanel imagePanel = new JPanel();
 		imagePanel.setBounds(0, hauteur / 5, largeur, 3 * hauteur / 5);
 		imagePanel.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel);
-        ImageIcon image = new ImageIcon("Images/MilleBorne.png");
+        ImageIcon image = new ImageIcon("Images/MilleBornes.png");
         JLabel labelImage = new JLabel();
         labelImage.setIcon(image);
         labelImage.setVerticalAlignment(JLabel.CENTER);
@@ -157,7 +163,7 @@ public class FenetreJeu {
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetreMenu.add(jouerPanel);
-        fenetreMenu.add(chargerPanel);
+        //fenetreMenu.add(chargerPanel);
 		fenetreMenu.add(imagePanel);
 		fenetreMenu.add(quitterPanel);
         fenetreMenu.setLayout(null);
@@ -200,6 +206,7 @@ public class FenetreJeu {
         fenetreMenu.add(mainPanel);
 
         // Bouton sauvegarder
+        /* 
         JPanel sauvePanel = new JPanel();
         sauvePanel.setBounds(largeur - 155, hauteur / 2 - 150, largeur, hauteur / 5);
         sauvePanel.setLayout(new BorderLayout());
@@ -208,6 +215,7 @@ public class FenetreJeu {
         labelSauve.add(boutonSauvegarder);
         sauvePanel.add(labelSauve);
         fenetreMenu.add(sauvePanel);
+        */
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
