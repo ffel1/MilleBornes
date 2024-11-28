@@ -2,3 +2,4 @@
 *.class
 Desktop.ini
 $RECYCLE.BIN/
+*.ser
