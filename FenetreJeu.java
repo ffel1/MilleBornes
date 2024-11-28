@@ -34,8 +34,8 @@ public class FenetreJeu {
         boutonJouer = new JButton("Jouer");
         boutonQuitter = new JButton("Quitter");
         boutonRetour = new JButton("Menu Principal");
-        boutonSauvegarder = new JButton("Sauvegarder");
-        boutonChargerSauvegarde = new JButton("Charger sauvegarde");
+        //boutonSauvegarder = new JButton("Sauvegarder");
+        //boutonChargerSauvegarde = new JButton("Charger sauvegarde");
         boutonNouvellePartie = new JButton("Nouvelle partie");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
