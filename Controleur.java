@@ -52,6 +52,7 @@ public class Controleur {
             nouvellePartie(true); 
         });  
 
+        /* 
         vue.ajouterActionBoutonSauvegarder(e -> {
             sauvegarder();
         });  
@@ -61,6 +62,7 @@ public class Controleur {
             vue.creerFenetreJeu();
             nouvellePartie(false);
         });
+        */
     }
 
     private void nouvellePartie(boolean b){
