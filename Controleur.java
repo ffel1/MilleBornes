@@ -11,7 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.JOptionPane;
+
+import java.awt.GraphicsEnvironment;
+import java.awt.GraphicsDevice;
 
 public class Controleur {
     private Partie modele;
@@ -35,6 +37,7 @@ public class Controleur {
         vue.ajouterActionBoutonRetour(e -> {
             int option = JOptionPane.showConfirmDialog(vue.getFenetre(), "Voulez-vous vraiment retourner au menu principal ?", "Confirmer", JOptionPane.YES_NO_OPTION);
             // Vérifier la réponse de l'utilisateur
+            
             if (option == JOptionPane.YES_OPTION) {
                 sauvegarder();
                 vue.getFenetre().getContentPane().removeAll();

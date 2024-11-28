@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.GraphicsEnvironment;
+import java.awt.GraphicsDevice;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,8 +42,7 @@ public class FenetreJeu {
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         boutonsMainJoueur = new ArrayList<JButton>();
-
-        // Fenetre de la taille de l'écran
+        
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         hauteur = (int)dimension.getHeight();
         largeur  = (int)dimension.getWidth();
