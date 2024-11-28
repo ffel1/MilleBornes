@@ -25,8 +25,8 @@ public class FenetreJeu {
     private JButton boutonQuitter;
     private JButton boutonRetour;
     private JButton boutonNouvellePartie;
-    private JButton boutonSauvegarder;
-    private JButton boutonChargerSauvegarde;
+    //private JButton boutonSauvegarder;
+    //private JButton boutonChargerSauvegarde;
     private ArrayList<JButton> boutonsMainJoueur;
 
     public FenetreJeu(){
