@@ -47,7 +47,7 @@ public class FenetreJeu {
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         hauteur = (int)dimension.getHeight();
         largeur  = (int)dimension.getWidth();
-        fenetreMenu.setSize(largeur, hauteur);
+        fenetreMenu.setSize(largeur, hauteur); 
 
         activerPleinEcran(fenetreMenu);
     } 
