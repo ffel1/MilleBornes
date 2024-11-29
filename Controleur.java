@@ -23,8 +23,6 @@ public class Controleur {
     public Controleur(Partie modele, FenetreJeu vue) {
         this.modele = modele;
         this.vue = vue;
-        //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        //GraphicsDevice ecran = env.getDefaultScreenDevice();
 
         vue.ajouterActionBoutonJouer(e -> {
             vue.creerFenetreJeu();
@@ -52,15 +50,18 @@ public class Controleur {
             nouvellePartie(true); 
         });  
 
+        /* 
         vue.ajouterActionBoutonSauvegarder(e -> {
             sauvegarder();
         });  
+        
 
         vue.ajouterActionBoutonChargerSauvegarde(e -> {
             chargerSauvegarder();
             vue.creerFenetreJeu();
             nouvellePartie(false);
         });
+        */
     }
 
     private void nouvellePartie(boolean b){

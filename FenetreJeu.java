@@ -27,8 +27,8 @@ public class FenetreJeu {
     private JButton boutonQuitter;
     private JButton boutonRetour;
     private JButton boutonNouvellePartie;
-    private JButton boutonSauvegarder;
-    private JButton boutonChargerSauvegarde;
+    //private JButton boutonSauvegarder;
+    //private JButton boutonChargerSauvegarde;
     private ArrayList<JButton> boutonsMainJoueur;
     private GraphicsEnvironment env;
     private GraphicsDevice ecran;
@@ -38,8 +38,8 @@ public class FenetreJeu {
         boutonJouer = new JButton("Jouer");
         boutonQuitter = new JButton("Quitter");
         boutonRetour = new JButton("Menu Principal");
-        boutonSauvegarder = new JButton("Sauvegarder");
-        boutonChargerSauvegarde = new JButton("Charger sauvegarde");
+        //boutonSauvegarder = new JButton("Sauvegarder");
+        //boutonChargerSauvegarde = new JButton("Charger sauvegarde");
         boutonNouvellePartie = new JButton("Nouvelle partie");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
@@ -107,17 +107,21 @@ public class FenetreJeu {
      * Permet de connecter une action au bouton "Sauvegarder"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
+    /* 
     public void ajouterActionBoutonSauvegarder(ActionListener action){
         boutonSauvegarder.addActionListener(action);
     }
+    */
 
     /**
      * Permet de connecter une action au bouton "Charger sauvegarde"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
+    /* 
     public void ajouterActionBoutonChargerSauvegarde(ActionListener action){
         boutonChargerSauvegarde.addActionListener(action);
     }
+    */
 
     /**
      * Permet de connecter une action au bouton "Carte"
@@ -141,6 +145,7 @@ public class FenetreJeu {
         jouerPanel.add(labelJouer);
         
         // Bouton charger
+        /* 
         JPanel chargerPanel = new JPanel();
 		chargerPanel.setBounds(0, hauteur / 5 - 75, largeur, hauteur / 5);
 		chargerPanel.setLayout(new BorderLayout());
@@ -148,6 +153,7 @@ public class FenetreJeu {
         boutonChargerSauvegarde.setBounds(largeur / 2 - 75, hauteur / 5 - 75, 150, 50);
         labelCharger.add(boutonChargerSauvegarde);
         chargerPanel.add(labelCharger);
+        */
 
         // Image
         JPanel imagePanel = new JPanel();
@@ -172,7 +178,7 @@ public class FenetreJeu {
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetreMenu.add(jouerPanel);
-        fenetreMenu.add(chargerPanel);
+        //fenetreMenu.add(chargerPanel);
 		fenetreMenu.add(imagePanel);
 		fenetreMenu.add(quitterPanel);
         fenetreMenu.setLayout(null);
@@ -216,6 +222,7 @@ public class FenetreJeu {
         fenetreMenu.add(mainPanel);
 
         // Bouton sauvegarder
+        /* 
         JPanel sauvePanel = new JPanel();
         sauvePanel.setBounds(largeur - 155, hauteur / 2 - 150, largeur, hauteur / 5);
         sauvePanel.setLayout(new BorderLayout());
@@ -224,6 +231,7 @@ public class FenetreJeu {
         labelSauve.add(boutonSauvegarder);
         sauvePanel.add(labelSauve);
         fenetreMenu.add(sauvePanel);
+        */
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
