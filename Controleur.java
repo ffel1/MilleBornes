@@ -42,7 +42,7 @@ public class Controleur {
             
         }); 
 
-        //Bouton Nouvelle Partie #rageux
+        //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
@@ -50,19 +50,6 @@ public class Controleur {
             vue.creerFenetreJeu();
             nouvellePartie(true); 
         });  
-
-        /* 
-        vue.ajouterActionBoutonSauvegarder(e -> {
-            sauvegarder();
-        });  
-        
-
-        vue.ajouterActionBoutonChargerSauvegarde(e -> {
-            chargerSauvegarder();
-            vue.creerFenetreJeu();
-            nouvellePartie(false);
-        });
-        */
     }
 
     private void nouvellePartie(boolean b){
