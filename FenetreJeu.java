@@ -160,7 +160,7 @@ public class FenetreJeu {
 		imagePanel.setBounds(0, hauteur / 5, largeur, 3 * hauteur / 5);
 		imagePanel.setLayout(new BorderLayout());
         fenetreMenu.add(imagePanel);
-        ImageIcon image = new ImageIcon("Images/MilleBorne.png");
+        ImageIcon image = new ImageIcon("Images/MilleBornes.png");
         JLabel labelImage = new JLabel();
         labelImage.setIcon(image);
         labelImage.setVerticalAlignment(JLabel.CENTER);
