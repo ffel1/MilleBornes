@@ -42,6 +42,7 @@ public class Controleur {
             
         }); 
 
+        //Bouton Nouvelle Partie #rageux
         vue.ajouterActionBoutonNouvellePartie(e -> {
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
@@ -66,7 +67,6 @@ public class Controleur {
 
     private void nouvellePartie(boolean b){
         if(!modele.partieCree() || b){
-            System.out.println("LOGOBI GT EH EH");
             modele.nouvellePartie();
         }
 
