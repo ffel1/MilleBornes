@@ -48,6 +48,8 @@ public class FenetreJeu {
         hauteur = (int)dimension.getHeight();
         largeur  = (int)dimension.getWidth();
         fenetreMenu.setSize(largeur, hauteur);
+
+        activerPleinEcran(fenetreMenu);
     } 
 
     public JFrame getFenetre(){
@@ -63,7 +65,6 @@ public class FenetreJeu {
         fenetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
         fenetre.setUndecorated(true); // Supprime les bordures et la barre de titre
         ecran.setFullScreenWindow(fenetre); // Passe la fenêtre en mode plein écran
-        fenetre.setVisible(true);
     }
 
     /**
@@ -144,16 +145,17 @@ public class FenetreJeu {
 		fenetreMenu.add(jouerPanel);
 		fenetreMenu.add(imagePanel);
 		fenetreMenu.add(quitterPanel);
+
+        
+
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);	
-        activerPleinEcran(fenetreMenu);
     }
 
     /*
      * Affiche la fenêtre de jeu
      */
     public void creerFenetreJeu(){
-
         JPanel panelJeu = new JPanel();
         fenetreMenu.setContentPane(panelJeu);
         fenetreMenu.revalidate();
