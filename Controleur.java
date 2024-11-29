@@ -27,7 +27,6 @@ public class Controleur {
         vue.ajouterActionBoutonJouer(e -> {
             vue.creerFenetreJeu();
             nouvellePartie(false);
-            chargerSauvegarder();
         });
 
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
@@ -53,6 +52,7 @@ public class Controleur {
     }
 
     private void nouvellePartie(boolean b){
+        chargerSauvegarder();
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
         }
