@@ -97,8 +97,14 @@ public class Partie implements Serializable{
         return pioche.size();
     }
 
+    
+
     public static ArrayList<Carte> getPioche(){
         return pioche;
+    }
+
+    public boolean partieCree(){
+        return !joueurs.isEmpty();
     }
 
     public Joueur getJoueur1(){

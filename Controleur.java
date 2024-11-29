@@ -1,3 +1,5 @@
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -11,52 +13,35 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
-import java.awt.GraphicsEnvironment;
-import java.awt.GraphicsDevice;
+import javax.swing.JOptionPane;
 
 public class Controleur {
     private Partie modele;
     private FenetreJeu vue;
 
+
     public Controleur(Partie modele, FenetreJeu vue) {
         this.modele = modele;
         this.vue = vue;
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice ecran = env.getDefaultScreenDevice();
+        //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //GraphicsDevice ecran = env.getDefaultScreenDevice();
 
-        vue.ajouterActionBoutonJouer(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                chargerSauvegarder();
-                vue.creerFenetreJeu();
-                nouvellePartie(true);
-            }
+        vue.ajouterActionBoutonJouer(e -> {
+            vue.creerFenetreJeu();
+            chargerSauvegarder();
+            nouvellePartie(false);
         });
 
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
 
+        //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
-            /* 
-            ecran.setFullScreenWindow(null);
-
-            int option = JOptionPane.showConfirmDialog(vue.getFenetre(), "Voulez-vous vraiment retourner au menu principal ?", "Confirmer", JOptionPane.YES_NO_OPTION);
-
-            // Vérifier la réponse de l'utilisateur
-            
-            if (option == JOptionPane.YES_OPTION) {
-                sauvegarder();
-                vue.getFenetre().getContentPane().removeAll();
-                vue.getFenetre().repaint();
-                vue.getFenetre().revalidate();
-                vue.creerFenetreMenu(); 
-            }
-            ecran.setFullScreenWindow(vue.getFenetre());
-            */
             sauvegarder();
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
             vue.creerFenetreMenu(); 
+            
         }); 
 
         vue.ajouterActionBoutonNouvellePartie(e -> {
@@ -79,9 +64,11 @@ public class Controleur {
     }
 
     private void nouvellePartie(boolean b){
-        if(b){
+        if(!modele.partieCree() || b){
+            System.out.println("LOGOBI GT EH EH");
             modele.nouvellePartie();
         }
+
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         for(int i = 0; i < 6; i++){
@@ -126,15 +113,4 @@ public class Controleur {
             e.printStackTrace();
         }
     }
-
-    /* 
-    private void chargerSauvegarder(){
-        try (FileInputStream fichier = new FileInputStream("save.ser"); ObjectInputStream ois = new ObjectInputStream(fichier)) {
-            modele = (Partie)ois.readObject();
-            System.out.println(modele.getJoueur1().getMain().get(0));
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Erreur lors du chargement : " + e.getMessage());
-        }
-    }
-    */
 }
