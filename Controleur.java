@@ -1,3 +1,5 @@
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -19,6 +21,8 @@ public class Controleur {
     public Controleur(Partie modele, FenetreJeu vue) {
         this.modele = modele;
         this.vue = vue;
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice ecran = env.getDefaultScreenDevice();
 
         vue.ajouterActionBoutonJouer(new ActionListener() {
             @Override
@@ -31,8 +35,13 @@ public class Controleur {
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
 
         vue.ajouterActionBoutonRetour(e -> {
+            ecran.setFullScreenWindow(null);
+
             int option = JOptionPane.showConfirmDialog(vue.getFenetre(), "Voulez-vous vraiment retourner au menu principal ?", "Confirmer", JOptionPane.YES_NO_OPTION);
             // Vérifier la réponse de l'utilisateur
+
+            ecran.setFullScreenWindow(vue.getFenetre());
+            
             if (option == JOptionPane.YES_OPTION) {
                 vue.getFenetre().getContentPane().removeAll();
                 vue.getFenetre().repaint();

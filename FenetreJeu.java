@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 public class FenetreJeu {
     private JFrame fenetreMenu;
@@ -28,6 +30,8 @@ public class FenetreJeu {
     private JButton boutonSauvegarder;
     private JButton boutonChargerSauvegarde;
     private ArrayList<JButton> boutonsMainJoueur;
+    private GraphicsEnvironment env;
+    private GraphicsDevice ecran;
 
     public FenetreJeu(){
         // Initialisation
@@ -40,12 +44,15 @@ public class FenetreJeu {
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         boutonsMainJoueur = new ArrayList<JButton>();
+        env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ecran = env.getDefaultScreenDevice();
 
         // Fenetre de la taille de l'écran
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         hauteur = (int)dimension.getHeight();
         largeur  = (int)dimension.getWidth();
         fenetreMenu.setSize(largeur, hauteur);
+        activerPleinEcran(fenetreMenu);
     } 
 
     public JFrame getFenetre(){
@@ -54,6 +61,14 @@ public class FenetreJeu {
 
     public ArrayList<JButton> getBoutonsMainJoueur(){
         return boutonsMainJoueur;
+    }
+
+    //modif
+    private void activerPleinEcran(JFrame fenetre) {
+        fenetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
+        fenetre.setUndecorated(true); // Supprime les bordures et la barre de titre
+        ecran.setFullScreenWindow(fenetre); // Passe la fenêtre en mode plein écran
+        fenetre.setVisible(true);
     }
 
     /**
