@@ -26,8 +26,8 @@ public class Controleur {
 
         vue.ajouterActionBoutonJouer(e -> {
             vue.creerFenetreJeu();
-            chargerSauvegarder();
             nouvellePartie(false);
+            chargerSauvegarder();
         });
 
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));

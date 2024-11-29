@@ -1,41 +1,17 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.*;
+
  
 public class Partie implements Serializable{
     private int points;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
-    private JFrame fenetreMenu;
-    private int hauteur;
-    private int largeur;
+
 
     public Partie(){
         // Initialisation
         joueurs = new ArrayList<Joueur>();
-        fenetreMenu = new JFrame("1000 Bornes");
-
-        // Fenetre de la taille de l'écran
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        hauteur = (int)dimension.getHeight();
-        largeur  = (int)dimension.getWidth();
-        fenetreMenu.setSize(largeur, hauteur);
     } 
 
     /*
