@@ -258,6 +258,7 @@ public class FenetreJeu {
     }
 
     private void afficherZoneDeTexte(){
+        System.out.println("Affiche");
         // Zone affichage des messages
         JPanel messagePanel = new JPanel();
 		messagePanel.setBackground(Color.GRAY);
@@ -274,6 +275,7 @@ public class FenetreJeu {
         scrollPane.setBounds(0, hauteur / 2, 250, hauteur / 2);
         fenetreMenu.add(scrollPane);
         messagePanel.add(scrollPane);
+        textArea.setText("Début de la partie");
     }
 
     public void ajouterMessage(String message){

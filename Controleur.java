@@ -80,7 +80,6 @@ public class Controleur {
                     vue.ajouterMessage("\n Carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
                 }
             }, i);
-            System.out.println(main.get(j).getNom());
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
