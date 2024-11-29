@@ -17,14 +17,12 @@ import java.awt.GraphicsDevice;
 public class Controleur {
     private Partie modele;
     private FenetreJeu vue;
-    private GraphicsEnvironment env;
-    private GraphicsDevice ecran;
 
     public Controleur(Partie modele, FenetreJeu vue) {
         this.modele = modele;
         this.vue = vue;
-        env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ecran = env.getDefaultScreenDevice();
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice ecran = env.getDefaultScreenDevice();
 
         vue.ajouterActionBoutonJouer(new ActionListener() {
             @Override
@@ -69,19 +67,15 @@ public class Controleur {
             nouvellePartie(true); 
         });  
 
-        /* 
         vue.ajouterActionBoutonSauvegarder(e -> {
             sauvegarder();
         });  
-        */
 
-        /* 
         vue.ajouterActionBoutonChargerSauvegarde(e -> {
             chargerSauvegarder();
             vue.creerFenetreJeu();
             nouvellePartie(false);
         });
-        */
     }
 
     private void nouvellePartie(boolean b){
