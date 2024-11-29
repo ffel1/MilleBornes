@@ -6,9 +6,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
-
+import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,6 +31,8 @@ public class FenetreJeu {
     //private JButton boutonSauvegarder;
     //private JButton boutonChargerSauvegarde;
     private ArrayList<JButton> boutonsMainJoueur;
+    private GraphicsEnvironment env;
+    private GraphicsDevice ecran;
 
     public FenetreJeu(){
         // Initialisation
@@ -42,19 +45,32 @@ public class FenetreJeu {
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         boutonsMainJoueur = new ArrayList<JButton>();
+        env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ecran = env.getDefaultScreenDevice();
         
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         hauteur = (int)dimension.getHeight();
         largeur  = (int)dimension.getWidth();
         fenetreMenu.setSize(largeur, hauteur);
-    } 
 
+        // Activer le plein écran au démarrage
+        activerPleinEcran(fenetreMenu);
+    } 
+    
     public JFrame getFenetre(){
         return fenetreMenu;
     }
 
     public ArrayList<JButton> getBoutonsMainJoueur(){
         return boutonsMainJoueur;
+    }
+
+    //modif
+    private void activerPleinEcran(JFrame fenetre) {
+        fenetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
+        fenetre.setUndecorated(true); // Supprime les bordures et la barre de titre
+        ecran.setFullScreenWindow(fenetre); // Passe la fenêtre en mode plein écran
+        fenetre.setVisible(true);
     }
 
     /**
@@ -169,6 +185,8 @@ public class FenetreJeu {
 		fenetreMenu.add(quitterPanel);
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);	
+        //modif
+        activerPleinEcran(fenetreMenu);
     }
 
     /*
