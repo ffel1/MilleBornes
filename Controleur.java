@@ -1,8 +1,7 @@
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -12,7 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.JOptionPane;
+import java.awt.GraphicsEnvironment;
+import java.awt.GraphicsDevice;
 
 public class Controleur {
     private Partie modele;
@@ -27,6 +27,7 @@ public class Controleur {
         vue.ajouterActionBoutonJouer(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                chargerSauvegarder();
                 vue.creerFenetreJeu();
                 nouvellePartie(true);
             }
@@ -35,19 +36,27 @@ public class Controleur {
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
 
         vue.ajouterActionBoutonRetour(e -> {
+            /* 
             ecran.setFullScreenWindow(null);
 
             int option = JOptionPane.showConfirmDialog(vue.getFenetre(), "Voulez-vous vraiment retourner au menu principal ?", "Confirmer", JOptionPane.YES_NO_OPTION);
-            // Vérifier la réponse de l'utilisateur
 
-            ecran.setFullScreenWindow(vue.getFenetre());
+            // Vérifier la réponse de l'utilisateur
             
             if (option == JOptionPane.YES_OPTION) {
+                sauvegarder();
                 vue.getFenetre().getContentPane().removeAll();
                 vue.getFenetre().repaint();
                 vue.getFenetre().revalidate();
                 vue.creerFenetreMenu(); 
             }
+            ecran.setFullScreenWindow(vue.getFenetre());
+            */
+            sauvegarder();
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
+            vue.creerFenetreMenu(); 
         }); 
 
         vue.ajouterActionBoutonNouvellePartie(e -> {
@@ -98,6 +107,27 @@ public class Controleur {
         }
     }
 
+    private void chargerSauvegarder() {
+        File fichier = new File("save.ser");
+        if (!fichier.exists()) {
+            sauvegarder(); 
+        }
+
+        try (FileInputStream fileIn = new FileInputStream(fichier);
+            ObjectInputStream ois = new ObjectInputStream(fileIn)) {
+            modele = (Partie) ois.readObject();
+            if (modele != null && modele.getJoueur1() != null) {
+                System.out.println("Première carte de la main : " + modele.getJoueur1().getMain().get(0));
+            } else {
+                System.err.println("Les données chargées sont incomplètes ou corrompues.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Erreur lors du chargement : ");
+            e.printStackTrace();
+        }
+    }
+
+    /* 
     private void chargerSauvegarder(){
         try (FileInputStream fichier = new FileInputStream("save.ser"); ObjectInputStream ois = new ObjectInputStream(fichier)) {
             modele = (Partie)ois.readObject();
@@ -106,4 +136,5 @@ public class Controleur {
             System.err.println("Erreur lors du chargement : " + e.getMessage());
         }
     }
+    */
 }
