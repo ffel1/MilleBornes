@@ -5,7 +5,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> main;
     private ArrayList<Carte> botteAttaque;
     private String nom;
-    private int kilometre;
+    private int kilometreP;
     //private Etat etat;
     private int id;
 
@@ -13,7 +13,7 @@ public abstract class Joueur implements Serializable{
         main = new ArrayList<Carte>();
         botteAttaque = new ArrayList<Carte>();
         nom = name;
-        kilometre = km;
+        kilometreP = km;
         //etat = null;
         id = this.id;
     }
@@ -28,7 +28,7 @@ public abstract class Joueur implements Serializable{
         return nom;
     }
     public int getKilometre(){
-        return kilometre;
+        return kilometreP;
     }
     /*public Etat getEtat(){
         return etat;
@@ -66,58 +66,88 @@ public abstract class Joueur implements Serializable{
 
     /*
      * Choisir l'action en fonction du type de carte
-     * PAS FINI
      */
-    public void jouerCarte(Carte c){
-        Carte carteAJouer = c;
-
-        if (carteAJouer != null){
-            appliquerAction(carteAJouer);
-            retirerCarte(carteAJouer);
-            System.out.println(getNom() + " joue : " + carteAJouer.getNom());
-        }
+    public void jouerCarte(Carte c, Joueur cible) {
+        if (c instanceof Attaque){
+            jouerAttaque(c, cible);
+        } else if (c instanceof Parade){
+            jouerParade(c);
+        } else if (c instanceof Botte){
+            jouerBotte(c);
+        } else if (c instanceof Distance){
+            jouerDistance(c);
+        }   
     }
+    
 
     /*
-     * Joue une carte botte au joueur
-     * PAS FINI
+     * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
      */
-    public void jouerBotte(Carte c){
-        switch(c.getType()){
-            /* Les cartes bottes */
-            case AS_DU_VOLANT :
-            case CAMION_CITERNE :
-            case INCREVABLE :
-            case VEHICULE_PRIORITAIRE :
-                break;
-            default:
-                break;
-        }
+    public void jouerBotte(Carte c) {
+        if (c instanceof Botte) {
+            botteAttaque.add(c);
+    
+            switch (c.getType()) {
+                case AS_DU_VOLANT:
+                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT); 
+                    break;
+                case CAMION_CITERNE:
+                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
+                    break;
+                case INCREVABLE:
+                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
+                    break;
+                case VEHICULE_PRIORITAIRE:
+                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
+                    break;
+                default:
+                    break;
+            }
+    
+            System.out.println(getNom() + " joue la botte : " + c.getNom());
+            retirerCarte(c);
     }
+}
+    
 
     /*
-     * Joue une carte parade et enleve le malus
-     * PAS FINI
+     * Joue une carte parade et enleve l'attaque en cours
      */
-    public void jouerParade(Carte c){
-
+    public void jouerParade(Carte c) {
+        for (Carte carteAttaque : botteAttaque) {
+            if (verification(c, this, this)) {
+                botteAttaque.remove(carteAttaque);
+                System.out.println(getNom() + " joue la parade " + c.getNom() + " contre " + carteAttaque.getNom());
+                retirerCarte(c);
+            }
+        }
     }
+    
 
     /*
      * Joue une carte attaque et demande sur quel joueur
-     * PAS FINI
      */
-    public void jouerAttaque(Carte c){
-
+    public void jouerAttaque(Carte c, Joueur cible) {
+        if (verification(c, this, cible)) {
+            cible.getBotteAttaque().add(c);
+            System.out.println(getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom());
+            retirerCarte(c);
+        }
     }
+    
 
     /*
      * Augmente le nombre de km du joueur
-     * PAS FINI
      */
-    public void jouerDistance(Carte c){
-
+    public void jouerDistance(Carte c) {
+        if (verification(c, this, this)) {
+            int kilometre = ((Distance) c).getKilometre();
+            kilometreP += kilometre;
+            System.out.println(getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
+            retirerCarte(c);
+        }
     }
+    
 
     /*
      * Vérifie qu'une carte soit jouable
@@ -143,7 +173,23 @@ public abstract class Joueur implements Serializable{
                         break;
                 }
             }
-        } else if (c instanceof Parade || c instanceof Botte){
+        } else if (c instanceof Distance){
+            for (Carte carte : u.getBotteAttaque()){
+                switch (c.getType()) {
+                    case _25KM :
+                    case _50KM :
+                        if (carte.getType() == TypeCarte.FEU_ROUGE | carte.getType() == TypeCarte.PANNE_D_ESSENCE | carte.getType() == TypeCarte.CREVAISON | carte.getType() == TypeCarte.ACCIDENT) return false;
+                        break;
+                    case _75KM : 
+                    case _100KM :
+                    case _200KM :
+                        if (carte.getType() == TypeCarte.FEU_ROUGE | carte.getType() == TypeCarte.PANNE_D_ESSENCE | carte.getType() == TypeCarte.CREVAISON | carte.getType() == TypeCarte.ACCIDENT | carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } else if (c instanceof Parade){
             for (Carte carte : u.getBotteAttaque()){
                 switch (c.getType()) {
                     case FEU_VERT:
