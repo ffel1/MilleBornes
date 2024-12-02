@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 
 public class FenetreJeu {
     private JFrame fenetreMenu;
@@ -111,44 +115,37 @@ public class FenetreJeu {
      * Affiche la fenetre du menu de début
      */
     public void creerFenetreMenu(){
+
+        //Initialisation menuPanel
+        JPanel menuPanel  = new JPanel();
+		menuPanel.setBounds(0, 0, largeur, hauteur);
+        menuPanel.setLayout(new BorderLayout());
+
+
         // Bouton jouer
-        JPanel jouerPanel = new JPanel();
-		jouerPanel.setBounds(0, 0, largeur, hauteur / 5);
-		jouerPanel.setLayout(new BorderLayout());
-        JLabel labelJouer = new JLabel();
-        boutonJouer.setBounds(largeur / 2 - 75, hauteur / 5 - 75, 150, 50);
-        labelJouer.add(boutonJouer);
-        jouerPanel.add(labelJouer);
+
+        boutonJouer.setBounds(largeur/2-75, hauteur/10, 150, 50);
+        menuPanel.add(boutonJouer);
+
+        //Bouton quitter
+        menuPanel.add(boutonQuitter);
+        boutonQuitter.setBounds(largeur/2-75,hauteur-hauteur/6,150,50);
 
         // Image
-        JPanel imagePanel = new JPanel();
-		imagePanel.setBounds(0, hauteur / 5, largeur, 3 * hauteur / 5);
-		imagePanel.setLayout(new BorderLayout());
-        fenetreMenu.add(imagePanel);
         ImageIcon image = new ImageIcon("Images/MilleBornes.png");
         JLabel labelImage = new JLabel();
         labelImage.setIcon(image);
         labelImage.setVerticalAlignment(JLabel.CENTER);
         labelImage.setHorizontalAlignment(JLabel.CENTER);
-        imagePanel.add(labelImage);
+        labelImage.setBounds(largeur/2, hauteur/2, 400, 400);
+        menuPanel.add(labelImage);
 
-        // Bouton quitter
-        JPanel quitterPanel = new JPanel();
-		quitterPanel.setBounds(0, hauteur * 4 / 5, largeur, hauteur / 5);
-		quitterPanel.setLayout(new BorderLayout());
-        JLabel labelQuitter = new JLabel();
-        boutonQuitter.setBounds(largeur / 2 - 75, 0, 150, 50);
-        labelQuitter.add(boutonQuitter);
-        quitterPanel.add(labelQuitter);
+
+
+
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetreMenu.add(jouerPanel);
-		fenetreMenu.add(imagePanel);
-		fenetreMenu.add(quitterPanel);
-
-        
-
-        fenetreMenu.setLayout(null);
+        fenetreMenu.add(menuPanel);
 		fenetreMenu.setVisible(true);	
     }
 
