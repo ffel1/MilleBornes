@@ -168,6 +168,8 @@ public class FenetreJeu {
         boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
         fenetreMenu.add(boutonNouvellePartie);
 
+        
+
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
     }

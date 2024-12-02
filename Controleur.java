@@ -53,7 +53,11 @@ public class Controleur {
 
     private void nouvellePartie(boolean b){
 
-        chargerSauvegarder();
+        File fichier = new File("save.ser");
+        if(fichier.exists())
+        {
+            chargerSauvegarder(fichier);
+        }
         
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
@@ -82,13 +86,8 @@ public class Controleur {
         }
     }
 
-    private void chargerSauvegarder() {
-        File fichier = new File("save.ser");
-        if (!fichier.exists()) {
-            sauvegarder(); 
-        }
-        else //j'ai mis un else sinon ça marchait pas si on lance le jeu pour la première fois et qu'il y a pas de save.ser
-        {
+    private void chargerSauvegarder(File fichier) {
+
             try (FileInputStream fileIn = new FileInputStream(fichier);
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Partie) ois.readObject();
@@ -102,5 +101,4 @@ public class Controleur {
                 e.printStackTrace();
             }
         }
-    }
 }
