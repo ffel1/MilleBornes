@@ -6,6 +6,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
+    private boolean monTour;
     //private Etat etat;
     private int id;
 
@@ -16,6 +17,11 @@ public abstract class Joueur implements Serializable{
         kilometreP = km;
         //etat = null;
         id = this.id;
+    }
+
+    public void monTour(boolean monTour)
+    {
+        this.monTour = monTour;
     }
 
     public ArrayList<Carte> getMain(){
@@ -67,8 +73,9 @@ public abstract class Joueur implements Serializable{
     /*
      * Choisir l'action en fonction du type de carte
      */
-    public void jouerCarte(Carte c, Joueur cible) {
+    public void jouerCarte(Carte c) {
         if (c instanceof Attaque){
+            Joueur cible = getCible();
             jouerAttaque(c, cible);
         } else if (c instanceof Parade){
             jouerParade(c);
@@ -79,6 +86,8 @@ public abstract class Joueur implements Serializable{
         }   
     }
     
+
+    public abstract Joueur getCible();
 
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une

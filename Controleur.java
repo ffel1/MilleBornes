@@ -70,11 +70,29 @@ public class Controleur {
                 @Override
                 public void actionPerformed(ActionEvent e){
                     vue.ajouterMessage("\n Carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
+                    //Pour faire jouer le joueur
+                    if(modele.getLeTourDe() == 0)                           
+                    {
+                        modele.getJoueur1().jouerCarte(main.get(j));
+                    }
+                    else
+                    {
+                        vue.ajouterMessage("Ce n'est pas votre tour !");
+                    }
                 }
             }, i);
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
+    }
+
+    public Partie getModel()
+    {
+        return modele;
+    }
+    public FenetreJeu getVue()
+    {
+        return vue;
     }
 
     private void sauvegarder(){

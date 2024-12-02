@@ -5,4 +5,10 @@ public class CPU extends Joueur{
     }
 
     public void appliquerAction(Carte c){};
+
+    @Override
+    public Joueur getCible()
+    {
+        return null;
+    }
 }
