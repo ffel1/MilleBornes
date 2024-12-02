@@ -52,11 +52,12 @@ public class Controleur {
     }
 
     private void nouvellePartie(boolean b){
+
         chargerSauvegarder();
+        
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
         }
-
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         for(int i = 0; i < 6; i++){
@@ -86,8 +87,9 @@ public class Controleur {
         if (!fichier.exists()) {
             sauvegarder(); 
         }
-
-        try (FileInputStream fileIn = new FileInputStream(fichier);
+        else //j'ai mis un else sinon ça marchait pas si on lance le jeu pour la première fois et qu'il y a pas de save.ser
+        {
+            try (FileInputStream fileIn = new FileInputStream(fichier);
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Partie) ois.readObject();
             if (modele != null && modele.getJoueur1() != null) {
@@ -95,9 +97,10 @@ public class Controleur {
             } else {
                 System.err.println("Les données chargées sont incomplètes ou corrompues.");
             }
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Erreur lors du chargement : ");
-            e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Erreur lors du chargement : ");
+                e.printStackTrace();
+            }
         }
     }
 }
