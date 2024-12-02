@@ -78,7 +78,7 @@ public class Controleur {
     }
 
     private void sauvegarder(){
-        try (FileOutputStream fichier = new FileOutputStream("save.ser"); ObjectOutputStream oos = new ObjectOutputStream(fichier)){
+        try (FileOutputStream fichier = new FileOutputStream("save.ser", false); ObjectOutputStream oos = new ObjectOutputStream(fichier)){
             oos.writeObject(modele);
             System.out.println("Sauvegarde OK !");
         } catch (IOException e) {

@@ -155,6 +155,15 @@ public class FenetreJeu {
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
 
+        // Circuit
+        ImageIcon circuit = new ImageIcon("Images/Circuit.png");
+        JLabel labelCircuit = new JLabel();
+        labelCircuit.setIcon(circuit);
+        labelCircuit.setVerticalAlignment(JLabel.CENTER);
+        labelCircuit.setHorizontalAlignment(JLabel.CENTER);
+        labelCircuit.setBounds(largeur/2-700, -70, 1300, 1001);
+        panelJeu.add(labelCircuit);
+
         // Eléments
         afficherZoneDeTexte();
 
@@ -168,6 +177,8 @@ public class FenetreJeu {
         boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
         fenetreMenu.add(boutonNouvellePartie);
 
+
+
         
 
         fenetreMenu.setLayout(null);
@@ -180,12 +191,12 @@ public class FenetreJeu {
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
             imagePanel.setBackground(Color.pink);
-            imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
+            imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
             imagePanel.setLayout(new BorderLayout());
             fenetreMenu.add(imagePanel);
             JButton bouton = new JButton("", image);
             bouton.setBackground(Color.PINK);
-            bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 250, 125, hauteur / 5);
+            bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
             fenetreMenu.add(bouton);

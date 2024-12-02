@@ -7,6 +7,8 @@ public class Partie implements Serializable{
     private int points;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
+    private int leTourDe;
+    private int nbrDeTours;
 
 
     public Partie(){
@@ -115,6 +117,7 @@ public class Partie implements Serializable{
         }
         System.out.println(joueurs.get(0).getMain().size());
         System.out.println(getPioche().size());
+        jouer();
     }
 
     /*
@@ -129,7 +132,8 @@ public class Partie implements Serializable{
      * Boucle du jeu
      * PAS FINI
      */
-    private void jouer(){
+    private void jouer()
+    {
         
     }
 
