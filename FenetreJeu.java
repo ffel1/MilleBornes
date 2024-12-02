@@ -140,12 +140,9 @@ public class FenetreJeu {
         labelImage.setBounds(largeur/2, hauteur/2, 400, 400);
         menuPanel.add(labelImage);
 
-
-
-
-
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetreMenu.add(menuPanel);
+        fenetreMenu.setContentPane(menuPanel);
 		fenetreMenu.setVisible(true);	
     }
 
@@ -162,26 +159,14 @@ public class FenetreJeu {
         afficherZoneDeTexte();
 
         // Bouton Menu principal
-        JPanel quitterPanel = new JPanel();
-		quitterPanel.setBounds(largeur - 155, hauteur / 2, largeur, hauteur / 5);
-		quitterPanel.setLayout(new BorderLayout());
-        JLabel labelQuitter = new JLabel();
-        boutonRetour.setBounds(0, 0, 150, 50);
-        labelQuitter.add(boutonRetour);
-        quitterPanel.add(labelQuitter);
-        fenetreMenu.add(quitterPanel);
+        boutonRetour.setBounds(largeur - 155, hauteur / 2, 150, 50);
+        fenetreMenu.add(boutonRetour);
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
         // Bouton "Écran principal"
-        JPanel mainPanel = new JPanel();
-        mainPanel.setBounds(largeur - 155, hauteur / 2 - 75, largeur, hauteur / 5);
-        mainPanel.setLayout(new BorderLayout());
-        JLabel labelMain = new JLabel();
-        boutonNouvellePartie.setBounds(0, 0, 150, 50);
-        labelMain.add(boutonNouvellePartie);
-        mainPanel.add(labelMain);
-        fenetreMenu.add(mainPanel);
+        boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
+        fenetreMenu.add(boutonNouvellePartie);
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
