@@ -61,7 +61,13 @@ public class Controleur {
         
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
+            vue.ajouterMessage("Nouvelle partie créée");
         }
+        else
+        {
+            vue.ajouterMessage("Partie chargée");
+        }
+
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         for(int i = 0; i < 6; i++){

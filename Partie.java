@@ -15,7 +15,6 @@ public class Partie implements Serializable{
         // Initialisation
         joueurs = new ArrayList<Joueur>();
     } 
-
     /*
      * Initialisation de la pioche #FINI
      */
@@ -107,6 +106,7 @@ public class Partie implements Serializable{
      */
     public void nouvellePartie(){
         initialiserPioche();
+        joueurs.clear();
         System.out.println(getPioche().size());
         joueurs.add(0, new Utilisateur("Moi", 0, 0, this));
         joueurs.add(1, new CPUAgro("Agro", 0, 1));
@@ -120,12 +120,12 @@ public class Partie implements Serializable{
             pioche.remove(i);
         }
         System.out.println(joueurs.get(0).getMain().size());
+        System.out.println("Il y a " + joueurs.size() + " joueurs !");
         System.out.println(getPioche().size());
 
         Random r = new Random();
         leTourDe = r.nextInt(3);
         leTourDe = 0; //A ENLEVER APRES, C'EST PLUS PRATIQUE POUR CODER
-
     }
 
     /*
@@ -140,12 +140,17 @@ public class Partie implements Serializable{
      * Boucle du jeu
      * PAS FINI
      */
-    public void jouer()
+    public void jouer(Controleur controleur)
     {
+        System.out.println(joueurs.size());
+        controleur.getVue().ajouterMessage("C'est au tour de :" + joueurs.get(leTourDe).getId());
         while(!gagnant())
         {
             joueurs.get(leTourDe).monTour(true);
-            leTourDe++;
+            if(!joueurs.get(leTourDe).getMonTour())
+            {
+                leTourDe++;
+            }
             if(leTourDe == 4)
             {
                 leTourDe = 0;

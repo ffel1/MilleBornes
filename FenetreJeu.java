@@ -223,7 +223,7 @@ public class FenetreJeu {
         scrollPane.setBounds(0, hauteur / 2, 250, hauteur / 2);
         fenetreMenu.add(scrollPane);
         messagePanel.add(scrollPane);
-        textArea.setText("Début de la partie");
+        textArea.setText("");
     }
 
     public void ajouterMessage(String message){

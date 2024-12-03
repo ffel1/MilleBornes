@@ -70,6 +70,11 @@ public abstract class Joueur implements Serializable{
         main.add(c);
     }
 
+    public boolean getMonTour()
+    {
+        return monTour;
+    }
+
     /*
      * Choisir l'action en fonction du type de carte
      */

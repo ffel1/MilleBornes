@@ -4,7 +4,6 @@ public class Main {
         Partie partie = new Partie();
         FenetreJeu fen = new FenetreJeu();
         fen.creerFenetreMenu();
-        Controleur control = new Controleur(partie, fen);
-        control.getModel().jouer();
+        new Controleur(partie, fen);
     }
 }
