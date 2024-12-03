@@ -12,7 +12,7 @@ public class CPUAgro extends CPU{
     public void choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
-        bool findAttaque = false, findParade = false;
+        boolean findAttaque = false, findParade = false;
 
         //botte -> attaque -> parade -> distance
 

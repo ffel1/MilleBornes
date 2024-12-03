@@ -98,6 +98,7 @@ public abstract class Joueur implements Serializable{
 
     public Joueur getCible(){
         Joueur opps;
+        return null;
     }
 
     /*
@@ -136,8 +137,8 @@ public abstract class Joueur implements Serializable{
         for (Carte carteAttaque : botteAttaque) {
             if (verification(c, this, this)) {
                 botteAttaque.remove(carteAttaque);
-                System.out.println(getNom() + " joue la parappliquerAction(carteAJouer);
-            retirerCarte(carteAJouer);
+                //System.out.println(getNom() + " joue la par"+appliquerAction(carteAJouer);
+                //retirerCarte(carteAJouer);
             }
         }
     }

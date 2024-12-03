@@ -12,7 +12,7 @@ public class CPUFast extends CPU{
     public void choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
-        bool findAttaque = false, findParade = false;
+        boolean findParade = false, findDistance = false;
 
         //botte -> parade -> distance -> attaque
 
