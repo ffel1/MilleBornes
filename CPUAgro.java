@@ -36,8 +36,6 @@ public class CPUAgro extends CPU{
 
         if (carteAJouer != null){
             jouerCarte(carteAJouer);
-            appliquerAction(carteAJouer);
-            retirerCarte(carteAJouer);
         }
     }
 
