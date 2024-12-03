@@ -9,19 +9,29 @@ public class CPUAgro extends CPU{
     /*
      * Choisi de jouer une carte, en priorité des carte attaques
      */
-    public void choisirCarte(Carte c){
+    public void choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
+        bool findAttaque = false, findParade = false;
 
-        for (Carte carte : main) {
-            if (carte instanceof Attaque){
+        //botte -> attaque -> parade -> distance
+
+        for(Carte carte : main){
+            if(carte instanceof Botte){
                 carteAJouer = carte;
                 break;
             }
-        }
-
-        if (carteAJouer == null && !main.isEmpty()){
-            
+            else if(carte instanceof Attaque){
+                carteAJouer = carte;
+                findAttaque = true;
+            }
+            else if(carte instanceof Parade && !findAttaque){
+                carteAJouer = carte;
+                findParade = true;
+            }
+            else if(carte instanceof Distance && !findAttaque && !findParade){
+                carteAJouer = carte;
+            }
         }
 
         if (carteAJouer != null){
