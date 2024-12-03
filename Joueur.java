@@ -86,8 +86,19 @@ public abstract class Joueur implements Serializable{
         }   
     }
     
+    public boolean estAttaquable(Carte c){
+        for(Carte carte : botteAttaque){
+            if(carte.getType() == c.getType()){
+                return false;
+            }
+        }
+        
+        return true;
+    }
 
-    public abstract Joueur getCible();
+    public Joueur getCible(){
+        Joueur opps;
+    }
 
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
@@ -118,7 +129,6 @@ public abstract class Joueur implements Serializable{
     }
 }
     
-
     /*
      * Joue une carte parade et enleve l'attaque en cours
      */
@@ -126,13 +136,12 @@ public abstract class Joueur implements Serializable{
         for (Carte carteAttaque : botteAttaque) {
             if (verification(c, this, this)) {
                 botteAttaque.remove(carteAttaque);
-                System.out.println(getNom() + " joue la parade " + c.getNom() + " contre " + carteAttaque.getNom());
-                retirerCarte(c);
+                System.out.println(getNom() + " joue la parappliquerAction(carteAJouer);
+            retirerCarte(carteAJouer);
             }
         }
     }
     
-
     /*
      * Joue une carte attaque et demande sur quel joueur
      */
