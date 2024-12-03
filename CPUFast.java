@@ -12,16 +12,26 @@ public class CPUFast extends CPU{
     public void choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
+        bool findAttaque = false, findParade = false;
 
-        for (Carte carte : main) {
-            if (carte instanceof Distance){
+        //botte -> parade -> distance -> attaque
+
+        for(Carte carte : main){
+            if(carte instanceof Botte){
                 carteAJouer = carte;
                 break;
             }
-        }
-
-        if (carteAJouer == null && !main.isEmpty()){
-            
+            else if(carte instanceof Parade){
+                carteAJouer = carte;
+                findParade = true;
+            }
+            else if(carte instanceof Distance && !findParade){
+                carteAJouer = carte;
+                findDistance = true;
+            }
+            else if(carte instanceof Attaque && !findParade && !findDistance){
+                carteAJouer = carte;
+            }
         }
 
         if (carteAJouer != null){
