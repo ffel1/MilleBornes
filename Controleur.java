@@ -17,33 +17,19 @@ public class Controleur
     public Controleur(Partie modele, FenetreJeu vue) {
         this.modele = modele;
         this.vue = vue;
+        vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
             vue.creerFenetreJeu();
             nouvellePartie(false);
         });
 
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
-
-        //Bouton Menu Principal
-        vue.ajouterActionBoutonRetour(e -> {
-            sauvegarder();
-            vue.getFenetre().getContentPane().removeAll();
-            vue.getFenetre().repaint();
-            vue.getFenetre().revalidate();
-            vue.creerFenetreMenu(); 
-            
-        }); 
-
-        //Bouton Nouvelle Partie 
-        vue.ajouterActionBoutonNouvellePartie(e -> {
-            vue.getFenetre().getContentPane().removeAll();
-            vue.getFenetre().repaint();
-            vue.getFenetre().revalidate(); 
-            vue.creerFenetreJeu();
-            nouvellePartie(true); 
-        });
     }
+
 
     private void nouvellePartie(boolean b){
 
@@ -61,6 +47,25 @@ public class Controleur
         {
             vue.ajouterMessage("Partie chargée \n");
         }
+
+            //Bouton Menu Principal
+        vue.ajouterActionBoutonRetour(e -> {
+            sauvegarder();
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
+            vue.creerFenetreMenu(); 
+            
+        }); 
+
+        //Bouton Nouvelle Partie 
+        vue.ajouterActionBoutonNouvellePartie(e -> {
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
+            vue.creerFenetreJeu();
+            nouvellePartie(true); 
+        });
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
@@ -82,7 +87,6 @@ public class Controleur
         }); 
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
-        vue.ajouterMessage("La main du joueur a " + modele.getJoueur1().getMain().size() + "\n");
         vue.afficherCartesJoueur(main);
         initialiserBoutonCartes(main);
         vue.getFenetre().setLayout(null);
@@ -120,7 +124,7 @@ public class Controleur
             }, i);
         }
         vue.getFenetre().setLayout(null);
-        vue.getFenetre().setVisible(true);
+		vue.getFenetre().setVisible(true);
     }
 
     public Partie getModel()

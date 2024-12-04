@@ -30,6 +30,8 @@ public class FenetreJeu {
     private JButton boutonRetour;
     private JButton boutonPioche;
     private JButton boutonNouvellePartie;
+    private JPanel menuPanel;
+    private JLayeredPane panelJeu;
     private ArrayList<JButton> boutonsMainJoueur;
     private GraphicsEnvironment env;
     private GraphicsDevice ecran;
@@ -43,6 +45,8 @@ public class FenetreJeu {
         boutonPioche = new JButton("Pioche (temporaire)");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
+        menuPanel  = new JPanel();
+        panelJeu = new JLayeredPane();
         boutonsMainJoueur = new ArrayList<JButton>();
         env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ecran = env.getDefaultScreenDevice();
@@ -118,13 +122,13 @@ public class FenetreJeu {
         boutonPioche.addActionListener(action);
     }
 
+
     /*
      * Affiche la fenetre du menu de début
      */
     public void creerFenetreMenu(){
 
         // Initialisation menuPanel et de le gestionnaire de disposition
-        JPanel menuPanel  = new JPanel();
 		menuPanel.setBounds(0, 0, largeur, hauteur);
         menuPanel.setLayout(new GridBagLayout());
         GridBagConstraints grille = new GridBagConstraints();
@@ -156,8 +160,7 @@ public class FenetreJeu {
         grille.anchor = GridBagConstraints.CENTER; // Centrer
         menuPanel.add(boutonQuitter, grille);
 
-        fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenetreMenu.add(menuPanel);
+
         fenetreMenu.setContentPane(menuPanel);
 		fenetreMenu.setVisible(true);	
     }
@@ -166,11 +169,9 @@ public class FenetreJeu {
      * Affiche la fenêtre de jeu
      */
     public void creerFenetreJeu(){
-        JLayeredPane panelJeu = new JLayeredPane();
         fenetreMenu.setContentPane(panelJeu);
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
-
 
         // Circuit
         ImageIcon circuit = new ImageIcon("Images/circuit.png");
@@ -186,17 +187,28 @@ public class FenetreJeu {
 
         // Bouton Menu principal
         boutonRetour.setBounds(largeur - 155, hauteur / 2, 150, 50);
-        fenetreMenu.add(boutonRetour, Integer.valueOf(2));
-
-        fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panelJeu.add(boutonRetour, Integer.valueOf(2));
+        if(boutonRetour.getActionListeners().length == 1)
+        {
+            boutonRetour.removeActionListener(boutonRetour.getActionListeners()[0]);
+        }
 		
         // Bouton "Écran principal"
         boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
-        fenetreMenu.add(boutonNouvellePartie, Integer.valueOf(2));
+        panelJeu.add(boutonNouvellePartie, Integer.valueOf(2));
+        if(boutonNouvellePartie.getActionListeners().length == 1)
+        {
+            boutonNouvellePartie.removeActionListener(boutonNouvellePartie.getActionListeners()[0]);
+        }
 
         //BoutonPioche
         boutonPioche.setBounds(largeur/2-255, hauteur/2-47, 150, 75);
-        fenetreMenu.add(boutonPioche, Integer.valueOf(2));
+        panelJeu.add(boutonPioche, Integer.valueOf(2));
+        if(boutonPioche.getActionListeners().length == 1)
+        {
+            boutonPioche.removeActionListener(boutonPioche.getActionListeners()[0]);
+        }
+
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
@@ -210,13 +222,13 @@ public class FenetreJeu {
             imagePanel.setBackground(Color.pink);
             imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
             imagePanel.setLayout(new BorderLayout());
-            fenetreMenu.add(imagePanel);
+            panelJeu.add(imagePanel);
             JButton bouton = new JButton("", image);
             bouton.setBackground(Color.PINK);
             bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
-            fenetreMenu.add(bouton);
+            panelJeu.add(bouton);
             imagePanel.add(bouton);
             boutonsMainJoueur.add(i, bouton);
         }
@@ -229,16 +241,16 @@ public class FenetreJeu {
 		messagePanel.setBackground(Color.GRAY);
 		messagePanel.setBounds(0, hauteur / 2, 250, hauteur / 2 - 75);
 		messagePanel.setLayout(new BorderLayout());
-        fenetreMenu.add(messagePanel);
+        panelJeu.add(messagePanel);
 
         textArea.setBounds(0, hauteur / 2, 250, hauteur / 2);
         textArea.setEditable(false);
         textArea.setBackground(Color.PINK);
-        fenetreMenu.add(textArea);
+        panelJeu.add(textArea);
 
         scrollPane = new JScrollPane(textArea);
         scrollPane.setBounds(0, hauteur / 2, 250, hauteur / 2);
-        fenetreMenu.add(scrollPane);
+        panelJeu.add(scrollPane);
         messagePanel.add(scrollPane);
         textArea.setText("");
     }
