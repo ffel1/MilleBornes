@@ -156,7 +156,7 @@ public class FenetreJeu {
         fenetreMenu.repaint();
 
         // Circuit
-        ImageIcon circuit = new ImageIcon("Images/Circuit.png");
+        ImageIcon circuit = new ImageIcon("Images/circuit.png");
         JLabel labelCircuit = new JLabel();
         labelCircuit.setIcon(circuit);
         labelCircuit.setVerticalAlignment(JLabel.CENTER);
