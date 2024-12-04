@@ -166,11 +166,14 @@ public class Partie implements Serializable{
             }
         }
         */
+
+        /* 
         for(Joueur joueur : joueurs){
             joueur.piocher();
             Carte c = joueur.choisirCarte();
             controleur.getVue().ajouterMessage(joueur.getNom()+" a joué : "+c);
         }
+            */
     }
 
     /*

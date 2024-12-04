@@ -6,7 +6,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
-    //private boolean monTour;
+    private boolean monTour;
     //private Etat etat;
     private int id;
 
@@ -17,6 +17,7 @@ public abstract class Joueur implements Serializable{
         kilometreP = km;
         //etat = null;
         id = this.id;
+        monTour = false;
     }
 
     public void monTour(boolean monTour)
@@ -105,8 +106,6 @@ public abstract class Joueur implements Serializable{
         Joueur opps;
         return null;
     }
-
-    public abstract Carte choisirCarte();
 
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
