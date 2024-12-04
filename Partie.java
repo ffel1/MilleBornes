@@ -88,6 +88,11 @@ public class Partie implements Serializable{
         return !joueurs.isEmpty();
     }
 
+    public ArrayList<Joueur> getJoueurs()
+    {
+        return joueurs;
+    }
+
     public Joueur getJoueur1(){
         return joueurs.get(0);
     }

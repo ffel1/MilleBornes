@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -30,6 +31,7 @@ public class FenetreJeu {
     private JButton boutonJouer;
     private JButton boutonQuitter;
     private JButton boutonRetour;
+    private JButton boutonPioche;
     private JButton boutonNouvellePartie;
     private ArrayList<JButton> boutonsMainJoueur;
     private GraphicsEnvironment env;
@@ -41,6 +43,7 @@ public class FenetreJeu {
         boutonQuitter = new JButton("Quitter");
         boutonRetour = new JButton("Menu Principal");
         boutonNouvellePartie = new JButton("Nouvelle partie");
+        boutonPioche = new JButton("Pioche (temporaire)");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         boutonsMainJoueur = new ArrayList<JButton>();
@@ -96,6 +99,14 @@ public class FenetreJeu {
     }
 
     /**
+     * Permet de connecter une action au bouton "Pioche"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonPioche(ActionListener action){
+        boutonPioche.addActionListener(action);
+    }
+
+    /**
      * Permet de connecter une action au bouton "Nouvelle partie"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
@@ -123,7 +134,6 @@ public class FenetreJeu {
 
 
         // Bouton jouer
-
         boutonJouer.setBounds(largeur/2-75, hauteur/10, 150, 50);
         menuPanel.add(boutonJouer);
 
@@ -150,10 +160,11 @@ public class FenetreJeu {
      * Affiche la fenêtre de jeu
      */
     public void creerFenetreJeu(){
-        JPanel panelJeu = new JPanel();
+        JLayeredPane panelJeu = new JLayeredPane();
         fenetreMenu.setContentPane(panelJeu);
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
+
 
         // Circuit
         ImageIcon circuit = new ImageIcon("Images/circuit.png");
@@ -162,24 +173,24 @@ public class FenetreJeu {
         labelCircuit.setVerticalAlignment(JLabel.CENTER);
         labelCircuit.setHorizontalAlignment(JLabel.CENTER);
         labelCircuit.setBounds(largeur/2-700, -70, 1300, 1001);
-        panelJeu.add(labelCircuit);
+        panelJeu.add(labelCircuit, Integer.valueOf(1));
 
         // Eléments
         afficherZoneDeTexte();
 
         // Bouton Menu principal
         boutonRetour.setBounds(largeur - 155, hauteur / 2, 150, 50);
-        fenetreMenu.add(boutonRetour);
+        fenetreMenu.add(boutonRetour, Integer.valueOf(2));
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
         // Bouton "Écran principal"
         boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
-        fenetreMenu.add(boutonNouvellePartie);
+        fenetreMenu.add(boutonNouvellePartie, Integer.valueOf(2));
 
-
-
-        
+        //BoutonPioche
+        boutonPioche.setBounds(largeur/2-255, hauteur/2-47, 150, 75);
+        fenetreMenu.add(boutonPioche, Integer.valueOf(2));
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);

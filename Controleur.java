@@ -49,6 +49,15 @@ public class Controleur {
             vue.creerFenetreJeu();
             nouvellePartie(true); 
         });  
+
+        //Bouton Pioche 
+        vue.ajouterActionBoutonPioche(e -> {
+            vue.ajouterMessage("Il y a " + modele.getJoueurs().size() + " joueurs \n");
+            if(modele.getJoueur1().getMonTour())
+            {
+                vue.ajouterMessage("L'utilisateur a pioché \n");
+            }
+        }); 
     }
 
     private void nouvellePartie(boolean b){
@@ -61,14 +70,15 @@ public class Controleur {
         
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
-            vue.ajouterMessage("Nouvelle partie créée");
+            vue.ajouterMessage("Nouvelle partie créée \n");
         }
         else
         {
-            vue.ajouterMessage("Partie chargée");
+            vue.ajouterMessage("Partie chargée \n");
         }
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
+        vue.ajouterMessage("La main du joueur a " + modele.getJoueur1().getMain().size() + "\n");
         vue.afficherCartesJoueur(main);
         for(int i = 0; i < 6; i++){
             int j = i;
@@ -90,6 +100,7 @@ public class Controleur {
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
+        vue.ajouterMessage("Il y a " + modele.getJoueurs().size() + " joueurs \n");
     }
 
     public Partie getModel()
