@@ -15,6 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class FenetreJeu {
     private JFrame fenetreMenu;
@@ -61,7 +64,6 @@ public class FenetreJeu {
         return boutonsMainJoueur;
     }
 
-    //modif
     private void activerPleinEcran(JFrame fenetre) {
         fenetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
         fenetre.setUndecorated(true); // Supprime les bordures et la barre de titre
@@ -121,28 +123,38 @@ public class FenetreJeu {
      */
     public void creerFenetreMenu(){
 
-        //Initialisation menuPanel
+        // Initialisation menuPanel et de le gestionnaire de disposition
         JPanel menuPanel  = new JPanel();
 		menuPanel.setBounds(0, 0, largeur, hauteur);
-        menuPanel.setLayout(new BorderLayout());
-
+        menuPanel.setLayout(new GridBagLayout());
+        GridBagConstraints grille = new GridBagConstraints();
 
         // Bouton jouer
-        boutonJouer.setBounds(largeur/2-75, hauteur/10, 150, 50);
-        menuPanel.add(boutonJouer);
+        boutonJouer.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        grille.gridx = 0;
+        grille.gridy = 0;
+        grille.insets = new Insets(50, 0, 50, 0); // Espacement entre les composants
+        grille.anchor = GridBagConstraints.CENTER;
+        menuPanel.add(boutonJouer, grille);
 
-        //Bouton quitter
-        menuPanel.add(boutonQuitter);
-        boutonQuitter.setBounds(largeur/2-75,hauteur-hauteur/6,150,50);
-
-        // Image
+        // Image mille bornes
         ImageIcon image = new ImageIcon("Images/MilleBornes.png");
         JLabel labelImage = new JLabel();
         labelImage.setIcon(image);
-        labelImage.setVerticalAlignment(JLabel.CENTER);
         labelImage.setHorizontalAlignment(JLabel.CENTER);
-        labelImage.setBounds(largeur/2, hauteur/2, 400, 400);
-        menuPanel.add(labelImage);
+        labelImage.setVerticalAlignment(JLabel.CENTER);
+        grille.gridx = 0;
+        grille.gridy = 1;
+        grille.insets = new Insets(50, 0, 50, 0); // Espacement entre les composants
+        grille.anchor = GridBagConstraints.CENTER;
+        menuPanel.add(labelImage, grille);
+
+        //Bouton quitter
+        boutonQuitter.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        grille.gridx = 0; 
+        grille.gridy = 2; 
+        grille.anchor = GridBagConstraints.CENTER; // Centrer
+        menuPanel.add(boutonQuitter, grille);
 
         fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetreMenu.add(menuPanel);
