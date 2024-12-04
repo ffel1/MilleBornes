@@ -45,7 +45,7 @@ public abstract class Joueur implements Serializable{
     }
 
     public boolean mainPleine(){
-        return main.size() >= 6;
+        return main.size() >= 7;
     }
 
     public void piocher(){

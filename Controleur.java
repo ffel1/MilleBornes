@@ -66,7 +66,17 @@ public class Controleur
         vue.ajouterActionBoutonPioche(e -> {
         if(modele.getJoueur1().getMonTour())
             {
-                vue.ajouterMessage("L'utilisateur a pioché \n");
+                vue.ajouterMessage("L'utilisateur a pioché");
+                if(modele.getJoueur1().mainPleine())
+                {
+                    vue.ajouterMessage(" mais sa main est pleine ! \n");
+                }
+                else
+                {
+                    vue.ajouterMessage(" \n");
+                }
+                modele.getJoueur1().piocher();
+                vue.afficherCartesJoueur(modele.getJoueur1().getMain());
             }
         }); 
 

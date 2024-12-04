@@ -191,7 +191,7 @@ public class FenetreJeu {
     }
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < main.size(); i++){
             JPanel imagePanel = new JPanel();
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
