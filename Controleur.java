@@ -77,13 +77,31 @@ public class Controleur
                 }
                 modele.getJoueur1().piocher();
                 vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                initialiserBoutonCartes(modele.getJoueur1().getMain());
             }
         }); 
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.ajouterMessage("La main du joueur a " + modele.getJoueur1().getMain().size() + "\n");
         vue.afficherCartesJoueur(main);
-        for(int i = 0; i < 6; i++){
+        initialiserBoutonCartes(main);
+        vue.getFenetre().setLayout(null);
+		vue.getFenetre().setVisible(true);
+        modele.getJoueur1().monTour(true); // A ENLEVER APRES
+        vue.ajouterMessage("Les participants sont : \n");
+        for(int i = 0; i < modele.getJoueurs().size(); i++)
+        {
+            vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
+        }
+        if(modele.getJoueur1().getMonTour())
+        {
+            vue.ajouterMessage("C'est le tour de l'utilisateur \n");
+        }
+    }
+
+    public void initialiserBoutonCartes(ArrayList<Carte> main)
+    {
+        for(int i = 0; i < main.size(); i++){
             int j = i;
             vue.ajouterActionBoutonCarte(new ActionListener() {
                 @Override
@@ -102,17 +120,7 @@ public class Controleur
             }, i);
         }
         vue.getFenetre().setLayout(null);
-		vue.getFenetre().setVisible(true);
-        modele.getJoueur1().monTour(true); // A ENLEVER APRES
-        vue.ajouterMessage("Les participants sont : \n");
-        for(int i = 0; i < modele.getJoueurs().size(); i++)
-        {
-            vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
-        }
-        if(modele.getJoueur1().getMonTour())
-        {
-            vue.ajouterMessage("C'est le tour de l'utilisateur \n");
-        }
+        vue.getFenetre().setVisible(true);
     }
 
     public Partie getModel()
