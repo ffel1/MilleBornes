@@ -116,7 +116,7 @@ public class Partie implements Serializable{
         initialiserPioche();
         joueurs.clear();
         System.out.println(getPioche().size());
-        //joueurs.add(0, new Utilisateur("Moi", 0, 0, this));
+        joueurs.add(0, new Utilisateur("Moi", 0, 0, this));
         joueurs.add(1, new CPUAgro("Agro", 0, 1));
         joueurs.add(2, new CPUFast("Fast", 0, 2));
         for(int i = 0; i < 6; i++){
