@@ -1,21 +1,15 @@
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.JOptionPane;
 
-public class Controleur {
+public class Controleur 
+{
     private Partie modele;
     private FenetreJeu vue;
 
@@ -48,16 +42,7 @@ public class Controleur {
             vue.getFenetre().revalidate(); 
             vue.creerFenetreJeu();
             nouvellePartie(true); 
-        });  
-
-        //Bouton Pioche 
-        vue.ajouterActionBoutonPioche(e -> {
-            vue.ajouterMessage("Il y a " + modele.getJoueurs().size() + " joueurs \n");
-            if(modele.getJoueur1().getMonTour())
-            {
-                vue.ajouterMessage("L'utilisateur a pioché \n");
-            }
-        }); 
+        });
     }
 
     private void nouvellePartie(boolean b){
@@ -77,6 +62,14 @@ public class Controleur {
             vue.ajouterMessage("Partie chargée \n");
         }
 
+        //Bouton Pioche 
+        vue.ajouterActionBoutonPioche(e -> {
+        if(modele.getJoueur1().getMonTour())
+            {
+                vue.ajouterMessage("L'utilisateur a pioché \n");
+            }
+        }); 
+
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.ajouterMessage("La main du joueur a " + modele.getJoueur1().getMain().size() + "\n");
         vue.afficherCartesJoueur(main);
@@ -93,14 +86,23 @@ public class Controleur {
                     }
                     else
                     {
-                        vue.ajouterMessage("Ce n'est pas votre tour !");
+                        vue.ajouterMessage("Ce n'est pas votre tour ! \n");
                     }
                 }
             }, i);
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
-        vue.ajouterMessage("Il y a " + modele.getJoueurs().size() + " joueurs \n");
+        modele.getJoueur1().monTour(true); // A ENLEVER APRES
+        vue.ajouterMessage("Les participants sont : \n");
+        for(int i = 0; i < modele.getJoueurs().size(); i++)
+        {
+            vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
+        }
+        if(modele.getJoueur1().getMonTour())
+        {
+            vue.ajouterMessage("C'est le tour de l'utilisateur \n");
+        }
     }
 
     public Partie getModel()

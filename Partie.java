@@ -74,8 +74,6 @@ public class Partie implements Serializable{
         return pioche.size();
     }
 
-    
-
     public static ArrayList<Carte> getPioche(){
         return pioche;
     }
@@ -91,6 +89,11 @@ public class Partie implements Serializable{
     public ArrayList<Joueur> getJoueurs()
     {
         return joueurs;
+    }
+
+    public void setJoueurs(Joueur joueur, int i)
+    {
+        joueurs.set(i, joueur);
     }
 
     public Joueur getJoueur1(){

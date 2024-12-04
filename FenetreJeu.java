@@ -1,8 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -11,16 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 
 public class FenetreJeu {
     private JFrame fenetreMenu;
@@ -99,14 +93,6 @@ public class FenetreJeu {
     }
 
     /**
-     * Permet de connecter une action au bouton "Pioche"
-     * @param action L'action à exécuter lors du clic sur le bouton
-     */
-    public void ajouterActionBoutonPioche(ActionListener action){
-        boutonPioche.addActionListener(action);
-    }
-
-    /**
      * Permet de connecter une action au bouton "Nouvelle partie"
      * @param action L'action à exécuter lors du clic sur le bouton
      */
@@ -120,6 +106,14 @@ public class FenetreJeu {
      */
     public void ajouterActionBoutonCarte(ActionListener action, int i){
         boutonsMainJoueur.get(i).addActionListener(action);
+    }
+
+    /**
+     * Permet de connecter une action au bouton "Pioche"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonPioche(ActionListener action){
+        boutonPioche.addActionListener(action);
     }
 
     /*

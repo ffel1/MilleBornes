@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-
 public class BoutonAvecImage {
     public static void main(String[] args) {
         // Création de la fenêtre principale
