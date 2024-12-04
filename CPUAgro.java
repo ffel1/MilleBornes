@@ -9,7 +9,7 @@ public class CPUAgro extends CPU{
     /*
      * Choisi de jouer une carte, en priorité des carte attaques
      */
-    public void choisirCarte(){
+    public Carte choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
         boolean findAttaque = false, findParade = false;
@@ -36,7 +36,9 @@ public class CPUAgro extends CPU{
 
         if (carteAJouer != null){
             jouerCarte(carteAJouer);
+            return carteAJouer;
         }
+        return null;
     }
 
     public void appliquerAction(Carte c){};

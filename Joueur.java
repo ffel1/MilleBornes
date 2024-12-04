@@ -106,7 +106,7 @@ public abstract class Joueur implements Serializable{
         return null;
     }
 
-    public abstract void choisirCarte();
+    public abstract Carte choisirCarte();
 
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
