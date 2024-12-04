@@ -93,8 +93,6 @@ public class Controleur
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
-        //modele.jouer(this);
-        
         modele.getJoueur1().monTour(true); // A ENLEVER APRES
         vue.ajouterMessage("Les participants sont : \n");
         for(int i = 0; i < modele.getJoueurs().size(); i++)
@@ -105,7 +103,6 @@ public class Controleur
         {
             vue.ajouterMessage("C'est le tour de l'utilisateur \n");
         }
-            
     }
 
     public Partie getModel()

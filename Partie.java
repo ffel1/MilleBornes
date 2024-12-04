@@ -150,7 +150,6 @@ public class Partie implements Serializable{
      */
     public void jouer(Controleur controleur)
     {
-        /* 
         System.out.println(joueurs.size());
         controleur.getVue().ajouterMessage("C'est au tour de :" + joueurs.get(leTourDe).getId());
         while(!gagnant())
@@ -165,15 +164,6 @@ public class Partie implements Serializable{
                 leTourDe = 0;
             }
         }
-        */
-
-        /* 
-        for(Joueur joueur : joueurs){
-            joueur.piocher();
-            Carte c = joueur.choisirCarte();
-            controleur.getVue().ajouterMessage(joueur.getNom()+" a joué : "+c);
-        }
-            */
     }
 
     /*
