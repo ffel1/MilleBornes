@@ -6,7 +6,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
-    private boolean monTour;
+    private boolean monTour, aPioche = false;
     //private Etat etat;
     private int id;
 
@@ -53,6 +53,7 @@ public abstract class Joueur implements Serializable{
         
         //La pioche a déjà été mélangé dans Partie
         if(!mainPleine()){
+            aPioche = true;
             Carte c = pioche.get(0);
             main.add(c);
             pioche.remove(c);
@@ -74,6 +75,16 @@ public abstract class Joueur implements Serializable{
     public boolean getMonTour()
     {
         return monTour;
+    }
+
+    public boolean getaPioche()
+    {
+        return aPioche;
+    }
+    
+    public void setaPioche(boolean b)
+    {
+        aPioche = b;
     }
 
     /*
