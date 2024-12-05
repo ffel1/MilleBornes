@@ -126,7 +126,7 @@ public class Controleur
                         }
                         else
                         {
-                            vue.ajouterMessage("Vous avez joué la carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
+                            vue.ajouterMessage("Vous avez joué la carte " + (j + 1) + " (" + main.get(j).getNom() + ") \n");
                             modele.getJoueur1().setaJoue(true);
                             modele.getJoueur1().jouerCarte(main.get(j));
                         }
