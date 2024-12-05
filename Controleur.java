@@ -69,12 +69,12 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-        if(modele.getJoueur1().getMonTour())
+            if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
             {
-                vue.ajouterMessage("L'utilisateur a pioché");
+                vue.ajouterMessage("Vous avez pioché");
                 if(modele.getJoueur1().mainPleine())
                 {
-                    vue.ajouterMessage(" mais sa main est pleine ! \n");
+                    vue.ajouterMessage(" mais votre main est pleine ! \n");
                 }
                 else
                 {
@@ -83,6 +83,14 @@ public class Controleur
                 modele.getJoueur1().piocher();
                 vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                 initialiserBoutonCartes(modele.getJoueur1().getMain());
+            }
+            else if(modele.getJoueur1().getaPioche())
+            {
+                vue.ajouterMessage(" Vous avez déjà pioché ! \n");
+            }
+            else
+            {
+                vue.ajouterMessage(" Ce n'est pas votre tour \n");
             }
         }); 
 
