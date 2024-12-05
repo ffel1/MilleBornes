@@ -91,16 +91,16 @@ public class Partie implements Serializable{
         joueurs.set(i, joueur);
     }
 
-    public Joueur getJoueur1(){
-        return joueurs.get(0);
+    public Utilisateur getJoueur1(){
+        return (Utilisateur)joueurs.get(0);
     }
 
-    public Joueur getJoueur2(){
-        return joueurs.get(1);
+    public CPU getJoueur2(){
+        return (CPU)joueurs.get(1);
     }
 
-    public Joueur getJoueur3(){
-        return joueurs.get(2);
+    public CPU getJoueur3(){
+        return (CPU)joueurs.get(2);
     }
 
     /*
@@ -128,7 +128,7 @@ public class Partie implements Serializable{
 
         Random r = new Random();
         int quiCommence = r.nextInt(3);
-        joueurs.get(0).monTour(true); //je fais commencer l'utilisateur mais après je changerais
+        getJoueur1().monTour(true); //je fais commencer l'utilisateur mais après je changerais
     }
 
     /*

@@ -30,6 +30,8 @@ public class FenetreJeu {
     private JButton boutonQuitter;
     private JButton boutonRetour;
     private JButton boutonPioche;
+    private JButton boutonDefausse;
+    private JButton boutonFindeTour;
     private JButton boutonNouvellePartie;
     private JPanel menuPanel;
     private JLayeredPane panelJeu;
@@ -44,6 +46,8 @@ public class FenetreJeu {
         boutonRetour = new JButton("Menu Principal");
         boutonNouvellePartie = new JButton("Nouvelle partie");
         boutonPioche = new JButton("Pioche (temporaire)");
+        boutonDefausse = new JButton("Défausse (temporaire)");
+        boutonFindeTour = new JButton("Fin de mon tour");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         menuPanel  = new JPanel();
@@ -123,6 +127,22 @@ public class FenetreJeu {
         boutonPioche.addActionListener(action);
     }
 
+    /**
+     * Permet de connecter une action au bouton "Défausse"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonBoutonDefausse(ActionListener action){
+        boutonDefausse.addActionListener(action);
+    }
+
+    /**
+     * Permet de connecter une action au bouton "Fin de Tour"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonFinDeMonTour(ActionListener action){
+        boutonFindeTour.addActionListener(action);
+    }
+
 
     /*
      * Affiche la fenetre du menu de début
@@ -195,6 +215,14 @@ public class FenetreJeu {
         {
             boutonRetour.removeActionListener(boutonRetour.getActionListeners()[0]);
         }
+
+        // Bouton fin de mon tour
+        boutonFindeTour.setBounds(largeur - 2*(largeur * 12 / 100), (hauteur / 2) + 9*(hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
+        panelJeu.add(boutonFindeTour, Integer.valueOf(2));
+        if(boutonFindeTour.getActionListeners().length == 1)
+        {
+            boutonFindeTour.removeActionListener(boutonFindeTour.getActionListeners()[0]);
+        }
 		
         // Bouton "Nouvelle partie"
         boutonNouvellePartie.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) - (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
@@ -210,6 +238,14 @@ public class FenetreJeu {
         if(boutonPioche.getActionListeners().length == 1)
         {
             boutonPioche.removeActionListener(boutonPioche.getActionListeners()[0]);
+        }
+
+        //BoutonDéfausse
+        boutonDefausse.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 25 / 1000), (circuit.getIconHeight() * 45 / 100), (circuit.getIconWidth() * 155 / 1000), (circuit.getIconHeight() * 13 / 100));
+        panelJeu.add(boutonDefausse, Integer.valueOf(5));
+        if(boutonDefausse.getActionListeners().length == 1)
+        {
+            boutonDefausse.removeActionListener(boutonDefausse.getActionListeners()[0]);
         }
 
 

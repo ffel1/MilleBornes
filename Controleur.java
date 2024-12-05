@@ -67,6 +67,41 @@ public class Controleur
             nouvellePartie(true); 
         });
 
+        //Bouton FinDeMonTour
+        vue.ajouterActionBoutonFinDeMonTour(e -> {
+            if(!modele.getJoueur1().getMonTour())
+            {
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+            }
+            else if(modele.getJoueur1().getaJjoue())
+            {
+                if(modele.getJoueur1().getMain().size() > 6)
+                {
+                    vue.ajouterMessage("Vous devez défausser une carte ! \n");
+                }
+                else
+                {
+                    vue.ajouterMessage("C'est la fin de votre tour ! \n");
+                    modele.getJoueur1().setaJoue(false);
+                    modele.getJoueur1().setaPioche(false);
+                    modele.getJoueur1().monTour(false);
+                    modele.getJoueur2().actionBot(this);
+                }
+            }
+            else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
+            {
+                vue.ajouterMessage("Vous sautez votre tour ! \n");
+                modele.getJoueur1().setaJoue(false);
+                modele.getJoueur1().setaPioche(false);
+                modele.getJoueur1().monTour(false);
+                modele.getJoueur2().actionBot(this);
+            }
+            else
+            {
+                vue.ajouterMessage("Vous devez défausser une carte ! \n");
+            }
+        });
+
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
             if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
@@ -124,10 +159,13 @@ public class Controleur
                         {
                             vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
                         }
+                        else if(modele.getJoueur1().getaJjoue())
+                        {
+                            vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n");
+                        }
                         else
                         {
                             vue.ajouterMessage("Vous avez joué la carte " + (j + 1) + " (" + main.get(j).getNom() + ") \n");
-                            modele.getJoueur1().setaJoue(true);
                             modele.getJoueur1().jouerCarte(main.get(j));
                         }
                     }

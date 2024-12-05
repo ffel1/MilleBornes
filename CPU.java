@@ -4,6 +4,11 @@ public class CPU extends Joueur{
         super(nom, k, id);
     }
 
+    public void actionBot(Controleur controleur)
+    {
+        controleur.getVue().ajouterMessage("C'est au tour du CPU " + getNom() + "\n");
+    }
+
     public void appliquerAction(Carte c){};
 
     @Override

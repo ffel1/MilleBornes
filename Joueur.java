@@ -6,7 +6,6 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
-    private boolean monTour = false, aPioche = false, aJoue = false;
     //private Etat etat;
     private int id;
 
@@ -17,11 +16,6 @@ public abstract class Joueur implements Serializable{
         kilometreP = km;
         //etat = null;
         id = this.id;
-    }
-
-    public void monTour(boolean monTour)
-    {
-        this.monTour = monTour;
     }
 
     public ArrayList<Carte> getMain(){
@@ -47,31 +41,6 @@ public abstract class Joueur implements Serializable{
         return main.size() >= 7;
     }
 
-    public boolean getaJjoue()
-    {
-        return aJoue;
-    }
-    public void setaJoue(boolean b)
-    {
-        aJoue = b;
-    }
-
-    public void piocher(){
-        ArrayList<Carte> pioche = Partie.getPioche();
-        
-        //La pioche a déjà été mélangé dans Partie
-        if(!mainPleine()){
-            aPioche = true;
-            Carte c = pioche.get(0);
-            main.add(c);
-            pioche.remove(c);
-        }
-        else{
-            System.out.println("Main pleine");
-        }
-       
-    }
-
     public void retirerCarte(Carte c){
         main.remove(c);
     }
@@ -80,26 +49,25 @@ public abstract class Joueur implements Serializable{
         main.add(c);
     }
 
-    public boolean getMonTour()
+    public void piocher()
     {
-        return monTour;
+        ArrayList<Carte> pioche = Partie.getPioche();  
+        //La pioche a déjà été mélangé dans Partie
+        if(!mainPleine())
+        {
+            Carte c = pioche.get(0);
+            getMain().add(c);
+            pioche.remove(c);
+        }
+        else
+        {
+            System.out.println("Main pleine");
+        }
     }
 
-    public boolean getaPioche()
+    public void jouerCarte(Carte c)
     {
-        return aPioche;
-    }
-    
-    public void setaPioche(boolean b)
-    {
-        aPioche = b;
-    }
-
-    /*
-     * Choisir l'action en fonction du type de carte
-     */
-    public void jouerCarte(Carte c) {
-        if (c instanceof Attaque){
+        /*if (c instanceof Attaque){
             Joueur cible = getCible();
             jouerAttaque(c, cible);
         } else if (c instanceof Parade){
@@ -108,18 +76,9 @@ public abstract class Joueur implements Serializable{
             jouerBotte(c);
         } else if (c instanceof Distance){
             jouerDistance(c);
-        }   
+        }   */
     }
     
-/*     public boolean estAttaquable(Carte c){
-        for(Carte carte : botteAttaque){
-            if(carte.getType() == c.getType()){
-                return false;
-            }
-        }
-        
-        return true;
-    } */
 
     public Joueur getCible(){
         Joueur opps;
