@@ -8,7 +8,6 @@ public class Partie implements Serializable{
     private int points;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
-    private int leTourDe;
 
 
     public Partie(){
@@ -77,10 +76,6 @@ public class Partie implements Serializable{
     public static ArrayList<Carte> getPioche(){
         return pioche;
     }
-    public int getLeTourDe()
-    {
-        return leTourDe;
-    }
 
     public boolean partieCree(){
         return !joueurs.isEmpty();
@@ -132,8 +127,8 @@ public class Partie implements Serializable{
         System.out.println(getPioche().size());
 
         Random r = new Random();
-        leTourDe = r.nextInt(3);
-        leTourDe = 0; //A ENLEVER APRES, C'EST PLUS PRATIQUE POUR CODER
+        int quiCommence = r.nextInt(3);
+        joueurs.get(0).monTour(true); //je fais commencer l'utilisateur mais après je changerais
     }
 
     /*
@@ -142,28 +137,6 @@ public class Partie implements Serializable{
      */
     public boolean jouerCarte(Carte c, Joueur u, Joueur cible){
         return true;
-    }
-
-    /*
-     * Boucle du jeu
-     * PAS FINI
-     */
-    public void jouer(Controleur controleur)
-    {
-        System.out.println(joueurs.size());
-        controleur.getVue().ajouterMessage("C'est au tour de :" + joueurs.get(leTourDe).getId());
-        while(!gagnant())
-        {
-            joueurs.get(leTourDe).monTour(true);
-            if(!joueurs.get(leTourDe).getMonTour())
-            {
-                leTourDe++;
-            }
-            if(leTourDe == 4)
-            {
-                leTourDe = 0;
-            }
-        }
     }
 
     /*

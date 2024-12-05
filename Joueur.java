@@ -6,7 +6,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
-    private boolean monTour, aPioche = false;
+    private boolean monTour = false, aPioche = false, aJoue = false;
     //private Etat etat;
     private int id;
 
@@ -17,7 +17,6 @@ public abstract class Joueur implements Serializable{
         kilometreP = km;
         //etat = null;
         id = this.id;
-        monTour = false;
     }
 
     public void monTour(boolean monTour)
@@ -46,6 +45,15 @@ public abstract class Joueur implements Serializable{
 
     public boolean mainPleine(){
         return main.size() >= 7;
+    }
+
+    public boolean getaJjoue()
+    {
+        return aJoue;
+    }
+    public void setaJoue(boolean b)
+    {
+        aJoue = b;
     }
 
     public void piocher(){

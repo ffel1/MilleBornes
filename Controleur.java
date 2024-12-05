@@ -99,7 +99,6 @@ public class Controleur
         initialiserBoutonCartes(main);
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
-        modele.getJoueur1().monTour(true); // A ENLEVER APRES
         vue.ajouterMessage("Les participants sont : \n");
         for(int i = 0; i < modele.getJoueurs().size(); i++)
         {
@@ -118,11 +117,19 @@ public class Controleur
             vue.ajouterActionBoutonCarte(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    vue.ajouterMessage("\n Carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
                     //Pour faire jouer le joueur
-                    if(modele.getLeTourDe() == 0)                           
+                    if(modele.getJoueur1().getMonTour())                           
                     {
-                        modele.getJoueur1().jouerCarte(main.get(j));
+                        if(!modele.getJoueur1().getaPioche())
+                        {
+                            vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
+                        }
+                        else
+                        {
+                            vue.ajouterMessage("Vous avez joué la carte " + (j + 1) + " (" + main.get(j).getNom() + ")");
+                            modele.getJoueur1().setaJoue(true);
+                            modele.getJoueur1().jouerCarte(main.get(j));
+                        }
                     }
                     else
                     {
