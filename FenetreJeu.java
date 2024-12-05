@@ -17,6 +17,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 public class FenetreJeu {
@@ -175,26 +176,28 @@ public class FenetreJeu {
 
         // Circuit
         ImageIcon circuit = new ImageIcon("Images/circuit.png");
+        Image imageRedimensionnee = circuit.getImage().getScaledInstance(largeur * 77 / 100, hauteur * 95 / 100, Image.SCALE_SMOOTH);
+        circuit = new ImageIcon(imageRedimensionnee);
         JLabel labelCircuit = new JLabel();
         labelCircuit.setIcon(circuit);
         labelCircuit.setVerticalAlignment(JLabel.CENTER);
         labelCircuit.setHorizontalAlignment(JLabel.CENTER);
-        labelCircuit.setBounds(largeur/2-700, -70, 1300, 1001);
+        labelCircuit.setBounds((largeur * 52 / 100) - circuit.getIconWidth() / 2, - (circuit.getIconHeight() * 9 / 100), circuit.getIconWidth(), circuit.getIconHeight());
         panelJeu.add(labelCircuit, Integer.valueOf(1));
 
         // Eléments
         afficherZoneDeTexte();
 
         // Bouton Menu principal
-        boutonRetour.setBounds(largeur - 155, hauteur / 2, 150, 50);
+        boutonRetour.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) + (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
         panelJeu.add(boutonRetour, Integer.valueOf(2));
         if(boutonRetour.getActionListeners().length == 1)
         {
             boutonRetour.removeActionListener(boutonRetour.getActionListeners()[0]);
         }
 		
-        // Bouton "Écran principal"
-        boutonNouvellePartie.setBounds(largeur - 155, hauteur / 2 - 75, 150, 50);
+        // Bouton "Nouvelle partie"
+        boutonNouvellePartie.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) - (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
         panelJeu.add(boutonNouvellePartie, Integer.valueOf(2));
         if(boutonNouvellePartie.getActionListeners().length == 1)
         {
@@ -202,7 +205,7 @@ public class FenetreJeu {
         }
 
         //BoutonPioche
-        boutonPioche.setBounds(largeur/2-255, hauteur/2-47, 150, 75);
+        boutonPioche.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 18 / 100), (circuit.getIconHeight() * 45 / 100), (circuit.getIconWidth() * 155 / 1000), (circuit.getIconHeight() * 13 / 100));
         panelJeu.add(boutonPioche, Integer.valueOf(2));
         if(boutonPioche.getActionListeners().length == 1)
         {
@@ -220,12 +223,17 @@ public class FenetreJeu {
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
             imagePanel.setBackground(Color.pink);
-            imagePanel.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
+            image.getIconHeight();
+            int larg = 125; 
+            int y = (hauteur * 97 / 100) - (image.getIconHeight());
+            int x = (largeur / 2 - 75) - (larg * 3) + (larg * i);
+            int haut = (hauteur * 20 / 100);
+            imagePanel.setBounds(x, y, larg, haut);
             imagePanel.setLayout(new BorderLayout());
             panelJeu.add(imagePanel);
             JButton bouton = new JButton("", image);
             bouton.setBackground(Color.PINK);
-            bouton.setBounds(largeur / 2 - (125 * 3) + (125 * i), hauteur - 220, 125, hauteur / 5);
+            bouton.setBounds(x, y, larg, haut);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
             panelJeu.add(bouton);
@@ -239,17 +247,17 @@ public class FenetreJeu {
         // Zone affichage des messages
         JPanel messagePanel = new JPanel();
 		messagePanel.setBackground(Color.GRAY);
-		messagePanel.setBounds(0, hauteur / 2, 250, hauteur / 2 - 75);
+		messagePanel.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
 		messagePanel.setLayout(new BorderLayout());
         panelJeu.add(messagePanel);
 
-        textArea.setBounds(0, hauteur / 2, 250, hauteur / 2);
+        textArea.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
         textArea.setEditable(false);
         textArea.setBackground(Color.PINK);
         panelJeu.add(textArea);
 
         scrollPane = new JScrollPane(textArea);
-        scrollPane.setBounds(0, hauteur / 2, 250, hauteur / 2);
+        scrollPane.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
         panelJeu.add(scrollPane);
         messagePanel.add(scrollPane);
         textArea.setText("");
