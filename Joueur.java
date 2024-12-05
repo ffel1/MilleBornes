@@ -92,7 +92,7 @@ public abstract class Joueur implements Serializable{
         }   
     }
     
-    public boolean estAttaquable(Carte c){
+/*     public boolean estAttaquable(Carte c){
         for(Carte carte : botteAttaque){
             if(carte.getType() == c.getType()){
                 return false;
@@ -100,7 +100,7 @@ public abstract class Joueur implements Serializable{
         }
         
         return true;
-    }
+    } */
 
     public Joueur getCible(){
         Joueur opps;
@@ -182,17 +182,19 @@ public abstract class Joueur implements Serializable{
             for (Carte carte : cible.getBotteAttaque()) {
                 switch (c.getType()) {
                     case CREVAISON:
-                        if (carte.getType() == TypeCarte.INCREVABLE) return false;
+                        if (carte.getType() == TypeCarte.INCREVABLE | carte.getType() == TypeCarte.CREVAISON) return false;
                         break;
                     case ACCIDENT:
-                        if (carte.getType() == TypeCarte.AS_DU_VOLANT) return false;
+                        if (carte.getType() == TypeCarte.AS_DU_VOLANT | carte.getType() == TypeCarte.ACCIDENT) return false;
                         break;
                     case PANNE_D_ESSENCE:
-                        if (carte.getType() == TypeCarte.CAMION_CITERNE) return false;
+                        if (carte.getType() == TypeCarte.CAMION_CITERNE | carte.getType() == TypeCarte.PANNE_D_ESSENCE) return false;
                         break;
                     case LIMITATION_DE_VITESSE:
+                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE | carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
+                        break;
                     case FEU_ROUGE:
-                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE) return false;
+                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE | carte.getType() == TypeCarte.FEU_ROUGE) return false;
                         break;
                     default:
                         break;
