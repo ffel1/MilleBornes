@@ -9,8 +9,9 @@ public class CPU extends Joueur{
         controleur.getVue().ajouterMessage("C'est au tour du CPU " + getNom() + "\n");
         piocher();
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
-
     }
+
+
 
     public void appliquerAction(Carte c){};
 
