@@ -6,7 +6,6 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> botteAttaque;
     private String nom;
     private int kilometreP;
-    //private Etat etat;
     private int id;
 
     public Joueur(String name, int km, int id){
@@ -14,7 +13,6 @@ public abstract class Joueur implements Serializable{
         botteAttaque = new ArrayList<Carte>();
         nom = name;
         kilometreP = km;
-        //etat = null;
         id = this.id;
     }
 
@@ -30,9 +28,6 @@ public abstract class Joueur implements Serializable{
     public int getKilometre(){
         return kilometreP;
     }
-    /*public Etat getEtat(){
-        return etat;
-    }*/
     public int getId(){
         return id;
     }
@@ -65,20 +60,22 @@ public abstract class Joueur implements Serializable{
         }
     }
 
-    public void jouerCarte(Carte c)
-    {
-        /*if (c instanceof Attaque){
+    /*
+     * Choisir l'action en fonction du type de carte
+     */
+    public String jouerCarte(Carte c) {
+        if (c instanceof Attaque){
             Joueur cible = getCible();
-            jouerAttaque(c, cible);
+            return jouerAttaque(c, cible);
         } else if (c instanceof Parade){
-            jouerParade(c);
+            return jouerParade(c);
         } else if (c instanceof Botte){
-            jouerBotte(c);
+            return jouerBotte(c);
         } else if (c instanceof Distance){
-            jouerDistance(c);
-        }   */
+            return jouerDistance(c);
+        }   
+        return null;
     }
-    
 
     public Joueur getCible(){
         Joueur opps;
@@ -88,7 +85,7 @@ public abstract class Joueur implements Serializable{
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
      */
-    public void jouerBotte(Carte c) {
+    public String jouerBotte(Carte c) {
         if (c instanceof Botte) {
             botteAttaque.add(c);
     
@@ -108,46 +105,48 @@ public abstract class Joueur implements Serializable{
                 default:
                     break;
             }
-    
-            System.out.println(getNom() + " joue la botte : " + c.getNom());
             retirerCarte(c);
-    }
+            return getNom() + " joue la botte : " + c.getNom();
+        }
+        return null;
 }
     
     /*
      * Joue une carte parade et enleve l'attaque en cours
      */
-    public void jouerParade(Carte c) {
+    public String jouerParade(Carte c) {
         for (Carte carteAttaque : botteAttaque) {
             if (verification(c, this, this)) {
                 botteAttaque.remove(carteAttaque);
-                //System.out.println(getNom() + " joue la par"+appliquerAction(carteAJouer);
-                //retirerCarte(carteAJouer);
+                retirerCarte(c);
+                return getNom() + " joue la par" + c.getNom();
             }
         }
+        return null;
     }
     
     /*
      * Joue une carte attaque et demande sur quel joueur
      */
-    public void jouerAttaque(Carte c, Joueur cible) {
+    public String jouerAttaque(Carte c, Joueur cible) {
         if (verification(c, this, cible)) {
             cible.getBotteAttaque().add(c);
-            System.out.println(getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom());
             retirerCarte(c);
+            return getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom();
         }
+        return null;
     }
     
 
     /*
      * Augmente le nombre de km du joueur
      */
-    public void jouerDistance(Carte c) {
+    public String jouerDistance(Carte c) {
         if (verification(c, this, this)) {
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
-            System.out.println(getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
             retirerCarte(c);
+            return getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
         }
     }
     
@@ -220,5 +219,4 @@ public abstract class Joueur implements Serializable{
         return true;
     }
 
-    public void appliquerAction(Carte c){}
 }

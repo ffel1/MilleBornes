@@ -41,5 +41,4 @@ public class CPUFast extends CPU{
         return null;
     }
     
-    public void appliquerAction(Carte c){};
 }
