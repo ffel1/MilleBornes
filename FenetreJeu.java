@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
+
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
@@ -313,7 +316,7 @@ public class FenetreJeu {
 
     private void afficherVoitures(ImageIcon circuit){
         // Voiture 1
-        ImageIcon voiture1 = new ImageIcon("assets/voiture rouge roule2.png");
+        ImageIcon voiture1 = new ImageIcon("assets/voiture rouge roule2.gif");
         boutonVoiture1 = new JButton("", voiture1);
         boutonVoiture1.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture1.setFocusPainted(false);
@@ -324,18 +327,46 @@ public class FenetreJeu {
     }
 
     /*
-     * Avance la voiture en fonction des kilomètres 
+     * Avance la voiture en fonction des kilomètres totaux du joueur
      * Seulement la première ligne droite pour l'instant
      */
     public void AvancerVoiture(int distance){
-        int pourcentage;
+        int pourcentage = 0;
         if(distance <= 25){
             pourcentage = circuit.getIconHeight() * (distance * 20 / 100) / 100;
-        }else{ // Entre 50 et 150 km
+        }else if(distance <= 150){ // Entre 50 et 150 km
             pourcentage = (25 * 20 / 100) + ((distance / 25)) * (circuit.getIconHeight() * 73 / 1000);
+        }else if(distance <= 375){
+
         }
         Rectangle position = boutonVoiture1.getBounds();
         position.setBounds((int)position.getX(), (int)position.getY() - pourcentage, (int)position.getWidth(), (int)position.getHeight());
-        boutonVoiture1.setBounds(position);
+
+        Timer timer = new Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+            int x = boutonVoiture1.getX(); // Position initiale en X
+            int y = boutonVoiture1.getY(); // Position initiale en Y
+            int debut = boutonVoiture1.getY();
+            int deltaY = 2; // Déplacement vertical
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Mettre à jour les coordonnées
+                y -= deltaY;
+
+                // Mettre à jour la position du JLabel
+                boutonVoiture1.setLocation(x, y);
+                System.out.println((int)position.getY());
+                System.out.println(debut);
+
+                if(boutonVoiture1.getY() <= (int)position.getY()) {
+                    ((Timer) e.getSource()).stop(); // Arrêter le Timer
+                    System.out.println("Animation arrêtée après 100 pixels parcourus.");
+                }
+            }
+
+        });
+
+        // Lancer le Timer
+        timer.start();
     }
 }
