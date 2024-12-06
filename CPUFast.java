@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class CPUFast extends CPU{
     
-    public CPUFast(String nom, int k, int id){
-        super(nom, k, id);
+    public CPUFast(String nom, int k, int id,Partie partie){
+        super(nom, k, id, partie);
     }
 
     /*

@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class CPUAgro extends CPU{
 
-    public CPUAgro(String nom, int k, int id){
-        super(nom, k, id);
+    public CPUAgro(String nom, int k, int id, Partie partie){
+        super(nom, k, id, partie);
     }
 
     /*
@@ -21,11 +21,11 @@ public class CPUAgro extends CPU{
                 carteAJouer = carte;
                 break;
             }
-            else if(carte instanceof Attaque){
+            else if(carte instanceof Attaque && verification(carteAJouer, this, getCible())){
                 carteAJouer = carte;
                 findAttaque = true;
             }
-            else if(carte instanceof Parade && !findAttaque){
+            else if(carte instanceof Parade && !findAttaque && verification(carteAJouer, this, getCible())){
                 carteAJouer = carte;
                 findParade = true;
             }

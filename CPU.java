@@ -1,7 +1,12 @@
+import java.util.ArrayList;
+
 public abstract class CPU extends Joueur{
     
-    public CPU(String nom, int k, int id){
+    private Partie partie;
+
+    public CPU(String nom, int k, int id, Partie partie){
         super(nom, k, id);
+        this.partie = partie;
     }
 
     public void actionBot(Controleur controleur)
@@ -20,6 +25,15 @@ public abstract class CPU extends Joueur{
     @Override
     public Joueur getCible()
     {
-        return null;
+        Joueur joueurPremier = partie.getJoueur1(); 
+        for(Joueur joueurCurrent : partie.getJoueurs())
+        {
+            if(joueurCurrent.getId() != getId() && joueurCurrent.getKilometre() > joueurPremier.getKilometre())
+            {
+                joueurPremier = joueurCurrent;
+            }
+        }
+        System.out.println("Le bot a prit pour cible ");
+        return joueurPremier;
     }
 }
