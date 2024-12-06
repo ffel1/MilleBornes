@@ -17,7 +17,7 @@ public class CPUAgro extends CPU{
         //botte -> attaque -> parade -> distance
 
         for(Carte carte : main){
-            if(carte instanceof Botte){
+            if(carte instanceof Botte && verification(carteAJouer, this, getCible())){
                 carteAJouer = carte;
                 break;
             }

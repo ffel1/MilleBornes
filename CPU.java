@@ -1,4 +1,4 @@
-public class CPU extends Joueur{
+public abstract class CPU extends Joueur{
     
     public CPU(String nom, int k, int id){
         super(nom, k, id);
@@ -9,9 +9,11 @@ public class CPU extends Joueur{
         controleur.getVue().ajouterMessage("C'est au tour du CPU " + getNom() + "\n");
         piocher();
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
+        Carte carteJoué = choisirCarte();
+        jouerCarte(carteJoué);
     }
 
-
+    public abstract Carte choisirCarte();
 
     public void appliquerAction(Carte c){};
 
