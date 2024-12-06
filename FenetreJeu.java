@@ -331,42 +331,44 @@ public class FenetreJeu {
      * Seulement la première ligne droite pour l'instant
      */
     public void AvancerVoiture(int distance){
-        int pourcentage = 0;
+        int pourcentage;
         if(distance <= 25){
             pourcentage = circuit.getIconHeight() * (distance * 20 / 100) / 100;
-        }else if(distance <= 150){ // Entre 50 et 150 km
+        }else /*if(distance <= 150)*/{ // Entre 50 et 150 km
             pourcentage = (25 * 20 / 100) + ((distance / 25)) * (circuit.getIconHeight() * 73 / 1000);
-        }else if(distance <= 375){
+        }//else if(distance <= 375){
 
-        }
+        //}
         Rectangle position = boutonVoiture1.getBounds();
         position.setBounds((int)position.getX(), (int)position.getY() - pourcentage, (int)position.getWidth(), (int)position.getHeight());
 
-        Timer timer = new Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
-            int x = boutonVoiture1.getX(); // Position initiale en X
-            int y = boutonVoiture1.getY(); // Position initiale en Y
-            int debut = boutonVoiture1.getY();
-            int deltaY = 2; // Déplacement vertical
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Mettre à jour les coordonnées
-                y -= deltaY;
-
-                // Mettre à jour la position du JLabel
-                boutonVoiture1.setLocation(x, y);
-                System.out.println((int)position.getY());
-                System.out.println(debut);
-
-                if(boutonVoiture1.getY() <= (int)position.getY()) {
-                    ((Timer) e.getSource()).stop(); // Arrêter le Timer
-                    System.out.println("Animation arrêtée après 100 pixels parcourus.");
+        if(distance <= 175){
+            Timer timer = new Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                int x = boutonVoiture1.getX(); // Position initiale en X
+                int y = boutonVoiture1.getY(); // Position initiale en Y
+                int debut = boutonVoiture1.getY();
+                int deltaY = 2; // Déplacement vertical
+    
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Mettre à jour les coordonnées
+                    y -= deltaY;
+    
+                    // Mettre à jour la position du JLabel
+                    boutonVoiture1.setLocation(x, y);
+                    System.out.println("Distance : " + (int)position.getY());
+                    System.out.println(debut);
+    
+                    if(boutonVoiture1.getY() <= (int)position.getY()) {
+                        ((Timer) e.getSource()).stop(); // Arrêter le Timer
+                        System.out.println("Animation arrêtée après 100 pixels parcourus.");
+                    }
                 }
-            }
-
-        });
-
-        // Lancer le Timer
-        timer.start();
+    
+            });
+            // Lancer le Timer
+            timer.start();
+        }
+        
     }
 }
