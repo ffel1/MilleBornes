@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Rectangle;
 
 public class FenetreJeu {
     private JFrame fenetreMenu;
@@ -38,6 +40,8 @@ public class FenetreJeu {
     private ArrayList<JButton> boutonsMainJoueur;
     private GraphicsEnvironment env;
     private GraphicsDevice ecran;
+    private JButton boutonVoiture1;
+    private ImageIcon circuit;
 
     public FenetreJeu(){
         // Initialisation
@@ -195,7 +199,7 @@ public class FenetreJeu {
         fenetreMenu.repaint();
 
         // Circuit
-        ImageIcon circuit = new ImageIcon("Images/circuit.png");
+        circuit = new ImageIcon("Images/circuit.png");
         Image imageRedimensionnee = circuit.getImage().getScaledInstance(largeur * 77 / 100, hauteur * 95 / 100, Image.SCALE_SMOOTH);
         circuit = new ImageIcon(imageRedimensionnee);
         JLabel labelCircuit = new JLabel();
@@ -207,6 +211,7 @@ public class FenetreJeu {
 
         // Eléments
         afficherZoneDeTexte();
+        afficherVoitures(circuit);
 
         // Bouton Menu principal
         boutonRetour.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) + (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
@@ -234,6 +239,7 @@ public class FenetreJeu {
 
         //BoutonPioche
         boutonPioche.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 18 / 100), (circuit.getIconHeight() * 45 / 100), (circuit.getIconWidth() * 155 / 1000), (circuit.getIconHeight() * 13 / 100));
+        //boutonPioche.setBackground(new Color(109, 121, 132));
         panelJeu.add(boutonPioche, Integer.valueOf(2));
         if(boutonPioche.getActionListeners().length == 1)
         {
@@ -303,5 +309,33 @@ public class FenetreJeu {
         textArea.append(message);
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
         verticalBar.setValue(verticalBar.getMaximum());
+    }
+
+    private void afficherVoitures(ImageIcon circuit){
+        // Voiture 1
+        ImageIcon voiture1 = new ImageIcon("assets/voiture rouge roule2.png");
+        boutonVoiture1 = new JButton("", voiture1);
+        boutonVoiture1.setBorder(BorderFactory.createEmptyBorder());
+        boutonVoiture1.setFocusPainted(false);
+        boutonVoiture1.setContentAreaFilled(false);
+        boutonVoiture1.setOpaque(false);
+        boutonVoiture1.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100), (circuit.getIconHeight() * 64 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        panelJeu.add(boutonVoiture1, Integer.valueOf(2));
+    }
+
+    /*
+     * Avance la voiture en fonction des kilomètres 
+     * Seulement la première ligne droite pour l'instant
+     */
+    public void AvancerVoiture(int distance){
+        int pourcentage;
+        if(distance <= 25){
+            pourcentage = circuit.getIconHeight() * (distance * 20 / 100) / 100;
+        }else{ // Entre 50 et 150 km
+            pourcentage = (25 * 20 / 100) + ((distance / 25)) * (circuit.getIconHeight() * 73 / 1000);
+        }
+        Rectangle position = boutonVoiture1.getBounds();
+        position.setBounds((int)position.getX(), (int)position.getY() - pourcentage, (int)position.getWidth(), (int)position.getHeight());
+        boutonVoiture1.setBounds(position);
     }
 }

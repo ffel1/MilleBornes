@@ -166,6 +166,7 @@ public class Controleur
                         else
                         {
                             modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
+                            vue.AvancerVoiture(modele.getJoueur1().getKilometre());
                         }
                     }
                     else
