@@ -146,8 +146,9 @@ public abstract class Joueur implements Serializable{
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
             retirerCarte(c);
-            return getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
+            return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
         }
+        return null;
     }
     
 
