@@ -65,8 +65,14 @@ public class Utilisateur extends Joueur{
         /*
      * Choisir l'action en fonction du type de carte
      */
-    public void jouerCarte(Carte c) {
+    public void jouerCarte(Carte c, Controleur controleur, int nbCarte) {
         aJoue = true; //A METTRE DANS LA VERIFICATION QUAND CA SERAIT FINIT (SAUF POUR LES CARTES BOTTES)
+        controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n"); //A METTRE DANS LA VERIFICATION QUAND CA SERAIT FINIT (SAUF POUR LES CARTES BOTTES)
+        getMain().remove(c);
+        controleur.getVue().afficherCartesJoueur(getMain());
+        controleur.initialiserBoutonCartes(getMain());
+        controleur.getVue().getFenetre().repaint();
+        controleur.getVue().getFenetre().revalidate();
         /*if (c instanceof Attaque){
             Joueur cible = getCible();
             jouerAttaque(c, cible);

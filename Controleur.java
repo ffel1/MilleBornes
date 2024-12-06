@@ -48,7 +48,7 @@ public class Controleur
             vue.ajouterMessage("Partie chargée \n");
         }
 
-            //Bouton Menu Principal
+        //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
             sauvegarder();
             vue.getFenetre().getContentPane().removeAll();
@@ -132,8 +132,6 @@ public class Controleur
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         initialiserBoutonCartes(main);
-        vue.getFenetre().setLayout(null);
-		vue.getFenetre().setVisible(true);
         vue.ajouterMessage("Les participants sont : \n");
         for(int i = 0; i < modele.getJoueurs().size(); i++)
         {
@@ -143,6 +141,8 @@ public class Controleur
         {
             vue.ajouterMessage("C'est le tour de l'utilisateur \n");
         }
+        vue.getFenetre().revalidate();
+        vue.getFenetre().repaint();
     }
 
     public void initialiserBoutonCartes(ArrayList<Carte> main)
@@ -165,8 +165,7 @@ public class Controleur
                         }
                         else
                         {
-                            vue.ajouterMessage("Vous avez joué la carte " + (j + 1) + " (" + main.get(j).getNom() + ") \n");
-                            modele.getJoueur1().jouerCarte(main.get(j));
+                            modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
                         }
                     }
                     else
@@ -178,6 +177,11 @@ public class Controleur
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
+    }
+
+    public Controleur getControleur()
+    {
+        return this;
     }
 
     public Partie getModel()
