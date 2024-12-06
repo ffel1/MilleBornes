@@ -7,7 +7,9 @@ public class CPU extends Joueur{
     public void actionBot(Controleur controleur)
     {
         controleur.getVue().ajouterMessage("C'est au tour du CPU " + getNom() + "\n");
-        
+        piocher();
+        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
+
     }
 
     public void appliquerAction(Carte c){};
