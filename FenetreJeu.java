@@ -76,6 +76,11 @@ public class FenetreJeu {
         return fenetreMenu;
     }
 
+    public JButton getDefausse()
+    {
+        return boutonDefausse;
+    }
+
     public ArrayList<JButton> getBoutonsMainJoueur(){
         return boutonsMainJoueur;
     }

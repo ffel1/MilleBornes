@@ -67,11 +67,48 @@ public class Controleur
             nouvellePartie(true); 
         });
 
+        //Bouton défausse
+        vue.ajouterActionBoutonBoutonDefausse(e -> {
+            if(!modele.getJoueur1().getMonTour())
+            {
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+            }
+            else if(!modele.getJoueur1().getaPioche())
+            {
+                vue.ajouterMessage("Vous devez piocher avant de défausser ! \n");
+            }
+            else if(modele.getJoueur1().getaJjoue())
+            {
+                vue.ajouterMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n");
+            }
+            else if(!modele.getJoueur1().getDefausse())
+            {
+                vue.ajouterMessage("Cliquez sur la carte que vous voulez défausser ! \nCliquez à nouveau sur la pioche pour annuler \n");
+                modele.getJoueur1().setDefausse(true);
+                vue.getDefausse().setText("Annuler");
+            }
+            else
+            {
+                vue.ajouterMessage("Vous avez changer d'avis \n");
+                modele.getJoueur1().setDefausse(false);
+                vue.getDefausse().setText("Défausse (temporaire)");
+            }
+            
+        });
+
         //Bouton FinDeMonTour
         vue.ajouterActionBoutonFinDeMonTour(e -> {
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+            }
+            else if(modele.getJoueur1().getDefausse())
+            {
+                vue.ajouterMessage("Vous êtes en train de défausser, impossible de finir votre tour ! \n");
+            }
+            else if(modele.getJoueur1().getDoitPiocher())
+            {
+                vue.ajouterMessage("Après avoit joué une botte vous devez piocher \n");
             }
             else if(modele.getJoueur1().getaJjoue())
             {
@@ -120,7 +157,16 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-            if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
+            if(modele.getJoueur1().getDoitPiocher())
+            {
+                modele.getJoueur1().setDoitPiocher(false);
+                boolean dejaPioche = modele.getJoueur1().getaPioche();
+                modele.getJoueur1().piocher();
+                modele.getJoueur1().setaPioche(dejaPioche);
+                vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                initialiserBoutonCartes(modele.getJoueur1().getMain());
+            }
+            else if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
             {
                 vue.ajouterMessage("Vous avez pioché");
                 if(modele.getJoueur1().mainPleine())
@@ -129,11 +175,11 @@ public class Controleur
                 }
                 else
                 {
-                    vue.ajouterMessage(" \n");
+                    vue.ajouterMessage("\n");
+                    modele.getJoueur1().piocher();
+                    vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                    initialiserBoutonCartes(modele.getJoueur1().getMain());
                 }
-                modele.getJoueur1().piocher();
-                vue.afficherCartesJoueur(modele.getJoueur1().getMain());
-                initialiserBoutonCartes(modele.getJoueur1().getMain());
             }
             else if(modele.getJoueur1().getaPioche())
             {
@@ -175,7 +221,11 @@ public class Controleur
                         {
                             vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
                         }
-                        else if(modele.getJoueur1().getaJjoue())
+                        else if(modele.getJoueur1().getDoitPiocher())
+                        {
+                            vue.ajouterMessage("Vous devez piocher après avoir joué une botte !\n");
+                        }
+                        else if(modele.getJoueur1().getaJjoue() && !(modele.getJoueur1().getMain().get(j) instanceof Botte))
                         {
                             vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n");
                         }
@@ -183,9 +233,9 @@ public class Controleur
                         {
                             if(modele.getJoueur1().getMain().get(j) instanceof Botte)
                             {
-                                modele.getJoueur1().jouerBotte(modele.getJoueur1().getMain().get(j));
-                                modele.getJoueur1().setaPioche(false);
-                                vue.ajouterMessage("Vous pouvez piocher à nouveau !");
+                                modele.getJoueur1().jouerCarte(modele.getJoueur1().getMain().get(j),getControleur(),j+1);
+                                vue.ajouterMessage("Vous devez piocher à nouveau ! \n");
+                                modele.getJoueur1().setDoitPiocher(true);
                             }
                             else if(modele.getJoueur1().getMain().get(j) instanceof Attaque)
                             {
@@ -269,6 +319,7 @@ public class Controleur
             try (FileInputStream fileIn = new FileInputStream(fichier);
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Partie) ois.readObject();
+            modele.getJoueur1().setDefausse(false);
             if (modele != null && modele.getJoueur1() != null) {
                 System.out.println("Première carte de la main : " + modele.getJoueur1().getMain().get(0));
             } else {

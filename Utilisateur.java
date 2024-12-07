@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Utilisateur extends Joueur{
 
-    private boolean monTour = false, aPioche = false, aJoue = false;
+    private boolean monTour = false, aPioche = false, aJoue = false, defausse = false, doitPiocher = false;
 
     public Utilisateur(String nom, int k, int id, Partie partie){
         super(nom, k, id);
@@ -19,6 +19,26 @@ public class Utilisateur extends Joueur{
     public void monTour(boolean monTour)
     {
         this.monTour = monTour;
+    }
+
+    public boolean getDoitPiocher()
+    {
+        return doitPiocher;
+    }
+
+    public void setDoitPiocher(boolean b)
+    {
+        doitPiocher = b;
+    }
+
+    public boolean getDefausse()
+    {
+        return defausse;
+    }
+
+    public void setDefausse(boolean b)
+    {
+        defausse = b;
     }
 
     public boolean getaJjoue()
@@ -66,7 +86,10 @@ public class Utilisateur extends Joueur{
      * Choisir l'action en fonction du type de carte
      */
     public String jouerCarte(Carte c, Controleur controleur, int nbCarte) {
-        aJoue = true; 
+        if(!(c instanceof Botte))
+        {
+            aJoue = true; 
+        }
         controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n"); 
         getMain().remove(c);
         controleur.getVue().effacerCartesJoueurs();
