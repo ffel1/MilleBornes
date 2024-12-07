@@ -12,27 +12,34 @@ public class CPUFast extends CPU{
     public Carte choisirCarte(){
         ArrayList<Carte> main = getMain();
         Carte carteAJouer = null;
-        boolean findParade = false, findDistance = false;
+        boolean findDistance = false, findParade = false, findFeuVert = false;
 
-        //botte -> parade -> distance -> attaque
+        //botte -> attaque -> parade -> distance
 
         for(Carte carte : main){
             if(carte instanceof Botte){
                 carteAJouer = carte;
                 break;
             }
-            else if(carte instanceof Parade){
+            else if(carte.getType() == TypeCarte.FEU_VERT && verification(carte, this, null)){
+                carteAJouer = carte;
+                findFeuVert = true;
+            }
+            else if(carte instanceof Parade && !findFeuVert && verification(carte, this, null)){
                 carteAJouer = carte;
                 findParade = true;
             }
-            else if(carte instanceof Distance && !findParade){
-                carteAJouer = carte;
-                findDistance = true;
+            else if(carte instanceof Distance && !findParade && !findFeuVert && getFeuVert()){
+                if(carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre())
+                {
+                    carteAJouer = carte;
+                }
             }
-            else if(carte instanceof Attaque && !findParade && !findDistance){
+            else if(carte instanceof Attaque && !findDistance && !findFeuVert && verification(carte, this, getCible())){
                 carteAJouer = carte;
             }
         }
+
         return carteAJouer;
     }
     

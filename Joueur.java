@@ -253,7 +253,7 @@ public abstract class Joueur implements Serializable{
         } else if (c instanceof Parade){
             switch (c.getType()) {
                 case FEU_VERT:
-                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.FEU_ROUGE))
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.FEU_ROUGE) || !getFeuVert())
                     {
                         return true;
                     }
@@ -284,5 +284,4 @@ public abstract class Joueur implements Serializable{
         }
         return true;
     }
-
 }
