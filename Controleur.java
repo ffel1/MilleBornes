@@ -134,6 +134,7 @@ public class Controleur
                     modele.getJoueur1().setaJoue(false);
                     modele.getJoueur1().setaPioche(false);
                     modele.getJoueur1().monTour(false);
+                    modele.getJoueur1().setaDefausse(false);
                     modele.getJoueur2().actionBot(this);
                     modele.getJoueur3().actionBot(this);
                     modele.getJoueur1().monTour(true);
@@ -146,6 +147,7 @@ public class Controleur
                 modele.getJoueur1().setaJoue(false);
                 modele.getJoueur1().setaPioche(false);
                 modele.getJoueur1().monTour(false);
+                modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
                 modele.getJoueur3().actionBot(this);
                 modele.getJoueur1().monTour(true);
@@ -235,13 +237,20 @@ public class Controleur
                         {
                             vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
                         }
+                        else if(modele.getJoueur1().getaDefausse())
+                        {
+                            vue.ajouterMessage("Vous ne pouvez plus jouer après avoir défaussé\n");
+                        }
                         else if(modele.getJoueur1().getaJjoue() && !(modele.getJoueur1().getMain().get(j) instanceof Botte))
                         {
                             vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n");
                         }
                         else if(modele.getJoueur1().getDefausse())
                         {
-                            modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur());
+                            vue.ajouterMessage(modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur()));
+                            modele.getJoueur1().setaDefausse(true);
+                            vue.getDefausse().setText("Défausse (temporaire)");
+                            modele.getJoueur1().setDefausse(false);
                         }
                         else
                         {

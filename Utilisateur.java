@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Utilisateur extends Joueur{
 
-    private boolean monTour = false, aPioche = false, aJoue = false, defausse = false, doitPiocher = false;
+    private boolean monTour = false, aPioche = false, aJoue = false, defausse = false, aDefausse = false, doitPiocher = false;
 
     public Utilisateur(String nom, int k, int id, Partie partie){
         super(nom, k, id);
@@ -24,6 +24,16 @@ public class Utilisateur extends Joueur{
     public boolean getDoitPiocher()
     {
         return doitPiocher;
+    }
+
+    public boolean getaDefausse()
+    {
+        return aDefausse;
+    }
+
+    public void setaDefausse(boolean b)
+    {
+        aDefausse = b;
     }
 
     public void setDoitPiocher(boolean b)

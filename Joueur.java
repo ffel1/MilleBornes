@@ -260,6 +260,10 @@ public abstract class Joueur implements Serializable{
                     {
                         return true;
                     }
+                    else if(getFeuVert())
+                    {
+                        return false;
+                    }
                 case FIN_LIMITATION_VITESSE:
                     if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE))
                     {

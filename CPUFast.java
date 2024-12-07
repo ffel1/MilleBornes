@@ -75,6 +75,7 @@ public class CPUFast extends CPU{
                 carteADefausser = carte;
             }
         }
+        System.out.println(getNom() + " décide de jeter la carte " + carteADefausser.getNom());
         return carteADefausser;
     }
 }

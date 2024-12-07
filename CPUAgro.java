@@ -56,7 +56,9 @@ public class CPUAgro extends CPU{
         for(Carte carte : main){
             if(carte instanceof Distance){
                 if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
-                carteADefausser = carte;
+                {
+                    carteADefausser = carte;
+                }
             }
             else if(carte instanceof Parade){
                 if(carteADefausser instanceof Attaque || carteADefausser instanceof Botte)
