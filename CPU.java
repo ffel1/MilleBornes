@@ -9,15 +9,39 @@ public abstract class CPU extends Joueur{
         this.partie = partie;
     }
 
-    public void actionBot(Controleur controleur)
+    public void actionBot(Controleur controleur) //le boolean sert à gérer le cas ou on pose une botte (on rejoue sans afficher nouveau tour)
     {
-        controleur.getVue().ajouterMessage("C'est au tour du CPU " + getNom() + "\n");
+        controleur.getVue().ajouterMessage("\nC'est au tour du CPU " + getNom() + "\n");
         piocher();
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
+
         Carte carteJoué = choisirCarte();
-        jouerCarte(carteJoué);
+
+        if(carteJoué == null)
+        {
+            controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer ! \n");
+            defausse(controleur);
+        }
+        while (carteJoué instanceof Botte) 
+        {
+            controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
+            piocher();
+            controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a encore pioché ! \n");
+            carteJoué = choisirCarte();
+            if(carteJoué == null)
+            {
+                controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer !\n");
+                defausse(controleur);
+            }
+        }
+        controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
+        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");        
     }
 
+    public void defausse(Controleur controleur)
+    {
+        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " défausse une carte ! \n");
+    }
     public abstract Carte choisirCarte();
 
     public void appliquerAction(Carte c){};

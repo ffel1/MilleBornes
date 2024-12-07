@@ -33,12 +33,7 @@ public class CPUFast extends CPU{
                 carteAJouer = carte;
             }
         }
-
-        if (carteAJouer != null){
-            jouerCarte(carteAJouer);
-            return carteAJouer;
-        }
-        return null;
+        return carteAJouer;
     }
     
 }

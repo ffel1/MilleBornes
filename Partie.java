@@ -37,7 +37,7 @@ public class Partie implements Serializable{
         //Cartes Attaques
         for(int i = 0; i < 6; i++){
             if(i < 5){
-                pioche.add(new Attaque(TypeCarte.FEU_ROUGE));
+                pioche.add(new Attaque(TypeCarte.LIMITATION_DE_VITESSE));
 
                 if(i < 3){
                     pioche.add(new Attaque(TypeCarte.ACCIDENT));
@@ -45,7 +45,7 @@ public class Partie implements Serializable{
                     pioche.add(new Attaque(TypeCarte.CREVAISON));
                 }
             }
-            pioche.add(new Attaque(TypeCarte.LIMITATION_DE_VITESSE));
+            pioche.add(new Attaque(TypeCarte.FEU_ROUGE));
         }
 
         //Cartes Parades

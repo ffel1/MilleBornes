@@ -3,4 +3,3 @@ public class Botte extends Carte{
         super(t.toString(), t);
     }
 }
-//salut c'est xavier qui code

@@ -3,14 +3,18 @@ import java.util.ArrayList;
 
 public abstract class Joueur implements Serializable{
     private ArrayList<Carte> main;
-    private ArrayList<Carte> botteAttaque;
+    private ArrayList<Carte> attaquesEnCours;
+    private boolean feuVert;
+    private ArrayList<Carte> bottesPosées;
     private String nom;
     private int kilometreP;
     private int id;
 
     public Joueur(String name, int km, int id){
         main = new ArrayList<Carte>();
-        botteAttaque = new ArrayList<Carte>();
+        attaquesEnCours = new ArrayList<Carte>();
+        feuVert = false;
+        bottesPosées = new ArrayList<Carte>();
         nom = name;
         kilometreP = km;
         id = this.id;
@@ -19,8 +23,14 @@ public abstract class Joueur implements Serializable{
     public ArrayList<Carte> getMain(){
         return main;
     }
-    public ArrayList<Carte> getBotteAttaque(){
-        return botteAttaque;
+    public ArrayList<Carte> getAttaquesEnCours(){
+        return attaquesEnCours;
+    }
+    public boolean getFeuVert(){
+        return feuVert;
+    }
+    public ArrayList<Carte> getBottesPosées(){
+        return bottesPosées;
     }
     public String getNom(){
         return nom;
@@ -87,26 +97,26 @@ public abstract class Joueur implements Serializable{
      */
     public String jouerBotte(Carte c) {
         if (c instanceof Botte) {
-            botteAttaque.add(c);
+            bottesPosées.add(c);
     
             switch (c.getType()) {
                 case AS_DU_VOLANT:
-                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT); 
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT); 
                     break;
                 case CAMION_CITERNE:
-                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
                     break;
                 case INCREVABLE:
-                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
                     break;
                 case VEHICULE_PRIORITAIRE:
-                    botteAttaque.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
                     break;
                 default:
                     break;
             }
             retirerCarte(c);
-            return getNom() + " joue la botte : " + c.getNom();
+            return getNom() + " joue la botte : " + c.getNom() + "\n";
         }
         return null;
 }
@@ -115,12 +125,32 @@ public abstract class Joueur implements Serializable{
      * Joue une carte parade et enleve l'attaque en cours
      */
     public String jouerParade(Carte c) {
-        for (Carte carteAttaque : botteAttaque) {
-            if (verification(c, this, this)) {
-                botteAttaque.remove(carteAttaque);
-                retirerCarte(c);
-                return getNom() + " joue la par" + c.getNom();
+        if (c instanceof Parade) {
+            switch (c.getType()) {
+                case FEU_VERT:
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.FEU_ROUGE); 
+                    break;
+                case FIN_LIMITATION_VITESSE:
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE);
+                    break;
+                case ESSENCE:
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
+                    break;
+                case ROUE_DE_SECOURS:
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
+                    break;
+                case REPARATION:
+                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT);
+                    break;
+                default:
+                    break;
             }
+            retirerCarte(c);
+            if(c.getType() == TypeCarte.FEU_VERT)
+            {
+                return getNom() + " joue un " + c.getNom() + " ! \nIl peut démarrer à tout instant ! \n";
+            }
+            return getNom() + " joue la parade : " + c.getNom() + "\n";
         }
         return null;
     }
@@ -130,9 +160,9 @@ public abstract class Joueur implements Serializable{
      */
     public String jouerAttaque(Carte c, Joueur cible) {
         if (verification(c, this, cible)) {
-            cible.getBotteAttaque().add(c);
+            cible.getAttaquesEnCours().add(c);
             retirerCarte(c);
-            return getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom();
+            return getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom() + "\n";
         }
         return null;
     }
@@ -146,7 +176,7 @@ public abstract class Joueur implements Serializable{
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
             retirerCarte(c);
-            return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km.");
+            return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km. \n");
         }
         return null;
     }
@@ -157,29 +187,55 @@ public abstract class Joueur implements Serializable{
      */
     public boolean verification(Carte c, Joueur u, Joueur cible){
         if (c instanceof Attaque){
-            for (Carte carte : cible.getBotteAttaque()) {
+            for (Carte carte : cible.getBottesPosées()) {
                 switch (c.getType()) {
                     case CREVAISON:
-                        if (carte.getType() == TypeCarte.INCREVABLE | carte.getType() == TypeCarte.CREVAISON) return false;
+                        if (carte.getType() == TypeCarte.INCREVABLE) return false;
                         break;
                     case ACCIDENT:
-                        if (carte.getType() == TypeCarte.AS_DU_VOLANT | carte.getType() == TypeCarte.ACCIDENT) return false;
+                        if (carte.getType() == TypeCarte.AS_DU_VOLANT) return false;
                         break;
                     case PANNE_D_ESSENCE:
-                        if (carte.getType() == TypeCarte.CAMION_CITERNE | carte.getType() == TypeCarte.PANNE_D_ESSENCE) return false;
+                        if (carte.getType() == TypeCarte.CAMION_CITERNE) return false;
                         break;
                     case LIMITATION_DE_VITESSE:
-                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE | carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
+                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE) return false;
                         break;
                     case FEU_ROUGE:
-                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE | carte.getType() == TypeCarte.FEU_ROUGE) return false;
+                        if (carte.getType() == TypeCarte.VEHICULE_PRIORITAIRE) return false;
                         break;
                     default:
                         break;
                 }
             }
+            for (Carte carte : cible.getAttaquesEnCours()) {
+                switch (c.getType()) {
+                    case CREVAISON:
+                        if (carte.getType() == TypeCarte.CREVAISON) return false;
+                        break;
+                    case ACCIDENT:
+                        if (carte.getType() == TypeCarte.ACCIDENT) return false;
+                        break;
+                    case PANNE_D_ESSENCE:
+                        if (carte.getType() == TypeCarte.PANNE_D_ESSENCE) return false;
+                        break;
+                    case LIMITATION_DE_VITESSE:
+                        if (carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
+                        break;
+                    case FEU_ROUGE:
+                        if (carte.getType() == TypeCarte.FEU_ROUGE) return false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
         } else if (c instanceof Distance){
-            for (Carte carte : u.getBotteAttaque()){
+            if(!feuVert)
+            {
+                return false;
+            }
+            for (Carte carte : u.getAttaquesEnCours()){
                 switch (c.getType()) {
                     case _25KM :
                     case _50KM :
@@ -195,27 +251,36 @@ public abstract class Joueur implements Serializable{
                 }
             }
         } else if (c instanceof Parade){
-            for (Carte carte : u.getBotteAttaque()){
-                switch (c.getType()) {
-                    case FEU_VERT:
-                        if (carte.getType() != TypeCarte.FEU_ROUGE) return false;
-                        break;
-                    case FIN_LIMITATION_VITESSE:
-                        if (carte.getType() != TypeCarte.LIMITATION_DE_VITESSE) return false;
-                        break;
-                    case ESSENCE:
-                        if (carte.getType() != TypeCarte.PANNE_D_ESSENCE) return false;
-                        break;
-                    case ROUE_DE_SECOURS:
-                        if (carte.getType() != TypeCarte.CREVAISON) return false;
-                        break;
-                    case REPARATION:
-                        if (carte.getType() != TypeCarte.ACCIDENT) return false;
-                        break;
-                    default:
-                        break;
-                }
+            switch (c.getType()) {
+                case FEU_VERT:
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.FEU_ROUGE))
+                    {
+                        return true;
+                    }
+                case FIN_LIMITATION_VITESSE:
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE))
+                    {
+                        return true;
+                    }
+                case ESSENCE:
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE))
+                    {
+                        return true;
+                    }
+                case ROUE_DE_SECOURS:
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.CREVAISON))
+                    {
+                        return true;
+                    }
+                case REPARATION:
+                    if(getAttaquesEnCours().stream().anyMatch(carte -> carte.getType() == TypeCarte.ACCIDENT))
+                    {
+                        return true;
+                    }
+                default:
+                    break;
             }
+            return false;
         }
         return true;
     }
