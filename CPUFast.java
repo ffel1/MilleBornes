@@ -29,14 +29,15 @@ public class CPUFast extends CPU{
                 carteAJouer = carte;
                 findParade = true;
             }
-            else if(carte instanceof Distance && !findParade && !findFeuVert && getFeuVert()){
-                if(carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre())
+            else if(carte instanceof Distance && !findParade && !findFeuVert && verification(carte, this, null)){
+                if((carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre()) || !(carteAJouer instanceof Distance))
                 {
                     carteAJouer = carte;
                 }
             }
             else if(carte instanceof Attaque && !findDistance && !findFeuVert && verification(carte, this, getCible())){
                 carteAJouer = carte;
+                System.out.println("Le bot fast décide de jouer une carte distance");
             }
         }
 
@@ -47,7 +48,7 @@ public class CPUFast extends CPU{
     public Carte choixDeDefausse()
     {
         ArrayList<Carte> main = getMain();
-        Carte carteADefausser = null;
+        Carte carteADefausser = main.get(0);
 
         //botte -> distance -> parade -> attaque
 
@@ -69,10 +70,6 @@ public class CPUFast extends CPU{
                 {
                     carteADefausser = carte;
                 }
-            }
-            else if(carteADefausser == null)
-            {
-                carteADefausser = carte;
             }
         }
         System.out.println(getNom() + " décide de jeter la carte " + carteADefausser.getNom());

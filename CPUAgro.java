@@ -25,7 +25,7 @@ public class CPUAgro extends CPU{
                 carteAJouer = carte;
                 findAttaque = true;
             }
-            else if (carte.getType() == TypeCarte.FEU_VERT && !findAttaque) 
+            else if (carte.getType() == TypeCarte.FEU_VERT && !findAttaque && verification(carte, this, null)) 
             {
                 carteAJouer = carte;
                 findFeuVert = true;
@@ -34,10 +34,11 @@ public class CPUAgro extends CPU{
                 carteAJouer = carte;
                 findParade = true;
             }
-            else if(carte instanceof Distance && !findAttaque && !findParade && !findFeuVert && getFeuVert()){
-                if(carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre())
+            else if(carte instanceof Distance && !findAttaque && !findParade && !findFeuVert && verification(carte, this, null)){
+                if((carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre()) || !(carteAJouer instanceof Distance))
                 {
                     carteAJouer = carte;
+                    System.out.println("Le bot agro décide de jouer une carte distance");
                 }
             }
         }
@@ -49,13 +50,17 @@ public class CPUAgro extends CPU{
     public Carte choixDeDefausse()
     {
         ArrayList<Carte> main = getMain();
-        Carte carteADefausser = null;
+        Carte carteADefausser = main.get(0);
 
         //botte -> attaque -> parade -> distance
 
         for(Carte carte : main){
             if(carte instanceof Distance){
-                if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
+                if(!(carteADefausser instanceof Distance))
+                {
+                    carteADefausser = carte;
+                }
+                else if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
                 {
                     carteADefausser = carte;
                 }
@@ -73,11 +78,8 @@ public class CPUAgro extends CPU{
                     carteADefausser = carte;
                 }
             }
-            else if(carteADefausser == null)
-            {
-                carteADefausser = carte;
-            }
         }
+        System.out.println(getNom() + " décide de jeter la carte " + carteADefausser.getNom());
         return carteADefausser;
     }
 }

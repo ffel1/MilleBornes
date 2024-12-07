@@ -15,6 +15,13 @@ public abstract class CPU extends Joueur{
         piocher();
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
 
+        //Pour afficher les cartes des bots pour vérifier si leur coups sont biens
+        /*for(Carte carte : getMain())
+        {
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
+        }*/ 
+
+
         Carte carteJoué = choisirCarte();
 
         if(carteJoué == null)
@@ -43,6 +50,7 @@ public abstract class CPU extends Joueur{
     public String defausse(Carte c,Controleur controleur)
     {
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " défausse la carte :" + c.getNom() +" \n");
+        getMain().remove(c);
         return null;
     }
     public abstract Carte choisirCarte();
