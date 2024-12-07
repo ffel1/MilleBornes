@@ -88,7 +88,7 @@ public class Controleur
                     modele.getJoueur2().actionBot(this);
                     modele.getJoueur3().actionBot(this);
                     modele.getJoueur1().monTour(true);
-                    vue.ajouterMessage("C'est votre tour ! \n");
+                    vue.ajouterMessage("\nC'est votre tour ! \n");
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
