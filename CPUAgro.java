@@ -35,11 +35,13 @@ public class CPUAgro extends CPU{
                 findParade = true;
             }
             else if(carte instanceof Distance && !findAttaque && !findParade && !findFeuVert && getFeuVert()){
-                carteAJouer = carte;
+                if(carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre())
+                {
+                    carteAJouer = carte;
+                }
             }
         }
 
         return carteAJouer;
     }
-
 }

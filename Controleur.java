@@ -89,6 +89,9 @@ public class Controleur
                     modele.getJoueur1().setaPioche(false);
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur2().actionBot(this);
+                    modele.getJoueur3().actionBot(this);
+                    modele.getJoueur1().monTour(true);
+                    vue.ajouterMessage("\nC'est votre tour ! \n");
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
@@ -98,6 +101,9 @@ public class Controleur
                 modele.getJoueur1().setaPioche(false);
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur2().actionBot(this);
+                modele.getJoueur3().actionBot(this);
+                modele.getJoueur1().monTour(true);
+                vue.ajouterMessage("\nC'est votre tour ! \n");
             }
             else
             {

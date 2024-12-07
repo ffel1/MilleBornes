@@ -35,7 +35,7 @@ public abstract class CPU extends Joueur{
             }
         }
         controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
-        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");        
+        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");    
     }
 
     public void defausse(Controleur controleur)
