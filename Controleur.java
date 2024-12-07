@@ -106,7 +106,15 @@ public class Controleur
             }
             else
             {
-                vue.ajouterMessage("Vous devez défausser une carte ! \n");
+                vue.ajouterMessage("Vous ne pouvez pas finir votre tour avec plus de 6 cartes ! \n");
+                if(modele.getJoueur1().getaJjoue())
+                {
+                    vue.ajouterMessage("Vous devez défausser une carte ! \n");
+                }
+                else
+                {
+                    vue.ajouterMessage("Jouez ou défaussez une carte ! \n");
+                }
             }
         });
 
@@ -173,9 +181,52 @@ public class Controleur
                         }
                         else
                         {
-                            modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
-                            vue.effacerCartesJoueurs();
-                            vue.afficherCartesJoueur(main);
+                            if(modele.getJoueur1().getMain().get(j) instanceof Botte)
+                            {
+                                modele.getJoueur1().jouerBotte(modele.getJoueur1().getMain().get(j));
+                                modele.getJoueur1().setaPioche(false);
+                                vue.ajouterMessage("Vous pouvez piocher à nouveau !");
+                            }
+                            else if(modele.getJoueur1().getMain().get(j) instanceof Attaque)
+                            {
+                                Joueur cible = modele.getJoueur1().getCible();
+                                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 0)
+                                {
+                                    modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 1)
+                                {
+                                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + cible.getNom() + " avec " + modele.getJoueur1().getMain().get(j).getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 2)
+                                {
+                                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + cible.getNom() + " avec " + modele.getJoueur1().getMain().get(j).getNom() + " car il subit déjà cette attaque !\n");
+                                }
+                                
+                            }
+                            else
+                            {
+                                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 0)
+                                {
+                                    modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 3)
+                                {
+                                    vue.ajouterMessage("Vous ne pouvez pas avancer sans feu vert ! \n");
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 4)
+                                {
+                                    vue.ajouterMessage("Une attaque vous empêche d'avancer ! \n");
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 5)
+                                {
+                                    vue.ajouterMessage("Vous avez déjà un feu vert ! \n");
+                                }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 6)
+                                {
+                                    vue.ajouterMessage("Vous ne subissez aucune attaque que cette parade permet de contrer !\n");
+                                }
+                            }
                             //vue.AvancerVoiture(modele.getJoueur1().getKilometre());
                         }
                     }

@@ -129,6 +129,7 @@ public abstract class Joueur implements Serializable{
             switch (c.getType()) {
                 case FEU_VERT:
                     attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.FEU_ROUGE); 
+                    feuVert = true;
                     break;
                 case FIN_LIMITATION_VITESSE:
                     attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE);
