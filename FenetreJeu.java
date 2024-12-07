@@ -264,26 +264,30 @@ public class FenetreJeu {
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
         for(int i = 0; i < main.size(); i++){
-            JPanel imagePanel = new JPanel();
+            System.out.println(i);
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
-            imagePanel.setBackground(Color.pink);
-            image.getIconHeight();
             int larg = 125; 
             int y = (hauteur * 97 / 100) - (image.getIconHeight());
             int x = (largeur / 2 - 75) - (larg * 3) + (larg * i);
             int haut = (hauteur * 20 / 100);
-            imagePanel.setBounds(x, y, larg, haut);
-            imagePanel.setLayout(new BorderLayout());
-            panelJeu.add(imagePanel);
-            JButton bouton = new JButton("", image);
+            JButton bouton = new JButton(null, image);
+            bouton.setIcon(image);
             bouton.setBackground(Color.PINK);
             bouton.setBounds(x, y, larg, haut);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
+            bouton.setVisible(true);
             panelJeu.add(bouton);
-            imagePanel.add(bouton);
             boutonsMainJoueur.add(i, bouton);
+        }
+    }
+
+    public void effacerCartesJoueurs(){
+        // Efface toutes les cartes
+        for(int j = 0; j < boutonsMainJoueur.size(); j++){
+            boutonsMainJoueur.get(j).setIcon(null);
+            boutonsMainJoueur.get(j).setVisible(false);
         }
     }
 

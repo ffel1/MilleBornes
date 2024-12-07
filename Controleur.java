@@ -82,6 +82,9 @@ public class Controleur
                 else
                 {
                     vue.ajouterMessage("C'est la fin de votre tour ! \n");
+                    vue.effacerCartesJoueurs();
+                    vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                    initialiserBoutonCartes(modele.getJoueur1().getMain());
                     modele.getJoueur1().setaJoue(false);
                     modele.getJoueur1().setaPioche(false);
                     modele.getJoueur1().monTour(false);
