@@ -60,6 +60,8 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
+            modele.getJoueur1().setDefausse(false);
+            vue.getDefausse().setText("Défausse (temporaire)");
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -73,6 +75,10 @@ public class Controleur
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n");
             }
+            else if(modele.getJoueur1().getDoitPiocher())
+            {
+                vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
+            }
             else if(!modele.getJoueur1().getaPioche())
             {
                 vue.ajouterMessage("Vous devez piocher avant de défausser ! \n");
@@ -80,6 +86,10 @@ public class Controleur
             else if(modele.getJoueur1().getaJjoue())
             {
                 vue.ajouterMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n");
+            }
+            else if(!modele.getJoueur1().mainPleine())
+            {
+                vue.ajouterMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n");
             }
             else if(!modele.getJoueur1().getDefausse())
             {
@@ -108,7 +118,7 @@ public class Controleur
             }
             else if(modele.getJoueur1().getDoitPiocher())
             {
-                vue.ajouterMessage("Après avoit joué une botte vous devez piocher \n");
+                vue.ajouterMessage("Après avoir joué une botte vous devez piocher \n");
             }
             else if(modele.getJoueur1().getaJjoue())
             {
@@ -223,11 +233,15 @@ public class Controleur
                         }
                         else if(modele.getJoueur1().getDoitPiocher())
                         {
-                            vue.ajouterMessage("Vous devez piocher après avoir joué une botte !\n");
+                            vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
                         }
                         else if(modele.getJoueur1().getaJjoue() && !(modele.getJoueur1().getMain().get(j) instanceof Botte))
                         {
                             vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n");
+                        }
+                        else if(modele.getJoueur1().getDefausse())
+                        {
+                            modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur());
                         }
                         else
                         {
@@ -320,6 +334,7 @@ public class Controleur
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Partie) ois.readObject();
             modele.getJoueur1().setDefausse(false);
+            vue.getDefausse().setText("Défausse (temporaire)");
             if (modele != null && modele.getJoueur1() != null) {
                 System.out.println("Première carte de la main : " + modele.getJoueur1().getMain().get(0));
             } else {

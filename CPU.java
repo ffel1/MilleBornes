@@ -20,7 +20,7 @@ public abstract class CPU extends Joueur{
         if(carteJoué == null)
         {
             controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer ! \n");
-            defausse(controleur);
+            defausse(choixDeDefausse(), controleur);
         }
         while (carteJoué instanceof Botte) 
         {
@@ -31,16 +31,19 @@ public abstract class CPU extends Joueur{
             if(carteJoué == null)
             {
                 controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer !\n");
-                defausse(controleur);
+                defausse(choixDeDefausse(), controleur);
             }
         }
         controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
         controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");    
     }
 
-    public void defausse(Controleur controleur)
+    public abstract Carte choixDeDefausse();
+
+    public String defausse(Carte c,Controleur controleur)
     {
-        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " défausse une carte ! \n");
+        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " défausse la carte :" + c.getNom() +" \n");
+        return null;
     }
     public abstract Carte choisirCarte();
 

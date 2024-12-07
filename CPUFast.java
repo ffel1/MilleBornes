@@ -42,5 +42,39 @@ public class CPUFast extends CPU{
 
         return carteAJouer;
     }
-    
+
+    @Override
+    public Carte choixDeDefausse()
+    {
+        ArrayList<Carte> main = getMain();
+        Carte carteADefausser = null;
+
+        //botte -> distance -> parade -> attaque
+
+        for(Carte carte : main){
+            if(carte instanceof Attaque) 
+            {
+                carteADefausser = carte;
+            }
+            else if(carte instanceof Parade)
+            {
+                if(carteADefausser instanceof Distance || carteADefausser instanceof Botte)
+                {
+                    carteADefausser = carte;
+                }
+            }
+            else if(carte instanceof Distance)
+            {
+                if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
+                {
+                    carteADefausser = carte;
+                }
+            }
+            else if(carteADefausser == null)
+            {
+                carteADefausser = carte;
+            }
+        }
+        return carteADefausser;
+    }
 }

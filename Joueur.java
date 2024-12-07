@@ -119,7 +119,9 @@ public abstract class Joueur implements Serializable{
             return getNom() + " joue la botte : " + c.getNom() + "\n";
         }
         return null;
-}
+    }
+
+    public abstract String defausse(Carte c, Controleur controleur);
     
     /*
      * Joue une carte parade et enleve l'attaque en cours

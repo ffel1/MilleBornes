@@ -44,4 +44,38 @@ public class CPUAgro extends CPU{
 
         return carteAJouer;
     }
+
+    @Override
+    public Carte choixDeDefausse()
+    {
+        ArrayList<Carte> main = getMain();
+        Carte carteADefausser = null;
+
+        //botte -> attaque -> parade -> distance
+
+        for(Carte carte : main){
+            if(carte instanceof Distance){
+                if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
+                carteADefausser = carte;
+            }
+            else if(carte instanceof Parade){
+                if(carteADefausser instanceof Attaque || carteADefausser instanceof Botte)
+                {
+                    carteADefausser = carte;
+                }
+            }
+            else if (carte instanceof Attaque) 
+            {
+                if(carteADefausser instanceof Botte)
+                {
+                    carteADefausser = carte;
+                }
+            }
+            else if(carteADefausser == null)
+            {
+                carteADefausser = carte;
+            }
+        }
+        return carteADefausser;
+    }
 }

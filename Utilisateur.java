@@ -217,5 +217,16 @@ public class Utilisateur extends Joueur{
         }
         return 0;
     }
+
+    public String defausse(Carte c, Controleur controleur)
+    {
+        getMain().remove(c);
+        controleur.getVue().effacerCartesJoueurs();
+        controleur.getVue().afficherCartesJoueur(getMain());
+        controleur.initialiserBoutonCartes(getMain());
+        controleur.getVue().getFenetre().repaint();
+        controleur.getVue().getFenetre().revalidate();
+        return "Vous avez défaussé la carte : " + c.getNom() + "\n";
+    }
 }
 
