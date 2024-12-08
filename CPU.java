@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class CPU extends Joueur{
     
@@ -66,6 +67,15 @@ public abstract class CPU extends Joueur{
             if(joueurCurrent.getId() != getId() && joueurCurrent.getKilometre() > joueurPremier.getKilometre())
             {
                 joueurPremier = joueurCurrent;
+            }
+            else if(joueurCurrent.getId() != getId() && joueurCurrent.getKilometre() == joueurPremier.getKilometre())
+            {
+                Random r = new Random();
+                int i = r.nextInt(2);
+                if(i == 0)
+                {
+                    joueurPremier = joueurCurrent;
+                }
             }
         }
         return joueurPremier;
