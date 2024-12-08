@@ -39,7 +39,6 @@ public class CPUAgro extends CPU{
                 if((carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre()) || !(carteAJouer instanceof Distance))
                 {
                     carteAJouer = carte;
-                    System.out.println("Le bot agro décide de jouer une carte distance");
                 }
             }
         }
@@ -80,7 +79,6 @@ public class CPUAgro extends CPU{
                 }
             }
         }
-        System.out.println(getNom() + " décide de jeter la carte " + carteADefausser.getNom());
         return carteADefausser;
     }
 }
