@@ -208,6 +208,14 @@ public class Controleur
                 {
                     vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
                 }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 7)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n");
+                }
+                modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
+                vue.effacerCartesJoueurs();
+                vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                initialiserBoutonCartes(modele.getJoueur1().getMain());
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
                 modele.getJoueur1().setCible(null);
@@ -241,6 +249,14 @@ public class Controleur
                 {
                     vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
                 }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 7)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n");
+                }
+                modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
+                vue.effacerCartesJoueurs();
+                vue.afficherCartesJoueur(modele.getJoueur1().getMain());
+                initialiserBoutonCartes(modele.getJoueur1().getMain());
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
                 modele.getJoueur1().setCible(null);

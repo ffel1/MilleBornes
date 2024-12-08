@@ -87,7 +87,6 @@ public abstract class CPU extends Joueur{
         {
             if(j.getKilometre() > gagnantActuel.getKilometre() && j.getId() != getId())
             {
-                System.out.println(j.getNom() + " est plus avancé que " + gagnantActuel.getNom());
                 gagnantActuel = j;
             }
             else if(j.getKilometre() == gagnantActuel.getKilometre() && j.getId() != getId())
@@ -98,7 +97,6 @@ public abstract class CPU extends Joueur{
                 {
                     gagnantActuel = j;
                 }
-                System.out.println("Egalité mais " + i);
             }
         }
         if(verification(c, this, gagnantActuel))

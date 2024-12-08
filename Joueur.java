@@ -199,6 +199,10 @@ public abstract class Joueur implements Serializable{
             {
                 return false;
             }
+            if(c.getType() == TypeCarte.FEU_ROUGE && !cible.getFeuVert())
+            {
+                return false;
+            }
             for (Carte carte : cible.getBottesPosées()) {
                 switch (c.getType()) {
                     case CREVAISON:
@@ -235,7 +239,7 @@ public abstract class Joueur implements Serializable{
                         if (carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
                         break;
                     case FEU_ROUGE:
-                        if (carte.getType() == TypeCarte.FEU_ROUGE || !cible.getFeuVert()) return false;
+                        if (carte.getType() == TypeCarte.FEU_ROUGE) return false;
                         break;
                     default:
                         break;

@@ -160,6 +160,10 @@ public class Utilisateur extends Joueur{
      */
     public int verificationUtilisateur(Carte c, Joueur u, Joueur cible){
         if (c instanceof Attaque){
+            if(c.getType() == TypeCarte.FEU_ROUGE && !cible.getFeuVert())
+            {
+                return 7;
+            }
             for (Carte carte : cible.getBottesPosées()) {
                 switch (c.getType()) {
                     case CREVAISON:
@@ -203,7 +207,8 @@ public class Utilisateur extends Joueur{
                 }
             }
             
-        } else if (c instanceof Distance){
+        } 
+        else if (c instanceof Distance){
             if(!getFeuVert())
             {
                 return 3;
