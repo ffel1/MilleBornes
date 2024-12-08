@@ -5,7 +5,7 @@ import java.util.Random;
 
  
 public class Partie implements Serializable{
-    private int points;
+    private int points, quiCommence;
     private ArrayList<Joueur> joueurs;
     private static ArrayList<Carte> pioche;
 
@@ -73,6 +73,11 @@ public class Partie implements Serializable{
         return pioche.size();
     }
 
+    public int getQuiCommence()
+    {
+        return quiCommence;
+    }
+
     public static ArrayList<Carte> getPioche(){
         return pioche;
     }
@@ -127,8 +132,7 @@ public class Partie implements Serializable{
         System.out.println(getPioche().size());
 
         Random r = new Random();
-        int quiCommence = r.nextInt(3);
-        getJoueur1().monTour(true); //je fais commencer l'utilisateur mais après je changerais
+        quiCommence = r.nextInt(3);
     }
 
     /*

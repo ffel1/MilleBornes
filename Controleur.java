@@ -289,9 +289,25 @@ public class Controleur
         {
             vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
         }
-        if(modele.getJoueur1().getMonTour())
+        if(modele.getQuiCommence() == 0)
         {
-            vue.ajouterMessage("C'est le tour de l'utilisateur \n");
+            vue.ajouterMessage("Vous commencez à jouer ! \n");
+            modele.getJoueur1().monTour(true);
+        }
+        else if(modele.getQuiCommence() == 1)
+        {
+            vue.ajouterMessage("CPU Agro commence à jouer ! \n");
+            modele.getJoueur2().actionBot(this);
+            modele.getJoueur3().actionBot(this);
+            modele.getJoueur1().monTour(true);
+            vue.ajouterMessage("\nC'est votre tour ! \n");
+        }
+        else if(modele.getQuiCommence() == 2)
+        {
+            vue.ajouterMessage("CPU Fast commence à jouer ! \n");
+            modele.getJoueur3().actionBot(this);
+            modele.getJoueur1().monTour(true);
+            vue.ajouterMessage("\nC'est votre tour ! \n");
         }
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();

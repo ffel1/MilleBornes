@@ -68,7 +68,6 @@ public abstract class CPU extends Joueur{
                 joueurPremier = joueurCurrent;
             }
         }
-        System.out.println("Le bot a prit pour cible ");
         return joueurPremier;
     }
 }
