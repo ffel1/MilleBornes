@@ -226,7 +226,7 @@ public abstract class Joueur implements Serializable{
                         if (carte.getType() == TypeCarte.LIMITATION_DE_VITESSE) return false;
                         break;
                     case FEU_ROUGE:
-                        if (carte.getType() == TypeCarte.FEU_ROUGE) return false;
+                        if (carte.getType() == TypeCarte.FEU_ROUGE || !cible.getFeuVert()) return false;
                         break;
                     default:
                         break;

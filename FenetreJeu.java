@@ -304,7 +304,6 @@ public class FenetreJeu {
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
         for(int i = 0; i < main.size(); i++){
-            System.out.println(i);
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
             int larg = 125; 

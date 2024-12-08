@@ -48,6 +48,7 @@ public abstract class Carte implements Serializable{
     public ImageIcon getImage(){
         return image;
     }
+    
     public int getKilometre()
     {
         return km;
