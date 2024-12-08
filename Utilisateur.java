@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Utilisateur extends Joueur{
 
-    private boolean monTour = false, aPioche = false, aJoue = false, defausse = false, aDefausse = false, doitPiocher = false;
+    private boolean monTour = false, aPioche = false, aJoue = false, defausse = false, aDefausse = false, doitPiocher = false, enTraindAttaquer = false;
+    private Carte enTraindAttaquerAvec;
+    private CPU cible;
 
     public Utilisateur(String nom, int k, int id, Partie partie){
         super(nom, k, id);
@@ -13,7 +15,22 @@ public class Utilisateur extends Joueur{
     @Override
     public Joueur getCible()
     {
-        return null;
+        return cible;
+    }
+    
+    public Carte getEnTraindAttaquerAvec()
+    {
+        return enTraindAttaquerAvec;
+    }
+
+    public void setCible(CPU c)
+    {
+        cible = c;
+    }
+
+    public void setEstEnTraindAttaquerAvec(Carte c)
+    {
+        enTraindAttaquerAvec = c;
     }
 
     public void monTour(boolean monTour)
@@ -34,6 +51,16 @@ public class Utilisateur extends Joueur{
     public void setaDefausse(boolean b)
     {
         aDefausse = b;
+    }
+
+    public boolean getenTraindAttaquer()
+    {
+        return enTraindAttaquer;
+    }
+
+    public void setEnTraindAttaquer(boolean b)
+    {
+        enTraindAttaquer = b;
     }
 
     public void setDoitPiocher(boolean b)
@@ -100,7 +127,14 @@ public class Utilisateur extends Joueur{
         {
             aJoue = true; 
         }
-        controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n"); 
+        if(c instanceof Attaque)
+        {
+            controleur.getVue().ajouterMessage("Vous avez attaqué le CPU " + getCible().getNom() + " avec " + c.getNom() + "! \n");
+        }
+        else
+        {
+            controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n"); 
+        }
         getMain().remove(c);
         controleur.getVue().effacerCartesJoueurs();
         controleur.getVue().afficherCartesJoueur(getMain());

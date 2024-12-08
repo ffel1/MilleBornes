@@ -75,6 +75,10 @@ public class Controleur
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n");
             }
+            else if(modele.getJoueur1().getenTraindAttaquer())
+            {
+                vue.ajouterMessage("Vous ne pouvez pas défausser, vous êtes en train d'attaquer !");
+            }
             else if(modele.getJoueur1().getDoitPiocher())
             {
                 vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
@@ -119,6 +123,10 @@ public class Controleur
             else if(modele.getJoueur1().getDoitPiocher())
             {
                 vue.ajouterMessage("Après avoir joué une botte vous devez piocher \n");
+            }
+            else if(modele.getJoueur1().getenTraindAttaquer())
+            {
+                vue.ajouterMessage("Vous ne pouvez pas finir votre tour, vous êtes en train d'attaquer ! \n");
             }
             else if(modele.getJoueur1().getaJjoue())
             {
@@ -167,6 +175,72 @@ public class Controleur
             }
         });
 
+        //Bouton AttaqueBotAgro
+        vue.ajouterActionBoutonCPUAgro(e -> {
+            if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
+            {
+                modele.getJoueur1().setCible(modele.getJoueur2());
+                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 0)
+                {
+                    modele.getJoueur1().jouerCarte(modele.getJoueur1().getEnTraindAttaquerAvec(),getControleur(),0);
+                }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 1)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 2)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                }
+                modele.getJoueur1().setEnTraindAttaquer(false);
+                modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
+                modele.getJoueur1().setCible(null);
+
+                
+            }
+            else if(!(modele.getJoueur1().getenTraindAttaquer()))
+            {
+                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n");
+            }
+            else
+            {
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+            }
+        });
+
+        //Bouton AttaqueBotFast
+        vue.ajouterActionBoutonCPUFast(e -> {
+            if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
+            {
+                modele.getJoueur1().setCible(modele.getJoueur2());
+                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 0)
+                {
+                    modele.getJoueur1().jouerCarte(modele.getJoueur1().getEnTraindAttaquerAvec(),getControleur(),0);
+                }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 1)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                }
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 2)
+                {
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                }
+                modele.getJoueur1().setEnTraindAttaquer(false);
+                modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
+                modele.getJoueur1().setCible(null);
+
+                
+            }
+            else if(!(modele.getJoueur1().getenTraindAttaquer()))
+            {
+                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n");
+            }
+            else
+            {
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+            }
+        });
+
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
             if(modele.getJoueur1().getDoitPiocher())
@@ -177,6 +251,10 @@ public class Controleur
                 modele.getJoueur1().setaPioche(dejaPioche);
                 vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                 initialiserBoutonCartes(modele.getJoueur1().getMain());
+            }
+            else if(modele.getJoueur1().getenTraindAttaquer())
+            {
+                vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas piocher ! \n");
             }
             else if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
             {
@@ -219,6 +297,7 @@ public class Controleur
         vue.getFenetre().repaint();
     }
 
+    //Initialisation cartes
     public void initialiserBoutonCartes(ArrayList<Carte> main)
     {
         for(int i = 0; i < main.size(); i++){
@@ -232,6 +311,10 @@ public class Controleur
                         if(!modele.getJoueur1().getaPioche())
                         {
                             vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
+                        }
+                        else if(modele.getJoueur1().getenTraindAttaquer())
+                        {
+                            vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas jouer de cartes ! \n");
                         }
                         else if(modele.getJoueur1().getDoitPiocher())
                         {
@@ -262,19 +345,9 @@ public class Controleur
                             }
                             else if(modele.getJoueur1().getMain().get(j) instanceof Attaque)
                             {
-                                Joueur cible = modele.getJoueur1().getCible();
-                                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 0)
-                                {
-                                    modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
-                                }
-                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 1)
-                                {
-                                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + cible.getNom() + " avec " + modele.getJoueur1().getMain().get(j).getNom() + " car il a une botte qui le protège de cette attaque !\n");
-                                }
-                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), cible) == 2)
-                                {
-                                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + cible.getNom() + " avec " + modele.getJoueur1().getMain().get(j).getNom() + " car il subit déjà cette attaque !\n");
-                                }
+                                vue.ajouterMessage("Choisissez le CPU sur lequel vous voulez lancer votre attaque \n");
+                                modele.getJoueur1().setEnTraindAttaquer(true);
+                                modele.getJoueur1().setEstEnTraindAttaquerAvec(modele.getJoueur1().getMain().get(j));
                                 
                             }
                             else
@@ -344,6 +417,7 @@ public class Controleur
             modele = (Partie) ois.readObject();
             modele.getJoueur1().setDefausse(false);
             vue.getDefausse().setText("Défausse (temporaire)");
+            modele.getJoueur1().setEnTraindAttaquer(false);
             if (modele != null && modele.getJoueur1() != null) {
                 System.out.println("Première carte de la main : " + modele.getJoueur1().getMain().get(0));
             } else {

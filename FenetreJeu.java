@@ -38,6 +38,7 @@ public class FenetreJeu {
     private JButton boutonDefausse;
     private JButton boutonFindeTour;
     private JButton boutonNouvellePartie;
+    private JButton boutonCPUAgro, boutonCPUFast;
     private JPanel menuPanel;
     private JLayeredPane panelJeu;
     private ArrayList<JButton> boutonsMainJoueur;
@@ -54,6 +55,8 @@ public class FenetreJeu {
         boutonNouvellePartie = new JButton("Nouvelle partie");
         boutonPioche = new JButton("Pioche (temporaire)");
         boutonDefausse = new JButton("Défausse (temporaire)");
+        boutonCPUAgro = new JButton("CPU Agro");
+        boutonCPUFast = new JButton("CPU Fast");
         boutonFindeTour = new JButton("Fin de mon tour");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
@@ -146,6 +149,23 @@ public class FenetreJeu {
     public void ajouterActionBoutonBoutonDefausse(ActionListener action){
         boutonDefausse.addActionListener(action);
     }
+
+    /**
+     * Permet de connecter une action au bouton "BoutonCPUAgro"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonCPUAgro(ActionListener action){
+        boutonCPUAgro.addActionListener(action);
+    }
+
+    /**
+     * Permet de connecter une action au bouton "BoutonCPUAgro"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonCPUFast(ActionListener action){
+        boutonCPUFast.addActionListener(action);
+    }
+
 
     /**
      * Permet de connecter une action au bouton "Fin de Tour"
@@ -260,6 +280,21 @@ public class FenetreJeu {
         if(boutonDefausse.getActionListeners().length == 1)
         {
             boutonDefausse.removeActionListener(boutonDefausse.getActionListeners()[0]);
+        }
+
+        //BoutonBoutonCPUAgro
+        boutonCPUAgro.setBounds(largeur - (largeur*10/100), hauteur*10/100, (circuit.getIconWidth() * 10 / 100), (circuit.getIconHeight() * 5 / 100));
+        panelJeu.add(boutonCPUAgro, Integer.valueOf(2));
+        if(boutonCPUAgro.getActionListeners().length == 1)
+        {
+            boutonCPUAgro.removeActionListener(boutonCPUAgro.getActionListeners()[0]);
+        }
+        //BoutonBoutonCPUFast
+        boutonCPUFast.setBounds(largeur - (largeur*10/100), hauteur*20/100, (circuit.getIconWidth() * 10 / 100), (circuit.getIconHeight() * 5 / 100));
+        panelJeu.add(boutonCPUFast, Integer.valueOf(2));
+        if(boutonCPUFast.getActionListeners().length == 1)
+        {
+            boutonCPUFast.removeActionListener(boutonCPUFast.getActionListeners()[0]);
         }
 
 
