@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 public abstract class Carte implements Serializable{
     private String nom;
     private TypeCarte type;
-    private ImageIcon image;
+    private ImageIcon imageCourante, vraieImage;
     private int km; //pour comparer les distances entre elles
 
     public Carte(String n, TypeCarte t){
@@ -34,7 +34,8 @@ public abstract class Carte implements Serializable{
         }
         nom = n;
         type = t;
-        image = new ImageIcon("Images/" + t.toString() + ".png");
+        vraieImage = new ImageIcon("Images/" + t.toString() + ".png");
+        imageCourante = vraieImage;  //je sauvegarde l'image de la carte comme ça si je change l'image je peux la récupérer après
     }
 
     public String getNom(){
@@ -46,7 +47,17 @@ public abstract class Carte implements Serializable{
     }
 
     public ImageIcon getImage(){
-        return image;
+        return imageCourante;
+    }
+
+    public void setImageIcon(ImageIcon i)
+    {
+        imageCourante = i;
+    }
+
+    public void setImageBack()
+    {
+        imageCourante = vraieImage;
     }
     
     public int getKilometre()

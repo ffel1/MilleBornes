@@ -29,6 +29,7 @@ public class FenetreJeu {
     private JFrame fenetreMenu;
     private int hauteur;
     private int largeur;
+    private int hauteurCarte;
     private JTextArea textArea;
     private JScrollPane scrollPane;
     private JButton boutonJouer;
@@ -49,6 +50,7 @@ public class FenetreJeu {
 
     public FenetreJeu(){
         // Initialisation
+        hauteurCarte = 0;
         boutonJouer = new JButton("Jouer");
         boutonQuitter = new JButton("Quitter");
         boutonRetour = new JButton("Menu Principal");
@@ -303,14 +305,26 @@ public class FenetreJeu {
     }
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
+        if(hauteurCarte == 0)
+        {
+            hauteurCarte = main.get(0).getImage().getIconHeight();
+        }
         for(int i = 0; i < main.size(); i++){
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
             int larg = 125; 
-            int y = (hauteur * 97 / 100) - (image.getIconHeight());
+            int y = (hauteur * 97 / 100) - (hauteurCarte);
             int x = (largeur / 2 - 75) - (larg * 3) + (larg * i);
             int haut = (hauteur * 20 / 100);
-            JButton bouton = new JButton(null, image);
+            JButton bouton;
+            if(image != null)
+            {
+                bouton = new JButton(null, image);
+            }
+            else
+            {
+                bouton = new JButton("Annuler");
+            }
             bouton.setIcon(image);
             bouton.setBackground(Color.PINK);
             bouton.setBounds(x, y, larg, haut);
@@ -328,6 +342,11 @@ public class FenetreJeu {
             boutonsMainJoueur.get(j).setIcon(null);
             boutonsMainJoueur.get(j).setVisible(false);
         }
+    }
+
+    public ArrayList<JButton> getBoutonMainsJoueurs()
+    {
+        return boutonsMainJoueur;
     }
 
     private void afficherZoneDeTexte(){

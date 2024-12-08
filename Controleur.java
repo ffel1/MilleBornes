@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.SwingConstants;
+
 public class Controleur 
 {
     private Partie modele;
@@ -34,6 +36,7 @@ public class Controleur
     private void nouvellePartie(boolean b){
 
         File fichier = new File("save.ser");
+        boolean partieChargée;
         if(fichier.exists())
         {
             chargerSauvegarder(fichier);
@@ -42,14 +45,20 @@ public class Controleur
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
             vue.ajouterMessage("Nouvelle partie créée \n");
+            partieChargée = false;
         }
         else
         {
             vue.ajouterMessage("Partie chargée \n");
+            partieChargée = true;
         }
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
+            if(modele.getJoueur1().getEnTraindAttaquerAvec() != null)
+            {
+                modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
+            }
             sauvegarder();
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
@@ -289,7 +298,12 @@ public class Controleur
         {
             vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
         }
-        if(modele.getQuiCommence() == 0)
+        if(partieChargée)
+        {
+            vue.ajouterMessage("La partie reprends, c'était votre tour ! \n");
+            modele.getJoueur1().monTour(true);
+        }
+        else if(modele.getQuiCommence() == 0)
         {
             vue.ajouterMessage("Vous commencez à jouer ! \n");
             modele.getJoueur1().monTour(true);
@@ -328,6 +342,17 @@ public class Controleur
                         {
                             vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
                         }
+                        else if(modele.getJoueur1().getenTraindAttaquer() && modele.getJoueur1().getMain().get(j) == modele.getJoueur1().getEnTraindAttaquerAvec())
+                        {
+                            vue.ajouterMessage("Vous avez changé d'avis \n");
+                            modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
+                            vue.effacerCartesJoueurs();
+                            vue.afficherCartesJoueur(main);
+                            initialiserBoutonCartes(main);
+                            modele.getJoueur1().setEnTraindAttaquer(false);
+                            modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
+                            modele.getJoueur1().setCible(null);
+                        }
                         else if(modele.getJoueur1().getenTraindAttaquer())
                         {
                             vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas jouer de cartes ! \n");
@@ -364,7 +389,10 @@ public class Controleur
                                 vue.ajouterMessage("Choisissez le CPU sur lequel vous voulez lancer votre attaque \n");
                                 modele.getJoueur1().setEnTraindAttaquer(true);
                                 modele.getJoueur1().setEstEnTraindAttaquerAvec(modele.getJoueur1().getMain().get(j));
-                                
+                                modele.getJoueur1().getMain().get(j).setImageIcon(null);
+                                vue.effacerCartesJoueurs();
+                                vue.afficherCartesJoueur(main);  
+                                initialiserBoutonCartes(modele.getJoueur1().getMain());                                         
                             }
                             else
                             {
