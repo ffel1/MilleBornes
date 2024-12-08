@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CPUAgro extends CPU{
 
@@ -21,7 +22,7 @@ public class CPUAgro extends CPU{
                 carteAJouer = carte;
                 break;
             }
-            else if(carte instanceof Attaque && verification(carte, this, getCible())){
+            else if(carte instanceof Attaque && verification(carte, this, getCible(carte))){
                 carteAJouer = carte;
                 findAttaque = true;
             }

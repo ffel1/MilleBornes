@@ -4,6 +4,7 @@ import java.util.Random;
 public abstract class CPU extends Joueur{
     
     private Partie partie;
+    private Joueur cible;
 
     public CPU(String nom, int k, int id, Partie partie){
         super(nom, k, id);
@@ -17,11 +18,20 @@ public abstract class CPU extends Joueur{
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
 
         //Pour afficher les cartes des bots pour vérifier si leur coups sont biens
-        /*for(Carte carte : getMain())
+        for(Carte carte : getMain())
         {
             controleur.getVue().ajouterMessage(carte.getNom()+"\n");
-        }*/ 
-
+        }
+        controleur.getVue().ajouterMessage("Les attaques\n");
+        for(Carte carte : getAttaquesEnCours())
+        {
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
+        }
+        controleur.getVue().ajouterMessage("Les bottes\n");
+        for(Carte carte : getBottesPosées())
+        {
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
+        }
 
         Carte carteJoué = choisirCarte();
 
@@ -32,7 +42,7 @@ public abstract class CPU extends Joueur{
         }
         while (carteJoué instanceof Botte) 
         {
-            controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
+            controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible));
             piocher();
             controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a encore pioché ! \n");
             carteJoué = choisirCarte();
@@ -42,7 +52,7 @@ public abstract class CPU extends Joueur{
                 defausse(choixDeDefausse(), controleur);
             }
         }
-        controleur.getVue().ajouterMessage(jouerCarte(carteJoué));
+        controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible));
         controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");    
     }
 
@@ -56,28 +66,58 @@ public abstract class CPU extends Joueur{
     }
     public abstract Carte choisirCarte();
 
-    public void appliquerAction(Carte c){};
-
-    @Override
-    public Joueur getCible()
+    public Partie getPartie()
     {
-        Joueur joueurPremier = partie.getJoueur1(); 
-        for(Joueur joueurCurrent : partie.getJoueurs())
+        return partie;
+    }
+
+    public void setCurrentCible(Joueur c)
+    {
+        cible = c;
+    }
+    public Joueur getCurrentCible()
+    {
+        return cible;
+    }
+
+    public Joueur getCible(Carte c)
+    {
+        Joueur gagnantActuel = partie.getJoueur1();
+        for(Joueur j : partie.getJoueurs())
         {
-            if(joueurCurrent.getId() != getId() && joueurCurrent.getKilometre() > joueurPremier.getKilometre())
+            if(j.getKilometre() > gagnantActuel.getKilometre() && j.getId() != getId())
             {
-                joueurPremier = joueurCurrent;
+                System.out.println(j.getNom() + " est plus avancé que " + gagnantActuel.getNom());
+                gagnantActuel = j;
             }
-            else if(joueurCurrent.getId() != getId() && joueurCurrent.getKilometre() == joueurPremier.getKilometre())
+            else if(j.getKilometre() == gagnantActuel.getKilometre() && j.getId() != getId())
             {
                 Random r = new Random();
                 int i = r.nextInt(2);
                 if(i == 0)
                 {
-                    joueurPremier = joueurCurrent;
+                    gagnantActuel = j;
+                }
+                System.out.println("Egalité mais " + i);
+            }
+        }
+        if(verification(c, this, gagnantActuel))
+        {
+            cible = gagnantActuel;
+            return gagnantActuel;
+        }
+        else
+        {
+            for(Joueur j : partie.getJoueurs())
+            {
+                if(j.getId() != getId() && j.getId() != gagnantActuel.getId()&& verification(c, this, j))
+                {
+                    cible = j;
+                    return j;
                 }
             }
         }
-        return joueurPremier;
+
+        return null;
     }
 }

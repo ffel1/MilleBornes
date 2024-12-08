@@ -160,7 +160,14 @@ public class Controleur
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
             {
-                vue.ajouterMessage("Vous sautez votre tour ! \n");
+                if(!modele.getJoueur1().getaPioche())
+                {
+                    vue.ajouterMessage("Vous sautez votre tour ! \n");
+                }
+                else
+                {
+                    vue.ajouterMessage("Vous ne jouez rien pendant ce tour ! \n");
+                }
                 modele.getJoueur1().setaJoue(false);
                 modele.getJoueur1().setaPioche(false);
                 modele.getJoueur1().monTour(false);
@@ -189,17 +196,17 @@ public class Controleur
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur2());
-                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 0)
+                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 0)
                 {
                     modele.getJoueur1().jouerCarte(modele.getJoueur1().getEnTraindAttaquerAvec(),getControleur(),0);
                 }
-                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 1)
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 1)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
                 }
-                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 2)
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 2)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
                 }
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
@@ -222,17 +229,17 @@ public class Controleur
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur2());
-                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 0)
+                if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 0)
                 {
                     modele.getJoueur1().jouerCarte(modele.getJoueur1().getEnTraindAttaquerAvec(),getControleur(),0);
                 }
-                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 1)
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 1)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
                 }
-                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible()) == 2)
+                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 2)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible().getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
                 }
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);

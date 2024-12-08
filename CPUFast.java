@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CPUFast extends CPU{
     
@@ -35,7 +36,7 @@ public class CPUFast extends CPU{
                     carteAJouer = carte;
                 }
             }
-            else if(carte instanceof Attaque && !findDistance && !findFeuVert && verification(carte, this, getCible())){
+            else if(carte instanceof Attaque && !findDistance && !findFeuVert && verification(carte, this, getCible(carte))){
                 carteAJouer = carte;
                 System.out.println("Le bot fast décide de jouer une carte distance");
             }

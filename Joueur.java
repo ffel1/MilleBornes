@@ -17,7 +17,7 @@ public abstract class Joueur implements Serializable{
         bottesPosées = new ArrayList<Carte>();
         nom = name;
         kilometreP = km;
-        id = this.id;
+        this.id = id; // le mec qui a écrit id = this.id tu m'as fais perdre 2 heures...
     }
 
     public ArrayList<Carte> getMain(){
@@ -28,6 +28,11 @@ public abstract class Joueur implements Serializable{
     }
     public boolean getFeuVert(){
         return feuVert;
+    }
+
+    public void setFeuVert(boolean b)
+    {
+        feuVert = b;
     }
     public ArrayList<Carte> getBottesPosées(){
         return bottesPosées;
@@ -73,9 +78,8 @@ public abstract class Joueur implements Serializable{
     /*
      * Choisir l'action en fonction du type de carte
      */
-    public String jouerCarte(Carte c) {
+    public String jouerCarte(Carte c, Joueur cible) {
         if (c instanceof Attaque){
-            Joueur cible = getCible();
             return jouerAttaque(c, cible);
         } else if (c instanceof Parade){
             return jouerParade(c);
@@ -87,10 +91,7 @@ public abstract class Joueur implements Serializable{
         return null;
     }
 
-    public Joueur getCible(){
-        Joueur opps;
-        return null;
-    }
+    public abstract Joueur getCible(Carte c);
 
     /*
      * Joue une carte botte au joueur et enleve l'attaque en cours si il y en a une
@@ -164,8 +165,12 @@ public abstract class Joueur implements Serializable{
     public String jouerAttaque(Carte c, Joueur cible) {
         if (verification(c, this, cible)) {
             cible.getAttaquesEnCours().add(c);
+            if(c.getType() == TypeCarte.FEU_ROUGE)
+            {
+                cible.setFeuVert(false);
+            }
             retirerCarte(c);
-            return getNom() + " joue l'attaque " + cible.getNom() + " contre " + c.getNom() + "\n";
+            return getNom() + " joue l'attaque " + c.getNom() + " contre " + cible.getNom() + "\n";
         }
         return null;
     }
@@ -190,6 +195,10 @@ public abstract class Joueur implements Serializable{
      */
     public boolean verification(Carte c, Joueur u, Joueur cible){
         if (c instanceof Attaque){
+            if(cible == null)
+            {
+                return false;
+            }
             for (Carte carte : cible.getBottesPosées()) {
                 switch (c.getType()) {
                     case CREVAISON:

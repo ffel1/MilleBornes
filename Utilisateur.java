@@ -13,7 +13,7 @@ public class Utilisateur extends Joueur{
     public void appliquerAction(Carte c){};
 
     @Override
-    public Joueur getCible()
+    public Joueur getCible(Carte c)
     {
         return cible;
     }
@@ -129,7 +129,7 @@ public class Utilisateur extends Joueur{
         }
         if(c instanceof Attaque)
         {
-            controleur.getVue().ajouterMessage("Vous avez attaqué le CPU " + getCible().getNom() + " avec " + c.getNom() + "! \n");
+            controleur.getVue().ajouterMessage("Vous avez attaqué le CPU " + getCible(c).getNom() + " avec " + c.getNom() + "! \n");
         }
         else
         {
@@ -142,7 +142,7 @@ public class Utilisateur extends Joueur{
         controleur.getVue().getFenetre().repaint();
         controleur.getVue().getFenetre().revalidate();
         if (c instanceof Attaque){
-            Joueur cible = getCible();
+            Joueur cible = getCible(c);
             return jouerAttaque(c, cible);
         } else if (c instanceof Parade){
             return jouerParade(c);
