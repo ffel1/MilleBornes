@@ -18,7 +18,7 @@ public abstract class CPU extends Joueur{
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
 
         //Pour afficher les cartes des bots pour vérifier si leur coups sont biens
-        for(Carte carte : getMain())
+        /*for(Carte carte : getMain())
         {
             controleur.getVue().ajouterMessage(carte.getNom()+"\n");
         }
@@ -31,7 +31,7 @@ public abstract class CPU extends Joueur{
         for(Carte carte : getBottesPosées())
         {
             controleur.getVue().ajouterMessage(carte.getNom()+"\n");
-        }
+        }*/
 
         Carte carteJoué = choisirCarte();
 
