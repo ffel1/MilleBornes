@@ -82,6 +82,9 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
+            /*vue.avancerVoiture(550, 0);
+            vue.avancerVoiture(550, 1);
+            vue.avancerVoiture(550, 2);*/
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n");
@@ -155,10 +158,12 @@ public class Controleur
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
                     modele.getJoueur2().actionBot(this);
+                    vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
                     modele.getJoueur3().actionBot(this);
+                    vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
                     modele.getJoueur1().monTour(true);
                     vue.ajouterMessage("\nC'est votre tour ! \n");
-                    vue.avancerVoiture(modele.getJoueur1().getKilometre());
+                    vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
@@ -221,9 +226,7 @@ public class Controleur
                 initialiserBoutonCartes(modele.getJoueur1().getMain());
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
-                modele.getJoueur1().setCible(null);
-
-                
+                modele.getJoueur1().setCible(null); 
             }
             else if(!(modele.getJoueur1().getenTraindAttaquer()))
             {
@@ -263,8 +266,6 @@ public class Controleur
                 modele.getJoueur1().setEnTraindAttaquer(false);
                 modele.getJoueur1().setEstEnTraindAttaquerAvec(null);
                 modele.getJoueur1().setCible(null);
-
-                
             }
             else if(!(modele.getJoueur1().getenTraindAttaquer()))
             {
