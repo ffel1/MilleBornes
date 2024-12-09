@@ -156,6 +156,7 @@ public class Controleur
                     modele.getJoueur3().actionBot(this);
                     modele.getJoueur1().monTour(true);
                     vue.ajouterMessage("\nC'est votre tour ! \n");
+                    vue.avancerVoiture(modele.getJoueur1().getKilometre());
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
@@ -442,7 +443,6 @@ public class Controleur
                                     vue.ajouterMessage("Vous ne subissez aucune attaque que cette parade permet de contrer !\n");
                                 }
                             }
-                            //vue.AvancerVoiture(modele.getJoueur1().getKilometre());
                         }
                     }
                     else
