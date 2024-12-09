@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 public class BoutonAvecImage {
     public static void main(String[] args) {
