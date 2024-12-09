@@ -186,9 +186,38 @@ public abstract class Joueur implements Serializable{
             retirerCarte(c);
             return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km. \n");
         }
+        else{
+            String message = nom+" ne peut pas avancer. Problème : ";
+            for(Carte carte : attaquesEnCours)
+            {
+                if(carte.getType() == TypeCarte.FEU_ROUGE)
+                {
+                    return message+"feu rouge.\n";
+                }
+
+                if(carte.getType() == TypeCarte.PANNE_D_ESSENCE)
+                {
+                    return message+"panne d'essence.\n";
+                }
+
+                if(carte.getType() == TypeCarte.CREVAISON)
+                {
+                    return message+"crevaison.\n";
+                }
+
+                if(carte.getType() == TypeCarte.ACCIDENT)
+                {
+                    return message+"accident.\n";
+                }
+
+                if(carte.getType() == TypeCarte.LIMITATION_DE_VITESSE)
+                {
+                    return message+"limitation de vitesse.\n";
+                }
+            }
+        }
         return null;
     }
-    
 
     /*
      * Vérifie qu'une carte soit jouable

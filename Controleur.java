@@ -337,14 +337,14 @@ public class Controleur
             modele.getJoueur2().actionBot(this);
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! \n");
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
         }
         else if(modele.getQuiCommence() == 2)
         {
             vue.ajouterMessage("CPU Fast commence à jouer ! \n");
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! \n");
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
         }
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();
@@ -429,7 +429,9 @@ public class Controleur
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 4)
                                 {
-                                    vue.ajouterMessage("Une attaque vous empêche d'avancer ! \n");
+                                    //vue.ajouterMessage("Une attaque vous empêche d'avancer ! \n");
+                                    String message = modele.getJoueur1().jouerDistance(modele.getJoueur1().getMain().get(j));
+                                    vue.ajouterMessage(message);
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 5)
                                 {
