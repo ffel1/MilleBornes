@@ -15,7 +15,7 @@ public abstract class CPU extends Joueur{
 
     public void actionBot(Controleur controleur) //le boolean sert à gérer le cas ou on pose une botte (on rejoue sans afficher nouveau tour)
     {
-        controleur.getVue().ajouterMessage("\nC'est au tour du CPU " + getNom() + "\n");
+        controleur.getVue().ajouterMessage("\nC'est au tour du CPU " + getNom() + " ! Distance parcourue : " + getKilometre() + " km \n");
         piocher();
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n");
 
@@ -55,7 +55,7 @@ public abstract class CPU extends Joueur{
             }
         }
         controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible));
-        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() +"\n");    
+        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() + " ! Distance parcourue : " + getKilometre() + " km \n");
     }
 
     public abstract Carte choixDeDefausse();

@@ -10,8 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import javax.swing.SwingConstants;
-
 public class Controleur 
 {
     private Partie modele;
@@ -54,6 +52,7 @@ public class Controleur
             vue.ajouterMessage("Partie chargée \n");
             partieChargée = true;
         }
+
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
@@ -150,7 +149,7 @@ public class Controleur
                 }
                 else
                 {
-                    vue.ajouterMessage("C'est la fin de votre tour ! \n");
+                    vue.ajouterMessage("\nC'est la fin de votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
                     modele.getJoueur1().setaJoue(false);
@@ -162,7 +161,7 @@ public class Controleur
                     modele.getJoueur3().actionBot(this);
                     vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
                     modele.getJoueur1().monTour(true);
-                    vue.ajouterMessage("\nC'est votre tour ! \n");
+                    vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
                     vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
                 }
             }
@@ -170,20 +169,23 @@ public class Controleur
             {
                 if(!modele.getJoueur1().getaPioche())
                 {
-                    vue.ajouterMessage("Vous sautez votre tour ! \n");
+                    vue.ajouterMessage("Vous sautez votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
                 }
                 else
                 {
-                    vue.ajouterMessage("Vous ne jouez rien pendant ce tour ! \n");
+                    vue.ajouterMessage("Vous ne jouez rien pendant ce tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
                 }
                 modele.getJoueur1().setaJoue(false);
                 modele.getJoueur1().setaPioche(false);
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
+                vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
                 modele.getJoueur3().actionBot(this);
+                vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
                 modele.getJoueur1().monTour(true);
-                vue.ajouterMessage("\nC'est votre tour ! \n");
+                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
             }
             else
             {
@@ -242,7 +244,7 @@ public class Controleur
         vue.ajouterActionBoutonCPUFast(e -> {
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
-                modele.getJoueur1().setCible(modele.getJoueur2());
+                modele.getJoueur1().setCible(modele.getJoueur3());
                 if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 0)
                 {
                     modele.getJoueur1().jouerCarte(modele.getJoueur1().getEnTraindAttaquerAvec(),getControleur(),0);
@@ -333,6 +335,7 @@ public class Controleur
         else if(modele.getQuiCommence() == 0)
         {
             vue.ajouterMessage("Vous commencez à jouer ! \n");
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
             modele.getJoueur1().monTour(true);
         }
         else if(modele.getQuiCommence() == 1)
@@ -433,7 +436,6 @@ public class Controleur
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 4)
                                 {
-                                    //vue.ajouterMessage("Une attaque vous empêche d'avancer ! \n");
                                     String message = modele.getJoueur1().jouerDistance(modele.getJoueur1().getMain().get(j));
                                     vue.ajouterMessage(message);
                                 }
@@ -457,6 +459,10 @@ public class Controleur
         }
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
+
+        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
+        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
+        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
     }
 
     public Controleur getControleur()
