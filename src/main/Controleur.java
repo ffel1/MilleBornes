@@ -81,9 +81,6 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
-            /*vue.avancerVoiture(550, 0);
-            vue.avancerVoiture(550, 1);
-            vue.avancerVoiture(550, 2);*/
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n");
