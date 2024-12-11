@@ -14,15 +14,17 @@ public class Controleur
 {
     private Partie modele;
     private FenetreJeu vue;
-
+    private Son listeSon;
 
     public Controleur(Partie modele, FenetreJeu vue) 
     {
         this.modele = modele;
         this.vue = vue;
+        listeSon = new Son();
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
+            //joueMusic(2);
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -32,7 +34,6 @@ public class Controleur
 
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
     }
-
 
     private void nouvellePartie(boolean b){
 
@@ -86,9 +87,6 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
-            /*vue.avancerVoiture(550, 0);
-            vue.avancerVoiture(550, 1);
-            vue.avancerVoiture(550, 2);*/
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
@@ -212,6 +210,7 @@ public class Controleur
 
         //Bouton AttaqueBotAgro
         vue.ajouterActionBoutonCPUAgro(e -> {
+            joueMusic(1);
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur2());
@@ -251,6 +250,7 @@ public class Controleur
 
         //Bouton AttaqueBotFast
         vue.ajouterActionBoutonCPUFast(e -> {
+            joueMusic(1);
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur3());
@@ -290,6 +290,7 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
+            //joueMusic(2);
             if(modele.getJoueur1().getDoitPiocher())
             {
                 modele.getJoueur1().setDoitPiocher(false);
@@ -528,5 +529,20 @@ public class Controleur
                 System.err.println("Erreur lors du chargement : ");
                 e.printStackTrace();
             }
-        }
+    }
+
+    private void joueMusic(int i){
+        listeSon.setFile(i);
+        listeSon.play();
+    }
+
+    private void joueEnContinueMusic(int i){
+        listeSon.setFile(i);
+        listeSon.play();
+        listeSon.loop();
+    }
+
+    public void stopMusic(){
+        listeSon.stop();
+    }
 }
