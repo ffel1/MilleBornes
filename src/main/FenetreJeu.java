@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,6 +55,7 @@ public class FenetreJeu {
     private JButton boutonVoiture2;
     private JButton boutonVoiture3;
     private ImageIcon circuit;
+    private String nomDeLaPartie;
 
     public FenetreJeu(){
         // Initialisation
@@ -66,7 +71,7 @@ public class FenetreJeu {
         boutonFindeTour = new JButton("Fin de mon tour");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
-        menuPanel  = new JPanel();
+        menuPanel  = new JPanel();  
         panelJeu = new JLayeredPane();
         boutonsMainJoueur = new ArrayList<JButton>();
         env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -374,10 +379,24 @@ public class FenetreJeu {
         textArea.setText("");
     }
 
-    public void ajouterMessage(String message){
+    public void setNomDeLaPartie(String nomDeLaPartie)
+    {
+        this.nomDeLaPartie = nomDeLaPartie;
+    }
+
+    public void ajouterMessage(String message, boolean b){ //Booléen pour savoir si on l'ajoute à l'historique de partie
         textArea.append(message);
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
         verticalBar.setValue(verticalBar.getMaximum());
+        if(b)
+        {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("SauvegardeDesHistoriques/" + nomDeLaPartie, true))) {
+                writer.write(message);
+    
+            } catch (IOException e) {
+                e.printStackTrace(); // Gérer les exceptions d'écriture
+            }
+        }
     }
 
     private void afficherVoitures(ImageIcon circuit){

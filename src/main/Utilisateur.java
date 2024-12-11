@@ -9,7 +9,7 @@ public class Utilisateur extends Joueur{
     private CPU cible;
 
     public Utilisateur(String nom, int k, int id, Partie partie){
-        super(nom, k, id);
+        super(nom, k, id, partie);
     }
     
     public void appliquerAction(Carte c){};
@@ -91,7 +91,7 @@ public class Utilisateur extends Joueur{
 
     public void piocher()
     {
-        ArrayList<Carte> pioche = Partie.getPioche();  
+        ArrayList<Carte> pioche = getPartie().getPioche();  
         //La pioche a déjà été mélangé dans Partie
         if(!mainPleine())
         {
@@ -131,11 +131,11 @@ public class Utilisateur extends Joueur{
         }
         if(c instanceof Attaque)
         {
-            controleur.getVue().ajouterMessage("Vous avez attaqué le CPU " + getCible(c).getNom() + " avec " + c.getNom() + "! \n");
+            controleur.getVue().ajouterMessage("Vous avez attaqué le CPU " + getCible(c).getNom() + " avec " + c.getNom() + "! \n", true);
         }
         else
         {
-            controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n"); 
+            controleur.getVue().ajouterMessage("Vous avez joué la carte " + nbCarte + " (" + c.getNom() + ") \n", true); 
         }
         getMain().remove(c);
         controleur.getVue().effacerCartesJoueurs();

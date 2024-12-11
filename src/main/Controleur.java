@@ -16,7 +16,8 @@ public class Controleur
     private FenetreJeu vue;
 
 
-    public Controleur(Partie modele, FenetreJeu vue) {
+    public Controleur(Partie modele, FenetreJeu vue) 
+    {
         this.modele = modele;
         this.vue = vue;
         vue.creerFenetreMenu();
@@ -44,15 +45,18 @@ public class Controleur
         
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
-            vue.ajouterMessage("Nouvelle partie créée \n");
+            //vue.ajouterMessage("Nouvelle partie créée \n");
             partieChargée = false;
+            modele.initialisationNomDeLaPartie();
         }
         else
         {
-            vue.ajouterMessage("Partie chargée \n");
+            //vue.ajouterMessage("Partie chargée \n");
             partieChargée = true;
         }
 
+        String nomDeLaPartie = modele.getNomDeLaPartie();
+        vue.setNomDeLaPartie(nomDeLaPartie);
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
@@ -70,6 +74,7 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
+            vue.ajouterMessage("Vous avez mis fin à la partie, les points ne seront pas comptabilisés !", true);
             modele.getJoueur1().setDefausse(false);
             vue.getDefausse().setText("Défausse (temporaire)");
             vue.getFenetre().getContentPane().removeAll();
@@ -86,37 +91,37 @@ public class Controleur
             vue.avancerVoiture(550, 2);*/
             if(!modele.getJoueur1().getMonTour())
             {
-                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
             else if(modele.getJoueur1().getenTraindAttaquer())
             {
-                vue.ajouterMessage("Vous ne pouvez pas défausser, vous êtes en train d'attaquer !");
+                vue.ajouterMessage("Vous ne pouvez pas défausser, vous êtes en train d'attaquer !", false);
             }
             else if(modele.getJoueur1().getDoitPiocher())
             {
-                vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
+                vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n", false);
             }
             else if(!modele.getJoueur1().getaPioche())
             {
-                vue.ajouterMessage("Vous devez piocher avant de défausser ! \n");
+                vue.ajouterMessage("Vous devez piocher avant de défausser ! \n", false);
             }
             else if(modele.getJoueur1().getaJjoue())
             {
-                vue.ajouterMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n");
+                vue.ajouterMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n", false);
             }
             else if(!modele.getJoueur1().mainPleine())
             {
-                vue.ajouterMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n");
+                vue.ajouterMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n", false);
             }
             else if(!modele.getJoueur1().getDefausse())
             {
-                vue.ajouterMessage("Cliquez sur la carte que vous voulez défausser ! \nCliquez à nouveau sur la pioche pour annuler \n");
+                vue.ajouterMessage("Cliquez sur la carte que vous voulez défausser ! \nCliquez à nouveau sur la pioche pour annuler \n", false);
                 modele.getJoueur1().setDefausse(true);
                 vue.getDefausse().setText("Annuler");
             }
             else
             {
-                vue.ajouterMessage("Vous avez changer d'avis \n");
+                vue.ajouterMessage("Vous avez changer d'avis \n", false);
                 modele.getJoueur1().setDefausse(false);
                 vue.getDefausse().setText("Défausse (temporaire)");
             }
@@ -127,29 +132,33 @@ public class Controleur
         vue.ajouterActionBoutonFinDeMonTour(e -> {
             if(!modele.getJoueur1().getMonTour())
             {
-                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
             else if(modele.getJoueur1().getDefausse())
             {
-                vue.ajouterMessage("Vous êtes en train de défausser, impossible de finir votre tour ! \n");
+                vue.ajouterMessage("Vous êtes en train de défausser, impossible de finir votre tour ! \n", false);
             }
             else if(modele.getJoueur1().getDoitPiocher())
             {
-                vue.ajouterMessage("Après avoir joué une botte vous devez piocher \n");
+                vue.ajouterMessage("Après avoir joué une botte vous devez piocher \n", false);
             }
             else if(modele.getJoueur1().getenTraindAttaquer())
             {
-                vue.ajouterMessage("Vous ne pouvez pas finir votre tour, vous êtes en train d'attaquer ! \n");
+                vue.ajouterMessage("Vous ne pouvez pas finir votre tour, vous êtes en train d'attaquer ! \n", false);
             }
             else if(modele.getJoueur1().getaJjoue())
             {
                 if(modele.getJoueur1().getMain().size() > 6)
                 {
-                    vue.ajouterMessage("Vous devez défausser une carte ! \n");
+                    vue.ajouterMessage("Vous devez défausser une carte ! \n", false);
                 }
                 else
                 {
-                    vue.ajouterMessage("\nC'est la fin de votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                    vue.ajouterMessage("\nC'est la fin de votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+                    if(modele.gagnant() == modele.getJoueur1())
+                    {
+                        vue.ajouterMessage("\n VOUS AVEZ GAGNE LA PARTIE !! BRAVO ! \n", true);
+                    }
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
                     modele.getJoueur1().setaJoue(false);
@@ -161,7 +170,7 @@ public class Controleur
                     modele.getJoueur3().actionBot(this);
                     vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
                     modele.getJoueur1().monTour(true);
-                    vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                    vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                     vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
                 }
             }
@@ -169,11 +178,11 @@ public class Controleur
             {
                 if(!modele.getJoueur1().getaPioche())
                 {
-                    vue.ajouterMessage("Vous sautez votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                    vue.ajouterMessage("Vous sautez votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                 }
                 else
                 {
-                    vue.ajouterMessage("Vous ne jouez rien pendant ce tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                    vue.ajouterMessage("Vous ne jouez rien pendant ce tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                 }
                 modele.getJoueur1().setaJoue(false);
                 modele.getJoueur1().setaPioche(false);
@@ -184,19 +193,19 @@ public class Controleur
                 modele.getJoueur3().actionBot(this);
                 vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
                 modele.getJoueur1().monTour(true);
-                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                 vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
             }
             else
             {
-                vue.ajouterMessage("Vous ne pouvez pas finir votre tour avec plus de 6 cartes ! \n");
+                vue.ajouterMessage("Vous ne pouvez pas finir votre tour avec plus de 6 cartes ! \n", true);
                 if(modele.getJoueur1().getaJjoue())
                 {
-                    vue.ajouterMessage("Vous devez défausser une carte ! \n");
+                    vue.ajouterMessage("Vous devez défausser une carte ! \n", true);
                 }
                 else
                 {
-                    vue.ajouterMessage("Jouez ou défaussez une carte ! \n");
+                    vue.ajouterMessage("Jouez ou défaussez une carte ! \n", true);
                 }
             }
         });
@@ -212,15 +221,15 @@ public class Controleur
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 1)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n", false);
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 2)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n", false);
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 7)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n", false);
                 }
                 modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
                 vue.effacerCartesJoueurs();
@@ -232,11 +241,11 @@ public class Controleur
             }
             else if(!(modele.getJoueur1().getenTraindAttaquer()))
             {
-                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n");
+                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n", false);
             }
             else
             {
-                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
         });
 
@@ -251,15 +260,15 @@ public class Controleur
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 1)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer le CPU " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il a une botte qui le protège de cette attaque !\n", false);
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 2)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il subit déjà cette attaque !\n", false);
                 }
                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getEnTraindAttaquerAvec(), modele.getJoueur1(), modele.getJoueur1().getCible(null)) == 7)
                 {
-                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n");
+                    vue.ajouterMessage("Vous ne pouvez pas attaquer " + modele.getJoueur1().getCible(null).getNom() + " avec " + modele.getJoueur1().getEnTraindAttaquerAvec().getNom() + " car il n'a même pas encore mit de feu vert !\n", false);
                 }
                 modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
                 vue.effacerCartesJoueurs();
@@ -271,11 +280,11 @@ public class Controleur
             }
             else if(!(modele.getJoueur1().getenTraindAttaquer()))
             {
-                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n");
+                vue.ajouterMessage("Vous n'êtes pas en train d'attaquer ! \n", false);
             }
             else
             {
-                vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+                vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
         });
 
@@ -292,18 +301,18 @@ public class Controleur
             }
             else if(modele.getJoueur1().getenTraindAttaquer())
             {
-                vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas piocher ! \n");
+                vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas piocher ! \n", false);
             }
             else if(modele.getJoueur1().getMonTour() && !modele.getJoueur1().getaPioche())
             {
-                vue.ajouterMessage("Vous avez pioché");
+                vue.ajouterMessage("Vous avez pioché", true);
                 if(modele.getJoueur1().mainPleine())
                 {
-                    vue.ajouterMessage(" mais votre main est pleine ! \n");
+                    vue.ajouterMessage(" mais votre main est pleine ! \n", false);
                 }
                 else
                 {
-                    vue.ajouterMessage("\n");
+                    vue.ajouterMessage("\n", true);
                     modele.getJoueur1().piocher();
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
@@ -311,47 +320,60 @@ public class Controleur
             }
             else if(modele.getJoueur1().getaPioche())
             {
-                vue.ajouterMessage(" Vous avez déjà pioché ! \n");
+                vue.ajouterMessage(" Vous avez déjà pioché ! \n", false);
             }
             else
             {
-                vue.ajouterMessage(" Ce n'est pas votre tour \n");
+                vue.ajouterMessage(" Ce n'est pas votre tour \n", false);
             }
         }); 
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         initialiserBoutonCartes(main);
-        vue.ajouterMessage("Les participants sont : \n");
-        for(int i = 0; i < modele.getJoueurs().size(); i++)
-        {
-            vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n");
-        }
         if(partieChargée)
         {
-            vue.ajouterMessage("La partie reprends, c'était votre tour ! \n");
+            vue.ajouterMessage("La partie reprends, c'était votre tour ! \n", false);
             modele.getJoueur1().monTour(true);
         }
         else if(modele.getQuiCommence() == 0)
         {
-            vue.ajouterMessage("Vous commencez à jouer ! \n");
-            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Les participants sont : \n", true);
+            for(int i = 0; i < modele.getJoueurs().size(); i++)
+            {
+                vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
+            }
+            vue.ajouterMessage("Vous commencez à jouer ! \n", true);
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
             modele.getJoueur1().monTour(true);
         }
         else if(modele.getQuiCommence() == 1)
         {
-            vue.ajouterMessage("CPU Agro commence à jouer ! \n");
+            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Les participants sont : \n", true);
+            for(int i = 0; i < modele.getJoueurs().size(); i++)
+            {
+                vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
+            }
+            vue.ajouterMessage("CPU Agro commence à jouer ! \n", true);
             modele.getJoueur2().actionBot(this);
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
         }
         else if(modele.getQuiCommence() == 2)
         {
-            vue.ajouterMessage("CPU Fast commence à jouer ! \n");
+            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Les participants sont : \n", true);
+            for(int i = 0; i < modele.getJoueurs().size(); i++)
+            {
+                vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
+            }
+            vue.ajouterMessage("CPU Fast commence à jouer ! \n", true);
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n");
+            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
         }
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();
@@ -370,11 +392,11 @@ public class Controleur
                     {
                         if(!modele.getJoueur1().getaPioche())
                         {
-                            vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n");
+                            vue.ajouterMessage("Vous devez d'abord piocher pour jouer une carte \n", false);
                         }
                         else if(modele.getJoueur1().getenTraindAttaquer() && modele.getJoueur1().getMain().get(j) == modele.getJoueur1().getEnTraindAttaquerAvec())
                         {
-                            vue.ajouterMessage("Vous avez changé d'avis \n");
+                            vue.ajouterMessage("Vous avez changé d'avis \n", false);
                             modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
                             vue.effacerCartesJoueurs();
                             vue.afficherCartesJoueur(main);
@@ -385,23 +407,23 @@ public class Controleur
                         }
                         else if(modele.getJoueur1().getenTraindAttaquer())
                         {
-                            vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas jouer de cartes ! \n");
+                            vue.ajouterMessage("Vous êtes en train d'attaquer, vous ne pouvez pas jouer de cartes ! \n", false);
                         }
                         else if(modele.getJoueur1().getDoitPiocher())
                         {
-                            vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n");
+                            vue.ajouterMessage("Après avoir joué une botte vous devez piocher\n", false);
                         }
                         else if(modele.getJoueur1().getaDefausse())
                         {
-                            vue.ajouterMessage("Vous ne pouvez plus jouer après avoir défaussé\n");
+                            vue.ajouterMessage("Vous ne pouvez plus jouer après avoir défaussé\n", false);
                         }
                         else if(modele.getJoueur1().getaJjoue() && !(modele.getJoueur1().getMain().get(j) instanceof Botte))
                         {
-                            vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n");
+                            vue.ajouterMessage("Vous avez déjà joué lors de votre tour \n", false);
                         }
                         else if(modele.getJoueur1().getDefausse())
                         {
-                            vue.ajouterMessage(modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur()));
+                            vue.ajouterMessage(modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur()), true);
                             modele.getJoueur1().setaDefausse(true);
                             vue.getDefausse().setText("Défausse (temporaire)");
                             modele.getJoueur1().setDefausse(false);
@@ -411,12 +433,12 @@ public class Controleur
                             if(modele.getJoueur1().getMain().get(j) instanceof Botte)
                             {
                                 modele.getJoueur1().jouerCarte(modele.getJoueur1().getMain().get(j),getControleur(),j+1);
-                                vue.ajouterMessage("Vous devez piocher à nouveau ! \n");
+                                vue.ajouterMessage("Vous devez piocher à nouveau ! \n", false);
                                 modele.getJoueur1().setDoitPiocher(true);
                             }
                             else if(modele.getJoueur1().getMain().get(j) instanceof Attaque)
                             {
-                                vue.ajouterMessage("Choisissez le CPU sur lequel vous voulez lancer votre attaque \n");
+                                vue.ajouterMessage("Choisissez le CPU sur lequel vous voulez lancer votre attaque \n", false);
                                 modele.getJoueur1().setEnTraindAttaquer(true);
                                 modele.getJoueur1().setEstEnTraindAttaquerAvec(modele.getJoueur1().getMain().get(j));
                                 modele.getJoueur1().getMain().get(j).setImageIcon(null);
@@ -432,27 +454,27 @@ public class Controleur
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 3)
                                 {
-                                    vue.ajouterMessage("Vous ne pouvez pas avancer sans feu vert ! \n");
+                                    vue.ajouterMessage("Vous ne pouvez pas avancer sans feu vert ! \n", false);
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 4)
                                 {
                                     String message = modele.getJoueur1().jouerDistance(modele.getJoueur1().getMain().get(j));
-                                    vue.ajouterMessage(message);
+                                    vue.ajouterMessage(message, false);
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 5)
                                 {
-                                    vue.ajouterMessage("Vous avez déjà un feu vert ! \n");
+                                    vue.ajouterMessage("Vous avez déjà un feu vert ! \n", false);
                                 }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 6)
                                 {
-                                    vue.ajouterMessage("Vous ne subissez aucune attaque que cette parade permet de contrer !\n");
+                                    vue.ajouterMessage("Vous ne subissez aucune attaque que cette parade permet de contrer !\n", false);
                                 }
                             }
                         }
                     }
                     else
                     {
-                        vue.ajouterMessage("Ce n'est pas votre tour ! \n");
+                        vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
                     }
                 }
             }, i);
@@ -496,6 +518,7 @@ public class Controleur
             modele.getJoueur1().setDefausse(false);
             vue.getDefausse().setText("Défausse (temporaire)");
             modele.getJoueur1().setEnTraindAttaquer(false);
+            System.out.println(modele.getPioche().size());
             if (modele != null && modele.getJoueur1() != null) {
                 System.out.println("Première carte de la main : " + modele.getJoueur1().getMain().get(0));
             } else {

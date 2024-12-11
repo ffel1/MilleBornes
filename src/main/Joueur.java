@@ -11,15 +11,17 @@ public abstract class Joueur implements Serializable{
     private String nom;
     private int kilometreP;
     private int id;
+    private Partie partie;
 
-    public Joueur(String name, int km, int id){
+    public Joueur(String name, int km, int id, Partie partie){
         main = new ArrayList<Carte>();
         attaquesEnCours = new ArrayList<Carte>();
         feuVert = false;
         bottesPosées = new ArrayList<Carte>();
         nom = name;
         kilometreP = km;
-        this.id = id; // le mec qui a écrit id = this.id tu m'as fais perdre 2 heures...
+        this.id = id; 
+        this.partie = partie;
     }
 
     public ArrayList<Carte> getMain(){
@@ -30,6 +32,11 @@ public abstract class Joueur implements Serializable{
     }
     public boolean getFeuVert(){
         return feuVert;
+    }
+
+    public Partie getPartie()
+    {
+        return partie;
     }
 
     public void setFeuVert(boolean b)
@@ -63,7 +70,7 @@ public abstract class Joueur implements Serializable{
 
     public void piocher()
     {
-        ArrayList<Carte> pioche = Partie.getPioche();  
+        ArrayList<Carte> pioche = partie.getPioche();  
         //La pioche a déjà été mélangé dans Partie
         if(!mainPleine())
         {
@@ -154,7 +161,7 @@ public abstract class Joueur implements Serializable{
             retirerCarte(c);
             if(c.getType() == TypeCarte.FEU_VERT)
             {
-                return getNom() + " joue un " + c.getNom() + " ! \nIl peut démarrer à tout instant ! \n";
+                return getNom() + " joue un " + c.getNom() + " ! \n";
             }
             return getNom() + " joue la parade : " + c.getNom() + "\n";
         }

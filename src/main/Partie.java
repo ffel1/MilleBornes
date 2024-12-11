@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,13 +11,40 @@ import java.util.Random;
 public class Partie implements Serializable{
     private int points, quiCommence;
     private ArrayList<Joueur> joueurs;
-    private static ArrayList<Carte> pioche;
+    private ArrayList<Carte> pioche;
+    private String nomDeLaPartie;
 
 
     public Partie(){
         // Initialisation
         joueurs = new ArrayList<Joueur>();
-    } 
+    }
+    
+    public void initialisationNomDeLaPartie()
+    {
+        File fichier;
+        int i = 1;
+        fichier = new File("SauvegardeDesHistoriques/Manche_" + i);
+        while(fichier.exists())
+        {
+            System.out.println("Partie_" + i + " existe déjà !");
+            i++;
+            fichier = new File("SauvegardeDesHistoriques/Manche_" + i);
+        }
+
+        try {
+            fichier.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        nomDeLaPartie = "Manche_"+i;
+    }
+
+    public String getNomDeLaPartie()
+    {
+        return nomDeLaPartie;
+    }
     /*
      * Initialisation de la pioche #FINI
      */
@@ -80,7 +109,7 @@ public class Partie implements Serializable{
         return quiCommence;
     }
 
-    public static ArrayList<Carte> getPioche(){
+    public ArrayList<Carte> getPioche(){
         return pioche;
     }
 
@@ -149,13 +178,13 @@ public class Partie implements Serializable{
      * Renvoie vrai si un joueur a gagné a au moins 700 km
      * PAS FINI
      */
-    private boolean gagnant(){
+    public Joueur gagnant(){
         for(int i = 0; i < joueurs.size(); i++){
-            if(joueurs.get(i).getKilometre() >= 700){
-                return true;
+            if(joueurs.get(i).getKilometre() >= 100){
+                return joueurs.get(i);
             }
         }
-        return false;
+        return null;
     }
 
     
