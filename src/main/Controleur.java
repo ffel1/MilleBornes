@@ -336,7 +336,7 @@ public class Controleur
         initialiserBoutonCartes(main);
         if(partieChargée)
         {
-            vue.ajouterMessage("La partie reprends, c'était votre tour ! \n", false);
+            vue.ajouterMessage("\nLa partie reprends, c'était votre tour ! \n", false);
             modele.getJoueur1().monTour(true);
         }
         else if(modele.getQuiCommence() == 0)
