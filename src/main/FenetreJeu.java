@@ -381,7 +381,11 @@ public class FenetreJeu {
         if(b)
         {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("SauvegardeDesHistoriques/" + nomDeLaPartie, true))) {
-                writer.write(message);
+                if(message != null)
+                {
+                    writer.write(message);
+                }
+
     
             } catch (IOException e) {
                 e.printStackTrace(); // Gérer les exceptions d'écriture

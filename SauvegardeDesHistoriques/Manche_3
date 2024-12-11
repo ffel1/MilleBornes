@@ -1,0 +1,21 @@
+C'est le début d'une nouvelle course ! 
+Les participants sont : 
+- Vous
+- Agro
+- Fast
+CPU Agro commence à jouer ! 
+
+C'est au tour du CPU Agro ! Distance parcourue : 0 km 
+Le CPU Agro a pioché ! 
+Agro joue la botte : VEHICULE_PRIORITAIRE
+Le CPU Agro a encore pioché ! 
+Le CPU Agro ne peut pas jouer !
+Le CPU Agro défausse la carte :Distance100_KM 
+C'est la fin du tour de Agro ! Distance parcourue : 0 km 
+
+C'est au tour du CPU Fast ! Distance parcourue : 0 km 
+Le CPU Fast a pioché ! 
+Fast joue l'attaque CREVAISON contre Agro
+C'est la fin du tour de Fast ! Distance parcourue : 0 km 
+
+C'est votre tour ! Distance parcourue : 0 km 
