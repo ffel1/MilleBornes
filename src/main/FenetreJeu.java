@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -390,6 +392,18 @@ public class FenetreJeu {
             } catch (IOException e) {
                 e.printStackTrace(); // Gérer les exceptions d'écriture
             }
+        }
+    }
+
+    public void chargerLogs()
+    {
+        try {
+            // Lire tout le contenu du fichier
+            String contenu = Files.readString(Paths.get("SauvegardeDesHistoriques/" + nomDeLaPartie));
+            // Afficher le contenu
+            ajouterMessage(contenu, false);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

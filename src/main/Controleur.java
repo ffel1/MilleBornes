@@ -46,18 +46,20 @@ public class Controleur
         
         if(!modele.partieCree() || b){
             modele.nouvellePartie();
-            //vue.ajouterMessage("Nouvelle partie créée \n");
             partieChargée = false;
             modele.initialisationNomDeLaPartie();
         }
         else
         {
-            //vue.ajouterMessage("Partie chargée \n");
             partieChargée = true;
         }
 
         String nomDeLaPartie = modele.getNomDeLaPartie();
         vue.setNomDeLaPartie(nomDeLaPartie);
+        if(partieChargée)
+        {
+            vue.chargerLogs();
+        }
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
