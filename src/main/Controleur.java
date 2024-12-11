@@ -23,7 +23,7 @@ public class Controleur
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
-            joueMusic(2);
+            //joueMusic(2);
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -281,7 +281,7 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-            joueMusic(2);
+            //joueMusic(2);
             if(modele.getJoueur1().getDoitPiocher())
             {
                 modele.getJoueur1().setDoitPiocher(false);
