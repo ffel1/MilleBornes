@@ -14,5 +14,6 @@ Dans un premier temps, j'ai implémenté le système de tour dans une boucle whi
 Cette implémentation m'a posé des problèmes, notamment de performances et entrainait beaucoup de problèmes avec le tour de l'utilisateur.
 j'ai donc opté pour un simple système de booléan qui autorisé le joueur à jouer (à cliquer sur les boutons), et lorsque son tour prends fin, son boolean est mit à false et la méthode d'action des bots est appelée. La méthode d'action des bots appelle une méthode qui met le boolean du joueur à true.
 
+Il y avait un problème concernant la sauvegarde qui prenait de plus en plus de place au fur et à mesure des parties (alors que la sauvegarde de partie n'enregistre que la dernière partie si elle a été laissé en suspends). Le problème venait du fait que la liste de joueurs n'étaient pas rénitialisée
 
 
