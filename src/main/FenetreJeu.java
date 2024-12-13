@@ -3,6 +3,7 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -61,6 +62,12 @@ public class FenetreJeu {
     private int kilometreV3;
     private ImageIcon circuit;
     private String nomDeLaPartie;
+    private JPanel panneauAttaquesJoueur;
+    private JPanel panneauAttaquesCPUFast;
+    private JPanel panneauAttaquesCPUAgro;
+    private JPanel panneauBottesJoueur;
+    private JPanel panneauBottesCPUFast;
+    private JPanel panneauBottesCPUAgro;
 
     public FenetreJeu(){
         // Initialisation
@@ -245,6 +252,9 @@ public class FenetreJeu {
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
 
+        creerAffichageAttaques();
+        creerAffichageBottes();
+
         // Circuit
         circuit = new ImageIcon("Images/circuit.png");
         Image imageRedimensionnee = circuit.getImage().getScaledInstance(largeur * 77 / 100, hauteur * 95 / 100, Image.SCALE_SMOOTH);
@@ -345,6 +355,149 @@ public class FenetreJeu {
         }
     }
 
+
+    public void creerAffichageAttaques() {
+        // Panneau global pour Joueur
+        JPanel panneauGlobalJoueur = new JPanel(new BorderLayout());
+        JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
+        panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
+
+        panneauAttaquesJoueur = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauAttaquesJoueur.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalJoueur.add(panneauAttaquesJoueur, BorderLayout.CENTER);
+        panneauGlobalJoueur.setBounds(0 , (int)(hauteur * 0.01),(int)(largeur * 0.175), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
+
+        // Panneau global pour CPU Fast
+        JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
+        JLabel labelCPUFast = new JLabel("CPU Fast", JLabel.CENTER);
+        panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
+
+        panneauAttaquesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauAttaquesCPUFast.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalCPUFast.add(panneauAttaquesCPUFast, BorderLayout.CENTER);
+        panneauGlobalCPUFast.setBounds(0 , (int)(hauteur * 0.14),(int)(largeur * 0.175), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
+
+        // Panneau global pour CPU Agro
+        JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
+        JLabel labelCPUAgro = new JLabel("CPU Agro", JLabel.CENTER);
+        panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
+
+        panneauAttaquesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauAttaquesCPUAgro.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalCPUAgro.add(panneauAttaquesCPUAgro, BorderLayout.CENTER);
+        panneauGlobalCPUAgro.setBounds(0 , (int)(hauteur * 0.27),(int)(largeur * 0.175), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
+    }
+
+    public void creerAffichageBottes() {
+        // Panneau global pour Joueur
+        JPanel panneauGlobalJoueur = new JPanel(new BorderLayout());
+        JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
+        panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
+
+        panneauBottesJoueur = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauBottesJoueur.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalJoueur.add(panneauBottesJoueur, BorderLayout.CENTER);
+        panneauGlobalJoueur.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.01),(int)(largeur * 0.14), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
+
+        // Panneau global pour CPU Fast
+        JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
+        JLabel labelCPUFast = new JLabel("CPU Fast", JLabel.CENTER);
+        panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
+
+        panneauBottesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauBottesCPUFast.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalCPUFast.add(panneauBottesCPUFast, BorderLayout.CENTER);
+        panneauGlobalCPUFast.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.14),(int)(largeur * 0.14), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
+
+        // Panneau global pour CPU Agro
+        JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
+        JLabel labelCPUAgro = new JLabel("CPU Agro", JLabel.CENTER);
+        panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
+
+        panneauBottesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauBottesCPUAgro.setBackground(Color.LIGHT_GRAY);
+        panneauGlobalCPUAgro.add(panneauBottesCPUAgro, BorderLayout.CENTER);
+        panneauGlobalCPUAgro.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.27),(int)(largeur * 0.14), (int)(hauteur * 0.12));
+        panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
+
+    }
+
+
+    
+    public void mettreAJourAttaques(Partie partie) {
+        // Effacer les anciennes cartes des panneaux
+        panneauAttaquesJoueur.removeAll();
+        panneauAttaquesCPUFast.removeAll();
+        panneauAttaquesCPUAgro.removeAll();
+    
+        // Ajouter les nouvelles cartes pour chaque participant
+        ajouterAttaquesPourJoueur(partie.getJoueur1(), panneauAttaquesJoueur);
+        ajouterAttaquesPourJoueur(partie.getJoueur2(), panneauAttaquesCPUFast);
+        ajouterAttaquesPourJoueur(partie.getJoueur3(), panneauAttaquesCPUAgro);
+    
+        panneauAttaquesJoueur.revalidate();
+        panneauAttaquesJoueur.repaint();
+        panneauAttaquesCPUFast.revalidate();
+        panneauAttaquesCPUFast.repaint();
+        panneauAttaquesCPUAgro.revalidate();
+        panneauAttaquesCPUAgro.repaint();
+    }
+
+    public void mettreAJourBottes(Partie partie) {
+        // Effacer les anciennes cartes des panneaux
+        panneauBottesJoueur.removeAll();
+        panneauBottesCPUFast.removeAll();
+        panneauBottesCPUAgro.removeAll();
+    
+        // Ajouter les nouvelles cartes pour chaque participant
+        ajouterBottesPourJoueur(partie.getJoueur1(), panneauBottesJoueur);
+        ajouterBottesPourJoueur(partie.getJoueur2(), panneauBottesCPUFast);
+        ajouterBottesPourJoueur(partie.getJoueur3(), panneauBottesCPUAgro);
+    
+        panneauBottesJoueur.revalidate();
+        panneauBottesJoueur.repaint();
+        panneauBottesCPUFast.revalidate();
+        panneauBottesCPUFast.repaint();
+        panneauBottesCPUAgro.revalidate();
+        panneauBottesCPUAgro.repaint();
+    }
+
+
+    private void ajouterAttaquesPourJoueur(Joueur joueur, JPanel panneau) {
+        if (joueur == null || joueur.getAttaquesEnCours() == null) {
+            return;
+        }
+
+        for (Carte carte : joueur.getAttaquesEnCours()) {
+            // Réduire la taille de l'image de la carte
+            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance((int)(largeur * 0.03), (int)(hauteur * 0.084), Image.SCALE_SMOOTH));
+            JLabel label = new JLabel(image);
+            panneau.add(label); // Ajouter la carte au panneau
+        }
+    }
+
+    private void ajouterBottesPourJoueur(Joueur joueur, JPanel panneau) {
+        if (joueur == null || joueur.getBottesPosées() == null) {
+            return;
+        }
+        
+        for (Carte carte : joueur.getBottesPosées()) {
+            // Réduire la taille de l'image de la carte
+            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance((int)(largeur * 0.03), (int)(hauteur * 0.084), Image.SCALE_SMOOTH));
+            JLabel label = new JLabel(image);
+            panneau.add(label); // Ajouter la carte au panneau
+        }
+    }
+    
+    
+    
+
+
     public ArrayList<JButton> getBoutonMainsJoueurs()
     {
         return boutonsMainJoueur;
@@ -399,7 +552,7 @@ public class FenetreJeu {
     {
         try {
             // Lire tout le contenu du fichier
-            String contenu = Files.readString(Paths.get("SauvegardeDesHistoriques/" + nomDeLaPartie));
+            String contenu = new String(Files.readAllBytes(Paths.get("SauvegardeDesHistoriques/" + nomDeLaPartie)));
             // Afficher le contenu
             ajouterMessage(contenu, false);
         } catch (IOException e) {
