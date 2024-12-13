@@ -425,7 +425,7 @@ public class FenetreJeu {
         boutonVoiture2.setFocusPainted(false);
         boutonVoiture2.setContentAreaFilled(false);
         boutonVoiture2.setOpaque(false);
-        boutonVoiture2.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (voiture2.getIconWidth() * 90 / 100), (circuit.getIconHeight() * 64 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture2.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (circuit.getIconWidth() * 35 / 1000), (circuit.getIconHeight() * 64 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
         panelJeu.add(boutonVoiture2, Integer.valueOf(2));
 
         // Voiture 3
@@ -435,7 +435,7 @@ public class FenetreJeu {
         boutonVoiture3.setFocusPainted(false);
         boutonVoiture3.setContentAreaFilled(false);
         boutonVoiture3.setOpaque(false);
-        boutonVoiture3.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (voiture3.getIconWidth() * 90 / 100) * 2, (circuit.getIconHeight() * 64 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture3.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (circuit.getIconWidth() * 35 / 1000) * 2, (circuit.getIconHeight() * 64 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
         panelJeu.add(boutonVoiture3, Integer.valueOf(2));
     }
 
