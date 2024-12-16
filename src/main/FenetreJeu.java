@@ -603,9 +603,8 @@ public class FenetreJeu {
     public void avancerVoiture(int distance, int joueur){
         int deplacementY = 0;
         int pourcentageX = 0;
-        int vitesse = 5;
+        int vitesse = 2;
         JButton voiture;
-        int trop = 0;
         int nouvelleDistance = distance;
         System.out.println(kilometreV1);
 
@@ -637,10 +636,10 @@ public class FenetreJeu {
                 deplacementY = (25 * 20 / 100) + ((nouvelleDistance / 25)) * (circuit.getIconHeight() * 90 / 1000);
                 position.setBounds((int)position.getX(), (int)position.getY() - deplacementY, (int)position.getWidth(), (int)position.getHeight());
             }else if(voiture.getIcon().toString().compareTo("Images/voiture rouge idle gauche.gif") == 0 && distance > 175){ // Entre 175 et 375 km = voiture vers la gauche
-                pourcentageX = ((distance - 175) / 25 ) * (circuit.getIconWidth() * 73 / 1300);
+                pourcentageX = ((distance - 175) / 25 ) * (circuit.getIconWidth() * 77 / 1300);
                 position.setBounds((int)position.getX() - pourcentageX, (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
             }else if(voiture.getIcon().toString().compareTo("Images/voiture rouge idle bas.gif") == 0 && distance > 400){ // Entre 400 et 525 km = voiture vers le bas
-                deplacementY = (((distance - 400) / 25)) * (circuit.getIconHeight() * 70 / 1000);
+                deplacementY = (((distance - 400) / 25)) * (circuit.getIconHeight() * 75 / 1000);
                 position.setBounds((int)position.getX(), (int)position.getY() + deplacementY, (int)position.getWidth(), (int)position.getHeight());
             }else if(voiture.getIcon().toString().compareTo("Images/voiture rouge idle droite.gif") == 0 && distance > 550){ // Entre 550 et 700 km = voiture vers la droite
                 pourcentageX = ((distance - 550) / 25 ) * (circuit.getIconWidth() * 78 / 1300);
@@ -657,7 +656,7 @@ public class FenetreJeu {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         compteur++;
-                        if(compteur > 70){
+                        if(compteur > 100){
                             ((Timer) e.getSource()).stop(); // Arrêter le Timer
                             ImageIcon voiture1 = new ImageIcon("Images/voiture roule vers haut.gif");
                             voiture.setIcon(voiture1);
@@ -793,7 +792,7 @@ public class FenetreJeu {
                                                         ((Timer) e.getSource()).stop(); // Arrêter le Timer
                                                         ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle bas.gif");
                                                         voiture.setIcon(voiture1);
-                                                        voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 29 / 100) - (voiture1.getIconWidth() * 42 / 100) - (voiture1.getIconWidth() * 25 / 100) * joueur, (circuit.getIconWidth() * 45 / 1000), 
+                                                        voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 29 / 100) - (voiture1.getIconWidth() * 42 / 100) - (circuit.getIconWidth() * 4 / 100) * joueur, (circuit.getIconWidth() * 45 / 1000), 
                                                                             (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
                                                         avancerVoiture(distance, joueur);
                                                     }
@@ -826,7 +825,7 @@ public class FenetreJeu {
                                                         ((Timer) e.getSource()).stop(); // Arrêter le Timer
                                                         ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle bas.gif");
                                                         voiture.setIcon(voiture1);
-                                                        voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 29 / 100) - (voiture1.getIconWidth() * 42 / 100) - (voiture1.getIconWidth() * 25 / 100) * joueur, (circuit.getIconWidth() * 45 / 1000), 
+                                                        voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 29 / 100) - (voiture1.getIconWidth() * 42 / 100) - (circuit.getIconWidth() * 4 / 100) * joueur, (circuit.getIconWidth() * 45 / 1000), 
                                                                             (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
                                                         avancerVoiture(distance, joueur);
                                                     }
@@ -890,7 +889,7 @@ public class FenetreJeu {
                                                         ((Timer) e.getSource()).stop(); // Arrêter le Timer
                                                         ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle droite.gif");
                                                         voiture.setIcon(voiture1);
-                                                        voiture.setBounds(x + (voiture1.getIconWidth() * 19 / 100) * joueur, y - (circuit.getIconHeight() * 185 / 1000) + (voiture1.getIconHeight() * 100 / 100) + (voiture1.getIconHeight() * 2 / 100) * joueur, 
+                                                        voiture.setBounds(x + (circuit.getIconWidth() * 4 / 100) * joueur, y + (circuit.getIconHeight() * 17 / 1000) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
                                                                             (voiture1.getIconWidth() * 100 / 100), (voiture1.getIconHeight() * 100 / 100));
                                                         avancerVoiture(distance, joueur);
                                                     }
@@ -923,7 +922,7 @@ public class FenetreJeu {
                                                         ((Timer) e.getSource()).stop(); // Arrêter le Timer
                                                         ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle droit.gif");
                                                         voiture.setIcon(voiture1);
-                                                        voiture.setBounds(x + (voiture1.getIconWidth() * 40 / 100) * joueur, y - (circuit.getIconHeight() * 185 / 1000) + (voiture1.getIconHeight() * 100 / 100) + (voiture1.getIconHeight() * 2 / 100) * joueur, 
+                                                        voiture.setBounds(x + (circuit.getIconWidth() * 4 / 100) * joueur, y + (circuit.getIconHeight() * 17 / 1000) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
                                                                             (voiture1.getIconWidth() * 100 / 100), (voiture1.getIconHeight() * 100 / 100));
                                                         avancerVoiture(distance, joueur);
                                                     }
