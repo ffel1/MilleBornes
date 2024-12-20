@@ -61,6 +61,9 @@ public class Controleur
             vue.chargerLogs();
         }
 
+        vue.mettreAJourAttaques(modele);
+        vue.mettreAJourBottes(modele);
+
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
             if(modele.getJoueur1().getEnTraindAttaquerAvec() != null)
@@ -172,6 +175,8 @@ public class Controleur
                     modele.getJoueur1().monTour(true);
                     vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                     vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
+                    vue.mettreAJourAttaques(modele);
+                    vue.mettreAJourBottes(modele);
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
@@ -195,6 +200,8 @@ public class Controleur
                 modele.getJoueur1().monTour(true);
                 vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                 vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
+                vue.mettreAJourAttaques(modele);
+                vue.mettreAJourBottes(modele);
             }
             else
             {

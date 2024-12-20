@@ -12,6 +12,8 @@ public abstract class Joueur implements Serializable{
     private int kilometreP;
     private int id;
     private Partie partie;
+    private int coupFourrees = 0;
+    private ArrayList<Carte> cartesDistanceJouees;
 
     public Joueur(String name, int km, int id, Partie partie){
         main = new ArrayList<Carte>();
@@ -56,6 +58,10 @@ public abstract class Joueur implements Serializable{
         return id;
     }
 
+    public int getCoupFourres(){
+        return coupFourrees;
+    }
+
     public boolean mainPleine(){
         return main.size() >= 7;
     }
@@ -66,6 +72,16 @@ public abstract class Joueur implements Serializable{
 
     public void ajouterCarte(Carte c){
         main.add(c);
+
+    }
+    
+    public boolean utilise200KM() {
+        for (Carte carte : cartesDistanceJouees) {
+            if (carte instanceof Distance && ((Distance) carte).getKilometre() == 200) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void piocher()
@@ -108,22 +124,25 @@ public abstract class Joueur implements Serializable{
     public String jouerBotte(Carte c) {
         if (c instanceof Botte) {
             bottesPosées.add(c);
-    
+            boolean coupFourre = false;
             switch (c.getType()) {
-                case AS_DU_VOLANT:
-                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT); 
+                case AS_DU_VOLANT:  
+                    coupFourre = attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.ACCIDENT); 
                     break;
                 case CAMION_CITERNE:
-                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
+                    coupFourre = attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.PANNE_D_ESSENCE);
                     break;
                 case INCREVABLE:
-                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
+                    coupFourre = attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.CREVAISON);
                     break;
                 case VEHICULE_PRIORITAIRE:
-                    attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
+                    coupFourre = attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
                     break;
                 default:
                     break;
+            }
+            if(coupFourre){
+                coupFourrees++;
             }
             retirerCarte(c);
             return getNom() + " joue la botte : " + c.getNom() + "\n";
@@ -192,6 +211,7 @@ public abstract class Joueur implements Serializable{
         if (verification(c, this, this)) {
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
+            cartesDistanceJouees.add(c);
             retirerCarte(c);
             return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km. \n");
         }
