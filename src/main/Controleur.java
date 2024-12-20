@@ -24,7 +24,7 @@ public class Controleur
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
-            //joueMusic(2);
+            joueMusic(0);
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -92,6 +92,7 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
+            vue.avancerVoiture(700, 1);
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
@@ -337,6 +338,10 @@ public class Controleur
                 vue.ajouterMessage(" Ce n'est pas votre tour \n", false);
             }
         }); 
+
+        vue.ajouterActionBoutonSon(e -> {
+            stopMusic();
+        });
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);

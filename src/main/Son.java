@@ -11,6 +11,7 @@ public class Son{
     
     private Clip clip;
     private File sonURL[] = new File[30];
+    private boolean sonON = true;
 
     public Son(){ // Ajouter d'autre son ici
         sonURL[0] = new File("son/Foule.wav");
@@ -28,7 +29,9 @@ public class Son{
     }
 
     public void play(){
-        clip.start();
+        if(sonON){
+            clip.start();
+        }
     }
 
     public void loop(){
@@ -37,5 +40,11 @@ public class Son{
 
     public void stop(){
         clip.stop();
+        if(sonON){
+            sonON = false;
+        }else{
+            sonON = true;
+            play();
+        }   
     }
 }
