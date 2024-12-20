@@ -16,6 +16,7 @@ public class Son{
     public Son(){ // Ajouter d'autre son ici
         sonURL[0] = new File("son/Foule.wav");
         sonURL[1] = new File("son/Klaxon.wav");
+        sonURL[2] = new File("son/VoitureAvance.wav");
     }
 
     public void setFile(int i){

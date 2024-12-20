@@ -43,7 +43,6 @@ public class FenetreJeu {
     private JScrollPane scrollPane;
     private JButton boutonJouer;
     private JButton boutonQuitter;
-    //new
     private JButton boutonHistorique;
     private JButton boutonRetour;
     private JButton boutonPioche;
@@ -71,7 +70,10 @@ public class FenetreJeu {
     private JPanel panneauBottesJoueur;
     private JPanel panneauBottesCPUFast;
     private JPanel panneauBottesCPUAgro;
+    private ImageIcon sonOn;
+    private ImageIcon sonOff;
     private JButton boutonSon;
+
 
     public FenetreJeu(){
         // Initialisation
@@ -342,16 +344,27 @@ public class FenetreJeu {
         }
 
         // BoutonSon
-        son = new ImageIcon("Images/SonON.png");
-        Image imageRedimensionneeSon = son.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
-        son = new ImageIcon(imageRedimensionneeSon);
-        boutonSon.setIcon(son);
-        boutonSon.setBounds(largeur - son.getIconWidth(), hauteur - son.getIconHeight(), son.getIconWidth(), son.getIconHeight());
+        sonOn = new ImageIcon("Images/SonON.png");
+        Image imageRedimensionneeSonOn = sonOn.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
+        sonOn = new ImageIcon(imageRedimensionneeSonOn);
+        sonOff = new ImageIcon("Images/SonOFF.png");
+        Image imageRedimensionneeSonOff = sonOff.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
+        sonOff = new ImageIcon(imageRedimensionneeSonOff);
+        boutonSon.setIcon(sonOn);
+        boutonSon.setBounds(largeur - sonOn.getIconWidth(), hauteur - sonOn.getIconHeight(), sonOn.getIconWidth(), sonOn.getIconHeight());
         panelJeu.add(boutonSon, Integer.valueOf(10));
         
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
+    }
+
+    public void changerImageSon(){
+        if(boutonSon.getIcon().equals(sonOn)){
+            boutonSon.setIcon(sonOff);  
+        }else{
+            boutonSon.setIcon(sonOn);
+        }
     }
 
     public void creerFenetreHistorique(){
@@ -643,7 +656,7 @@ public class FenetreJeu {
      * Seulement la première ligne droite pour l'instant
      * joueur = id du joueur
      */
-    public void avancerVoiture(int distance, int joueur){
+    public void avancerVoiture(int distance, int joueur, Controleur control){
         int deplacementY = 0;
         int pourcentageX = 0;
         int vitesse = 5;
@@ -699,18 +712,26 @@ public class FenetreJeu {
                     public void run(){
                         ImageIcon voiture1 = new ImageIcon("Images/voiture roule vers haut.gif");
                         voiture.setIcon(voiture1);
+                        
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                             int x = voiture.getX();
                             int y = voiture.getY();
+                            boolean son = true;
                         
                             @Override
-                            public void actionPerformed(ActionEvent e) {
+                            public void actionPerformed(ActionEvent e){
+                                if(son){
+                                    control.getListeSon().setFile(2);
+                                    control.getListeSon().play();
+                                    son = false;
+                                }
                                 // Mettre à jour les coordonnées
                                 y -= vitesse;
                                 voiture.setLocation(x, y);
                         
                                 if(distance >= 175 && (voiture.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() - ((voiture.getIcon().getIconHeight() * 50 / 100) * joueur) | y < (circuit.getIconHeight() * 125 / 1000) - joueur * (circuit.getIconHeight() * 50 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -734,12 +755,13 @@ public class FenetreJeu {
 												voiture.setIcon(voiture1);
 												voiture.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 33 / 100) - (voiture1.getIconWidth() * 70 / 100), y  + (voiture1.getIconHeight() * 5 / 100) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
 																	(voiture1.getIconWidth() * 50 / 100), (voiture1.getIconHeight() * 20 / 100));
-												avancerVoiture(distance, joueur);
+												avancerVoiture(distance, joueur, control);
 											}
                                     	}, 700);
                                     }
                                 }else if(distance < 175 && (voiture.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() | y < (circuit.getIconHeight() * 125 / 1000) - joueur * (circuit.getIconHeight() * 50 / 1000))){
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -763,7 +785,7 @@ public class FenetreJeu {
 												voiture.setIcon(voiture1);
 												voiture.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 33 / 100) - (voiture1.getIconWidth() * 70 / 100), y  + (voiture1.getIconHeight() * 5 / 100) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
 																	(voiture1.getIconWidth() * 50 / 100), (voiture1.getIconHeight() * 20 / 100));
-												avancerVoiture(distance, joueur);
+												avancerVoiture(distance, joueur, control);
 											}
                                     	}, 700);
                                     }
@@ -786,13 +808,20 @@ public class FenetreJeu {
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                             int x = voiture.getX();
                             int y = voiture.getY();
+                            boolean son = true;
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                if(son){
+                                    control.getListeSon().setFile(2);
+                                    control.getListeSon().play();
+                                    son = false;
+                                }
                                 // Mettre à jour les coordonnées
                                 x -= vitesse;
                                 voiture.setLocation(x, y);
                                 if(distance >= 400 && (voiture.getX() + (circuit.getIconWidth() * 25 / 1300) <= (int)position.getX() - ((voiture.getIcon().getIconWidth() * 50 / 100) * joueur) | x < (circuit.getIconWidth() * 340 / 1000) - joueur * (circuit.getIconWidth() * 40 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle gauche.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -816,12 +845,13 @@ public class FenetreJeu {
                                                 voiture.setIcon(voiture1);
                                                 voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 33 / 100) - (circuit.getIconWidth() * 4 / 100) * joueur, (circuit.getIconWidth() * 80 / 1000), 
 																	(circuit.getIconWidth() * 3 / 100), (voiture1.getIconHeight() * 50 / 100));
-                                                avancerVoiture(distance, joueur);
+                                                avancerVoiture(distance, joueur, control);
                                             }
 										}, 700);
 									}
                                 }else if(distance < 400 && (voiture.getX() + (circuit.getIconWidth() * 25 / 1300) <= (int)position.getX() | x < (circuit.getIconWidth() * 340 / 1000) - joueur * (circuit.getIconWidth() * 40 / 1000))){
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle gauche.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -845,7 +875,7 @@ public class FenetreJeu {
                                                 voiture.setIcon(voiture1);
                                                 voiture.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 33 / 100) - (circuit.getIconWidth() * 4 / 100) * joueur, (circuit.getIconWidth() * 45 / 1000), 
 																	(circuit.getIconWidth() * 23 / 100), (voiture1.getIconHeight() * 50 / 100));
-                                                avancerVoiture(distance, joueur);
+                                                avancerVoiture(distance, joueur, control);
                                             }
 										}, 700);
 									}
@@ -868,14 +898,21 @@ public class FenetreJeu {
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                             int x = voiture.getX();
                             int y = voiture.getY();
+                            boolean son = true;
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                if(son){
+                                    control.getListeSon().setFile(2);
+                                    control.getListeSon().play();
+                                    son = false;
+                                }
                                 // Mettre à jour les coordonnées
                                 y += vitesse;
                                 voiture.setLocation(x, y);
                                     
                                 if(distance >= 550 && (voiture.getY() - (circuit.getIconWidth() * 20 / 1000) > (int)position.getY() + ((voiture.getIcon().getIconHeight() * 50 / 100) * joueur) | y > (circuit.getIconHeight() * 620 / 1000) + joueur * (circuit.getIconHeight() * 45 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle bas.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -899,12 +936,13 @@ public class FenetreJeu {
                                                 voiture.setIcon(voiture1);
                                                 voiture.setBounds(x + (circuit.getIconWidth() * 4 / 100) + (circuit.getIconWidth() * 4 / 100) * joueur, y + (circuit.getIconHeight() * 18 / 1000) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
                                                                     (voiture1.getIconWidth() * 50 / 100), (voiture1.getIconHeight() * 20 / 100));
-                                                avancerVoiture(distance, joueur);
+                                                avancerVoiture(distance, joueur, control);
                                             }
 										}, 700);
 									}
                                 }else if(distance < 550 && (voiture.getY() - (circuit.getIconWidth() * 20 / 1000) > (int)position.getY() | y > (circuit.getIconHeight() * 620 / 1000) + joueur * (circuit.getIconHeight() * 45 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    control.getListeSon().stop();
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle bas.gif");
                                     voiture.setIcon(voiture1);
                                     if(joueur == 0){
@@ -928,7 +966,7 @@ public class FenetreJeu {
                                                     voiture.setIcon(voiture1);
                                                     voiture.setBounds(x + (circuit.getIconWidth() * 4 / 100) + (circuit.getIconWidth() * 4 / 100) * joueur, y + (circuit.getIconHeight() * 18 / 1000) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
                                                                         (voiture1.getIconWidth() * 100 / 100), (voiture1.getIconHeight() * 100 / 100));
-                                                    avancerVoiture(distance, joueur);
+                                                    avancerVoiture(distance, joueur, control);
                                                 }
 											}, 700);
 										}
@@ -951,12 +989,19 @@ public class FenetreJeu {
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                             int x = voiture.getX();
                             int y = voiture.getY();
+                            boolean son = true;
                             @Override
-                            public void actionPerformed(ActionEvent e) {
+                            public void actionPerformed(ActionEvent e){
+                                if(son){
+                                    control.getListeSon().setFile(2);
+                                    control.getListeSon().play();
+                                    son = false;
+                                }
                                 // Mettre à jour les coordonnées
                                 x += vitesse;
                                 voiture.setLocation(x, y);
-                                if(voiture.getX()  > (int)position.getX()) {
+                                if(voiture.getX()  > (int)position.getX()){
+                                    control.getListeSon().stop();
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle droite.gif");
                                     voiture.setIcon(voiture1);
