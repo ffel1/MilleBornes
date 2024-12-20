@@ -43,6 +43,8 @@ public class FenetreJeu {
     private JScrollPane scrollPane;
     private JButton boutonJouer;
     private JButton boutonQuitter;
+    //new
+    private JButton boutonHistorique;
     private JButton boutonRetour;
     private JButton boutonPioche;
     private JButton boutonDefausse;
@@ -76,6 +78,8 @@ public class FenetreJeu {
         hauteurCarte = 0;
         boutonJouer = new JButton("Jouer");
         boutonQuitter = new JButton("Quitter");
+        //new
+        boutonHistorique = new JButton("Historique");
         boutonRetour = new JButton("Menu Principal");
         boutonNouvellePartie = new JButton("Nouvelle partie");
         boutonPioche = new JButton("Pioche (temporaire)");
@@ -129,6 +133,14 @@ public class FenetreJeu {
      */
     public void ajouterActionBoutonJouer(ActionListener action){
         boutonJouer.addActionListener(action);
+    }
+
+    /**
+     * Permet de connecter une action au bouton "Historique"
+     * @param action L'action à exécuter lors du clic sur le bouton
+     */
+    public void ajouterActionBoutonHistorique(ActionListener action){
+        boutonHistorique.addActionListener(action);
     }
 
     /**
@@ -243,10 +255,17 @@ public class FenetreJeu {
         grille.anchor = GridBagConstraints.CENTER;
         menuPanel.add(labelImage, grille);
 
+        // Bouton historique
+        boutonHistorique.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        grille.gridx = 0;
+        grille.gridy = 2;
+        grille.anchor = GridBagConstraints.CENTER;
+        menuPanel.add(boutonHistorique, grille);
+
         //Bouton quitter
         boutonQuitter.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
         grille.gridx = 0; 
-        grille.gridy = 2; 
+        grille.gridy = 3; 
         grille.anchor = GridBagConstraints.CENTER; // Centrer
         menuPanel.add(boutonQuitter, grille);
 
@@ -333,6 +352,10 @@ public class FenetreJeu {
 
         fenetreMenu.setLayout(null);
 		fenetreMenu.setVisible(true);
+    }
+
+    public void creerFenetreHistorique(){
+        // Initialisation menuPanel et de le gestionnaire de disposition
     }
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
