@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -367,8 +368,44 @@ public class FenetreJeu {
         }
     }
 
-    public void creerFenetreHistorique(){
-        // Initialisation menuPanel et de le gestionnaire de disposition
+    public void creerFenetreHistorique() {
+        JPanel panelHistorique = new JPanel();
+        panelHistorique.setLayout(new GridBagLayout());
+        GridBagConstraints grille = new GridBagConstraints();
+    
+        File fichier;
+        int i = 1;
+    
+        fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
+
+        while (fichier.exists()) {
+            JButton boutonFichier = new JButton("Manche " + i);
+            boutonFichier.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
+    
+            grille.gridx = 0; 
+            grille.gridy = i; 
+            grille.insets = new Insets(10, 0, 10, 0); 
+            grille.anchor = GridBagConstraints.CENTER;
+
+            panelHistorique.add(boutonFichier, grille);
+    
+            i++;
+            fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
+        }
+    
+        JButton boutonRetourMenu = new JButton("Menu Principal");
+        boutonRetourMenu.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        boutonRetourMenu.addActionListener(e -> creerFenetreMenu());
+        grille.gridx = 0;
+        grille.gridy = i; 
+        grille.insets = new Insets(20, 0, 10, 0); 
+        grille.anchor = GridBagConstraints.CENTER;
+    
+        panelHistorique.add(boutonRetourMenu, grille);
+    
+        fenetreMenu.setContentPane(panelHistorique);
+        fenetreMenu.revalidate();
+        fenetreMenu.repaint();
     }
 
     public void afficherCartesJoueur(ArrayList<Carte> main){
