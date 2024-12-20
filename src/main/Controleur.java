@@ -32,6 +32,13 @@ public class Controleur
             nouvellePartie(false);
         });
 
+        vue.ajouterActionBoutonHistorique(e -> {
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
+            vue.creerFenetreHistorique();
+        });
+
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
     }
 
