@@ -193,7 +193,6 @@ public abstract class Joueur implements Serializable{
      */
     public String jouerAttaque(Carte c, Joueur cible) {
         if (verification(c, this, cible)) {
-            cible.getAttaquesEnCours().add(c);
             if(c.getType() == TypeCarte.FEU_ROUGE)
             {
                 cible.setFeuVert(false);
@@ -203,9 +202,11 @@ public abstract class Joueur implements Serializable{
                     {
 
                         cible.attaquesEnCours.remove(carte);
+                        break;
                     }
                 }
             }
+            cible.getAttaquesEnCours().add(c);
             retirerCarte(c);
             return getNom() + " joue l'attaque " + c.getNom() + " contre " + cible.getNom() + "\n";
         }

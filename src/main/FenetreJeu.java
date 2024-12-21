@@ -36,6 +36,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 
 public class FenetreJeu {
+    public boolean animationEnCours;
     private JFrame fenetreMenu;
     private int hauteur;
     private int largeur;
@@ -448,6 +449,11 @@ public class FenetreJeu {
         }
     }
 
+    public boolean getAnimationEnCours()
+    {
+        return animationEnCours;
+    }
+
 
     public void creerAffichageAttaques() {
         // Panneau global pour Joueur
@@ -751,6 +757,7 @@ public class FenetreJeu {
                 chrono.schedule(new TimerTask() {
                     @Override
                     public void run(){
+                        animationEnCours = true;
                         ImageIcon voiture1 = new ImageIcon("Images/voiture "+ couleur +" roule haut.gif");
                         voiture.setIcon(voiture1);
                         
@@ -836,6 +843,7 @@ public class FenetreJeu {
                         timer.start();
                     }
                 }, 2500);
+                animationEnCours = false;
             }else if(voiture.getIcon().toString().compareTo("Images/voiture "+ couleur +" idle gauche.gif") == 0){
                 // voiture démarrage gauche
                 ImageIcon voiture1 = new ImageIcon("Images/voiture "+ couleur +" démarrage gauche.gif");
@@ -844,6 +852,7 @@ public class FenetreJeu {
                 chrono.schedule(new TimerTask() {
                     @Override
                     public void run(){
+                        animationEnCours = true;
                         ImageIcon voiture1 = new ImageIcon("Images/voiture "+ couleur +" roule gauche.gif");
                         voiture.setIcon(voiture1);
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
@@ -924,6 +933,7 @@ public class FenetreJeu {
 							}
 						});
 						timer.start();
+                        animationEnCours = false;
                     }
 				}, 2500);
             }else if(voiture.getIcon().toString().compareTo("Images/voiture "+ couleur +" idle bas.gif") == 0){
@@ -934,6 +944,7 @@ public class FenetreJeu {
                 chrono.schedule(new TimerTask() {
                     @Override
                     public void run(){
+                        animationEnCours = true;
                         ImageIcon voiture1 = new ImageIcon("Images/voiture "+ couleur +" roule bas.gif");
                         voiture.setIcon(voiture1);
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
@@ -1015,6 +1026,7 @@ public class FenetreJeu {
 								}
 							});
                         timer.start();
+                        animationEnCours = false;
                     }
 				}, 2500); 
             }else if(voiture.getIcon().toString().compareTo("Images/voiture "+ couleur +" idle droite.gif") == 0){
@@ -1025,6 +1037,7 @@ public class FenetreJeu {
                 chrono.schedule(new TimerTask() {
                     @Override
                     public void run(){
+                        animationEnCours = true;
                         ImageIcon voiture1 = new ImageIcon("Images/voiture "+ couleur +" roule droite.gif");
                         voiture.setIcon(voiture1);
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
@@ -1057,10 +1070,12 @@ public class FenetreJeu {
                             }
                         });
                         timer.start();
+                        animationEnCours = false;
                     }
 				}, 2500); 
             }
         }
         nouvelleDistance = 0;
+        animationEnCours = false;
     }
 }

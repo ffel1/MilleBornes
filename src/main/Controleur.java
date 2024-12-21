@@ -356,7 +356,7 @@ public class Controleur
             }
         }); 
 
-        vue.ajouterActionBoutonSon(e -> {
+            vue.ajouterActionBoutonSon(e -> {
             stopMusic();
             vue.changerImageSon();
         });
@@ -412,6 +412,9 @@ public class Controleur
             vue.mettreAJourAttaques(modele);
             vue.mettreAJourBottes(modele);
         }
+        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
+        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
+        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();
     }
