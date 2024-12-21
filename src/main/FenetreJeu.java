@@ -305,7 +305,7 @@ public class FenetreJeu {
         afficherVoitures(circuit);
 
         // Bouton Menu principal
-        boutonRetour.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) + (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
+        boutonRetour.setBounds(largeur - (largeur * 11 / 100), hauteur - hauteur * 9/100, largeur * 5 / 100, hauteur * 5/ 100);
         panelJeu.add(boutonRetour, Integer.valueOf(2));
         if(boutonRetour.getActionListeners().length == 1)
         {
@@ -321,7 +321,7 @@ public class FenetreJeu {
         }
 		
         // Bouton "Nouvelle partie"
-        boutonNouvellePartie.setBounds(largeur - (largeur * 30 / 100), (hauteur / 2) - (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
+        boutonNouvellePartie.setBounds(largeur - (largeur * 20 / 100), hauteur - hauteur * 9/100, largeur * 5 / 100, hauteur * 5/ 100);
         panelJeu.add(boutonNouvellePartie, Integer.valueOf(2));
         if(boutonNouvellePartie.getActionListeners().length == 1)
         {
