@@ -291,13 +291,13 @@ public class FenetreJeu {
 
         // Circuit
         circuit = new ImageIcon("Images/circuit.png");
-        Image imageRedimensionnee = circuit.getImage().getScaledInstance(largeur * 77 / 100, hauteur * 95 / 100, Image.SCALE_SMOOTH);
+        Image imageRedimensionnee = circuit.getImage().getScaledInstance(largeur, hauteur, Image.SCALE_SMOOTH);
         circuit = new ImageIcon(imageRedimensionnee);
         JLabel labelCircuit = new JLabel();
         labelCircuit.setIcon(circuit);
         labelCircuit.setVerticalAlignment(JLabel.CENTER);
         labelCircuit.setHorizontalAlignment(JLabel.CENTER);
-        labelCircuit.setBounds((largeur * 52 / 100) - circuit.getIconWidth() / 2, - (circuit.getIconHeight() * 9 / 100), circuit.getIconWidth(), circuit.getIconHeight());
+        labelCircuit.setBounds(0, 0, circuit.getIconWidth(), circuit.getIconHeight());
         panelJeu.add(labelCircuit, Integer.valueOf(1));
 
         // Eléments
@@ -313,7 +313,7 @@ public class FenetreJeu {
         }
 
         // Bouton fin de mon tour
-        boutonFindeTour.setBounds(largeur - 2*(largeur * 12 / 100), (hauteur / 2) + 9*(hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
+        boutonFindeTour.setBounds(largeur/2 + largeur * 355 / 1000, hauteur / 2 + hauteur * 173 / 1000, largeur * 6 / 100, hauteur * 7 / 100);
         panelJeu.add(boutonFindeTour, Integer.valueOf(2));
         if(boutonFindeTour.getActionListeners().length == 1)
         {
@@ -321,7 +321,7 @@ public class FenetreJeu {
         }
 		
         // Bouton "Nouvelle partie"
-        boutonNouvellePartie.setBounds(largeur - (largeur * 12 / 100), (hauteur / 2) - (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
+        boutonNouvellePartie.setBounds(largeur - (largeur * 30 / 100), (hauteur / 2) - (hauteur * 4 / 100), largeur * 12 / 100, hauteur * 7 / 100);
         panelJeu.add(boutonNouvellePartie, Integer.valueOf(2));
         if(boutonNouvellePartie.getActionListeners().length == 1)
         {
@@ -329,7 +329,7 @@ public class FenetreJeu {
         }
 
         //BoutonPioche
-        boutonPioche.setBounds((largeur * 52 / 100) - (circuit.getIconWidth() * 18 / 100), (circuit.getIconHeight() * 45 / 100), (circuit.getIconWidth() * 155 / 1000), (circuit.getIconHeight() * 13 / 100));
+        boutonPioche.setBounds(largeur/2 - largeur*9/100 , hauteur/2 - hauteur*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
         //boutonPioche.setBackground(new Color(109, 121, 132));
         panelJeu.add(boutonPioche, Integer.valueOf(2));
         if(boutonPioche.getActionListeners().length == 1)
@@ -338,7 +338,7 @@ public class FenetreJeu {
         }
 
         //BoutonDéfausse
-        boutonDefausse.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 25 / 1000), (circuit.getIconHeight() * 45 / 100), (circuit.getIconWidth() * 155 / 1000), (circuit.getIconHeight() * 13 / 100));
+        boutonDefausse.setBounds(largeur/2 + largeur*42/1000 , hauteur/2 - hauteur*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
         panelJeu.add(boutonDefausse, Integer.valueOf(5));
         if(boutonDefausse.getActionListeners().length == 1)
         {
@@ -347,13 +347,13 @@ public class FenetreJeu {
 
         // BoutonSon
         sonOn = new ImageIcon("Images/SonON.png");
-        Image imageRedimensionneeSonOn = sonOn.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
+        Image imageRedimensionneeSonOn = sonOn.getImage().getScaledInstance(largeur * 2 / 100, hauteur * 25 / 1000, Image.SCALE_SMOOTH);
         sonOn = new ImageIcon(imageRedimensionneeSonOn);
         sonOff = new ImageIcon("Images/SonOFF.png");
         Image imageRedimensionneeSonOff = sonOff.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
         sonOff = new ImageIcon(imageRedimensionneeSonOff);
         boutonSon.setIcon(sonOn);
-        boutonSon.setBounds(largeur - sonOn.getIconWidth(), hauteur - sonOn.getIconHeight(), sonOn.getIconWidth(), sonOn.getIconHeight());
+        boutonSon.setBounds(largeur - sonOn.getIconWidth() - 26, hauteur - sonOn.getIconHeight() - 56, sonOn.getIconWidth(), sonOn.getIconHeight());
         panelJeu.add(boutonSon, Integer.valueOf(10));
         
 
@@ -609,7 +609,7 @@ public class FenetreJeu {
 		messagePanel.setBackground(Color.GRAY);
 		messagePanel.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
 		messagePanel.setLayout(new BorderLayout());
-        panelJeu.add(messagePanel);
+        panelJeu.add(messagePanel, Integer.valueOf(10));
 
         textArea.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
         textArea.setEditable(false);
