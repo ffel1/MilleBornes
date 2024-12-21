@@ -459,33 +459,39 @@ public class FenetreJeu {
     public void creerAffichageAttaques() {
         // Panneau global pour Joueur
         JPanel panneauGlobalJoueur = new JPanel(new BorderLayout());
-        JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
-        panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
+        panneauGlobalJoueur.setOpaque(false);
+        //JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
+        //panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
 
         panneauAttaquesJoueur = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauAttaquesJoueur.setBackground(Color.LIGHT_GRAY);
+        panneauAttaquesJoueur.setOpaque(false);
+        //panneauAttaquesJoueur.setBackground(Color.LIGHT_GRAY);
         panneauGlobalJoueur.add(panneauAttaquesJoueur, BorderLayout.CENTER);
         panneauGlobalJoueur.setBounds(0 , (int)(hauteur * 0.01),(int)(largeur * 0.175), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
 
         // Panneau global pour CPU Fast
         JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
-        JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
-        panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
+        panneauGlobalCPUFast.setOpaque(false);
+        //JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
+        //panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panneauAttaquesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauAttaquesCPUFast.setBackground(Color.LIGHT_GRAY);
+        panneauAttaquesCPUFast.setOpaque(false);
+        //panneauAttaquesCPUFast.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUFast.add(panneauAttaquesCPUFast, BorderLayout.CENTER);
         panneauGlobalCPUFast.setBounds(0 , (int)(hauteur * 0.14),(int)(largeur * 0.175), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
 
         // Panneau global pour CPU Agro
         JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
-        JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
-        panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
+        panneauGlobalCPUAgro.setOpaque(false);
+        //JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
+        //panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panneauAttaquesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauAttaquesCPUAgro.setBackground(Color.LIGHT_GRAY);
+        panneauAttaquesCPUAgro.setOpaque(false);
+        //panneauAttaquesCPUAgro.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUAgro.add(panneauAttaquesCPUAgro, BorderLayout.CENTER);
         panneauGlobalCPUAgro.setBounds(0 , (int)(hauteur * 0.27),(int)(largeur * 0.175), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
@@ -494,33 +500,39 @@ public class FenetreJeu {
     public void creerAffichageBottes() {
         // Panneau global pour Joueur
         JPanel panneauGlobalJoueur = new JPanel(new BorderLayout());
-        JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
-        panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
+        panneauGlobalJoueur.setOpaque(false);
+        //JLabel labelJoueur = new JLabel("Joueur", JLabel.CENTER);
+        //panneauGlobalJoueur.add(labelJoueur, BorderLayout.NORTH);
 
         panneauBottesJoueur = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauBottesJoueur.setBackground(Color.LIGHT_GRAY);
+        panneauBottesJoueur.setOpaque(false);
+        //panneauBottesJoueur.setBackground(Color.LIGHT_GRAY);
         panneauGlobalJoueur.add(panneauBottesJoueur, BorderLayout.CENTER);
         panneauGlobalJoueur.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.01),(int)(largeur * 0.14), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
 
         // Panneau global pour CPU Fast
         JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
-        JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
-        panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
+        panneauGlobalCPUFast.setOpaque(false);
+        //JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
+        //panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panneauBottesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauBottesCPUFast.setBackground(Color.LIGHT_GRAY);
+        panneauBottesCPUFast.setOpaque(false);
+        //panneauBottesCPUFast.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUFast.add(panneauBottesCPUFast, BorderLayout.CENTER);
         panneauGlobalCPUFast.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.14),(int)(largeur * 0.14), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
 
         // Panneau global pour CPU Agro
         JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
-        JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
-        panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
+        panneauGlobalCPUAgro.setOpaque(false);
+        //JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
+        //panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panneauBottesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panneauBottesCPUAgro.setBackground(Color.LIGHT_GRAY);
+        panneauBottesCPUAgro.setOpaque(false);
+        //panneauBottesCPUAgro.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUAgro.add(panneauBottesCPUAgro, BorderLayout.CENTER);
         panneauGlobalCPUAgro.setBounds(largeur - (int)(largeur * 0.14), (int)(hauteur * 0.27),(int)(largeur * 0.14), (int)(hauteur * 0.12));
         panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
