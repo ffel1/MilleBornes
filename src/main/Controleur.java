@@ -24,7 +24,7 @@ public class Controleur
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
-            //joueMusic(2);
+            //joueMusic(0);
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -32,7 +32,18 @@ public class Controleur
             nouvellePartie(false);
         });
 
+        vue.ajouterActionBoutonHistorique(e -> {
+            vue.getFenetre().getContentPane().removeAll();
+            vue.getFenetre().repaint();
+            vue.getFenetre().revalidate();
+            vue.creerFenetreHistorique();
+        });
+
         vue.ajouterActionBoutonQuitter(e -> System.exit(0));
+    }
+
+    public Son getListeSon(){
+        return listeSon;
     }
 
     private void nouvellePartie(boolean b){
@@ -92,6 +103,7 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
+            vue.avancerVoiture(700, 1, this);
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
@@ -169,12 +181,12 @@ public class Controleur
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
                     modele.getJoueur2().actionBot(this);
-                    vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
+                    vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
                     modele.getJoueur3().actionBot(this);
-                    vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
+                    vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                     modele.getJoueur1().monTour(true);
                     vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-                    vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
+                    vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
                     vue.mettreAJourAttaques(modele);
                     vue.mettreAJourBottes(modele);
                 }
@@ -194,12 +206,12 @@ public class Controleur
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
-                vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
+                vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
                 modele.getJoueur3().actionBot(this);
-                vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
+                vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                 modele.getJoueur1().monTour(true);
                 vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-                vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
+                vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
                 vue.mettreAJourAttaques(modele);
                 vue.mettreAJourBottes(modele);
             }
@@ -343,6 +355,11 @@ public class Controleur
                 vue.ajouterMessage(" Ce n'est pas votre tour \n", false);
             }
         }); 
+
+        vue.ajouterActionBoutonSon(e -> {
+            stopMusic();
+            vue.changerImageSon();
+        });
 
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
@@ -504,9 +521,9 @@ public class Controleur
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
 
-        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0);
-        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1);
-        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2);
+        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
+        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
+        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
     }
 
     public Controleur getControleur()

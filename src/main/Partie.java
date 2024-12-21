@@ -29,12 +29,13 @@ public class Partie implements Serializable{
     {
         File fichier;
         int i = 1;
-        fichier = new File("SauvegardeDesHistoriques/Manche_" + i);
+
+        fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
         while(fichier.exists())
         {
             System.out.println("Partie_" + i + " existe déjà !");
             i++;
-            fichier = new File("SauvegardeDesHistoriques/Manche_" + i);
+            fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
         }
 
         try {
@@ -43,7 +44,7 @@ public class Partie implements Serializable{
             e.printStackTrace();
         }
         
-        nomDeLaPartie = "Manche_"+i;
+        nomDeLaPartie = "Manche_"+i+".txt";
     }
 
     public String getNomDeLaPartie()
