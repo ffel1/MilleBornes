@@ -103,7 +103,6 @@ public class Controleur
 
         //Bouton défausse
         vue.ajouterActionBoutonBoutonDefausse(e -> {
-            vue.avancerVoiture(700, 1, this);
             if(!modele.getJoueur1().getMonTour())
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
@@ -207,6 +206,7 @@ public class Controleur
                 modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
                 vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
+
                 modele.getJoueur3().actionBot(this);
                 vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                 modele.getJoueur1().monTour(true);

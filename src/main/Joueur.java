@@ -197,11 +197,12 @@ public abstract class Joueur implements Serializable{
             if(c.getType() == TypeCarte.FEU_ROUGE)
             {
                 cible.setFeuVert(false);
-                for(Carte carte : attaquesEnCours)
+                for(Carte carte : cible.attaquesEnCours)
                 {
                     if(carte.getType() == TypeCarte.FEU_VERT)
                     {
-                        attaquesEnCours.remove(carte);
+
+                        cible.attaquesEnCours.remove(carte);
                     }
                 }
             }
