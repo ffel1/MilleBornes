@@ -417,9 +417,9 @@ public class FenetreJeu {
         for(int i = 0; i < main.size(); i++){
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
-            int larg = 125; 
-            int y = (hauteur * 97 / 100) - (hauteurCarte);
-            int x = (largeur / 2 - 75) - (larg * 3) + (larg * i);
+            int larg = 115; 
+            int y = (hauteur * 92 / 100) - (hauteurCarte);
+            int x = (largeur / 2 - 145) - (larg * 3) + (larg * i);
             int haut = (hauteur * 20 / 100);
             JButton bouton;
             if(image != null)
@@ -436,7 +436,8 @@ public class FenetreJeu {
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
             bouton.setVisible(true);
-            panelJeu.add(bouton);
+            panelJeu.add(bouton, Integer.valueOf(3));
+            
             boutonsMainJoueur.add(i, bouton);
         }
     }
@@ -607,7 +608,7 @@ public class FenetreJeu {
         // Zone affichage des messages
         JPanel messagePanel = new JPanel();
 		messagePanel.setBackground(Color.GRAY);
-		messagePanel.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
+		messagePanel.setBounds(42, hauteur * 62 / 100, largeur * 15 / 100, hauteur * 30 / 100);
 		messagePanel.setLayout(new BorderLayout());
         panelJeu.add(messagePanel, Integer.valueOf(10));
 
@@ -1080,6 +1081,6 @@ public class FenetreJeu {
             }
         }
         nouvelleDistance = 0;
-        control.getListeSon().stop();
+        //control.getListeSon().stop();
     }
 }
