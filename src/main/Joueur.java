@@ -160,6 +160,7 @@ public abstract class Joueur implements Serializable{
             switch (c.getType()) {
                 case FEU_VERT:
                     attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.FEU_ROUGE); 
+                    attaquesEnCours.add(0,c);
                     feuVert = true;
                     break;
                 case FIN_LIMITATION_VITESSE:
@@ -196,6 +197,13 @@ public abstract class Joueur implements Serializable{
             if(c.getType() == TypeCarte.FEU_ROUGE)
             {
                 cible.setFeuVert(false);
+                for(Carte carte : attaquesEnCours)
+                {
+                    if(carte.getType() == TypeCarte.FEU_VERT)
+                    {
+                        attaquesEnCours.remove(carte);
+                    }
+                }
             }
             retirerCarte(c);
             return getNom() + " joue l'attaque " + c.getNom() + " contre " + cible.getNom() + "\n";
@@ -211,7 +219,7 @@ public abstract class Joueur implements Serializable{
         if (verification(c, this, this)) {
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
-            cartesDistanceJouees.add(c);
+            //cartesDistanceJouees.add(c);
             retirerCarte(c);
             return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km. \n");
         }

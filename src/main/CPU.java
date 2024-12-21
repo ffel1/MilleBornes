@@ -18,20 +18,21 @@ public abstract class CPU extends Joueur{
         controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n", true);
 
         //Pour afficher les cartes des bots pour vérifier si leur coups sont biens
-        /*for(Carte carte : getMain())
+
+        for(Carte carte : getMain())
         {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
         }
-        controleur.getVue().ajouterMessage("Les attaques\n");
+        controleur.getVue().ajouterMessage("Les attaques\n", false);
         for(Carte carte : getAttaquesEnCours())
         {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
         }
-        controleur.getVue().ajouterMessage("Les bottes\n");
+        controleur.getVue().ajouterMessage("Les bottes\n", false);
         for(Carte carte : getBottesPosées())
         {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n");
-        }*/
+            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
+        }
 
         Carte carteJoué = choisirCarte();
 
@@ -40,24 +41,28 @@ public abstract class CPU extends Joueur{
             controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer ! \n", true);
             defausse(choixDeDefausse(), controleur);
         }
-        while (carteJoué instanceof Botte) 
+        else
         {
-            controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
-            piocher();
-            controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a encore pioché ! \n", true);
-            carteJoué = choisirCarte();
-            if(carteJoué == null)
+            while (carteJoué instanceof Botte) 
             {
-                controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer !\n", true);
-                defausse(choixDeDefausse(), controleur);
+                controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
+                piocher();
+                controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a encore pioché ! \n", true);
+                carteJoué = choisirCarte();
+                if(carteJoué == null)
+                {
+                    controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer !\n", true);
+                    defausse(choixDeDefausse(), controleur);
+                }
+            }
+            controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
+            controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() + " ! Distance parcourue : " + getKilometre() + " km \n", true);
+            if(controleur.getModel().gagnant() == this)
+            {
+                controleur.getVue().ajouterMessage( "\n Le CPU "  + getNom() + " a gagné... La prochaine fois peut être... \n", true);
             }
         }
-        controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
-        controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() + " ! Distance parcourue : " + getKilometre() + " km \n", true);
-        if(controleur.getModel().gagnant() == this)
-        {
-            controleur.getVue().ajouterMessage( "\n Le CPU "  + getNom() + " a gagné... La prochaine fois peut être... \n", true);
-        }
+        
     }
 
     public abstract Carte choixDeDefausse();

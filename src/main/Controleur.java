@@ -219,7 +219,7 @@ public class Controleur
 
         //Bouton AttaqueBotAgro
         vue.ajouterActionBoutonCPUAgro(e -> {
-            joueMusic(1);
+            // joueMusic(1); j'enlève parce que sinon ça fait de la latence quand on clique dessus, faudrait lancer le son dans un thread
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur2());
@@ -255,11 +255,14 @@ public class Controleur
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
+
+            vue.mettreAJourAttaques(modele);
+            vue.mettreAJourBottes(modele);
         });
 
         //Bouton AttaqueBotFast
         vue.ajouterActionBoutonCPUFast(e -> {
-            joueMusic(1);
+            //joueMusic(1); j'enlève parce que sinon ça fait de la latence quand on clique dessus, faudrait lancer le son dans un thread
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur3());
@@ -295,6 +298,9 @@ public class Controleur
             {
                 vue.ajouterMessage("Ce n'est pas votre tour ! \n", false);
             }
+
+            vue.mettreAJourAttaques(modele);
+            vue.mettreAJourBottes(modele);
         });
 
         //Bouton Pioche 
@@ -371,6 +377,8 @@ public class Controleur
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
             vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+            vue.mettreAJourAttaques(modele);
+            vue.mettreAJourBottes(modele);
         }
         else if(modele.getQuiCommence() == 2)
         {
@@ -384,6 +392,8 @@ public class Controleur
             modele.getJoueur3().actionBot(this);
             modele.getJoueur1().monTour(true);
             vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+            vue.mettreAJourAttaques(modele);
+            vue.mettreAJourBottes(modele);
         }
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();
@@ -481,6 +491,8 @@ public class Controleur
                                 }
                             }
                         }
+                        vue.mettreAJourAttaques(modele);
+                        vue.mettreAJourBottes(modele);
                     }
                     else
                     {

@@ -191,7 +191,7 @@ public class Partie implements Serializable{
         }
         return null;
     }
-
+/*
     public void compteurPoints()
     {
         Joueur gagnant = gagnant();
@@ -284,6 +284,8 @@ public class Partie implements Serializable{
             }
         }
     }
+
+    */
     
     public void afficherAction(Carte c, Joueur u, Joueur cible){};
     public void ajouterHistorique(Carte c, Joueur u, Joueur cible){};

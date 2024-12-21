@@ -370,7 +370,7 @@ public class FenetreJeu {
 
         // Panneau global pour CPU Fast
         JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
-        JLabel labelCPUFast = new JLabel("CPU Fast", JLabel.CENTER);
+        JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
         panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panneauAttaquesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -381,7 +381,7 @@ public class FenetreJeu {
 
         // Panneau global pour CPU Agro
         JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
-        JLabel labelCPUAgro = new JLabel("CPU Agro", JLabel.CENTER);
+        JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
         panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panneauAttaquesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -405,7 +405,7 @@ public class FenetreJeu {
 
         // Panneau global pour CPU Fast
         JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
-        JLabel labelCPUFast = new JLabel("CPU Fast", JLabel.CENTER);
+        JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
         panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panneauBottesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -416,7 +416,7 @@ public class FenetreJeu {
 
         // Panneau global pour CPU Agro
         JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
-        JLabel labelCPUAgro = new JLabel("CPU Agro", JLabel.CENTER);
+        JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
         panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panneauBottesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
