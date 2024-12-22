@@ -167,6 +167,7 @@ public class Controleur
                         vue.ajouterMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
                         modele.finDePartie();
                         nouvelleManche(true, false);
+                        return;
                     }
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
@@ -183,6 +184,7 @@ public class Controleur
                         }
                         modele.finDePartie();
                         nouvelleManche(true, false);
+                        return;
                     }
                     vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
                     modele.getJoueur3().actionBot(this);
@@ -194,6 +196,7 @@ public class Controleur
                         }
                         modele.finDePartie();
                         nouvelleManche(true, false);
+                        return;
                     }
                     vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                     modele.getJoueur1().monTour(true);
@@ -226,6 +229,7 @@ public class Controleur
                     }
                     modele.finDePartie();
                     nouvelleManche(true, false);
+                    return;
                 }
                 vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
 
@@ -238,6 +242,7 @@ public class Controleur
                     }
                     modele.finDePartie();
                     nouvelleManche(true, false);
+                    return;
                 }
                 vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                 modele.getJoueur1().monTour(true);
@@ -348,7 +353,7 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-            //joueMusic(2);
+            joueMusic(2);
             if(modele.getJoueur1().getDoitPiocher())
             {
                 modele.getJoueur1().setDoitPiocher(false);
@@ -384,6 +389,14 @@ public class Controleur
             else
             {
                 vue.ajouterMessage(" Ce n'est pas votre tour \n", false);
+            }
+
+            if(modele.getPioche().size() == 0)
+            {
+                vue.ajouterMessage("La pioche est vide !", true);
+                modele.finDePartie();
+                nouvelleManche(true, false);
+                return;
             }
         }); 
 

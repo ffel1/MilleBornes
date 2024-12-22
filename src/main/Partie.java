@@ -61,7 +61,7 @@ public class Partie implements Serializable{
                 pioche.add(new Distance(TypeCarte._50KM, 50));
                 pioche.add(new Distance(TypeCarte._75KM, 75));
 
-                if(i < 8){
+                if(i < 4){
                     pioche.add(new Distance(TypeCarte._200KM, 200));
                 }
             }
@@ -69,8 +69,8 @@ public class Partie implements Serializable{
         }
 
         //Cartes Attaques
-        for(int i = 0; i < 6; i++){
-            if(i < 5){
+        for(int i = 0; i < 5; i++){
+            if(i < 4){
                 pioche.add(new Attaque(TypeCarte.LIMITATION_DE_VITESSE));
 
                 if(i < 3){
@@ -219,95 +219,100 @@ public class Partie implements Serializable{
     public void compteurPoints()
     {
         Joueur gagnant = gagnant();
-        if (gagnant != null)
-        {
-            // Points de distance
-            pointsJoueur += joueurs.get(0).getKilometre();
-            pointsCPUFast += joueurs.get(1).getKilometre();
-            pointsCPUAgro += joueurs.get(2).getKilometre();
+        // Points de distance
+        pointsJoueur += joueurs.get(0).getKilometre();
+        pointsCPUFast += joueurs.get(1).getKilometre();
+        pointsCPUAgro += joueurs.get(2).getKilometre();
 
-            // Bonus "Capot"
-            if (joueurs.get(1).getKilometre() == 0) {
-                pointsJoueur += 500;
-                pointsCPUAgro += 500; 
-            }
-            if (joueurs.get(2).getKilometre() == 0) {
-                pointsJoueur += 500;
-                pointsCPUFast += 500;
-            }
-            if (joueurs.get(0).getKilometre() == 0) {
-                pointsCPUFast += 500;
-                pointsCPUAgro += 500;
-            }
-
-            // Points de bottes 
-
-            int nbreBottesJoueur = joueurs.get(0).getBottesPosées().size();
-            int nbreBottesCPUFast = joueurs.get(1).getBottesPosées().size();
-            int nbreBottesCPUAgro = joueurs.get(2).getBottesPosées().size();
-
-            if ( nbreBottesJoueur == 4){
-                pointsJoueur += 700; // pts de bottes posées
-            }else{
-                pointsJoueur += nbreBottesJoueur * 100; // pts de bottes posées
-            }
-
-            if ( nbreBottesCPUFast == 4){
-                pointsCPUFast += 700; // pts de bottes posées
-            }else{
-                pointsCPUFast += nbreBottesCPUFast * 100; // pts de bottes posées
-            }
-
-            if ( nbreBottesCPUAgro == 4){
-                pointsCPUAgro += 700; // pts de bottes posées
-            }else{
-                pointsCPUAgro += nbreBottesCPUAgro * 100; // pts de bottes posées
-            }
-        
-            // Points de coup fourré
-
-            pointsJoueur += joueurs.get(0).getCoupFourres() * 300;
-            pointsCPUFast += joueurs.get(2).getCoupFourres() * 300;
-            pointsCPUAgro += joueurs.get(1).getCoupFourres() * 300;
-
-            // Points de victoire
-
-            if (gagnant.getId() == 0){
-
-               pointsJoueur += 400; // pts de manche gagnée
-
-               if (pioche.isEmpty()){
-                   pointsJoueur += 300; // Points de couronnement
-               }
-               if (joueurs.get(0).utilise200KM() == false){
-                   pointsJoueur += 300; // Points de aucun 200KM
-               }
-
-            }
-            else if (gagnant == joueurs.get(1)){
-                
-                pointsCPUFast += 400; // pts de manche gagnée
-            
-                if (pioche.isEmpty()){
-                    pointsCPUFast += 300; // Points de couronnement
-                }
-                if (joueurs.get(1).utilise200KM() == false){
-                    pointsCPUFast += 300; // Points de aucun 200KM
-                }
-            }
-            else if (gagnant == joueurs.get(2)){
-            
-                pointsCPUAgro += 400; // pts de manche gagnée
-            
-                if (pioche.isEmpty()){
-                    pointsCPUAgro += 300; // Points de couronnement
-                }
-                if (joueurs.get(2).utilise200KM() == false){
-                    pointsCPUAgro += 300; // Points de aucun 200KM
-                }
-            }
-            System.out.println("Les points De Agro sont  :"+ pointsCPUAgro);
+        // Bonus "Capot"
+        if (joueurs.get(1).getKilometre() == 0) {
+            pointsJoueur += 500;
+            pointsCPUAgro += 500; 
         }
+        if (joueurs.get(2).getKilometre() == 0) {
+            pointsJoueur += 500;
+            pointsCPUFast += 500;
+        }
+        if (joueurs.get(0).getKilometre() == 0) {
+            pointsCPUFast += 500;
+            pointsCPUAgro += 500;
+        }
+
+        // Points de bottes 
+        int nbreBottesJoueur = joueurs.get(0).getBottesPosées().size();
+        int nbreBottesCPUFast = joueurs.get(1).getBottesPosées().size();
+        int nbreBottesCPUAgro = joueurs.get(2).getBottesPosées().size();
+
+        if ( nbreBottesJoueur == 4){
+            pointsJoueur += 700; // pts de bottes posées
+        }else{
+            pointsJoueur += nbreBottesJoueur * 100; // pts de bottes posées
+        }
+
+        if ( nbreBottesCPUFast == 4){
+            pointsCPUFast += 700; // pts de bottes posées
+        }else{
+            pointsCPUFast += nbreBottesCPUFast * 100; // pts de bottes posées
+        }
+
+        if ( nbreBottesCPUAgro == 4){
+            pointsCPUAgro += 700; // pts de bottes posées
+        }else{
+            pointsCPUAgro += nbreBottesCPUAgro * 100; // pts de bottes posées
+        }
+        
+        // Points de coup fourré
+        pointsJoueur += joueurs.get(0).getCoupFourres() * 300;
+        pointsCPUFast += joueurs.get(2).getCoupFourres() * 300;
+        pointsCPUAgro += joueurs.get(1).getCoupFourres() * 300;
+
+        // Points de victoire
+        if(gagnant == null)
+        {
+            gagnant = getJoueur1();
+            for(Joueur joueur : joueurs)
+            {
+                if(joueur.getKilometre() > gagnant.getKilometre())
+                {
+                    gagnant = joueur;
+                }
+            }
+        }
+        if (gagnant.getId() == 0){
+
+            pointsJoueur += 400; // pts de manche gagnée
+
+            if (pioche.isEmpty()){
+                pointsJoueur += 300; // Points de couronnement
+            }
+            if (joueurs.get(0).utilise200KM() == false){
+                pointsJoueur += 300; // Points de aucun 200KM
+            }
+
+        }
+        else if (gagnant == joueurs.get(1)){
+                
+            pointsCPUFast += 400; // pts de manche gagnée
+            
+            if (pioche.isEmpty()){
+                pointsCPUFast += 300; // Points de couronnement
+            }
+            if (joueurs.get(1).utilise200KM() == false){
+                pointsCPUFast += 300; // Points de aucun 200KM
+            }
+        }
+        else if (gagnant == joueurs.get(2)){
+        
+            pointsCPUAgro += 400; // pts de manche gagnée
+            
+            if (pioche.isEmpty()){
+                pointsCPUAgro += 300; // Points de couronnement
+            }
+            if (joueurs.get(2).utilise200KM() == false){
+                pointsCPUAgro += 300; // Points de aucun 200KM
+            }
+        }
+        System.out.println("Les points De Agro sont  :"+ pointsCPUAgro);
     }
     
     public void afficherAction(Carte c, Joueur u, Joueur cible){};
