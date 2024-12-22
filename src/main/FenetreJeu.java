@@ -417,9 +417,9 @@ public class FenetreJeu {
         for(int i = 0; i < main.size(); i++){
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
-            int larg = 11697/100; 
-            int y = hauteur * 796 / 1000;
-            int x = (largeur / 2 - largeur * 858 / 10000) - (larg * 3) + (larg * i);
+            int larg = 11700/100; 
+            int y = hauteur * 845 / 1000;
+            int x = (largeur / 2 - largeur * 735 / 10000) - (larg * 3) + (larg * i);
             int haut = (hauteur * 20 / 100);
             JButton bouton;
             if(image != null)
@@ -432,7 +432,7 @@ public class FenetreJeu {
             }
             bouton.setIcon(image);
             bouton.setBackground(Color.PINK);
-            bouton.setBounds(x, y, larg, haut);
+            bouton.setBounds(x, y, larg*60/100, haut*49/100);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
             bouton.setVisible(true);
