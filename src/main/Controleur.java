@@ -2,12 +2,18 @@ package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -95,6 +101,7 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
+            modele.finDePartie(vue);
             nouvelleManche(true, true);
         });
 
@@ -466,7 +473,7 @@ public class Controleur
             {
                 vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
             }
-            vue.ajouterMessage("Vous commencez à jouer ! \n", true);
+            vue.ajouterMessage("Vous commencez à jouer \n", true);
             vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
             modele.getJoueur1().monTour(true);
         }
@@ -482,7 +489,7 @@ public class Controleur
                 vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
             }
             vue.ajouterMessage("CPU Agro commence à jouer ! \n", true);
-            vue.ajouterMessage("\nEn attente du joueur Agro", true);
+            vue.ajouterMessage("\nEn attente du joueur Agro\n", true);
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
                 @Override
@@ -653,12 +660,98 @@ public class Controleur
     public void nouvelleManche(boolean b1, boolean b2)
     {
         modele.getJoueur1().setDefausse(false);
+        modele.getJoueur1().monTour(false);
+
         vue.getDefausse().setText("Défausse (temporaire)");
         vue.getFenetre().getContentPane().removeAll();
         vue.getFenetre().repaint();
         vue.getFenetre().revalidate();
         vue.creerFenetreJeu();
-        nouvellePartie(b1, b2); 
+        if(modele.getGagnantDePartie() != null)
+        {
+            if(modele.getGagnantDePartie().getId() == modele.getJoueur1().getId())
+            {
+                int i = 0;
+                vue.ajouterMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", true);
+                vue.ajouterMessage("VOUS AVEZ GAGNE !\n", true);
+                while(i < 500)
+                {
+                    vue.ajouterMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", false);
+                    vue.ajouterMessage("VOUS AVEZ GAGNE !\n", false);
+                    i++;
+                }
+            }
+            else
+            {
+                vue.ajouterMessage("Le CPU " + modele.getGagnantDePartie().getNom() + " a accumulé 5000 points...", true);
+                vue.ajouterMessage("Vous avez perdu cette partie...", true);
+            }
+            gestionSauvegardes();
+            modele = new Partie();
+            Timer chrono = new Timer();
+            chrono.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                vue.clearConsole();
+                nouvellePartie(true, false);
+                }
+            }, tempsEntreTour);
+        }
+        else
+        {
+            nouvellePartie(b1, b2); 
+        }
+    }
+
+    public void gestionSauvegardes()
+    {
+        String directoryPath = "SauvegardeDesHistoriques";
+        String outputFile;
+        File fichier;
+        int i = 1;
+
+        fichier = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
+        while(fichier.exists())
+        {
+            i++;
+            fichier = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
+        }
+
+        try {
+            fichier.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        outputFile = "SauvegardeDesHistoriques/Partie_"+i+".txt";
+
+        try (
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))
+        ) {
+            // Parcourir les fichiers du répertoire
+            Files.list(Paths.get(directoryPath))
+                .filter(path -> path.getFileName().toString().startsWith("Manche") && path.getFileName().toString().endsWith(".txt"))
+                .forEach(file -> {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file.toFile()))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            writer.write(line);
+                            writer.newLine();
+                        }
+                        System.out.println("Copié : " + file.getFileName());
+                        
+                        // Supprimer le fichier après copie
+                        Files.delete(file);
+                        System.out.println("Supprimé : " + file.getFileName());
+                    } catch (IOException e) {
+                        System.err.println("Erreur avec le fichier " + file.getFileName() + ": " + e.getMessage());
+                    }
+                });
+
+            System.out.println("Fusion terminée dans le fichier : " + outputFile);
+        } catch (IOException e) {
+            System.err.println("Erreur : " + e.getMessage());
+        }
     }
 
     public Controleur getControleur()

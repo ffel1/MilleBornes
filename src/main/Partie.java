@@ -20,7 +20,7 @@ public class Partie implements Serializable{
     private int pointsCPUFast;
     private int pointsCPUAgro;
     private int numéroDeManche;
-    private boolean prochainePartiePrete;
+    private Joueur gagnantDePartie;
 
     public Partie(){
         // Initialisation
@@ -196,37 +196,9 @@ public class Partie implements Serializable{
     }
 
     public void finDePartie(FenetreJeu vue) {
-        prochainePartiePrete = false;
         vue.ajouterMessage("\nLancement de la manche " + (numéroDeManche + 1)+ " dans :\n", false);
     
-        // Tableau pour le compte à rebours
-        String[] countdownMessages = {"3", "2", "1"};
-        int delay = 2000; // 2 secondes entre chaque étape
-    
-        final int[] index = {0};
-    
-        // Création du Timer
-        Timer timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index[0] < countdownMessages.length) {
-                    vue.ajouterMessage(countdownMessages[index[0]] + "\n", false); 
-                    index[0]++;
-                } else {
-                    ((Timer) e.getSource()).stop();
-                    compteurPoints(); // Appeler la méthode suivante
-                    prochainePartiePrete = true;
-                }
-            }
-        });
-    
-        timer.setInitialDelay(0); // Démarrer immédiatement
-        timer.start();
-    }
-
-    public boolean getProchainPartiePrete()
-    {
-        return prochainePartiePrete;
+        compteurPoints();
     }
 
     public int getPointsJoueur()
@@ -345,7 +317,26 @@ public class Partie implements Serializable{
                 pointsCPUAgro += 300; // Points de aucun 200KM
             }
         }
-        System.out.println("Les points De Agro sont  :"+ pointsCPUAgro);
+        getJoueur1().setPoints(getPointsJoueur());
+        getJoueur2().setPoints(getPointCPUAgro());
+        getJoueur3().setPoints(getPointsCPUFast());
+        Joueur gagnantLocal = getJoueur1();
+        for(Joueur joueur : joueurs)
+        {
+            if(joueur.getPoints() > gagnantLocal.getPoints())
+            {
+                gagnantLocal = joueur;
+            }
+        }
+        if(gagnantLocal.getPoints() > 5000)
+        {
+            gagnantDePartie = gagnantLocal;
+        }
+    }
+
+    public Joueur getGagnantDePartie()
+    {
+        return gagnantDePartie;
     }
     
     public void afficherAction(Carte c, Joueur u, Joueur cible){};

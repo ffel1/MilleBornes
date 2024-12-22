@@ -646,6 +646,11 @@ public class FenetreJeu {
         this.nomDeLaPartie = nomDeLaPartie;
     }
 
+    public void clearConsole()
+    {
+        textArea.setText("");
+    }
+
     public void ajouterMessage(String message, boolean b){ //Booléen pour savoir si on l'ajoute à l'historique de partie
         textArea.append(message);
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();

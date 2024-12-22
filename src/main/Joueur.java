@@ -11,6 +11,7 @@ public abstract class Joueur implements Serializable{
     private String nom;
     private int kilometreP;
     private int id;
+    private int points;
     private Partie partie;
     private int coupFourrees = 0;
     private ArrayList<Carte> cartesDistanceJouees;
@@ -35,6 +36,16 @@ public abstract class Joueur implements Serializable{
     }
     public boolean getFeuVert(){
         return feuVert;
+    }
+
+    public void setPoints(int points)
+    {
+        this.points = points;
+    }
+
+    public int getPoints()
+    {
+        return points;
     }
 
     public Partie getPartie()
