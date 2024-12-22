@@ -434,7 +434,7 @@ public class FenetreJeu {
         textArea.setEditable(false);
     
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(largeur-100, hauteur-100)); 
+        scrollPane.setPreferredSize(new Dimension(640, 400)); 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     
@@ -452,6 +452,16 @@ public class FenetreJeu {
             e.printStackTrace();
             textArea.setText("Erreur lors de la lecture du fichier.");
         }
+
+        JButton boutonRetourMenu = new JButton("Menu historique");
+        boutonRetourMenu.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        boutonRetourMenu.addActionListener(e -> creerFenetreHistorique());
+        grille.gridx = 0;
+        grille.gridy = 1; 
+        grille.insets = new Insets(20, 0, 10, 0); 
+        grille.anchor = GridBagConstraints.CENTER;
+    
+        panelAfficher.add(boutonRetourMenu, grille);
 
         fenetreMenu.setContentPane(panelAfficher);
         fenetreMenu.revalidate();
