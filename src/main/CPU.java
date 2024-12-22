@@ -62,6 +62,9 @@ public abstract class CPU extends Joueur{
                 controleur.getVue().ajouterMessage( "\n Le CPU "  + getNom() + " a gagné... La prochaine fois peut être... \n", true);
             }
         }
+
+        controleur.getVue().mettreAJourAttaques(getPartie());
+        controleur.getVue().mettreAJourBottes(getPartie());
         
     }
 
