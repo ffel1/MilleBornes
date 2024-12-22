@@ -101,7 +101,6 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
-            modele.finDePartie(vue);
             nouvelleManche(true, true);
         });
 
