@@ -114,7 +114,7 @@ public class BotTest{
      * Joue une botte jusqu'à ce qu'il n'en a plus
      */
     @Test
-    public void testJouerBotteFast(){
+    public void testJouerBotteFastEtAgro(){
         for(int i = 0; i < 6; i++){
             botFast.retirerCarte(botFast.getMain().get(0));
         }
@@ -141,10 +141,10 @@ public class BotTest{
     }
 
     /*
-     * Joue en priorité la parade si il a une attaque
+     * Joue en priorité la parade si il a une attaque sur lui
      */
     @Test
-    public void testJouerParadeFast(){
+    public void testJouerParadeFastEtAgro(){
         // Test utilisation de la carte
         for(int i = 0; i < 6; i++){
             botFast.retirerCarte(botFast.getMain().get(0));
@@ -194,5 +194,100 @@ public class BotTest{
         assertEquals(carteEssence, botFast.choisirCarte());
         botFast.jouerParade(carteEssence);
         assertEquals(1, botFast.getAttaquesEnCours().size());
+    }
+
+    /*
+     * Joue en priorité une attaque si il ne peut rien faire d'autre
+     */
+    @Test
+    public void testJouerAttaqueFast(){
+        // Test utilisation de la carte
+        for(int i = 0; i < 6; i++){
+            botFast.retirerCarte(botFast.getMain().get(0));
+        }
+
+        // Choisi une attaque accident
+        botFast.ajouterCarte(_75KM);
+        botFast.ajouterCarte(_25KM);
+        botFast.ajouterCarte(carteFinDeLimitation);
+        botFast.ajouterCarte(_200KM);
+        botFast.ajouterCarte(carteAccident);
+        assertEquals(carteAccident, botFast.choisirCarte());
+        assertEquals(5, botFast.getMain().size());
+        botFast.jouerAttaque(carteAccident, botAgro);
+
+        // Choisi une attaque crevaison
+        botFast.ajouterCarte(carteCrevaison);
+        assertEquals(carteCrevaison, botFast.choisirCarte());
+        assertEquals(5, botFast.getMain().size());
+        botFast.jouerAttaque(carteCrevaison, botAgro);
+
+        // Choisi une attaque limitation
+        botFast.ajouterCarte(carteLimitation);
+        assertEquals(carteLimitation, botFast.choisirCarte());
+        assertEquals(5, botFast.getMain().size());
+        botFast.jouerAttaque(carteLimitation, botAgro);
+
+        // Choisi une attaque quand il en a plusieurs (feu rouge et panne)
+        botFast.ajouterCarte(cartePanne);
+        botFast.ajouterCarte(carteFeuRouge);
+        assertEquals(cartePanne, botFast.choisirCarte());
+        assertEquals(6, botFast.getMain().size());
+        botFast.jouerAttaque(cartePanne, botAgro);
+        assertEquals(null, botFast.choisirCarte()); // Car les autres joueurs ont un feu rouge
+        botAgro.setFeuVert(true);
+        assertEquals(carteFeuRouge, botFast.choisirCarte());
+        assertEquals(5, botFast.getMain().size());
+        botFast.jouerAttaque(carteFeuRouge, botAgro);
+    }
+
+     /*
+     * Joue en priorité une attaque même si il peut avancer
+     */
+    @Test
+    public void testJouerAttaqueAgro(){
+        // Test utilisation de la carte
+        for(int i = 0; i < 6; i++){
+            botAgro.retirerCarte(botAgro.getMain().get(0));
+        }
+
+        // Choisi une attaque accident même si il peut avancer
+        botAgro.setFeuVert(true); 
+        botAgro.ajouterCarte(_25KM);
+        botAgro.ajouterCarte(_75KM);
+        botAgro.ajouterCarte(carteFinDeLimitation);
+        botAgro.ajouterCarte(_200KM);
+        botAgro.ajouterCarte(carteAccident);
+        assertEquals(carteAccident, botAgro.choisirCarte());
+        assertEquals(5, botAgro.getMain().size());
+        botAgro.jouerAttaque(carteAccident, botFast);
+
+        // Choisi une attaque crevaison même si il peut jouer une parade
+        botAgro.ajouterCarte(carteCrevaison);
+        botAgro.ajouterCarte(carteFeuVert);
+        botAgro.setFeuVert(false);
+        assertEquals(carteCrevaison, botAgro.choisirCarte());
+        assertEquals(6, botAgro.getMain().size());
+        botAgro.jouerAttaque(carteCrevaison, botFast);
+        botAgro.jouerParade(carteFeuVert);
+        botAgro.setFeuVert(false);
+
+        // Choisi une attaque limitation
+        botAgro.ajouterCarte(carteLimitation);
+        assertEquals(carteLimitation, botAgro.choisirCarte());
+        assertEquals(5, botAgro.getMain().size());
+        botAgro.jouerAttaque(carteLimitation, botFast);
+
+        // Choisi une attaque quand il en a plusieurs (feu rouge et panne)
+        botAgro.ajouterCarte(cartePanne);
+        botAgro.ajouterCarte(carteFeuRouge);
+        assertEquals(cartePanne, botAgro.choisirCarte());
+        assertEquals(6, botAgro.getMain().size());
+        botAgro.jouerAttaque(cartePanne, botFast);
+        assertEquals(null, botAgro.choisirCarte()); // Car les autres joueurs ont un feu rouge
+        botFast.setFeuVert(true);
+        assertEquals(carteFeuRouge, botAgro.choisirCarte());
+        assertEquals(5, botAgro.getMain().size());
+        botAgro.jouerAttaque(carteFeuRouge, botFast);
     }
 }
