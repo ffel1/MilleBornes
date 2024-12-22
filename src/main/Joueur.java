@@ -320,7 +320,7 @@ public abstract class Joueur implements Serializable{
             {
                 return false;
             }
-            if(c.getKilometre()+u.getKilometre() > 100)
+            if(c.getKilometre()+u.getKilometre() > 700)
             {
                 return false;
             }

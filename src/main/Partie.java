@@ -31,7 +31,6 @@ public class Partie implements Serializable{
         fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
         while(fichier.exists())
         {
-            System.out.println("Partie_" + i + " existe déjà !");
             i++;
             fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
         }
@@ -185,7 +184,7 @@ public class Partie implements Serializable{
      */
     public Joueur gagnant(){
         for(int i = 0; i < joueurs.size(); i++){
-            if(joueurs.get(i).getKilometre() >= 100){
+            if(joueurs.get(i).getKilometre() >= 700){
                 return joueurs.get(i);
             }
         }

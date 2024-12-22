@@ -91,7 +91,7 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
-            nouvelleManche(true, true);
+            nouvelleManche(true, false);
         });
 
         //Bouton défausse
