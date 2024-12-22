@@ -180,7 +180,7 @@ public class Controleur
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
                     
-                    vue.ajouterMessage("\nEn attente du joueur Agro", true);
+                    vue.ajouterMessage("\nEn attente du joueur Agro \n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
                         @Override
@@ -197,7 +197,7 @@ public class Controleur
                                 return;
                             }
                             vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
-                            vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                            vue.ajouterMessage("\nEn attente du joueur Fast \n", true);
                             Timer chrono = new Timer();
                             chrono.schedule(new TimerTask(){
                                 @Override
@@ -243,7 +243,7 @@ public class Controleur
                 chrono.schedule(new TimerTask(){
                     @Override
                     public void run(){
-                        vue.ajouterMessage("\nEn attente du joueur Agro", true);
+                        vue.ajouterMessage("\nEn attente du joueur Agro\n", true);
                         modele.getJoueur2().actionBot(getControleur());
                         if(modele.gagnant() != null || modele.getPioche().size() == 0)
                         {
@@ -260,7 +260,7 @@ public class Controleur
                         chrono.schedule(new TimerTask(){
                             @Override
                             public void run(){
-                                vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                                vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
                                 modele.getJoueur3().actionBot(getControleur());
                                 if(modele.gagnant() != null || modele.getPioche().size() == 0)
                                 {
@@ -488,7 +488,7 @@ public class Controleur
                 @Override
                 public void run(){
                     modele.getJoueur2().actionBot(getControleur());
-                    vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                    vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
                     @Override
@@ -515,7 +515,7 @@ public class Controleur
                 vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
             }
             vue.ajouterMessage("CPU Fast commence à jouer ! \n", true);
-            vue.ajouterMessage("\nEn attente du joueur Fast", true);
+            vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
             @Override
