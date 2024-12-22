@@ -9,18 +9,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.Timer;
 
 public class Controleur 
 {
     private Partie modele;
     private FenetreJeu vue;
     private Son listeSon;
+    private int tempsEntreTour;
 
     public Controleur(Partie modele, FenetreJeu vue) 
     {
         this.modele = modele;
         this.vue = vue;
         listeSon = new Son();
+        tempsEntreTour = 3000; // 3 secondes
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
@@ -175,35 +179,50 @@ public class Controleur
                     modele.getJoueur1().setaPioche(false);
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
-                    modele.getJoueur2().actionBot(this);
-                    if(modele.gagnant() != null || modele.getPioche().size() == 0)
-                    {
-                        if(modele.getPioche().size() == 0)
-                        {
-                            vue.ajouterMessage("La pioche est vide ! \n", b);
+                    
+                    vue.ajouterMessage("\nEn attente du joueur Agro", true);
+                    Timer chrono = new Timer();
+                    chrono.schedule(new TimerTask(){
+                        @Override
+                        public void run(){
+                            modele.getJoueur2().actionBot(getControleur());
+                            if(modele.gagnant() != null || modele.getPioche().size() == 0)
+                            {
+                                if(modele.getPioche().size() == 0)
+                                {
+                                    vue.ajouterMessage("La pioche est vide ! \n", b);
+                                }
+                                modele.finDePartie(vue);
+                                nouvelleManche(true, false);
+                                return;
+                            }
+                            vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
+                            vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                            Timer chrono = new Timer();
+                            chrono.schedule(new TimerTask(){
+                                @Override
+                                public void run(){
+                                    modele.getJoueur3().actionBot(getControleur());
+                                    if(modele.gagnant() != null || modele.getPioche().size() == 0)
+                                    {
+                                        if(modele.getPioche().size() == 0)
+                                        {
+                                            vue.ajouterMessage("La pioche est vide ! \n", b);
+                                        }
+                                        modele.finDePartie(vue);
+                                        nouvelleManche(true, false);
+                                        return;
+                                    }
+                                    vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, getControleur());
+                                    modele.getJoueur1().monTour(true);
+                                    vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+                                    vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, getControleur());
+                                    vue.mettreAJourAttaques(modele);
+                                    vue.mettreAJourBottes(modele);
+                                }
+                            }, tempsEntreTour);
                         }
-                        modele.finDePartie(vue);
-                        nouvelleManche(true, false);
-                        return;
-                    }
-                    vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
-                    modele.getJoueur3().actionBot(this);
-                    if(modele.gagnant() != null || modele.getPioche().size() == 0)
-                    {
-                        if(modele.getPioche().size() == 0)
-                        {
-                            vue.ajouterMessage("La pioche est vide ! \n", b);
-                        }
-                        modele.finDePartie(vue);
-                        nouvelleManche(true, false);
-                        return;
-                    }
-                    vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
-                    modele.getJoueur1().monTour(true);
-                    vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-                    vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
-                    vue.mettreAJourAttaques(modele);
-                    vue.mettreAJourBottes(modele);
+                    }, tempsEntreTour);
                 }
             }
             else if(!modele.getJoueur1().getaJjoue() && modele.getJoueur1().getMain().size() <= 6)
@@ -220,36 +239,51 @@ public class Controleur
                 modele.getJoueur1().setaPioche(false);
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur1().setaDefausse(false);
-                modele.getJoueur2().actionBot(this);
-                if(modele.gagnant() != null || modele.getPioche().size() == 0)
-                {
-                    if(modele.getPioche().size() == 0)
-                    {
-                        vue.ajouterMessage("La pioche est vide ! \n", b);
+                Timer chrono = new Timer();
+                chrono.schedule(new TimerTask(){
+                    @Override
+                    public void run(){
+                        vue.ajouterMessage("\nEn attente du joueur Agro", true);
+                        modele.getJoueur2().actionBot(getControleur());
+                        if(modele.gagnant() != null || modele.getPioche().size() == 0)
+                        {
+                            if(modele.getPioche().size() == 0)
+                            {
+                                vue.ajouterMessage("La pioche est vide ! \n", b);
+                            }
+                            modele.finDePartie(vue);
+                            nouvelleManche(true, false);
+                            return;
+                        }
+                        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
+                        Timer chrono = new Timer();
+                        chrono.schedule(new TimerTask(){
+                            @Override
+                            public void run(){
+                                vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                                modele.getJoueur3().actionBot(getControleur());
+                                if(modele.gagnant() != null || modele.getPioche().size() == 0)
+                                {
+                                    if(modele.getPioche().size() == 0)
+                                    {
+                                        vue.ajouterMessage("La pioche est vide ! \n", b);
+                                    }
+                                    modele.finDePartie(vue);
+                                    nouvelleManche(true, false);
+                                    return;
+                                }
+                                vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, getControleur());
+                                modele.getJoueur1().monTour(true);
+                                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+                                vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, getControleur());
+                                vue.mettreAJourAttaques(modele);
+                                vue.mettreAJourBottes(modele);
+                            }
+                        }, tempsEntreTour);
+                        
                     }
-                    modele.finDePartie(vue);
-                    nouvelleManche(true, false);
-                    return;
-                }
-                vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
-
-                modele.getJoueur3().actionBot(this);
-                if(modele.gagnant() != null || modele.getPioche().size() == 0)
-                {
-                    if(modele.getPioche().size() == 0)
-                    {
-                        vue.ajouterMessage("La pioche est vide ! \n", b);
-                    }
-                    modele.finDePartie(vue);
-                    nouvelleManche(true, false);
-                    return;
-                }
-                vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
-                modele.getJoueur1().monTour(true);
-                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-                vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
-                vue.mettreAJourAttaques(modele);
-                vue.mettreAJourBottes(modele);
+                }, tempsEntreTour);
+                
             }
             else
             {
@@ -448,12 +482,26 @@ public class Controleur
                 vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
             }
             vue.ajouterMessage("CPU Agro commence à jouer ! \n", true);
-            modele.getJoueur2().actionBot(this);
-            modele.getJoueur3().actionBot(this);
-            modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-            vue.mettreAJourAttaques(modele);
-            vue.mettreAJourBottes(modele);
+            vue.ajouterMessage("\nEn attente du joueur Agro", true);
+            Timer chrono = new Timer();
+            chrono.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    modele.getJoueur2().actionBot(getControleur());
+                    vue.ajouterMessage("\nEn attente du joueur Fast", true);
+                    Timer chrono = new Timer();
+                    chrono.schedule(new TimerTask(){
+                    @Override
+                    public void run(){
+                        modele.getJoueur3().actionBot(getControleur());
+                        modele.getJoueur1().monTour(true);
+                        vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+                        vue.mettreAJourAttaques(modele);
+                        vue.mettreAJourBottes(modele);
+                        }
+                    }, tempsEntreTour);
+                }
+            }, tempsEntreTour);
         }
         else if(modele.getQuiCommence() == 2)
         {
@@ -467,11 +515,18 @@ public class Controleur
                 vue.ajouterMessage("- " + modele.getJoueurs().get(i).getNom() + "\n", true);
             }
             vue.ajouterMessage("CPU Fast commence à jouer ! \n", true);
-            modele.getJoueur3().actionBot(this);
-            modele.getJoueur1().monTour(true);
-            vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
-            vue.mettreAJourAttaques(modele);
-            vue.mettreAJourBottes(modele);
+            vue.ajouterMessage("\nEn attente du joueur Fast", true);
+            Timer chrono = new Timer();
+            chrono.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                modele.getJoueur3().actionBot(getControleur());
+                modele.getJoueur1().monTour(true);
+                vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
+                vue.mettreAJourAttaques(modele);
+                vue.mettreAJourBottes(modele);
+                }
+            }, tempsEntreTour);
         }
         vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
         vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
