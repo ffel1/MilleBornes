@@ -29,7 +29,7 @@ public class Controleur
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
             vue.creerFenetreJeu();
-            nouvellePartie(false);
+            nouvellePartie(false, false);
         });
 
         vue.ajouterActionBoutonHistorique(e -> {
@@ -46,7 +46,7 @@ public class Controleur
         return listeSon;
     }
 
-    private void nouvellePartie(boolean b){
+    private void nouvellePartie(boolean b, boolean finPartieForcee){
 
         File fichier = new File("save.ser");
         boolean partieChargée;
@@ -91,14 +91,7 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
-            vue.ajouterMessage("Vous avez mis fin à la partie, les points ne seront pas comptabilisés !", true);
-            modele.getJoueur1().setDefausse(false);
-            vue.getDefausse().setText("Défausse (temporaire)");
-            vue.getFenetre().getContentPane().removeAll();
-            vue.getFenetre().repaint();
-            vue.getFenetre().revalidate();
-            vue.creerFenetreJeu();
-            nouvellePartie(true); 
+            nouvelleManche(true, true);
         });
 
         //Bouton défausse
@@ -171,7 +164,10 @@ public class Controleur
                     vue.ajouterMessage("\nC'est la fin de votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
                     if(modele.gagnant() == modele.getJoueur1())
                     {
-                        vue.ajouterMessage("\n VOUS AVEZ GAGNE LA PARTIE !! BRAVO ! \n", true);
+                        vue.ajouterMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
+                        modele.finDePartie();
+                        nouvelleManche(true, false);
+                        return;
                     }
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
@@ -180,8 +176,20 @@ public class Controleur
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
                     modele.getJoueur2().actionBot(this);
+                    if(modele.gagnant() != null)
+                    {
+                        modele.finDePartie();
+                        nouvelleManche(true, false);
+                        return;
+                    }
                     vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
                     modele.getJoueur3().actionBot(this);
+                    if(modele.gagnant() != null)
+                    {
+                        modele.finDePartie();
+                        nouvelleManche(true, false);
+                        return;
+                    }
                     vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                     modele.getJoueur1().monTour(true);
                     vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
@@ -205,9 +213,21 @@ public class Controleur
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
+                if(modele.gagnant() != null)
+                {
+                    modele.finDePartie();
+                    nouvelleManche(true, false);
+                    return;
+                }
                 vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
 
                 modele.getJoueur3().actionBot(this);
+                if(modele.gagnant() != null)
+                {
+                    modele.finDePartie();
+                    nouvelleManche(true, false);
+                    return;
+                }
                 vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                 modele.getJoueur1().monTour(true);
                 vue.ajouterMessage("\nC'est votre tour ! Distance parcourue : " + modele.getJoueur1().getKilometre() + " km \n", true);
@@ -364,14 +384,25 @@ public class Controleur
         ArrayList<Carte> main = modele.getJoueur1().getMain();
         vue.afficherCartesJoueur(main);
         initialiserBoutonCartes(main);
+        if(finPartieForcee)
+        {
+            vue.ajouterMessage("Vous avez arrêté la manche " + (modele.getNumeroManche() - 1) + ", les points ne seront pas comptabilisés ! \n", true);
+        }
         if(partieChargée)
         {
-            vue.ajouterMessage("\nLa partie reprends, c'était votre tour ! \n", false);
+            vue.ajouterMessage("La manche " + modele.getNumeroManche() + " reprends, les score sont de : \n", false);
+            vue.ajouterMessage("Vous avez " + modele.getPointsJoueur() + " points ! \n", false);
+            vue.ajouterMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", false);
+            vue.ajouterMessage("Le CPU Fast a " + modele.getPointsCPUFast() + " points ! \n", false);
+            vue.ajouterMessage("C'est à vous de jouer ! \n", false);
             modele.getJoueur1().monTour(true);
         }
         else if(modele.getQuiCommence() == 0)
         {
-            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Début de la manche " + modele.getNumeroManche() +" ! Les score sont de : \n", true);
+            vue.ajouterMessage("Vous avez " + modele.getPointsJoueur() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Fast a " + modele.getPointsCPUFast() + " points ! \n", true);
             vue.ajouterMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getJoueurs().size(); i++)
             {
@@ -383,7 +414,10 @@ public class Controleur
         }
         else if(modele.getQuiCommence() == 1)
         {
-            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Début de la manche " + modele.getNumeroManche() +" ! Les score sont de : \n", true);
+            vue.ajouterMessage("Vous avez " + modele.getPointsJoueur() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Fast a " + modele.getPointsCPUFast() + " points ! \n", true);
             vue.ajouterMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getJoueurs().size(); i++)
             {
@@ -399,7 +433,10 @@ public class Controleur
         }
         else if(modele.getQuiCommence() == 2)
         {
-            vue.ajouterMessage("C'est le début d'une nouvelle course ! \n", true);
+            vue.ajouterMessage("Début de la manche " + modele.getNumeroManche() +" ! Les score sont de : \n", true);
+            vue.ajouterMessage("Vous avez " + modele.getPointsJoueur() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.ajouterMessage("Le CPU Fast a " + modele.getPointsCPUFast() + " points ! \n", true);
             vue.ajouterMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getJoueurs().size(); i++)
             {
@@ -528,9 +565,21 @@ public class Controleur
         vue.getFenetre().setLayout(null);
 		vue.getFenetre().setVisible(true);
 
+
         vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
         vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
         vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
+    }
+
+    public void nouvelleManche(boolean b1, boolean b2)
+    {
+        modele.getJoueur1().setDefausse(false);
+        vue.getDefausse().setText("Défausse (temporaire)");
+        vue.getFenetre().getContentPane().removeAll();
+        vue.getFenetre().repaint();
+        vue.getFenetre().revalidate();
+        vue.creerFenetreJeu();
+        nouvellePartie(b1, b2); 
     }
 
     public Controleur getControleur()

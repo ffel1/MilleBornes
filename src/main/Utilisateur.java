@@ -215,7 +215,7 @@ public class Utilisateur extends Joueur{
             {
                 return 3;
             }
-            if(c.getKilometre()+u.getKilometre() > 700)
+            if(c.getKilometre()+u.getKilometre() > 100)
             {
                 return 10;
             }

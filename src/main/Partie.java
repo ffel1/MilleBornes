@@ -9,16 +9,14 @@ import java.util.Random;
 
  
 public class Partie implements Serializable{
-    private int points, quiCommence;
+    private int quiCommence;
     private ArrayList<Joueur> joueurs;
     private ArrayList<Carte> pioche;
     private String nomDeLaPartie;
-    private int pointsJoueur;
-    private int pointsTempoJoueur;
-    private int pointsCPUFast;
-    private int pointsTempoCPUFast;
-    private int pointsCPUAgro;
-    private int pointsTempoCPUAgro;
+    private int pointsJoueur = 0;
+    private int pointsCPUFast = 0;
+    private int pointsCPUAgro = 0;
+    private int numéroDeManche = 0;
 
     public Partie(){
         // Initialisation
@@ -150,6 +148,7 @@ public class Partie implements Serializable{
      * PAS FINI
      */
     public void nouvellePartie(){
+        numéroDeManche++;
         initialiserPioche();
         joueurs.clear();
         System.out.println(getPioche().size());
@@ -186,13 +185,38 @@ public class Partie implements Serializable{
      */
     public Joueur gagnant(){
         for(int i = 0; i < joueurs.size(); i++){
-            if(joueurs.get(i).getKilometre() >= 700){
+            if(joueurs.get(i).getKilometre() >= 100){
                 return joueurs.get(i);
             }
         }
         return null;
     }
-/*
+
+    public void finDePartie()
+    {
+        compteurPoints();
+    }
+
+    public int getPointsJoueur()
+    {
+        return pointsJoueur;
+    }
+
+    public int getPointCPUAgro()
+    {
+        return pointsCPUAgro;
+    }
+
+    public int getPointsCPUFast()
+    {
+        return pointsCPUFast;
+    }
+
+    public int getNumeroManche()
+    {
+        return numéroDeManche;
+    }
+
     public void compteurPoints()
     {
         Joueur gagnant = gagnant();
@@ -249,7 +273,7 @@ public class Partie implements Serializable{
 
             // Points de victoire
 
-            if (gagnant == joueurs.get(0)){
+            if (gagnant.getId() == 0){
 
                pointsJoueur += 400; // pts de manche gagnée
 
@@ -285,8 +309,6 @@ public class Partie implements Serializable{
             }
         }
     }
-
-    */
     
     public void afficherAction(Carte c, Joueur u, Joueur cible){};
     public void ajouterHistorique(Carte c, Joueur u, Joueur cible){};
