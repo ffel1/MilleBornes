@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
  
 public class Partie implements Serializable{
@@ -17,6 +20,7 @@ public class Partie implements Serializable{
     private int pointsCPUFast;
     private int pointsCPUAgro;
     private int numéroDeManche;
+    private boolean prochainePartiePrete;
 
     public Partie(){
         // Initialisation
@@ -191,9 +195,38 @@ public class Partie implements Serializable{
         return null;
     }
 
-    public void finDePartie()
+    public void finDePartie(FenetreJeu vue) {
+        prochainePartiePrete = false;
+        vue.ajouterMessage("\nLancement de la manche " + (numéroDeManche + 1)+ " dans :\n", false);
+    
+        // Tableau pour le compte à rebours
+        String[] countdownMessages = {"3", "2", "1"};
+        int delay = 2000; // 2 secondes entre chaque étape
+    
+        final int[] index = {0};
+    
+        // Création du Timer
+        Timer timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index[0] < countdownMessages.length) {
+                    vue.ajouterMessage(countdownMessages[index[0]] + "\n", false); 
+                    index[0]++;
+                } else {
+                    ((Timer) e.getSource()).stop();
+                    compteurPoints(); // Appeler la méthode suivante
+                    prochainePartiePrete = true;
+                }
+            }
+        });
+    
+        timer.setInitialDelay(0); // Démarrer immédiatement
+        timer.start();
+    }
+
+    public boolean getProchainPartiePrete()
     {
-        compteurPoints();
+        return prochainePartiePrete;
     }
 
     public int getPointsJoueur()

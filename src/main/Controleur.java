@@ -165,7 +165,7 @@ public class Controleur
                     if(modele.gagnant() == modele.getJoueur1())
                     {
                         vue.ajouterMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
-                        modele.finDePartie();
+                        modele.finDePartie(vue);
                         nouvelleManche(true, false);
                         return;
                     }
@@ -182,7 +182,7 @@ public class Controleur
                         {
                             vue.ajouterMessage("La pioche est vide ! \n", b);
                         }
-                        modele.finDePartie();
+                        modele.finDePartie(vue);
                         nouvelleManche(true, false);
                         return;
                     }
@@ -194,7 +194,7 @@ public class Controleur
                         {
                             vue.ajouterMessage("La pioche est vide ! \n", b);
                         }
-                        modele.finDePartie();
+                        modele.finDePartie(vue);
                         nouvelleManche(true, false);
                         return;
                     }
@@ -227,7 +227,7 @@ public class Controleur
                     {
                         vue.ajouterMessage("La pioche est vide ! \n", b);
                     }
-                    modele.finDePartie();
+                    modele.finDePartie(vue);
                     nouvelleManche(true, false);
                     return;
                 }
@@ -240,7 +240,7 @@ public class Controleur
                     {
                         vue.ajouterMessage("La pioche est vide ! \n", b);
                     }
-                    modele.finDePartie();
+                    modele.finDePartie(vue);
                     nouvelleManche(true, false);
                     return;
                 }
@@ -394,7 +394,7 @@ public class Controleur
             if(modele.getPioche().size() == 0)
             {
                 vue.ajouterMessage("La pioche est vide !", true);
-                modele.finDePartie();
+                modele.finDePartie(vue);
                 nouvelleManche(true, false);
                 return;
             }
