@@ -615,23 +615,28 @@ public class FenetreJeu {
         return boutonsMainJoueur;
     }
 
-    private void afficherZoneDeTexte(){
-        System.out.println("Affiche");
+    private void afficherZoneDeTexte() {
+    
         // Zone affichage des messages
         JPanel messagePanel = new JPanel();
-		messagePanel.setBackground(Color.GRAY);
-		messagePanel.setBounds(42, hauteur * 62 / 100, largeur * 15 / 100, hauteur * 30 / 100);
-		messagePanel.setLayout(new BorderLayout());
+        messagePanel.setOpaque(false); // Rend le panneau transparent
+        messagePanel.setBounds(42, hauteur * 62 / 100, largeur * 15 / 100, hauteur * 30 / 100);
+        messagePanel.setLayout(new BorderLayout());
         panelJeu.add(messagePanel, Integer.valueOf(10));
-
-        textArea.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
+    
+        // Configurer la zone de texte
         textArea.setEditable(false);
-        textArea.setBackground(Color.PINK);
-        panelJeu.add(textArea);
-
+        textArea.setOpaque(false); // Rendre la zone de texte transparente
+        textArea.setForeground(Color.BLACK); // Couleur du texte
+    
+        // Configurer le JScrollPane
         scrollPane = new JScrollPane(textArea);
+        scrollPane.setOpaque(false); // Rendre le JScrollPane transparent
+        scrollPane.getViewport().setOpaque(false); // Rendre la vue du viewport transparente
+        scrollPane.setBorder(null); // Supprime la bordure si nécessaire
         scrollPane.setBounds(0, hauteur * 50 / 100, largeur * 15 / 100, hauteur * 49 / 100);
-        panelJeu.add(scrollPane);
+    
+        // Ajouter les composants
         messagePanel.add(scrollPane);
         textArea.setText("");
     }
