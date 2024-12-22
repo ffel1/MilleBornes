@@ -492,6 +492,10 @@ public class Controleur
                                 {
                                     modele.getJoueur1().jouerCarte(main.get(j),getControleur(),j+1);
                                 }
+                                else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 10)
+                                {
+                                    vue.ajouterMessage("Vous devez atteindre PILE 700 bornes pour gagner, cette carte vous fait aller trop loin ! \n", false);
+                                }
                                 else if(modele.getJoueur1().verificationUtilisateur(modele.getJoueur1().getMain().get(j), modele.getJoueur1(), null) == 3)
                                 {
                                     vue.ajouterMessage("Vous ne pouvez pas avancer sans feu vert ! \n", false);

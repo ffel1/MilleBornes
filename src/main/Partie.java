@@ -186,7 +186,7 @@ public class Partie implements Serializable{
      */
     public Joueur gagnant(){
         for(int i = 0; i < joueurs.size(); i++){
-            if(joueurs.get(i).getKilometre() >= 100){
+            if(joueurs.get(i).getKilometre() >= 700){
                 return joueurs.get(i);
             }
         }

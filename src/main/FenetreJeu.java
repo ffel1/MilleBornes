@@ -417,9 +417,9 @@ public class FenetreJeu {
         for(int i = 0; i < main.size(); i++){
             Carte carte = main.get(i);
             ImageIcon image = carte.getImage();
-            int larg = 11697/100; 
-            int y = hauteur * 796 / 1000;
-            int x = (largeur / 2 - largeur * 858 / 10000) - (larg * 3) + (larg * i);
+            int larg = 11700/100; 
+            int y = hauteur * 845 / 1000;
+            int x = (largeur / 2 - largeur * 735 / 10000) - (larg * 3) + (larg * i);
             int haut = (hauteur * 20 / 100);
             JButton bouton;
             if(image != null)
@@ -432,7 +432,7 @@ public class FenetreJeu {
             }
             bouton.setIcon(image);
             bouton.setBackground(Color.PINK);
-            bouton.setBounds(x, y, larg, haut);
+            bouton.setBounds(x, y, larg*60/100, haut*49/100);
             bouton.setFocusPainted(false);
             bouton.setContentAreaFilled(false);
             bouton.setVisible(true);
@@ -467,7 +467,7 @@ public class FenetreJeu {
         panneauAttaquesJoueur.setOpaque(false);
         //panneauAttaquesJoueur.setBackground(Color.LIGHT_GRAY);
         panneauGlobalJoueur.add(panneauAttaquesJoueur, BorderLayout.CENTER);
-        panneauGlobalJoueur.setBounds(largeur * 365 /10000 , hauteur * 9 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalJoueur.setBounds(largeur * 620 /10000 , hauteur * 12 /100, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
 
         // Panneau global pour CPU Fast
@@ -480,7 +480,7 @@ public class FenetreJeu {
         panneauAttaquesCPUFast.setOpaque(false);
         //panneauAttaquesCPUFast.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUFast.add(panneauAttaquesCPUFast, BorderLayout.CENTER);
-        panneauGlobalCPUFast.setBounds(largeur * 365 /10000 , hauteur * 41 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalCPUFast.setBounds(largeur * 620 /10000 , hauteur * 439 /1000, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
 
         // Panneau global pour CPU Agro
@@ -493,7 +493,7 @@ public class FenetreJeu {
         panneauAttaquesCPUAgro.setOpaque(false);
         //panneauAttaquesCPUAgro.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUAgro.add(panneauAttaquesCPUAgro, BorderLayout.CENTER);
-        panneauGlobalCPUAgro.setBounds(largeur * 365 /10000 , hauteur * 25 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalCPUAgro.setBounds(largeur * 620 /10000 , hauteur * 2795 /10000, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
     }
 
@@ -506,35 +506,28 @@ public class FenetreJeu {
 
         panneauBottesJoueur = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panneauBottesJoueur.setOpaque(false);
-        //panneauBottesJoueur.setBackground(Color.LIGHT_GRAY);
         panneauGlobalJoueur.add(panneauBottesJoueur, BorderLayout.CENTER);
-        panneauGlobalJoueur.setBounds(largeur * 8331 /10000 , hauteur * 9 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalJoueur.setBounds(largeur * 8585 /10000 , hauteur * 12 /100, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalJoueur, Integer.valueOf(3));
 
         // Panneau global pour CPU Fast
         JPanel panneauGlobalCPUFast = new JPanel(new BorderLayout());
         panneauGlobalCPUFast.setOpaque(false);
-        //JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
-        //panneauGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panneauBottesCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panneauBottesCPUFast.setOpaque(false);
-        //panneauBottesCPUFast.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUFast.add(panneauBottesCPUFast, BorderLayout.CENTER);
-        panneauGlobalCPUFast.setBounds(largeur * 8331 /10000 , hauteur * 25 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalCPUFast.setBounds(largeur * 8585 /10000 , hauteur * 439 /1000, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalCPUFast, Integer.valueOf(3));
 
         // Panneau global pour CPU Agro
         JPanel panneauGlobalCPUAgro = new JPanel(new BorderLayout());
         panneauGlobalCPUAgro.setOpaque(false);
-        //JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
-        //panneauGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panneauBottesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panneauBottesCPUAgro.setOpaque(false);
-        //panneauBottesCPUAgro.setBackground(Color.LIGHT_GRAY);
         panneauGlobalCPUAgro.add(panneauBottesCPUAgro, BorderLayout.CENTER);
-        panneauGlobalCPUAgro.setBounds(largeur * 8331 /10000 , hauteur * 41 /100, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalCPUAgro.setBounds(largeur * 8585 /10000 , hauteur * 2795 /1000, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
 
     }
@@ -587,7 +580,7 @@ public class FenetreJeu {
 
         for (Carte carte : joueur.getAttaquesEnCours()) {
             // Réduire la taille de l'image de la carte
-            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance(largeur*75/10/100, hauteur * 13/100, Image.SCALE_SMOOTH));
+            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance(largeur*25/1000, hauteur * 7/100, Image.SCALE_SMOOTH));
             JLabel label = new JLabel(image);
             panneau.add(label); // Ajouter la carte au panneau
         }
@@ -600,7 +593,7 @@ public class FenetreJeu {
         
         for (Carte carte : joueur.getBottesPosées()) {
             // Réduire la taille de l'image de la carte
-            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance(largeur*75/10/100, hauteur * 13/100, Image.SCALE_SMOOTH));
+            ImageIcon image = new ImageIcon(carte.getImage().getImage().getScaledInstance(largeur*25/1000, hauteur * 7/100, Image.SCALE_SMOOTH));
             JLabel label = new JLabel(image);
             panneau.add(label); // Ajouter la carte au panneau
         }

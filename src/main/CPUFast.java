@@ -35,11 +35,11 @@ public class CPUFast extends CPU{
                 if((carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre()) || !(carteAJouer instanceof Distance))
                 {
                     carteAJouer = carte;
+                    findDistance = true;
                 }
             }
             else if(carte instanceof Attaque && !findDistance && !findFeuVert && verification(carte, this, getCible(carte))){
                 carteAJouer = carte;
-                System.out.println("Le bot fast décide de jouer une carte distance");
             }
         }
 
