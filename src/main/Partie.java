@@ -21,10 +21,6 @@ public class Partie implements Serializable{
     public Partie(){
         // Initialisation
         joueurs = new ArrayList<Joueur>();
-        numéroDeManche = 0;
-        pointsJoueur = 0;
-        pointsCPUAgro = 0;
-        pointsCPUFast = 0;
     }
     
     public void initialisationNomDeLaPartie()
@@ -310,6 +306,7 @@ public class Partie implements Serializable{
                     pointsCPUAgro += 300; // Points de aucun 200KM
                 }
             }
+            System.out.println("Les points De Agro sont  :"+ pointsCPUAgro);
         }
     }
     

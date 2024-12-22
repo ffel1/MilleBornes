@@ -50,7 +50,7 @@ public class Controleur
 
         File fichier = new File("save.ser");
         boolean partieChargée;
-        if(fichier.exists())
+        if(fichier.exists() && !b)
         {
             chargerSauvegarder(fichier);
         }
@@ -167,7 +167,6 @@ public class Controleur
                         vue.ajouterMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
                         modele.finDePartie();
                         nouvelleManche(true, false);
-                        return;
                     }
                     vue.afficherCartesJoueur(modele.getJoueur1().getMain());
                     initialiserBoutonCartes(modele.getJoueur1().getMain());
@@ -176,19 +175,25 @@ public class Controleur
                     modele.getJoueur1().monTour(false);
                     modele.getJoueur1().setaDefausse(false);
                     modele.getJoueur2().actionBot(this);
-                    if(modele.gagnant() != null)
+                    if(modele.gagnant() != null || modele.getPioche().size() == 0)
                     {
+                        if(modele.getPioche().size() == 0)
+                        {
+                            vue.ajouterMessage("La pioche est vide ! \n", b);
+                        }
                         modele.finDePartie();
                         nouvelleManche(true, false);
-                        return;
                     }
                     vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
                     modele.getJoueur3().actionBot(this);
-                    if(modele.gagnant() != null)
+                    if(modele.gagnant() != null || modele.getPioche().size() == 0)
                     {
+                        if(modele.getPioche().size() == 0)
+                        {
+                            vue.ajouterMessage("La pioche est vide ! \n", b);
+                        }
                         modele.finDePartie();
                         nouvelleManche(true, false);
-                        return;
                     }
                     vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                     modele.getJoueur1().monTour(true);
@@ -213,20 +218,26 @@ public class Controleur
                 modele.getJoueur1().monTour(false);
                 modele.getJoueur1().setaDefausse(false);
                 modele.getJoueur2().actionBot(this);
-                if(modele.gagnant() != null)
+                if(modele.gagnant() != null || modele.getPioche().size() == 0)
                 {
+                    if(modele.getPioche().size() == 0)
+                    {
+                        vue.ajouterMessage("La pioche est vide ! \n", b);
+                    }
                     modele.finDePartie();
                     nouvelleManche(true, false);
-                    return;
                 }
                 vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
 
                 modele.getJoueur3().actionBot(this);
-                if(modele.gagnant() != null)
+                if(modele.gagnant() != null || modele.getPioche().size() == 0)
                 {
+                    if(modele.getPioche().size() == 0)
+                    {
+                        vue.ajouterMessage("La pioche est vide ! \n", b);
+                    }
                     modele.finDePartie();
                     nouvelleManche(true, false);
-                    return;
                 }
                 vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
                 modele.getJoueur1().monTour(true);
