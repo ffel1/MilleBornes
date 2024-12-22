@@ -686,7 +686,7 @@ public class FenetreJeu {
         boutonVoiture1.setContentAreaFilled(false);
         boutonVoiture1.setOpaque(false);
         //boutonVoiture1.setBackground(Color.yellow);
-        boutonVoiture1.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100), (circuit.getIconHeight() * 58 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture1.setBounds((circuit.getIconWidth() * 69 / 100), (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
         panelJeu.add(boutonVoiture1, Integer.valueOf(2));
 
         // Voiture 2
@@ -697,7 +697,7 @@ public class FenetreJeu {
         boutonVoiture2.setContentAreaFilled(false);
         boutonVoiture2.setOpaque(false);
         //boutonVoiture2.setBackground(Color.pink);
-        boutonVoiture2.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (circuit.getIconWidth() * 35 / 1000), (circuit.getIconHeight() * 58 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture2.setBounds((circuit.getIconWidth() * 69 / 100) + (circuit.getIconWidth() * 23 / 1000), (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
         panelJeu.add(boutonVoiture2, Integer.valueOf(2));
 
         // Voiture 3
@@ -708,7 +708,7 @@ public class FenetreJeu {
         boutonVoiture3.setContentAreaFilled(false);
         boutonVoiture3.setOpaque(false);
         //boutonVoiture3.setBackground(Color.magenta);
-        boutonVoiture3.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) + (circuit.getIconWidth() * 35 / 1000) * 2, (circuit.getIconHeight() * 58 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture3.setBounds((circuit.getIconWidth() * 69 / 100) + (circuit.getIconWidth() * 23 / 1000) * 2, (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
         panelJeu.add(boutonVoiture3, Integer.valueOf(2));
     }
 
@@ -718,12 +718,11 @@ public class FenetreJeu {
      * joueur = id du joueur
      */
     public void avancerVoiture(int distance, int joueur, Controleur control){
-        int deplacementY = 0;
-        int pourcentageX = 0;
         int vitesse = 5;
         JButton voiture;
         int nouvelleDistance = distance;
         String couleur;
+        boolean zero = false;
 
         // Choix en fonction du numéro de la voiture
         if(joueur == 0){
@@ -731,34 +730,47 @@ public class FenetreJeu {
             couleur = "rouge";
             if(distance <= 175 && kilometreV1 != 0){
                 nouvelleDistance -= kilometreV1 - 25;
-            }else if(distance <= 400 && kilometreV1 != 0){
-                nouvelleDistance = distance;
+            }else if(kilometreV1 == 0){
+                zero = true;
             }
         }else if(joueur == 1){
             voiture = boutonVoiture2; 
             couleur = "bleue";
             if(distance < 175 && kilometreV2 != 0){
                 nouvelleDistance -= kilometreV2 - 25;
+            }else if(kilometreV1 == 0){
+                zero = true;
             }
         }else{
             voiture = boutonVoiture3; 
             couleur = "verte";
             if(distance < 175 && kilometreV3 != 0){
                 nouvelleDistance -= kilometreV3 - 25;
+            }else if(kilometreV1 == 0){
+                zero = true;
             }
         }
         
         // Si la voiture doit avancer par rapport à son dernier déplacement
         if((joueur == 0 && distance > kilometreV1) | (joueur == 1 && distance > kilometreV2) | (joueur == 2 && distance > kilometreV3)){
             Rectangle position = voiture.getBounds();
+            int deplacementY = 0;
+            int pourcentageX = 0;
             
             // Calcul la position finale de la voiture
             if(distance <= 25){
-                deplacementY = (circuit.getIconHeight() * 120 / 1000);
-                position.setBounds((int)position.getX(), (int)position.getY() - deplacementY, (int)position.getWidth(), (int)position.getHeight());
+                deplacementY = (circuit.getIconHeight() * 9 / 100);
+                position.setBounds((int)position.getX(), (int)position.getY() - deplacementY, 1, 1);
             }else if(voiture.getIcon().toString().compareTo("Images/voiture " + couleur + " idle haut.gif") == 0){ // Entre 50 et 150 km = voiture vers le haut
-                deplacementY = (25 * 20 / 100) + ((nouvelleDistance / 25)) * (circuit.getIconHeight() * 90 / 1000);
-                position.setBounds((int)position.getX(), (int)position.getY() - deplacementY, (int)position.getWidth(), (int)position.getHeight());
+                deplacementY = (((nouvelleDistance - 25) / 25)) * (circuit.getIconHeight() * 7 / 100);
+                if(zero){
+                    deplacementY += (circuit.getIconHeight() * 9 / 100);
+                }
+                System.out.println(deplacementY);
+                System.out.println("Dist : " + (((nouvelleDistance - 25) / 25)) * (circuit.getIconHeight() * 7 / 100)); // 60
+                System.out.println("Dist : " + (circuit.getIconHeight() * 9 / 100)); // 77
+                //deplacementY = 80; // 140 200 260
+                position.setBounds((int)position.getX(), (int)position.getY() - deplacementY, 1, 1);
             }else if(voiture.getIcon().toString().compareTo("Images/voiture " + couleur + " idle gauche.gif") == 0 && distance > 175){ // Entre 175 et 375 km = voiture vers la gauche
                 pourcentageX = ((nouvelleDistance - kilometreV1) / 25 ) * (circuit.getIconWidth() * 80 / 1300);
                 position.setBounds((int)position.getX() - pourcentageX, (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
@@ -781,12 +793,10 @@ public class FenetreJeu {
                     public void run(){
                         ImageIcon voiture1 = new ImageIcon("Images/voiture " + couleur + " roule haut.gif");
                         voiture.setIcon(voiture1);
-                        
                         javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                             int x = voiture.getX();
                             int y = voiture.getY();
                             boolean son = true;
-                        
                             @Override
                             public void actionPerformed(ActionEvent e){
                                 if(son){
@@ -797,6 +807,7 @@ public class FenetreJeu {
                                 // Mettre à jour les coordonnées
                                 y -= vitesse;
                                 voiture.setLocation(x, y);
+                                System.out.println(voiture.getY());
                         
                                 if(distance >= 175 && (voiture.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() - ((voiture.getIcon().getIconHeight() * 50 / 100) * joueur) | y < (circuit.getIconHeight() * 125 / 1000) - joueur * (circuit.getIconHeight() * 50 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
@@ -812,8 +823,11 @@ public class FenetreJeu {
                                     if(distance >= 175){ // Tourne vers la gauche
                                         voiture1 = new ImageIcon("Images/voiture " + couleur + " tourne haut vers gauche.gif");
                                         voiture.setIcon(voiture1);
-                                        voiture.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 29 / 100) - (voiture1.getIconWidth() * 40 / 100) + (circuit.getIconWidth() * 3 / 100) * joueur, y - (voiture1.getIconHeight() * 30 / 100) + (voiture1.getIconHeight() * 2 / 100) * joueur, 
-                                                                    (voiture1.getIconWidth() * 100 / 100), (voiture1.getIconHeight() * 100 / 100));
+                                        
+                                        voiture.setBounds((circuit.getIconWidth() * 64 / 100) + (circuit.getIconWidth() * 2 / 100) * joueur, (circuit.getIconHeight() * 7 / 100) - (circuit.getIconHeight() * 4 / 100) * joueur, 
+                                                            (voiture1.getIconWidth() * 100 / 100), (voiture1.getIconHeight() * 100 / 100));
+                                        
+                                        
 										java.util.Timer chrono = new java.util.Timer();
 										chrono.schedule(new TimerTask() {
 											@Override
@@ -821,8 +835,10 @@ public class FenetreJeu {
 												((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
 												ImageIcon voiture1 = new ImageIcon("Images/voiture " + couleur + " idle gauche.gif");
 												voiture.setIcon(voiture1);
-												voiture.setBounds((largeur * 52 / 100) + (circuit.getIconWidth() * 25 / 100) + (circuit.getIconWidth() * 3 / 100) * joueur, y  + (voiture1.getIconHeight() * 5 / 100) + (circuit.getIconHeight() * 5 / 1000) * joueur, 
-																	(voiture1.getIconWidth() * 50 / 100), (voiture1.getIconHeight() * 20 / 100));
+                                                
+                                                voiture.setBounds((circuit.getIconWidth() * 66 / 100) + (circuit.getIconWidth() * 3 / 100) * joueur, (circuit.getIconHeight() * 14 / 100) - (circuit.getIconHeight() * 5 / 100) * joueur, 
+																    (voiture1.getIconWidth() * 50 / 100), (voiture1.getIconHeight() * 20 / 100));
+                                                
 												javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
                                                     int x = voiture.getX();
                                                     int y = voiture.getY();
@@ -837,7 +853,7 @@ public class FenetreJeu {
                                                         // Mettre à jour les coordonnées
                                                         x -= vitesse;
                                                         voiture.setLocation(x, y);
-                                                        if(x < (largeur / 2) + (circuit.getIconWidth() * 25 / 100)){
+                                                        if(x < (circuit.getIconWidth() * 64 / 100)){
                                                             ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
                                                             control.getListeSon().stop();
                                                             avancerVoiture(distance, joueur, control);
@@ -848,7 +864,7 @@ public class FenetreJeu {
 											}
                                     	}, 700);
                                     }
-                                }else if(distance < 175 && (voiture.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() | y < (circuit.getIconHeight() * 125 / 1000) - joueur * (circuit.getIconHeight() * 50 / 1000))){
+                                }else if(distance < 175 && (voiture.getY() <= (int)position.getY())){
                                     ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
                                     ImageIcon voiture1 = new ImageIcon("Images/voiture " + couleur + " idle haut.gif");
                                     voiture.setIcon(voiture1);
