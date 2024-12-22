@@ -13,14 +13,18 @@ public class Partie implements Serializable{
     private ArrayList<Joueur> joueurs;
     private ArrayList<Carte> pioche;
     private String nomDeLaPartie;
-    private int pointsJoueur = 0;
-    private int pointsCPUFast = 0;
-    private int pointsCPUAgro = 0;
-    private int numéroDeManche = 0;
+    private int pointsJoueur;
+    private int pointsCPUFast;
+    private int pointsCPUAgro;
+    private int numéroDeManche;
 
     public Partie(){
         // Initialisation
         joueurs = new ArrayList<Joueur>();
+        numéroDeManche = 0;
+        pointsJoueur = 0;
+        pointsCPUAgro = 0;
+        pointsCPUFast = 0;
     }
     
     public void initialisationNomDeLaPartie()

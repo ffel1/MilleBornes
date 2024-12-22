@@ -55,6 +55,10 @@ public abstract class Joueur implements Serializable{
     public int getKilometre(){
         return kilometreP;
     }
+    public void setKilometre(int kilometre)
+    {
+        kilometreP+=kilometre;
+    }
     public int getId(){
         return id;
     }
@@ -222,7 +226,7 @@ public abstract class Joueur implements Serializable{
         if (verification(c, this, this)) {
             int kilometre = ((Distance) c).getKilometre();
             kilometreP += kilometre;
-            //cartesDistanceJouees.add(c);
+            cartesDistanceJouees.add(c);
             retirerCarte(c);
             return (getNom() + " avance de " + kilometre + " km. Distance totale : " + kilometreP + " km. \n");
         }
