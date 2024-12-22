@@ -75,6 +75,10 @@ public class Controleur
             partieChargée = true;
         }
 
+        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, getControleur());
+        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
+        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, getControleur());
+
         String nomDeLaPartie = modele.getNomDeLaPartie();
         vue.setNomDeLaPartie(nomDeLaPartie);
         if(partieChargée)
@@ -696,9 +700,34 @@ public class Controleur
                 }
             }, tempsEntreTour);
         }
+        else if(b2)
+        {
+            nouvellePartie(b1, b2);
+        }
         else
         {
-            nouvellePartie(b1, b2); 
+            if(modele.getPioche().size() == 0)
+            {
+                vue.ajouterMessage("La pioche s'est vidé :\n", false);
+                vue.ajouterMessage("Le gagnant est donc celui qui est allé le plus loin...\n", false);
+            }
+            if(modele.lePlusAvance().getId() == modele.getJoueur1().getId())
+            {
+                vue.ajouterMessage("VOUS AVEZ GAGNE CETTE MANCHE, BRAVO !! \n\n\n\n", false);
+            }
+            else
+            {
+                vue.ajouterMessage("Dommage, c'est le CPU " + modele.lePlusAvance().getNom() + " qui a gagné cette manche, bravo !! \n\n\n\n", false);
+            }
+            vue.ajouterMessage("Chargement de la partie suivante...\n\n\n", false);
+            modele.getJoueurs().clear();
+            Timer chrono = new Timer();
+            chrono.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                nouvellePartie(true, false);
+                }
+            }, tempsEntreTour);
         }
     }
 

@@ -153,6 +153,7 @@ public abstract class Joueur implements Serializable{
                     break;
                 case VEHICULE_PRIORITAIRE:
                     coupFourre = attaquesEnCours.removeIf(carte -> carte.getType() == TypeCarte.LIMITATION_DE_VITESSE || carte.getType() == TypeCarte.FEU_ROUGE);
+                    setFeuVert(true);
                     break;
                 default:
                     break;

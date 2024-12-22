@@ -334,6 +334,20 @@ public class Partie implements Serializable{
         }
     }
 
+    public Joueur lePlusAvance()
+    {
+        Joueur gagnant = getJoueur1();
+        for(Joueur joueur : getJoueurs())
+        {
+            if(joueur.getKilometre() > gagnant.getKilometre())
+            {
+                gagnant = joueur;
+            }
+        }
+
+        return gagnant;
+    }
+
     public Joueur getGagnantDePartie()
     {
         return gagnantDePartie;
