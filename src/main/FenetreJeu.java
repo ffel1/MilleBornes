@@ -742,7 +742,7 @@ public class FenetreJeu {
         boutonVoiture1.setContentAreaFilled(false);
         boutonVoiture1.setOpaque(false);
         //boutonVoiture1.setBackground(Color.yellow);
-        boutonVoiture1.setBounds((circuit.getIconWidth() * 69 / 100), (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture1.setBounds((circuit.getIconWidth() * 705 / 1000), (circuit.getIconHeight() * 59 / 100), (voiture1.getIconWidth() * 10 / 100 ), (voiture1.getIconHeight() * 35 / 100));
         panelJeu.add(boutonVoiture1, Integer.valueOf(2));
 
         // Voiture 2
@@ -753,7 +753,7 @@ public class FenetreJeu {
         boutonVoiture2.setContentAreaFilled(false);
         boutonVoiture2.setOpaque(false);
         //boutonVoiture2.setBackground(Color.pink);
-        boutonVoiture2.setBounds((circuit.getIconWidth() * 69 / 100) + (circuit.getIconWidth() * 23 / 1000), (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture2.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 23 / 1000), (circuit.getIconHeight() * 59 / 100), (voiture2.getIconWidth() * 10/100 ), (voiture1.getIconHeight() * 35 / 100));
         panelJeu.add(boutonVoiture2, Integer.valueOf(2));
 
         // Voiture 3
@@ -764,7 +764,7 @@ public class FenetreJeu {
         boutonVoiture3.setContentAreaFilled(false);
         boutonVoiture3.setOpaque(false);
         //boutonVoiture3.setBackground(Color.magenta);
-        boutonVoiture3.setBounds((circuit.getIconWidth() * 69 / 100) + (circuit.getIconWidth() * 23 / 1000) * 2, (circuit.getIconHeight() * 59 / 100), (circuit.getIconWidth() / 25), (voiture1.getIconHeight() * 100 / 100));
+        boutonVoiture3.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 23 / 1000) * 2, (circuit.getIconHeight() * 59 / 100), (voiture3.getIconWidth() * 10/100), (voiture1.getIconHeight() * 35 / 100));
         panelJeu.add(boutonVoiture3, Integer.valueOf(2));
     }
 
