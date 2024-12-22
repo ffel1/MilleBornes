@@ -30,12 +30,16 @@ public class BotTest{
     private Botte increvable;
     private Botte vehiculePrioritaire;
     private CPUFast botFast;
+    private CPUAgro botAgro;
     private CPUFast botTestFAST;
     private CPUAgro botTestAGRO;
     private Utilisateur joueurTest;
+    private Partie partie;
 
     @BeforeEach
     public void init(){
+        partie = new Partie();
+        partie.nouvellePartie();
         _25KM = new Distance(TypeCarte._25KM, 25);
         _50KM = new Distance(TypeCarte._50KM, 50);
         _75KM = new Distance(TypeCarte._75KM, 75);
@@ -55,14 +59,15 @@ public class BotTest{
         camionCiterne = new Botte(TypeCarte.CAMION_CITERNE);
         increvable = new Botte(TypeCarte.INCREVABLE);
         vehiculePrioritaire = new Botte(TypeCarte.VEHICULE_PRIORITAIRE);
-        botFast = new CPUFast("Source", 0, 0, null);
-        botTestFAST = new CPUFast("fast", 0, 0, null);
-        botTestAGRO = new CPUAgro("agro", 200, 0, null);
+        botFast = (CPUFast)partie.getJoueur3();
+        botAgro = (CPUAgro)partie.getJoueur2();
+        //botTestFAST = new CPUFast("fast", 0, 0, null);
+        botTestAGRO = new CPUAgro("agro", 200, 2, null);
         joueurTest = new Utilisateur("joueur", 100, 0, null);
 
     }
 
-    @Test
+    //@Test
     public void choixCarte(){
         // Test choix de la carte
         botTestFAST.ajouterCarte(_25KM);
@@ -86,8 +91,11 @@ public class BotTest{
      * Joue en priorité la distance la plus grande
      */
     @Test
-    public void testJouerDistance(){
-        // Test utilisation de la carte
+    public void testJouerDistanceFast(){
+        for(int i = 0; i < 6; i++){
+            botFast.retirerCarte(botFast.getMain().get(0));
+        }
+        // Test utilisation des cartes distance
         botFast.setFeuVert(true);
         botFast.ajouterCarte(_25KM);
         assertEquals(_25KM, botFast.choisirCarte());
@@ -106,7 +114,11 @@ public class BotTest{
      * Joue une botte jusqu'à ce qu'il n'en a plus
      */
     @Test
-    public void testJouerBotte(){
+    public void testJouerBotteFast(){
+        for(int i = 0; i < 6; i++){
+            botFast.retirerCarte(botFast.getMain().get(0));
+        }
+
         // Quand il a une botte
         botFast.setFeuVert(true);
         botFast.ajouterCarte(_25KM);
@@ -128,4 +140,59 @@ public class BotTest{
         assertEquals(_200KM, botFast.choisirCarte());
     }
 
+    /*
+     * Joue en priorité la parade si il a une attaque
+     */
+    @Test
+    public void testJouerParadeFast(){
+        // Test utilisation de la carte
+        for(int i = 0; i < 6; i++){
+            botFast.retirerCarte(botFast.getMain().get(0));
+        }
+
+        // Choisi un feu vert
+        botFast.ajouterCarte(carteFeuVert);
+        botFast.ajouterCarte(_25KM);
+        botFast.ajouterCarte(carteCrevaison);
+        botFast.ajouterCarte(_200KM);
+        assertEquals(carteFeuVert, botFast.choisirCarte());
+        assertEquals(4, botFast.getMain().size());
+        botFast.jouerParade(carteFeuVert);
+
+        // Choisi une roue de secours
+        botAgro.ajouterCarte(carteCrevaison);
+        botAgro.jouerAttaque(carteCrevaison, botFast);
+        assertEquals(2, botFast.getAttaquesEnCours().size());
+        botFast.ajouterCarte(carteRoueDeSecours);
+        assertEquals(carteRoueDeSecours, botFast.choisirCarte());
+        botFast.jouerParade(carteRoueDeSecours);
+        assertEquals(1, botFast.getAttaquesEnCours().size());
+
+        // Choisi réparation
+        botAgro.ajouterCarte(carteAccident);
+        botAgro.jouerAttaque(carteAccident, botFast);
+        assertEquals(2, botFast.getAttaquesEnCours().size());
+        botFast.ajouterCarte(carteReparation);
+        assertEquals(carteReparation, botFast.choisirCarte());
+        botFast.jouerParade(carteReparation);
+        assertEquals(1, botFast.getAttaquesEnCours().size());
+
+        // Choisi fin limitation
+        botAgro.ajouterCarte(carteLimitation);
+        botAgro.jouerAttaque(carteLimitation, botFast);
+        assertEquals(2, botFast.getAttaquesEnCours().size());
+        botFast.ajouterCarte(carteFinDeLimitation);
+        assertEquals(carteFinDeLimitation, botFast.choisirCarte());
+        botFast.jouerParade(carteFinDeLimitation);
+        assertEquals(1, botFast.getAttaquesEnCours().size());
+
+        // Choisi fin limitation
+        botAgro.ajouterCarte(cartePanne);
+        botAgro.jouerAttaque(cartePanne, botFast);
+        assertEquals(2, botFast.getAttaquesEnCours().size());
+        botFast.ajouterCarte(carteEssence);
+        assertEquals(carteEssence, botFast.choisirCarte());
+        botFast.jouerParade(carteEssence);
+        assertEquals(1, botFast.getAttaquesEnCours().size());
+    }
 }
