@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.TimerTask;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -387,9 +389,16 @@ public class FenetreJeu {
         fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
 
         while (fichier.exists()) {
+            String path = fichier.getPath();
             JButton boutonFichier = new JButton("Manche " + i);
             boutonFichier.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
     
+            //boutonFichier.addActionListener(e -> afficherContenuFichier(path));
+            boutonFichier.addActionListener(e -> {
+                System.out.println("Bouton cliqué : " + path);
+                afficherContenuFichier(path);
+            });
+
             grille.gridx = 0; 
             grille.gridy = i; 
             grille.insets = new Insets(10, 0, 10, 0); 
@@ -412,6 +421,39 @@ public class FenetreJeu {
         panelHistorique.add(boutonRetourMenu, grille);
     
         fenetreMenu.setContentPane(panelHistorique);
+        fenetreMenu.revalidate();
+        fenetreMenu.repaint();
+    }
+
+    private void afficherContenuFichier(String cheminFichier) {
+        JPanel panelAfficher = new JPanel();
+        panelAfficher.setLayout(new GridBagLayout()); 
+        GridBagConstraints grille = new GridBagConstraints();
+    
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+    
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(largeur-100, hauteur-100)); 
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    
+        grille.gridx = 0;
+        grille.gridy = 0;
+        grille.anchor = GridBagConstraints.CENTER;
+        panelAfficher.add(scrollPane, grille);
+    
+        try (BufferedReader read = new BufferedReader(new FileReader(cheminFichier))) {
+            String ligne;
+            while ((ligne = read.readLine()) != null) {
+                textArea.append(ligne + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            textArea.setText("Erreur lors de la lecture du fichier.");
+        }
+
+        fenetreMenu.setContentPane(panelAfficher);
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
     }
