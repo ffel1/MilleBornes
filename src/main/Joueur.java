@@ -319,6 +319,10 @@ public abstract class Joueur implements Serializable{
             {
                 return false;
             }
+            if(c.getKilometre()+u.getKilometre() > 700)
+            {
+                return false;
+            }
             for (Carte carte : u.getAttaquesEnCours()){
                 switch (c.getType()) {
                     case _25KM :

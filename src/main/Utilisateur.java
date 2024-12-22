@@ -215,6 +215,10 @@ public class Utilisateur extends Joueur{
             {
                 return 3;
             }
+            if(c.getKilometre()+u.getKilometre() > 700)
+            {
+                return 10;
+            }
             for (Carte carte : u.getAttaquesEnCours()){
                 switch (c.getType()) {
                     case _25KM :
