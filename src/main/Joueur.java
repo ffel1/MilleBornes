@@ -16,6 +16,7 @@ public abstract class Joueur implements Serializable{
     private ArrayList<Carte> cartesDistanceJouees;
 
     public Joueur(String name, int km, int id, Partie partie){
+        cartesDistanceJouees  = new ArrayList<Carte>();
         main = new ArrayList<Carte>();
         attaquesEnCours = new ArrayList<Carte>();
         feuVert = false;
