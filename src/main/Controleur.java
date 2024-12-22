@@ -140,7 +140,7 @@ public class Controleur
             {
                 vue.ajouterMessage("Vous avez changer d'avis \n", false);
                 modele.getJoueur1().setDefausse(false);
-                vue.getDefausse().setText("Défausse (temporaire)");
+                vue.getDefausse().setText("");
             }
             
         });
@@ -587,7 +587,7 @@ public class Controleur
                         {
                             vue.ajouterMessage(modele.getJoueur1().defausse(modele.getJoueur1().getMain().get(j),getControleur()), true);
                             modele.getJoueur1().setaDefausse(true);
-                            vue.getDefausse().setText("Défausse (temporaire)");
+                            vue.getDefausse().setText("");
                             modele.getJoueur1().setDefausse(false);
                         }
                         else
@@ -661,7 +661,7 @@ public class Controleur
         modele.getJoueur1().setDefausse(false);
         modele.getJoueur1().monTour(false);
 
-        vue.getDefausse().setText("Défausse (temporaire)");
+        vue.getDefausse().setText("");
         vue.getFenetre().getContentPane().removeAll();
         vue.getFenetre().repaint();
         vue.getFenetre().revalidate();
@@ -782,7 +782,7 @@ public class Controleur
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Partie) ois.readObject();
             modele.getJoueur1().setDefausse(false);
-            vue.getDefausse().setText("Défausse (temporaire)");
+            vue.getDefausse().setText("");
             modele.getJoueur1().setEnTraindAttaquer(false);
             System.out.println(modele.getPioche().size());
             if (modele != null && modele.getJoueur1() != null) {

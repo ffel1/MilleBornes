@@ -27,7 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.Timer;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -53,7 +52,6 @@ public class FenetreJeu {
     private JButton boutonDefausse;
     private JButton boutonFindeTour;
     private JButton boutonNouvellePartie;
-    private JButton boutonCPUAgro, boutonCPUFast;
     private JPanel menuPanel;
     private JLayeredPane panelJeu;
     private ArrayList<JButton> boutonsMainJoueur;
@@ -66,7 +64,6 @@ public class FenetreJeu {
     private int kilometreV2;
     private int kilometreV3;
     private ImageIcon circuit;
-    private ImageIcon son;
     private String nomDeLaPartie;
     private JPanel panneauAttaquesJoueur;
     private JPanel panneauAttaquesCPUFast;
@@ -90,13 +87,11 @@ public class FenetreJeu {
         boutonQuitter = new JButton("Quitter");
         //new
         boutonHistorique = new JButton("Historique");
-        boutonRetour = new JButton("Menu Principal");
-        boutonNouvellePartie = new JButton("Nouvelle partie");
-        boutonPioche = new JButton("Pioche (temporaire)");
-        boutonDefausse = new JButton("Défausse (temporaire)");
-        boutonCPUAgro = new JButton("CPU Agro");
-        boutonCPUFast = new JButton("CPU Fast");
-        boutonFindeTour = new JButton("Fin de mon tour");
+        boutonRetour = new JButton();
+        boutonNouvellePartie = new JButton();
+        boutonPioche = new JButton();
+        boutonDefausse = new JButton();
+        boutonFindeTour = new JButton();
         boutonSon = new JButton("Son");
         fenetreMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
@@ -315,6 +310,7 @@ public class FenetreJeu {
 
         // Bouton Menu principal
         boutonRetour.setBounds(largeur - (largeur * 11 / 100), hauteur - hauteur * 9/100, largeur * 5 / 100, hauteur * 5/ 100);
+        boutonRetour.setContentAreaFilled(false);
         panelJeu.add(boutonRetour, Integer.valueOf(2));
         if(boutonRetour.getActionListeners().length == 1)
         {
@@ -322,7 +318,8 @@ public class FenetreJeu {
         }
 
         // Bouton fin de mon tour
-        boutonFindeTour.setBounds(largeur/2 + largeur * 355 / 1000, hauteur / 2 + hauteur * 173 / 1000, largeur * 6 / 100, hauteur * 7 / 100);
+        boutonFindeTour.setBounds(largeur/2 + largeur * 355 / 1000, hauteur / 2 + hauteur * 175 / 1000, largeur * 6 / 100, hauteur * 7 / 100);
+        boutonFindeTour.setContentAreaFilled(false);
         panelJeu.add(boutonFindeTour, Integer.valueOf(2));
         if(boutonFindeTour.getActionListeners().length == 1)
         {
@@ -331,6 +328,7 @@ public class FenetreJeu {
 		
         // Bouton "Nouvelle partie"
         boutonNouvellePartie.setBounds(largeur - (largeur * 20 / 100), hauteur - hauteur * 9/100, largeur * 5 / 100, hauteur * 5/ 100);
+        boutonNouvellePartie.setContentAreaFilled(false);
         panelJeu.add(boutonNouvellePartie, Integer.valueOf(2));
         if(boutonNouvellePartie.getActionListeners().length == 1)
         {
@@ -338,8 +336,8 @@ public class FenetreJeu {
         }
 
         //BoutonPioche
-        boutonPioche.setBounds(largeur/2 - largeur*9/100 , hauteur/2 - hauteur*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
-        //boutonPioche.setBackground(new Color(109, 121, 132));
+        boutonPioche.setBounds(largeur/2 - largeur*96/1000 , hauteur/2 - hauteur*5/100, (circuit.getIconWidth() * 6 / 100), (circuit.getIconHeight() * 7 / 100));
+        boutonPioche.setContentAreaFilled(false);
         panelJeu.add(boutonPioche, Integer.valueOf(2));
         if(boutonPioche.getActionListeners().length == 1)
         {
@@ -348,6 +346,7 @@ public class FenetreJeu {
 
         //BoutonDéfausse
         boutonDefausse.setBounds(largeur/2 + largeur*42/1000 , hauteur/2 - hauteur*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
+        boutonDefausse.setContentAreaFilled(false);
         panelJeu.add(boutonDefausse, Integer.valueOf(5));
         if(boutonDefausse.getActionListeners().length == 1)
         {
