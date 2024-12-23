@@ -93,9 +93,12 @@ public class Controleur
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
-            stopMusic();
+            if(listeSon.getSonON()){
+                stopMusic();
+            }
             listeSon = new Son();
             listeSonSecondaire = new Son();
+            initialiserBoutonSon();
             if(modele.getJoueur1().getEnTraindAttaquerAvec() != null)
             {
                 modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
@@ -863,5 +866,17 @@ public class Controleur
 
     public void stopMusic(){
         listeSon.stop(0);
+    }
+
+    public void initialiserBoutonSon(){
+        vue.ajouterActionBoutonSon(e -> {
+            if(listeSonSecondaire.getSonON()){
+                listeSonSecondaire.setSonON(false);
+            }else{
+                listeSonSecondaire.setSonON(true);
+            }
+            stopMusic();
+            vue.changerImageSon();
+        });
     }
 }
