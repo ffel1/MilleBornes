@@ -883,7 +883,7 @@ public class WindowGame {
         ButtonCar1.setContentAreaFilled(false);
         ButtonCar1.setOpaque(false);
         //ButtonCar1.setBackground(Color.yellow);
-        ButtonCar1.setBounds((circuit.getIconWidth() * 705 / 1000), (circuit.getIconHeight() * 64 / 100), (Car1.getIconWidth() * 10 / 100 ), (Car1.getIconHeight() * 60 / 100));
+        ButtonCar1.setBounds((circuit.getIconWidth() * 705 / 1000), (circuit.getIconHeight() * 62 / 100), (Car1.getIconWidth() * 10 / 100 ), (Car1.getIconHeight() * 60 / 100));
         GamePanel.add(ButtonCar1, Integer.valueOf(2));
 
         // Car 2
@@ -894,7 +894,7 @@ public class WindowGame {
         ButtonCar2.setContentAreaFilled(false);
         ButtonCar2.setOpaque(false);
         //ButtonCar2.setBackground(Color.pink);
-        ButtonCar2.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000), (circuit.getIconHeight() * 64 / 100), (Car2.getIconWidth() * 10/100 ), (Car1.getIconHeight() * 60 / 100));
+        ButtonCar2.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000), (circuit.getIconHeight() * 62 / 100), (Car2.getIconWidth() * 10/100 ), (Car1.getIconHeight() * 60 / 100));
         GamePanel.add(ButtonCar2, Integer.valueOf(2));
 
         // Car 3
@@ -905,7 +905,7 @@ public class WindowGame {
         ButtonCar3.setContentAreaFilled(false);
         ButtonCar3.setOpaque(false);
         //ButtonCar3.setBackground(Color.magenta);
-        ButtonCar3.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000) * 2, (circuit.getIconHeight() * 64 / 100), (Car3.getIconWidth() * 10/100), (Car1.getIconHeight() * 60/ 100));
+        ButtonCar3.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000) * 2, (circuit.getIconHeight() * 62 / 100), (Car3.getIconWidth() * 10/100), (Car1.getIconHeight() * 60/ 100));
         GamePanel.add(ButtonCar3, Integer.valueOf(2));
     }
 
