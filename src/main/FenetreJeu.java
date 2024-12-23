@@ -433,7 +433,9 @@ public class FenetreJeu {
         textArea.setEditable(false);
     
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(1280, 720)); 
+        //prends 75% de la largeur et 50% de la hauteur
+
+        scrollPane.setPreferredSize(new Dimension(largeur*95/100, hauteur * 75 / 100)); 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     
