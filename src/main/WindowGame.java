@@ -1036,7 +1036,7 @@ public class WindowGame {
                                     }
                                     if(distance >= 175){ // Tourne vers la gauche
                                         turbo = false;
-                                        Car1 = new ImageIcon("Images/voiture " + color + " tourne hight vers gauche.gif");
+                                        Car1 = new ImageIcon("Images/voiture " + color + " tourne haut vers gauche.gif");
                                         Car.setIcon(Car1);
                                         
                                         Car.setBounds((circuit.getIconWidth() * 64 / 100) + (circuit.getIconWidth() * 2 / 100) * player, (circuit.getIconHeight() * 7 / 100) - (circuit.getIconHeight() * 4 / 100) * player, 

@@ -24,7 +24,7 @@ public abstract class CPU extends Player{
 
         if(playedCard == null)
         {
-            Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas play ! \n", true);
+            Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas jouer ! \n", true);
             discard(discardChoice(), Controler);
         }
         else
@@ -37,12 +37,12 @@ public abstract class CPU extends Player{
                 playedCard = chooseCard();
                 if(playedCard == null)
                 {
-                    Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas play !\n", true);
+                    Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas jouer !\n", true);
                     discard(discardChoice(), Controler);
                 }
             }
             Controler.getVue().addMessage(playCard(playedCard, target), true);
-            Controler.getVue().addMessage("C'est la End du tour de " +  getName() + " ! Distance parcourue : " + getKilometers() + " km \n", true);
+            Controler.getVue().addMessage("C'est la fin du tour de " +  getName() + " ! Distance parcourue : " + getKilometers() + " km \n", true);
             if(Controler.getModel().winner() == this)
             {
                 Controler.getVue().addMessage( "\n Le CPU "  + getName() + " a gagné... La prochaine fois peut être... \n", true);
@@ -60,7 +60,7 @@ public abstract class CPU extends Player{
 // This method handles the logic for discard
     public String discard(Card c,Controler Controler)
     {
-        Controler.getVue().addMessage("Le CPU " + getName() + " défausse la card :" + c.getName() +" \n", true);
+        Controler.getVue().addMessage("Le CPU " + getName() + " défausse la carte :" + c.getName() +" \n", true);
         getHand().remove(c);
         return null;
     }

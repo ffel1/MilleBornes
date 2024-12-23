@@ -124,7 +124,7 @@ public class Controler
 
         //Button Nouvelle Game 
         vue.addActionbuttonNewGame(e -> {
-            vue.addMessage("Vous avez mis End à la round " + modele.getNumeroround() + ", les pts ne seront pas comptabilisés\n", true);
+            vue.addMessage("Vous avez mis fin à la round " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
             vue.resettingKilometers();
             newRound(true, true);
         });
@@ -141,19 +141,19 @@ public class Controler
             }
             else if(modele.getPlayer1().getMustDraw())
             {
-                vue.addMessage("Après avoir joué une botte vous devez draw\n", false);
+                vue.addMessage("Après avoir joué une botte vous devez piocher\n", false);
             }
             else if(!modele.getPlayer1().getHasDraw())
             {
-                vue.addMessage("Vous devez draw avant de défausser ! \n", false);
+                vue.addMessage("Vous devez piocher avant de défausser ! \n", false);
             }
             else if(modele.getPlayer1().getaJjoue())
             {
-                vue.addMessage("Vous avez déjà joué une card, vous ne pouvez plus défausser ! \n", false);
+                vue.addMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n", false);
             }
             else if(!modele.getPlayer1().HandFull())
             {
-                vue.addMessage("Vous n'avez pas plus de 6 cards, vous ne pouvez pas défausser \n", false);
+                vue.addMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n", false);
             }
             else if(!modele.getPlayer1().getdiscard())
             {
@@ -182,7 +182,7 @@ public class Controler
             }
             else if(modele.getPlayer1().getMustDraw())
             {
-                vue.addMessage("Après avoir joué une botte vous devez drawr \n", false);
+                vue.addMessage("Après avoir joué une botte vous devez piocher \n", false);
             }
             else if(modele.getPlayer1().getIsAttacking())
             {
@@ -192,14 +192,14 @@ public class Controler
             {
                 if(modele.getPlayer1().getHand().size() > 6)
                 {
-                    vue.addMessage("Vous devez défausser une card ! \n", false);
+                    vue.addMessage("Vous devez défausser une carte ! \n", false);
                 }
                 else
                 {
                     vue.addMessage("\nC'est la fin de votre tour ! Distance parcourue : " + modele.getPlayer1().getKilometers() + " km \n", true);
                     if(modele.winner() == modele.getPlayer1())
                     {
-                        vue.addMessage("\n VOUS AVEZ GAGNE LA round !! BRAVO ! \n", true);
+                        vue.addMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
                         modele.endTheGame(vue);
                         newRound(true, false);
                         return;
@@ -211,7 +211,7 @@ public class Controler
                     modele.getPlayer1().myTurn(false);
                     modele.getPlayer1().setHasDiscard(false);
                     
-                    vue.addMessage("\nEn attente du player Agro \n", true);
+                    vue.addMessage("\nEn attente du joueur Agro \n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
                         @Override
@@ -224,14 +224,14 @@ public class Controler
                             {
                                 if(modele.getdraw().size() == 0)
                                 {
-                                    vue.addMessage("La draw est vide ! \n", b);
+                                    vue.addMessage("La pioche est vide ! \n", b);
                                 }
                                 modele.endTheGame(vue);
                                 newRound(true, false);
                                 return;
                             }
                             vue.moveForwadCar(modele.getPlayer2().getKilometers(), 1, getControler());
-                            vue.addMessage("\nEn attente du player Fast \n", true);
+                            vue.addMessage("\nEn attente du joueur Fast \n", true);
                             Timer chrono = new Timer();
                             chrono.schedule(new TimerTask(){
                                 @Override
@@ -244,7 +244,7 @@ public class Controler
                                     {
                                         if(modele.getdraw().size() == 0)
                                         {
-                                            vue.addMessage("La draw est vide ! \n", b);
+                                            vue.addMessage("La pioche est vide ! \n", b);
                                         }
                                         modele.endTheGame(vue);
                                         newRound(true, false);
@@ -281,7 +281,7 @@ public class Controler
                     @Override
 // This method handles the logic for run
                     public void run(){
-                        vue.addMessage("\nEn attente du player Agro\n", true);
+                        vue.addMessage("\nEn attente du joueur Agro\n", true);
                         modele.getPlayer2().botAction(getControler());
                         vue.refreshAttacks(modele);
                         vue.refreshBoots(modele);
@@ -289,7 +289,7 @@ public class Controler
                         {
                             if(modele.getdraw().size() == 0)
                             {
-                                vue.addMessage("La draw est vide ! \n", b);
+                                vue.addMessage("La pioche est vide ! \n", b);
                             }
                             modele.endTheGame(vue);
                             newRound(true, false);
@@ -301,7 +301,7 @@ public class Controler
                             @Override
 // This method handles the logic for run
                             public void run(){
-                                vue.addMessage("\nEn attente du player Fast\n", true);
+                                vue.addMessage("\nEn attente du joueur Fast\n", true);
                                 modele.getPlayer3().botAction(getControler());
                                 vue.refreshAttacks(modele);
                                 vue.refreshBoots(modele);
@@ -309,7 +309,7 @@ public class Controler
                                 {
                                     if(modele.getdraw().size() == 0)
                                     {
-                                        vue.addMessage("La draw est vide ! \n", b);
+                                        vue.addMessage("La pioche est vide ! \n", b);
                                     }
                                     modele.endTheGame(vue);
                                     newRound(true, false);
@@ -330,14 +330,14 @@ public class Controler
             }
             else
             {
-                vue.addMessage("Vous ne pouvez pas Endir votre tour avec plus de 6 cards ! \n", true);
+                vue.addMessage("Vous ne pouvez pas finir votre tour avec plus de 6 carte ! \n", true);
                 if(modele.getPlayer1().getaJjoue())
                 {
-                    vue.addMessage("Vous devez défausser une card ! \n", true);
+                    vue.addMessage("Vous devez défausser une carte ! \n", true);
                 }
                 else
                 {
-                    vue.addMessage("Jouez ou défaussez une card ! \n", true);
+                    vue.addMessage("Jouez ou défaussez une carte ! \n", true);
                 }
             }
         });
@@ -441,14 +441,14 @@ public class Controler
             }
             else if(modele.getPlayer1().getIsAttacking())
             {
-                vue.addMessage("Vous êtes en train d'attaquer, vous ne pouvez pas draw ! \n", false);
+                vue.addMessage("Vous êtes en train d'attaquer, vous ne pouvez pas piocher ! \n", false);
             }
             else if(modele.getPlayer1().getmyTurn() && !modele.getPlayer1().getHasDraw())
             {
                 vue.addMessage("Vous avez pioché", true);
                 if(modele.getPlayer1().HandFull())
                 {
-                    vue.addMessage(" mais votre Hand est Full ! \n", false);
+                    vue.addMessage(" mais votre main est pleine ! \n", false);
                 }
                 else
                 {
@@ -469,7 +469,7 @@ public class Controler
 
             if(modele.getdraw().size() == 0)
             {
-                vue.addMessage("La draw est vide !", true);
+                vue.addMessage("La pioche est vide !", true);
                 modele.endTheGame(vue);
                 newRound(true, false);
                 return;
@@ -491,45 +491,45 @@ public class Controler
         initButtonCards(Hand);
         if(EndGameForcee)
         {
-            vue.addMessage("Vous avez arrêté la round " + (modele.getNumeroround() - 1) + ", les pts ne seront pas comptabilisés ! \n", true);
+            vue.addMessage("Vous avez arrêté la manche " + (modele.getNumeroround() - 1) + ", les points ne seront pas comptabilisés ! \n", true);
         }
         if(loadedGame)
         {
-            vue.addMessage("La round " + modele.getNumeroround() + " reprends, les score soundt de : \n", false);
-            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " pts ! \n", false);
-            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " pts ! \n", false);
-            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " pts ! \n", false);
-            vue.addMessage("C'est à vous de play ! \n", false);
+            vue.addMessage("La manche " + modele.getNumeroround() + " reprends, les score sont de : \n", false);
+            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " points ! \n", false);
+            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", false);
+            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " points ! \n", false);
+            vue.addMessage("C'est à vous de jouer ! \n", false);
             modele.getPlayer1().myTurn(true);
         }
         else if(modele.getwhoStart() == 0)
         {
-            vue.addMessage("Début de la round " + modele.getNumeroround() +" ! Les score soundt de : \n", true);
-            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " pts ! \n", true);
-            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " pts ! \n", true);
-            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " pts ! \n", true);
-            vue.addMessage("Les participants soundt : \n", true);
+            vue.addMessage("Début de la manche " + modele.getNumeroround() +" ! Les score sont de : \n", true);
+            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " points ! \n", true);
+            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " points ! \n", true);
+            vue.addMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getPlayers().size(); i++)
             {
                 vue.addMessage("- " + modele.getPlayers().get(i).getName() + "\n", true);
             }
-            vue.addMessage("Vous commencez à play \n", true);
+            vue.addMessage("Vous commencez à jouer \n", true);
             vue.addMessage("\nC'est votre tour ! Distance parcourue : " + modele.getPlayer1().getKilometers() + " km \n\n\n\n", true);
             modele.getPlayer1().myTurn(true);
         }
         else if(modele.getwhoStart() == 1)
         {
-            vue.addMessage("Début de la round " + modele.getNumeroround() +" ! Les score soundt de : \n", true);
-            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " pts ! \n", true);
-            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " pts ! \n", true);
-            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " pts ! \n", true);
-            vue.addMessage("Les participants soundt : \n", true);
+            vue.addMessage("Début de la manche " + modele.getNumeroround() +" ! Les score sont de : \n", true);
+            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " points ! \n", true);
+            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " points ! \n", true);
+            vue.addMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getPlayers().size(); i++)
             {
                 vue.addMessage("- " + modele.getPlayers().get(i).getName() + "\n", true);
             }
-            vue.addMessage("CPU Agro commence à play ! \n", true);
-            vue.addMessage("\nEn attente du player Agro\n", true);
+            vue.addMessage("CPU Agro commence à jouer ! \n", true);
+            vue.addMessage("\nEn attente du jouer Agro\n", true);
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
                 @Override
@@ -538,7 +538,7 @@ public class Controler
                     modele.getPlayer2().botAction(getControler());
                     vue.refreshAttacks(modele);
                     vue.refreshBoots(modele);
-                    vue.addMessage("\nEn attente du player Fast\n", true);
+                    vue.addMessage("\nEn attente du jouer Fast\n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
                     @Override
@@ -556,17 +556,17 @@ public class Controler
         }
         else if(modele.getwhoStart() == 2)
         {
-            vue.addMessage("Début de la round " + modele.getNumeroround() +" ! Les score soundt de : \n", true);
-            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " pts ! \n", true);
-            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " pts ! \n", true);
-            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " pts ! \n", true);
-            vue.addMessage("Les participants soundt : \n", true);
+            vue.addMessage("Début de la manche " + modele.getNumeroround() +" ! Les score sont de : \n", true);
+            vue.addMessage("Vous avez " + modele.getPtsPlayer() + " points ! \n", true);
+            vue.addMessage("Le CPU Agro a  " + modele.getPointCPUAgro() + " points ! \n", true);
+            vue.addMessage("Le CPU Fast a " + modele.getPtsCPUFast() + " points ! \n", true);
+            vue.addMessage("Les participants sont : \n", true);
             for(int i = 0; i < modele.getPlayers().size(); i++)
             {
                 vue.addMessage("- " + modele.getPlayers().get(i).getName() + "\n", true);
             }
-            vue.addMessage("CPU Fast commence à play ! \n", true);
-            vue.addMessage("\nEn attente du player Fast\n", true);
+            vue.addMessage("CPU Fast commence à jouer ! \n", true);
+            vue.addMessage("\nEn attente du joueur Fast\n", true);
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
             @Override
@@ -599,7 +599,7 @@ public class Controler
                     {
                         if(!modele.getPlayer1().getHasDraw())
                         {
-                            vue.addMessage("Vous devez d'abord draw pour play une card \n", false);
+                            vue.addMessage("Vous devez d'abord piocher pour jouer une carte \n", false);
                         }
                         else if(modele.getPlayer1().getIsAttacking() && modele.getPlayer1().getHand().get(j) == modele.getPlayer1().getIsAttackingWith())
                         {
@@ -614,15 +614,15 @@ public class Controler
                         }
                         else if(modele.getPlayer1().getIsAttacking())
                         {
-                            vue.addMessage("Vous êtes en train d'attaquer, vous ne pouvez pas play de cards ! \n", false);
+                            vue.addMessage("Vous êtes en train d'attaquer, vous ne pouvez pas jouer de carte ! \n", false);
                         }
                         else if(modele.getPlayer1().getMustDraw())
                         {
-                            vue.addMessage("Après avoir joué une botte vous devez draw\n", false);
+                            vue.addMessage("Après avoir joué une botte vous devez piocher\n", false);
                         }
                         else if(modele.getPlayer1().gethasDiscard())
                         {
-                            vue.addMessage("Vous ne pouvez plus play après avoir défaussé\n", false);
+                            vue.addMessage("Vous ne pouvez plus jouer après avoir défaussé\n", false);
                         }
                         else if(modele.getPlayer1().getaJjoue() && !(modele.getPlayer1().getHand().get(j) instanceof Boot))
                         {
@@ -640,7 +640,7 @@ public class Controler
                             if(modele.getPlayer1().getHand().get(j) instanceof Boot)
                             {
                                 modele.getPlayer1().playCard(modele.getPlayer1().getHand().get(j),getControler(),j+1);
-                                vue.addMessage("Vous devez draw à nouveau ! \n", false);
+                                vue.addMessage("Vous devez piocher à nouveau ! \n", false);
                                 modele.getPlayer1().setmustDraw(true);
                             }
                             else if(modele.getPlayer1().getHand().get(j) instanceof Attack)
@@ -661,11 +661,11 @@ public class Controler
                                 }
                                 else if(modele.getPlayer1().checkUser(modele.getPlayer1().getHand().get(j), modele.getPlayer1(), null) == 10)
                                 {
-                                    vue.addMessage("Vous devez atteindre PILE 700 bornes pour gagner, cette card vous fait aller trop loin ! \n", false);
+                                    vue.addMessage("Vous devez atteindre PILE 700 bornes pour gagner, cette carte vous fait aller trop loin ! \n", false);
                                 }
                                 else if(modele.getPlayer1().checkUser(modele.getPlayer1().getHand().get(j), modele.getPlayer1(), null) == 3)
                                 {
-                                    vue.addMessage("Vous ne pouvez pas moveForwad sans feu vert ! \n", false);
+                                    vue.addMessage("Vous ne pouvez pas avancer sans feu vert ! \n", false);
                                 }
                                 else if(modele.getPlayer1().checkUser(modele.getPlayer1().getHand().get(j), modele.getPlayer1(), null) == 4)
                                 {
@@ -717,18 +717,18 @@ public class Controler
             if(modele.getwinnerOfTheGame().getId() == modele.getPlayer1().getId())
             {
                 int i = 0;
-                vue.addMessage("VOUS AVEZ ACCUMULE 5000 pts!!!\n", true);
+                vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", true);
                 vue.addMessage("VOUS AVEZ GAGNE !\n", true);
                 while(i < 500)
                 {
-                    vue.addMessage("VOUS AVEZ ACCUMULE 5000 pts!!!\n", false);
+                    vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", false);
                     vue.addMessage("VOUS AVEZ GAGNE !\n", false);
                     i++;
                 }
             }
             else
             {
-                vue.addMessage("Le CPU " + modele.getwinnerOfTheGame().getName() + " a accumulé 5000 pts...", true);
+                vue.addMessage("Le CPU " + modele.getwinnerOfTheGame().getName() + " a accumulé 5000 POINTS...", true);
                 vue.addMessage("Vous avez perdu cette Game...", true);
             }
             saveManagement();
@@ -745,8 +745,8 @@ public class Controler
         }
         else if(b2)
         {
-            vue.addMessage("Vous avez arrêté la round, les pts gagnés\nne seront pas comptabilisés \n\n\n", false);
-            vue.addMessage("Chargement de la prochaine round...\n", false);
+            vue.addMessage("Vous avez arrêté la manche, les points gagnés\nne seront pas comptabilisés \n\n\n", false);
+            vue.addMessage("Chargement de la prochaine manche...\n", false);
             vue.resettingKilometers();
             modele.getPlayers().clear();
             Timer chrono = new Timer();
@@ -761,18 +761,18 @@ public class Controler
         {
             if(modele.getdraw().size() == 0)
             {
-                vue.addMessage("La draw s'est vidé :\n", false);
-                vue.addMessage("Le winner est donc celui qui est allé le plus loin...\n", false);
+                vue.addMessage("La pioche s'est vidé :\n", false);
+                vue.addMessage("Le gagnant est donc celui qui est allé le plus loin...\n", false);
             }
             if(modele.theLeadingPlayer().getId() == modele.getPlayer1().getId())
             {
-                vue.addMessage("VOUS AVEZ GAGNE CETTE round, BRAVO !! \n\n\n\n", false);
+                vue.addMessage("VOUS AVEZ GAGNE CETTE MANCHE, BRAVO !! \n\n\n\n", false);
             }
             else
             {
-                vue.addMessage("Dommage, c'est le CPU " + modele.theLeadingPlayer().getName() + " qui a gagné cette round, bravo !! \n\n\n\n", false);
+                vue.addMessage("Dommage, c'est le CPU " + modele.theLeadingPlayer().getName() + " qui a gagné cette manche, bravo !! \n\n\n\n", false);
             }
-            vue.addMessage("Chargement de la Game suivante...\n\n\n", false);
+            vue.addMessage("Chargement de la partie suivante...\n\n\n", false);
             modele.getPlayers().clear();
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
@@ -793,11 +793,11 @@ public class Controler
         File file;
         int i = 1;
 
-        file = new File("SauvegardeDesHistoriques/Game_" + i+".txt");
+        file = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
         while(file.exists())
         {
             i++;
-            file = new File("SauvegardeDesHistoriques/Game_" + i+".txt");
+            file = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
         }
 
         try {
@@ -806,14 +806,14 @@ public class Controler
             e.printStackTrace();
         }
         
-        outputFile = "SauvegardeDesHistoriques/Game_"+i+".txt";
+        outputFile = "SauvegardeDesHistoriques/Partie_"+i+".txt";
 
         try (
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))
         ) {
             // Parcourir les files du répertoire
             Files.list(Paths.get(directoryPath))
-                .filter(path -> path.getFileName().toString().startsWith("round") && path.getFileName().toString().endsWith(".txt"))
+                .filter(path -> path.getFileName().toString().startsWith("Manche") && path.getFileName().toString().endsWith(".txt"))
                 .forEach(fileBis -> {
                     try (BufferedReader reader = new BufferedReader(new FileReader(fileBis.toFile()))) {
                         String line;
