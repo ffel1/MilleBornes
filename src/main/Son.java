@@ -32,6 +32,9 @@ public class Son{
         return sonON;
     }
 
+    /*
+     * Creer le son
+     */
     public void setFile(int i){
         try{
             AudioInputStream ais = AudioSystem.getAudioInputStream(sonURL[i]);
@@ -43,16 +46,25 @@ public class Son{
         }
     }
 
+    /*
+     * Joue un son une fois
+     */
     public void play(int i){
         if(sonON){
             clipList[i].start();
         }
     }
 
+    /*
+     * Joue un son en boucle
+     */
     public void loop(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
+    /*
+     * Stop la musique principale
+     */
     public void stop(int i){
         if(clipList[i] != null){
             fc.setValue(0);
@@ -64,6 +76,5 @@ public class Son{
                 play(0);
             }  
         }
-         
     }
 }
