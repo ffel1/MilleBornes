@@ -869,15 +869,15 @@ public class Controler
 
             try (FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
-            modele = (Game) ois.readObject();
+            modele = (Game)ois.readObject();
             modele.getPlayer1().setdiscard(false);
             vue.getdiscard().setText("");
             modele.getPlayer1().setIsAttacking(false);
             System.out.println(modele.getdraw().size());
             if (modele != null && modele.getPlayer1() != null) {
-                System.out.println("Première card de la Hand : " + modele.getPlayer1().getHand().get(0));
+                System.out.println("Première cartes de la main : " + modele.getPlayer1().getHand().get(0));
             } else {
-                System.err.println("Les données chargées soundt incomplètes ou corrompues.");
+                System.err.println("Les données chargées sont incomplètes ou corrompues.");
             }
             } catch (IOException | ClassNotFoundException e) {
                 System.err.println("Erreur lors du chargement : ");

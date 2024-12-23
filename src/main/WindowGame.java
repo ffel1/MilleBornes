@@ -600,7 +600,7 @@ public class WindowGame {
         for(int i = 0; i < Hand.size(); i++){
             Card card = Hand.get(i);
             ImageIcon image = card.getImage();
-            int larg = 11700/100; 
+            int larg = width*61/1000; 
             int y = height * 845 / 1000;
             int x = (width / 2 - width * 735 / 10000) - (larg * 3) + (larg * i);
             int hight = (height * 20 / 100);
