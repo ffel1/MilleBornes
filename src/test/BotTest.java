@@ -30,6 +30,7 @@ public class BotTest {
     private Boot asDuVolant;
     private Boot camionCiterne;
     private Boot punctureProof;
+    private Boot vehiculePrioritaire;
     private CPUFast botFast;
     private CPUAgro botAgro;
     private CPUFast botTestFast;
@@ -70,6 +71,7 @@ public class BotTest {
         asDuVolant = new Boot(TypeCard.EXPERT_DRIVER);
         camionCiterne = new Boot(TypeCard.TANK_TRUCK);
         punctureProof = new Boot(TypeCard.PUNCTURE_PROOF);
+        vehiculePrioritaire = new Boot(TypeCard.PRIORITY_VEHICLE);
 
         // Get bot instances from the game
         botFast = (CPUFast)game.getPlayer3();

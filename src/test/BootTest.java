@@ -40,7 +40,7 @@ public class BootTest {
         asDuVolant = new Boot(TypeCard.EXPERT_DRIVER);
         camionCiterne = new Boot(TypeCard.TANK_TRUCK);
         PUNCTURE_PROOF = new Boot(TypeCard.PUNCTURE_PROOF);
-        vehiculePrioritaire = new Boot(TypeCard.PRIOTIRY_VEHICLE);
+        vehiculePrioritaire = new Boot(TypeCard.PRIORITY_VEHICLE);
     }
 
     /**
@@ -110,7 +110,7 @@ public class BootTest {
     public void testVehiculePrioritaire() {
         // Verify card properties
         assertEquals("Véhicule prioritaire", vehiculePrioritaire.getName());
-        assertEquals(TypeCard.PRIOTIRY_VEHICLE, vehiculePrioritaire.getType());
+        assertEquals(TypeCard.PRIORITY_VEHICLE, vehiculePrioritaire.getType());
         assertEquals(0, vehiculePrioritaire.getKilometers());
         assertNotNull(vehiculePrioritaire.getImage());
 
