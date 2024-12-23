@@ -143,7 +143,7 @@ public class Controler {
             }
             soundList = new Sound();
             secondarySoundList = new Sound();
-            initsoundButton(); // Initialize sound buttons
+            initSoundButton(); // Initialize sound buttons
             if (modele.getPlayer1().getIsAttackingWith() != null) {
                 modele.getPlayer1().getIsAttackingWith().setImageBack(); // Reset attack image
             }
@@ -172,7 +172,7 @@ public class Controler {
                 vue.addMessage("Après avoir joué une botte vous devez piocher\n", false);
             } else if (!modele.getPlayer1().getHasDraw()) {
                 vue.addMessage("Vous devez piocher avant de défausser ! \n", false);
-            } else if (modele.getPlayer1().getaJjoue()) {
+            } else if (modele.getPlayer1().getHasPlayed()) {
                 vue.addMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n", false);
             } else if (!modele.getPlayer1().HandFull()) {
                 vue.addMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n", false);
@@ -206,7 +206,7 @@ public class Controler {
                 vue.addMessage("Vous ne pouvez pas finir votre tour, vous êtes en train d'attaquer ! \n", false);
             }
             // Check if the player has played a card and needs to discard if they have more than 6 cards
-            else if (modele.getPlayer1().getaJjoue()) {
+            else if (modele.getPlayer1().getHasPlayed()) {
                 if (modele.getPlayer1().getHand().size() > 6) {
                     vue.addMessage("Vous devez défausser une carte ! \n", false);
                 } else {
@@ -283,7 +283,7 @@ public class Controler {
                 }
             }
             // Check if the player has not played a card but has fewer than 6 cards
-            else if (!modele.getPlayer1().getaJjoue() && modele.getPlayer1().getHand().size() <= 6) {
+            else if (!modele.getPlayer1().getHasPlayed() && modele.getPlayer1().getHand().size() <= 6) {
                 if (!modele.getPlayer1().getHasDraw()) {
                     vue.addMessage("Vous sautez votre tour ! Distance parcourue : " + modele.getPlayer1().getKilometers() + " km \n", true);
                 } else {
@@ -347,7 +347,7 @@ public class Controler {
             } else {
                 vue.addMessage("Vous ne pouvez pas finir votre tour avec plus de 6 carte ! \n", true);
 
-                if (modele.getPlayer1().getaJjoue()) {
+                if (modele.getPlayer1().getHasPlayed()) {
                     vue.addMessage("Vous devez défausser une carte ! \n", true);
                 } else {
                     vue.addMessage("Jouez ou défaussez une carte ! \n", true);
@@ -357,10 +357,10 @@ public class Controler {
 
         //Button AttackBotAgro
         vue.addActionButtonCPUAgro(e -> {
-            joueMusic(1);
+            playMusic(1);
             // Check if it's the player's turn and if they are attacking
             if(modele.getPlayer1().getmyTurn() && modele.getPlayer1().getIsAttacking()) {
-                modele.getPlayer1().settarget(modele.getPlayer2()); // Set target as Player 2
+                modele.getPlayer1().setTarget(modele.getPlayer2()); // Set target as Player 2
                 // Check if the player can attack the target with the selected card
                 if(modele.getPlayer1().checkUser(modele.getPlayer1().getIsAttackingWith(), modele.getPlayer1(), modele.getPlayer1().getTarget(null)) == 0) {
                     modele.getPlayer1().playCard(modele.getPlayer1().getIsAttackingWith(),getControler(),0); // Perform the attack
@@ -382,7 +382,7 @@ public class Controler {
                 // End the attacking state
                 modele.getPlayer1().setIsAttacking(false);
                 modele.getPlayer1().setIsAttackingWith(null);
-                modele.getPlayer1().settarget(null); 
+                modele.getPlayer1().setTarget(null); 
             }
             // Handle case when the player is not attacking
             else if(!(modele.getPlayer1().getIsAttacking())) {
@@ -399,10 +399,10 @@ public class Controler {
 
         //Button AttackBotFast
         vue.addActionButtonCPUFast(e -> {
-            joueMusic(1);
+            playMusic(1);
             // Check if it's the player's turn and if they are attacking
             if(modele.getPlayer1().getmyTurn() && modele.getPlayer1().getIsAttacking()) {
-                modele.getPlayer1().settarget(modele.getPlayer3()); // Set target as Player 3
+                modele.getPlayer1().setTarget(modele.getPlayer3()); // Set target as Player 3
                 // Check if the player can attack the target with the selected card
                 if(modele.getPlayer1().checkUser(modele.getPlayer1().getIsAttackingWith(), modele.getPlayer1(), modele.getPlayer1().getTarget(null)) == 0) {
                     modele.getPlayer1().playCard(modele.getPlayer1().getIsAttackingWith(),getControler(),0); // Perform the attack
@@ -424,7 +424,7 @@ public class Controler {
                 // End the attacking state
                 modele.getPlayer1().setIsAttacking(false);
                 modele.getPlayer1().setIsAttackingWith(null);
-                modele.getPlayer1().settarget(null);
+                modele.getPlayer1().setTarget(null);
             }
             // Handle case when the player is not attacking
             else if(!(modele.getPlayer1().getIsAttacking())) {
@@ -625,7 +625,7 @@ public class Controler {
                             initButtonCards(Hand);
                             modele.getPlayer1().setIsAttacking(false);
                             modele.getPlayer1().setIsAttackingWith(null);
-                            modele.getPlayer1().settarget(null);
+                            modele.getPlayer1().setTarget(null);
                         }
                         // If the player is attacking, they can't play any other cards.
                         else if (modele.getPlayer1().getIsAttacking()) {
@@ -640,7 +640,7 @@ public class Controler {
                             vue.addMessage("Vous ne pouvez plus jouer après avoir défaussé\n", false);
                         }
                         // If the player already played during their turn.
-                        else if (modele.getPlayer1().getaJjoue() && !(modele.getPlayer1().getHand().get(j) instanceof Boot)) {
+                        else if (modele.getPlayer1().getHasPlayed() && !(modele.getPlayer1().getHand().get(j) instanceof Boot)) {
                             vue.addMessage("Vous avez déjà joué lors de votre tour \n", false);
                         }
                         // If the player is discarding a card.
@@ -938,7 +938,7 @@ public class Controler {
      * 
      * @param i The index of the music to play. If 0, no music will be played.
      */
-    private void joueMusic(int i){
+    private void playMusic(int i){
         if(i != 0){
             secondarySoundList.setFile(i);
             secondarySoundList.play(i);
@@ -969,7 +969,7 @@ public class Controler {
      * It also updates the sound button's image and stops the current music.
      */
     @SuppressWarnings("unused")
-    public void initsoundButton(){
+    public void initSoundButton(){
         vue.addActionsoundButton(e -> {
             if(secondarySoundList.getSoundON()){
                 secondarySoundList.setSoundON(false);

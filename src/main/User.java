@@ -16,9 +16,6 @@ public class User extends Player{
     public User(String name, int k, int id, Game Game){
         super(name, k, id, Game);
     }
-    
-// This method handles the logic for appliquerAction
-    public void appliquerAction(Card c){};
 
     @Override
 // This method handles the logic for getTarget
@@ -33,8 +30,8 @@ public class User extends Player{
         return isAttackingWith;
     }
 
-// This method handles the logic for settarget
-    public void settarget(CPU c)
+// This method handles the logic for setTarget
+    public void setTarget(CPU c)
     {
         target = c;
     }
@@ -99,8 +96,8 @@ public class User extends Player{
         discard = b;
     }
 
-// This method handles the logic for getaJjoue
-    public boolean getaJjoue()
+// This method handles the logic for getHasPlayed
+    public boolean getHasPlayed()
     {
         return hasPlayed;
     }

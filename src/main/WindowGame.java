@@ -70,7 +70,7 @@ public class WindowGame {
 // Private or protected member
     private JPanel menuPanel;
 // Private or protected member
-    private JLayeredPane GamePanel;
+    private JLayeredPane gamePanel;
 // Private or protected member
     private ArrayList<JButton> buttonHandPlayer;
 // Private or protected member
@@ -138,7 +138,7 @@ public class WindowGame {
         windowMenu = new JFrame("1000 Bornes");
         textArea = new JTextArea("Début de la partie");
         menuPanel  = new JPanel();  
-        GamePanel = new JLayeredPane();
+        gamePanel = new JLayeredPane();
         buttonHandPlayer = new ArrayList<JButton>();
         env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         screen = env.getDefaultScreenDevice();
@@ -346,7 +346,7 @@ public class WindowGame {
      */
 // This method handles the logic for createWindowGame
     public void createWindowGame(){
-        windowMenu.setContentPane(GamePanel);
+        windowMenu.setContentPane(gamePanel);
         windowMenu.revalidate();
         windowMenu.repaint();
 
@@ -362,7 +362,7 @@ public class WindowGame {
         labelCircuit.setVerticalAlignment(JLabel.CENTER);
         labelCircuit.setHorizontalAlignment(JLabel.CENTER);
         labelCircuit.setBounds(0, 0, circuit.getIconWidth(), circuit.getIconHeight());
-        GamePanel.add(labelCircuit, Integer.valueOf(1));
+        gamePanel.add(labelCircuit, Integer.valueOf(1));
 
         // Eléments
         PrintTextArea();
@@ -371,7 +371,7 @@ public class WindowGame {
         // Button Menu principal
         returnButton.setBounds(width - (width * 11 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
         returnButton.setContentAreaFilled(false);
-        GamePanel.add(returnButton, Integer.valueOf(2));
+        gamePanel.add(returnButton, Integer.valueOf(2));
         if(returnButton.getActionListeners().length == 1)
         {
             returnButton.removeActionListener(returnButton.getActionListeners()[0]);
@@ -380,7 +380,7 @@ public class WindowGame {
         // Button End de mon tour
         buttonEndOfTurn.setBounds(width/2 + width * 355 / 1000, height / 2 + height * 175 / 1000, width * 6 / 100, height * 7 / 100);
         buttonEndOfTurn.setContentAreaFilled(false);
-        GamePanel.add(buttonEndOfTurn, Integer.valueOf(2));
+        gamePanel.add(buttonEndOfTurn, Integer.valueOf(2));
         if(buttonEndOfTurn.getActionListeners().length == 1)
         {
             buttonEndOfTurn.removeActionListener(buttonEndOfTurn.getActionListeners()[0]);
@@ -389,7 +389,7 @@ public class WindowGame {
         // Button "Nouvelle Game"
         buttonNewGame.setBounds(width - (width * 20 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
         buttonNewGame.setContentAreaFilled(false);
-        GamePanel.add(buttonNewGame, Integer.valueOf(2));
+        gamePanel.add(buttonNewGame, Integer.valueOf(2));
         if(buttonNewGame.getActionListeners().length == 1)
         {
             buttonNewGame.removeActionListener(buttonNewGame.getActionListeners()[0]);
@@ -398,7 +398,7 @@ public class WindowGame {
         //buttonDraw
         buttonDraw.setBounds(width/2 - width*96/1000 , height/2 - height*5/100, (circuit.getIconWidth() * 6 / 100), (circuit.getIconHeight() * 7 / 100));
         buttonDraw.setContentAreaFilled(false);
-        GamePanel.add(buttonDraw, Integer.valueOf(2));
+        gamePanel.add(buttonDraw, Integer.valueOf(2));
         if(buttonDraw.getActionListeners().length == 1)
         {
             buttonDraw.removeActionListener(buttonDraw.getActionListeners()[0]);
@@ -407,13 +407,13 @@ public class WindowGame {
         //ButtonDéfausse
         buttonDiscard.setBounds(width/2 + width*42/1000 , height/2 - height*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
         buttonDiscard.setContentAreaFilled(false);
-        GamePanel.add(buttonDiscard, Integer.valueOf(5));
+        gamePanel.add(buttonDiscard, Integer.valueOf(5));
         if(buttonDiscard.getActionListeners().length == 1)
         {
             buttonDiscard.removeActionListener(buttonDiscard.getActionListeners()[0]);
         }
 
-        // soundButton
+        //soundButton
         soundOn = new ImageIcon("Images/sonON.png");
         Image imageRedimensionneeSoundOn = soundOn.getImage().getScaledInstance(width * 27 / 1000, height * 50 / 1000, Image.SCALE_SMOOTH);
         soundOn = new ImageIcon(imageRedimensionneeSoundOn);
@@ -425,7 +425,7 @@ public class WindowGame {
         soundButton.setFocusPainted(false);
         soundButton.setContentAreaFilled(false);
         soundButton.setOpaque(false);
-        GamePanel.add(soundButton, Integer.valueOf(10));
+        gamePanel.add(soundButton, Integer.valueOf(10));
         if(soundButton.getActionListeners().length == 1)
         {
             soundButton.removeActionListener(soundButton.getActionListeners()[0]);
@@ -619,7 +619,7 @@ public class WindowGame {
             Button.setFocusPainted(false);
             Button.setContentAreaFilled(false);
             Button.setVisible(true);
-            GamePanel.add(Button, Integer.valueOf(3));
+            gamePanel.add(Button, Integer.valueOf(3));
             
             buttonHandPlayer.add(i, Button);
         }
@@ -654,7 +654,7 @@ public class WindowGame {
         //panelAttacksPlayer.setBackground(Color.LIGHT_GRAY);
         panelGlobalPlayer.add(panelAttacksPlayer, BorderLayout.CENTER);
         panelGlobalPlayer.setBounds(width * 620 /10000 , height * 12 /100, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalPlayer, Integer.valueOf(3));
+        gamePanel.add(panelGlobalPlayer, Integer.valueOf(3));
 
         // panel global pour CPU Fast
         JPanel panelGlobalCPUFast = new JPanel(new BorderLayout());
@@ -667,7 +667,7 @@ public class WindowGame {
         //panelAttacksCPUFast.setBackground(Color.LIGHT_GRAY);
         panelGlobalCPUFast.add(panelAttacksCPUFast, BorderLayout.CENTER);
         panelGlobalCPUFast.setBounds(width * 620 /10000 , height * 439 /1000, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalCPUFast, Integer.valueOf(3));
+        gamePanel.add(panelGlobalCPUFast, Integer.valueOf(3));
 
         // panel global pour CPU Agro
         JPanel panelGlobalCPUAgro = new JPanel(new BorderLayout());
@@ -680,7 +680,7 @@ public class WindowGame {
         //panelAttacksCPUAgro.setBackground(Color.LIGHT_GRAY);
         panelGlobalCPUAgro.add(panelAttacksCPUAgro, BorderLayout.CENTER);
         panelGlobalCPUAgro.setBounds(width * 620 /10000 , height * 2795 /10000, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalCPUAgro, Integer.valueOf(3));
+        gamePanel.add(panelGlobalCPUAgro, Integer.valueOf(3));
     }
 
 // This method handles the logic for createDisplayBoots
@@ -695,7 +695,7 @@ public class WindowGame {
         panelBootsPlayer.setOpaque(false);
         panelGlobalPlayer.add(panelBootsPlayer, BorderLayout.CENTER);
         panelGlobalPlayer.setBounds(width * 8585 /10000 , height * 12 /100, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalPlayer, Integer.valueOf(3));
+        gamePanel.add(panelGlobalPlayer, Integer.valueOf(3));
 
         // panel global pour CPU Fast
         JPanel panelGlobalCPUFast = new JPanel(new BorderLayout());
@@ -705,7 +705,7 @@ public class WindowGame {
         panelBootsCPUFast.setOpaque(false);
         panelGlobalCPUFast.add(panelBootsCPUFast, BorderLayout.CENTER);
         panelGlobalCPUFast.setBounds(width * 8585 /10000 , height * 439 /1000, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalCPUFast, Integer.valueOf(3));
+        gamePanel.add(panelGlobalCPUFast, Integer.valueOf(3));
 
         // panel global pour CPU Agro
         JPanel panelGlobalCPUAgro = new JPanel(new BorderLayout());
@@ -715,7 +715,7 @@ public class WindowGame {
         panelBootsCPUAgro.setOpaque(false);
         panelGlobalCPUAgro.add(panelBootsCPUAgro, BorderLayout.CENTER);
         panelGlobalCPUAgro.setBounds(width * 8585 /10000 , height * 2795 /10000, width * 20/100, height * 20/100);
-        GamePanel.add(panelGlobalCPUAgro, Integer.valueOf(3));
+        gamePanel.add(panelGlobalCPUAgro, Integer.valueOf(3));
 
     }
 
@@ -809,7 +809,7 @@ public class WindowGame {
         messagePanel.setOpaque(false); // Rend le panel transparent
         messagePanel.setBounds(42, height * 62 / 100, width * 15 / 100, height * 30 / 100);
         messagePanel.setLayout(new BorderLayout());
-        GamePanel.add(messagePanel, Integer.valueOf(10));
+        gamePanel.add(messagePanel, Integer.valueOf(10));
     
         // Configurer la zone de texte
         textArea.setEditable(false);
@@ -884,7 +884,7 @@ public class WindowGame {
         ButtonCar1.setOpaque(false);
         //ButtonCar1.setBackground(Color.yellow);
         ButtonCar1.setBounds((circuit.getIconWidth() * 705 / 1000), (circuit.getIconHeight() * 62 / 100), (Car1.getIconWidth() * 10 / 100 ), (Car1.getIconHeight() * 60 / 100));
-        GamePanel.add(ButtonCar1, Integer.valueOf(2));
+        gamePanel.add(ButtonCar1, Integer.valueOf(2));
 
         // Car 2
         ImageIcon Car2 = new ImageIcon("Images/voiture bleue idle haut.gif");
@@ -895,7 +895,7 @@ public class WindowGame {
         ButtonCar2.setOpaque(false);
         //ButtonCar2.setBackground(Color.pink);
         ButtonCar2.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000), (circuit.getIconHeight() * 62 / 100), (Car2.getIconWidth() * 10/100 ), (Car1.getIconHeight() * 60 / 100));
-        GamePanel.add(ButtonCar2, Integer.valueOf(2));
+        gamePanel.add(ButtonCar2, Integer.valueOf(2));
 
         // Car 3
         ImageIcon Car3 = new ImageIcon("Images/voiture verte idle haut.gif");
@@ -906,7 +906,7 @@ public class WindowGame {
         ButtonCar3.setOpaque(false);
         //ButtonCar3.setBackground(Color.magenta);
         ButtonCar3.setBounds((circuit.getIconWidth() * 705 / 1000) + (circuit.getIconWidth() * 21 / 1000) * 2, (circuit.getIconHeight() * 62 / 100), (Car3.getIconWidth() * 10/100), (Car1.getIconHeight() * 60/ 100));
-        GamePanel.add(ButtonCar3, Integer.valueOf(2));
+        gamePanel.add(ButtonCar3, Integer.valueOf(2));
     }
 
 // This method handles the logic for resettingKilometers
