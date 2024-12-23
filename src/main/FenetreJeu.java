@@ -765,7 +765,7 @@ public class FenetreJeu {
 
     private void afficherVoitures(ImageIcon circuit){
         // Voiture 1
-        ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.png");
+        ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.gif");
         boutonVoiture1 = new JButton("", voiture1);
         boutonVoiture1.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture1.setFocusPainted(false);
