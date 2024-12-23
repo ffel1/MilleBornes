@@ -52,16 +52,7 @@ J'ai continué l'implémentation du système de round et de Game qu'avait commen
 J'ai ensuite résolu des bugs mineurs en faisant de nombreuses de Games tests
 
 
-
-
-
-
-Enzo :
-J'ai commencé par faire la structure du système (Modèle Vue Controler) pour pouvoir directement commencer avec cette structure. Puis j'ai créé la base de la page de menu puis la page de jeu avec ses différents éléments (Les cards, le circuit, la winêtre d'Display des messages, les Buttons).
-Et j'ai également réaliser le déplacement des avec les imagess et gifs réalisées par Xavier, cela pris pas mal de temps car cela necéssitait d'attendre que certains gifs se Endissent pour les remplacer par d'autres, et également d'adapter les déplacements par rapport à la size de l'écran de l'utilisateur pour que les Cars suivent la route du circuit.
-Et j'ai commencé les premiers tests sur les cards et leurs utilisations grâce à JUnit.
-
-
+>>>>>>> 34ea567f1cdb9a7860f82dc8046d7624ce02d440
 Felix : 
 
 Semaine 25/10 :
@@ -90,4 +81,39 @@ Implémentation de l’Display des bottes et attaques pour que le player ait un 
 
 Semaine 20/12 :
 
+<<<<<<< HEAD
 Implémentation du comptage des pts pour chaque player dans la classe Game et implémentation des coups fourrés dans la classe player.
+=======
+Implémentation du comptage des points pour chaque joueur dans la classe Partie et implémentation des coups fourrés dans la classe Joueur.
+
+
+Enzo :
+
+Semaine du 11/11 :
+J'ai commencé par créer toutes les classes avec leurs attributs et leurs méthodes (vides) en me basant sur le diagramme de classes conçu quelques semaines auparavant. Cela m'a permis de poser les bases pour débuter la programmation du jeu. Ensuite, j'ai commencé à développer l'interface du menu principal, qui comporte pour l'instant un bouton "Jouer", un bouton "Quitter" et un logo.  
+
+Semaine du 18/11 :
+J'ai poursuivi en affichant la fenêtre de jeu, en commençant par intégrer les cartes de la main du joueur sous forme de boutons cliquables pour permettre leur sélection. J'ai ajouté une zone de texte destinée à afficher toutes les actions et événements du jeu, ainsi qu'un bouton "Retour au menu" et un bouton "Nouvelle partie". Par ailleurs, j'ai réorganisé le projet pour l'adopter au modèle MVC (Modèle-Vue-Contrôleur) :  
+- La classe **FenetreJeu** représente la Vue,  
+- La classe **Partie** représente le Modèle,  
+- Une nouvelle classe **Controlleur** a été ajoutée pour gérer les interactions entre la Vue et le Modèle.  
+
+Semaine du 25/11 : 
+J'ai implémenté un système de sauvegarde grâce à la classe `java.io.Serializable`, permettant de stocker les objets dans des fichiers au format `.ser`. Cependant, le système de sauvegarde n'était pas optimal au départ : les fichiers de sauvegarde devenaient de plus en plus volumineux. Ce problème a été corrigé par Xavier par la suite.  
+
+Semaine du 02/12 :
+Les interfaces des fenêtres "Menu" et "Jeu" ont été modifiées pour s'adapter à un affichage en plein écran. J'ai ajusté les dimensions des éléments en fonction de la taille de l'écran. Ensuite, j'ai commencé à implémenter la première voiture pour qu'elle avance et se positionne correctement sur le circuit en fonction de sa distance parcourue (en kilomètres), sans utiliser pour le moment les GIF animés qui seront ajoutés ultérieurement, tout comme les deux autres voitures.  
+Un problème est survenu avec la mise à jour des cartes lorsque le joueur appuyait sur "Fin de tour" : elles ne se renouvelaient pas. Le souci a été corrigé en supprimant les anciennes images des cartes, en les rendant invisibles, puis en les réaffichant comme lors de l'initialisation de la partie.  
+
+Semaine du 09/12 : 
+J'ai commencé à implémenter les premiers tests sur les cartes et leur utilisation. Ensuite :  
+- J'ai ajouté les deux autres voitures et fait en sorte qu'elles puissent parcourir le circuit, tout comme la première, tout en s'adaptant dynamiquement à la taille du circuit, lui-même ajusté à la résolution de l'écran.  
+- J'ai intégré les premiers GIF animés des voitures qui dérapent dans les virages.  
+- J'ai également ajouté les premiers effets sonores : un klaxon lorsqu'on attaque une voiture en cliquant dessus, ainsi qu'une ambiance sonore de foule en arrière-plan.  
+
+Semaine du 16/12 :  
+J'ai continué à améliorer les déplacements des voitures en ajoutant un GIF d'animation au démarrage de chaque mouvement, grâce à l'utilisation de timers synchronisés avec la durée des animations. Ensuite :  
+- J'ai enrichi le système sonore avec un bouton permettant d'activer ou de couper les sons.  
+- J'ai continué à fluidifier les déplacements des voitures, car elles se "téléportaient" dans les virages.  
+- Enfin, j'ai ajouté des tests sur le comportement des cartes jouées par les CPU, en tenant compte de leur main et de leur stratégie (rapide ou agressive). J'ai également intégré des timers entre chaque tour des CPU pour ralentir le rythme du jeu, ce qui permet aux joueurs de mieux suivre les actions et de réagir avec des "coups fourrés". 
+>>>>>>> 34ea567f1cdb9a7860f82dc8046d7624ce02d440
