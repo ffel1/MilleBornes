@@ -88,7 +88,6 @@ public class WindowGame {
         heightCard = 0;
         buttonPlay = new JButton("Jouer");
         buttonQuit = new JButton("Quitter");
-        //new
         buttonSaves = new JButton("Historique");
         returnButton = new JButton();
         buttonNewGame = new JButton();
@@ -136,266 +135,263 @@ public class WindowGame {
     }
 
 // Private or protected member
-    private void enableFullScreen(JFrame winetre) {
-        winetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
-        winetre.setUndecorated(true); // Supprime les bordures et la barre de titre
-        screen.setFullScreenWindow(winetre); // Passe la winêtre en mode plein écran
+private void enableFullScreen(JFrame winetre) {
+    winetre.dispose(); // Necessary for certain window modifications
+    winetre.setUndecorated(true); // Removes borders and the title bar
+    screen.setFullScreenWindow(winetre); // Sets the window to full-screen mode
+}
+
+/**
+ * Connects an action to the "Play" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonPlay
+public void addActionButtonPlay(ActionListener action){
+    buttonPlay.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "History" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addButtonActionSaves
+public void addButtonActionSaves(ActionListener action){
+    buttonSaves.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "Quit" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionQuitButton
+public void addActionQuitButton(ActionListener action){
+    buttonQuit.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "Return to Menu" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionReturnButton
+public void addActionReturnButton(ActionListener action){
+    returnButton.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "New Game" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonNewGame
+public void addActionButtonNewGame(ActionListener action){
+    buttonNewGame.addActionListener(action);
+}
+
+/**
+ * Connects an action to a "Card" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonCard
+public void addActionButtonCard(ActionListener action, int i){
+    buttonHandPlayer.get(i).addActionListener(action);
+}
+
+/**
+ * Connects an action to the "Draw" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonDraw
+public void addActionButtonDraw(ActionListener action){
+    buttonDraw.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "Discard" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonDiscard
+public void addActionButtonDiscard(ActionListener action){
+    buttonDiscard.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "CPU Agro" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonCPUAgro
+public void addActionButtonCPUAgro(ActionListener action){
+    ButtonCar2.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "CPU Fast" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionButtonCPUFast
+public void addActionButtonCPUFast(ActionListener action){
+    ButtonCar3.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "End Turn" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for AddActionButtonEndOfMyTurn
+public void AddActionButtonEndOfMyTurn(ActionListener action){
+    buttonEndOfTurn.addActionListener(action);
+}
+
+/**
+ * Connects an action to the "Sound" button
+ * @param action The action to execute when the button is clicked
+ */
+// This method handles the logic for addActionSoundButton
+public void addActionSoundButton(ActionListener action){
+    soundButton.addActionListener(action);
+}
+
+/*
+ * Displays the start menu window
+ */
+// This method handles the logic for createWindowMenu
+public void createWindowMenu(){
+
+    // Initialize menuPanel and its layout manager
+    menuPanel.setBounds(0, 0, width, height);
+    menuPanel.setLayout(new GridBagLayout());
+    GridBagConstraints grid = new GridBagConstraints();
+
+    // "Play" button
+    buttonPlay.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size in %
+    grid.gridx = 0;
+    grid.gridy = 0;
+    grid.insets = new Insets(50, 0, 50, 0); // Spacing between components
+    grid.anchor = GridBagConstraints.CENTER;
+    menuPanel.add(buttonPlay, grid);
+
+    // "Mille Bornes" image
+    ImageIcon image = new ImageIcon("Images/MilleBornes.png");
+    JLabel labelImage = new JLabel();
+    labelImage.setIcon(image);
+    labelImage.setHorizontalAlignment(JLabel.CENTER);
+    labelImage.setVerticalAlignment(JLabel.CENTER);
+    grid.gridx = 0;
+    grid.gridy = 1;
+    grid.insets = new Insets(50, 0, 50, 0); // Spacing between components
+    grid.anchor = GridBagConstraints.CENTER;
+    menuPanel.add(labelImage, grid);
+
+    // "History" button
+    buttonSaves.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size in %
+    grid.gridx = 0;
+    grid.gridy = 2;
+    grid.anchor = GridBagConstraints.CENTER;
+    menuPanel.add(buttonSaves, grid);
+
+    // "Quit" button
+    buttonQuit.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size in %
+    grid.gridx = 0; 
+    grid.gridy = 3; 
+    grid.anchor = GridBagConstraints.CENTER; // Center
+    menuPanel.add(buttonQuit, grid);
+
+    windowMenu.setContentPane(menuPanel);
+    windowMenu.setVisible(true);    
+}
+
+/*
+ * Displays the game window
+ */
+// This method handles the logic for createWindowGame
+public void createWindowGame(){
+    windowMenu.setContentPane(gamePanel);
+    windowMenu.revalidate();
+    windowMenu.repaint();
+
+    createDisplayAttacks();
+    createDisplayBoots();
+
+    // Circuit
+    circuit = new ImageIcon("Images/circuit.png");
+    Image imageRedimensionnee = circuit.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    circuit = new ImageIcon(imageRedimensionnee);
+    JLabel labelCircuit = new JLabel();
+    labelCircuit.setIcon(circuit);
+    labelCircuit.setVerticalAlignment(JLabel.CENTER);
+    labelCircuit.setHorizontalAlignment(JLabel.CENTER);
+    labelCircuit.setBounds(0, 0, circuit.getIconWidth(), circuit.getIconHeight());
+    gamePanel.add(labelCircuit, Integer.valueOf(1));
+
+    // Elements
+    printTextArea();
+    printCars(circuit);
+
+    // "Main Menu" button
+    returnButton.setBounds(width - (width * 11 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
+    returnButton.setContentAreaFilled(false);
+    gamePanel.add(returnButton, Integer.valueOf(2));
+    if(returnButton.getActionListeners().length == 1)
+    {
+        returnButton.removeActionListener(returnButton.getActionListeners()[0]);
+    }
+
+    // "End Turn" button
+    buttonEndOfTurn.setBounds(width/2 + width * 355 / 1000, height / 2 + height * 175 / 1000, width * 6 / 100, height * 7 / 100);
+    buttonEndOfTurn.setContentAreaFilled(false);
+    gamePanel.add(buttonEndOfTurn, Integer.valueOf(2));
+    if(buttonEndOfTurn.getActionListeners().length == 1)
+    {
+        buttonEndOfTurn.removeActionListener(buttonEndOfTurn.getActionListeners()[0]);
     }
     
-    /**
-     * Permet de connecter une action au Button "play"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonPlay
-    public void addActionButtonPlay(ActionListener action){
-        buttonPlay.addActionListener(action);
+    // "New Game" button
+    buttonNewGame.setBounds(width - (width * 20 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
+    buttonNewGame.setContentAreaFilled(false);
+    gamePanel.add(buttonNewGame, Integer.valueOf(2));
+    if(buttonNewGame.getActionListeners().length == 1)
+    {
+        buttonNewGame.removeActionListener(buttonNewGame.getActionListeners()[0]);
     }
 
-    /**
-     * Permet de connecter une action au Button "Historique"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addButtonActionSaves
-    public void addButtonActionSaves(ActionListener action){
-        buttonSaves.addActionListener(action);
+    // "Draw" button
+    buttonDraw.setBounds(width/2 - width*96/1000 , height/2 - height*5/100, (circuit.getIconWidth() * 6 / 100), (circuit.getIconHeight() * 7 / 100));
+    buttonDraw.setContentAreaFilled(false);
+    gamePanel.add(buttonDraw, Integer.valueOf(2));
+    if(buttonDraw.getActionListeners().length == 1)
+    {
+        buttonDraw.removeActionListener(buttonDraw.getActionListeners()[0]);
     }
 
-    /**
-     * Permet de connecter une action au Button "Quitter"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionQuitButton
-    public void addActionQuitButton(ActionListener action){
-        buttonQuit.addActionListener(action);
+    // "Discard" button
+    buttonDiscard.setBounds(width/2 + width*42/1000 , height/2 - height*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
+    buttonDiscard.setContentAreaFilled(false);
+    gamePanel.add(buttonDiscard, Integer.valueOf(5));
+    if(buttonDiscard.getActionListeners().length == 1)
+    {
+        buttonDiscard.removeActionListener(buttonDiscard.getActionListeners()[0]);
     }
 
-    /**
-     * Permet de connecter une action au Button "Retour menu"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionReturnButton
-    public void addActionReturnButton(ActionListener action){
-        returnButton.addActionListener(action);
+    // "Sound" button
+    soundOn = new ImageIcon("Images/sonON.png");
+    Image imageRedimensionneeSoundOn = soundOn.getImage().getScaledInstance(width * 27 / 1000, height * 50 / 1000, Image.SCALE_SMOOTH);
+    soundOn = new ImageIcon(imageRedimensionneeSoundOn);
+    soundOff = new ImageIcon("Images/sonOFF.png");
+    Image imageRedimensionneeSoundOff = soundOff.getImage().getScaledInstance(width * 27 / 1000, height * 50 / 1000, Image.SCALE_SMOOTH);
+    soundOff = new ImageIcon(imageRedimensionneeSoundOff);
+    soundButton.setIcon(soundOn);
+    soundButton.setBounds(width - (soundOn.getIconWidth() * 135 / 100), height - (soundOn.getIconHeight() * 180 / 100), soundOn.getIconWidth(), soundOn.getIconHeight());
+    soundButton.setFocusPainted(false);
+    soundButton.setContentAreaFilled(false);
+    soundButton.setOpaque(false);
+    gamePanel.add(soundButton, Integer.valueOf(10));
+    if(soundButton.getActionListeners().length == 1)
+    {
+        soundButton.removeActionListener(soundButton.getActionListeners()[0]);
     }
 
-    /**
-     * Permet de connecter une action au Button "Nouvelle Game"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonNewGame
-    public void addActionButtonNewGame(ActionListener action){
-        buttonNewGame.addActionListener(action);
-    }
+    windowMenu.setLayout(null);
+    windowMenu.setVisible(true);
+}
 
-    /**
-     * Permet de connecter une action au Button "Card"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonCard
-    public void addActionButtonCard(ActionListener action, int i){
-        buttonHandPlayer.get(i).addActionListener(action);
-    }
-
-    /**
-     * Permet de connecter une action au Button "draw"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonDraw
-    public void addActionButtonDraw(ActionListener action){
-        buttonDraw.addActionListener(action);
-    }
-
-    /**
-     * Permet de connecter une action au Button "Défausse"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonDiscard
-    public void addActionButtonDiscard(ActionListener action){
-        buttonDiscard.addActionListener(action);
-    }
-
-    /**
-     * Permet de connecter une action au Button "ButtonCPUAgro"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonCPUAgro
-    public void addActionButtonCPUAgro(ActionListener action){
-        ButtonCar2.addActionListener(action);
-    }
-
-    /**
-     * Permet de connecter une action au Button "ButtonCPUAgro"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionButtonCPUFast
-    public void addActionButtonCPUFast(ActionListener action){
-        ButtonCar3.addActionListener(action);
-    }
-
-
-    /**
-     * Permet de connecter une action au Button "End de Tour"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for AddActionButtonEndOfMyTurn
-    public void AddActionButtonEndOfMyTurn(ActionListener action){
-        buttonEndOfTurn.addActionListener(action);
-    }
-
-    /**
-     * Permet de connecter une action au Button "Sound"
-     * @param action L'action à exécuter lors du clic sur le Button
-     */
-// This method handles the logic for addActionSoundButton
-    public void addActionSoundButton(ActionListener action){
-        soundButton.addActionListener(action);
-    }
-
-
-    /*
-     * Affiche la winetre du menu de début
-     */
-// This method handles the logic for createWindowMenu
-    public void createWindowMenu(){
-
-        // Initialisation menuPanel et de le gestionnaire de disposition
-		menuPanel.setBounds(0, 0, width, height);
-        menuPanel.setLayout(new GridBagLayout());
-        GridBagConstraints grid = new GridBagConstraints();
-
-        // Button play
-        buttonPlay.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size en %
-        grid.gridx = 0;
-        grid.gridy = 0;
-        grid.insets = new Insets(50, 0, 50, 0); // Espacement entre les composants
-        grid.anchor = GridBagConstraints.CENTER;
-        menuPanel.add(buttonPlay, grid);
-
-        // Image mille bornes
-        ImageIcon image = new ImageIcon("Images/MilleBornes.png");
-        JLabel labelImage = new JLabel();
-        labelImage.setIcon(image);
-        labelImage.setHorizontalAlignment(JLabel.CENTER);
-        labelImage.setVerticalAlignment(JLabel.CENTER);
-        grid.gridx = 0;
-        grid.gridy = 1;
-        grid.insets = new Insets(50, 0, 50, 0); // Espacement entre les composants
-        grid.anchor = GridBagConstraints.CENTER;
-        menuPanel.add(labelImage, grid);
-
-        // Button historique
-        buttonSaves.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size en %
-        grid.gridx = 0;
-        grid.gridy = 2;
-        grid.anchor = GridBagConstraints.CENTER;
-        menuPanel.add(buttonSaves, grid);
-
-        //Button quitter
-        buttonQuit.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // size en %
-        grid.gridx = 0; 
-        grid.gridy = 3; 
-        grid.anchor = GridBagConstraints.CENTER; // Centrer
-        menuPanel.add(buttonQuit, grid);
-
-
-        windowMenu.setContentPane(menuPanel);
-		windowMenu.setVisible(true);	
-    }
-
-    /*
-     * Affiche la Game window
-     */
-// This method handles the logic for createWindowGame
-    public void createWindowGame(){
-        windowMenu.setContentPane(gamePanel);
-        windowMenu.revalidate();
-        windowMenu.repaint();
-
-        createDisplayAttacks();
-        createDisplayBoots();
-
-        // Circuit
-        circuit = new ImageIcon("Images/circuit.png");
-        Image imageRedimensionnee = circuit.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        circuit = new ImageIcon(imageRedimensionnee);
-        JLabel labelCircuit = new JLabel();
-        labelCircuit.setIcon(circuit);
-        labelCircuit.setVerticalAlignment(JLabel.CENTER);
-        labelCircuit.setHorizontalAlignment(JLabel.CENTER);
-        labelCircuit.setBounds(0, 0, circuit.getIconWidth(), circuit.getIconHeight());
-        gamePanel.add(labelCircuit, Integer.valueOf(1));
-
-        // Eléments
-        printTextArea();
-        printCars(circuit);
-
-        // Button Menu principal
-        returnButton.setBounds(width - (width * 11 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
-        returnButton.setContentAreaFilled(false);
-        gamePanel.add(returnButton, Integer.valueOf(2));
-        if(returnButton.getActionListeners().length == 1)
-        {
-            returnButton.removeActionListener(returnButton.getActionListeners()[0]);
-        }
-
-        // Button End de mon tour
-        buttonEndOfTurn.setBounds(width/2 + width * 355 / 1000, height / 2 + height * 175 / 1000, width * 6 / 100, height * 7 / 100);
-        buttonEndOfTurn.setContentAreaFilled(false);
-        gamePanel.add(buttonEndOfTurn, Integer.valueOf(2));
-        if(buttonEndOfTurn.getActionListeners().length == 1)
-        {
-            buttonEndOfTurn.removeActionListener(buttonEndOfTurn.getActionListeners()[0]);
-        }
-		
-        // Button "Nouvelle Game"
-        buttonNewGame.setBounds(width - (width * 20 / 100), height - height * 9/100, width * 5 / 100, height * 5/ 100);
-        buttonNewGame.setContentAreaFilled(false);
-        gamePanel.add(buttonNewGame, Integer.valueOf(2));
-        if(buttonNewGame.getActionListeners().length == 1)
-        {
-            buttonNewGame.removeActionListener(buttonNewGame.getActionListeners()[0]);
-        }
-
-        //buttonDraw
-        buttonDraw.setBounds(width/2 - width*96/1000 , height/2 - height*5/100, (circuit.getIconWidth() * 6 / 100), (circuit.getIconHeight() * 7 / 100));
-        buttonDraw.setContentAreaFilled(false);
-        gamePanel.add(buttonDraw, Integer.valueOf(2));
-        if(buttonDraw.getActionListeners().length == 1)
-        {
-            buttonDraw.removeActionListener(buttonDraw.getActionListeners()[0]);
-        }
-
-        //ButtonDéfausse
-        buttonDiscard.setBounds(width/2 + width*42/1000 , height/2 - height*4/100, (circuit.getIconWidth() * 5 / 100), (circuit.getIconHeight() * 5 / 100));
-        buttonDiscard.setContentAreaFilled(false);
-        gamePanel.add(buttonDiscard, Integer.valueOf(5));
-        if(buttonDiscard.getActionListeners().length == 1)
-        {
-            buttonDiscard.removeActionListener(buttonDiscard.getActionListeners()[0]);
-        }
-
-        //soundButton
-        soundOn = new ImageIcon("Images/sonON.png");
-        Image imageRedimensionneeSoundOn = soundOn.getImage().getScaledInstance(width * 27 / 1000, height * 50 / 1000, Image.SCALE_SMOOTH);
-        soundOn = new ImageIcon(imageRedimensionneeSoundOn);
-        soundOff = new ImageIcon("Images/sonOFF.png");
-        Image imageRedimensionneeSoundOff = soundOff.getImage().getScaledInstance(width * 27 / 1000, height * 50 / 1000, Image.SCALE_SMOOTH);
-        soundOff = new ImageIcon(imageRedimensionneeSoundOff);
-        soundButton.setIcon(soundOn);
-        soundButton.setBounds(width - (soundOn.getIconWidth() * 135 / 100), height - (soundOn.getIconHeight() * 180 / 100), soundOn.getIconWidth(), soundOn.getIconHeight());
-        soundButton.setFocusPainted(false);
-        soundButton.setContentAreaFilled(false);
-        soundButton.setOpaque(false);
-        gamePanel.add(soundButton, Integer.valueOf(10));
-        if(soundButton.getActionListeners().length == 1)
-        {
-            soundButton.removeActionListener(soundButton.getActionListeners()[0]);
-        }
-        
-
-        windowMenu.setLayout(null);
-		windowMenu.setVisible(true);
-    }
 
 // This method handles the logic for changeImageSound
     public void changeImageSound(){
@@ -594,71 +590,60 @@ public class WindowGame {
         }
     }
 
-// This method handles the logic for deleteCardsPlayers
+    // This method handles the logic for deleteCardsPlayers
     public void deleteCardsPlayers(){
-        // Efface toutes les cards
+        // Delete all the cards
         for(int j = 0; j < buttonHandPlayer.size(); j++){
             buttonHandPlayer.get(j).setIcon(null);
             buttonHandPlayer.get(j).setVisible(false);
         }
     }
 
-// This method handles the logic for getCurrentAnimation
+    // This method handles the logic for getCurrentAnimation
     public boolean getCurrentAnimation()
     {
         return getCurrentAnimation;
     }
 
 
-// This method handles the logic for createDisplayAttacks
+    // This method handles the logic for createDisplayAttacks
     public void createDisplayAttacks() {
-        // panel global pour Player
+        // panel global for Player
         JPanel panelGlobalPlayer = new JPanel(new BorderLayout());
         panelGlobalPlayer.setOpaque(false);
-        //JLabel labelPlayer = new JLabel("Player", JLabel.CENTER);
-        //panelGlobalPlayer.add(labelPlayer, BorderLayout.NORTH);
 
         panelAttacksPlayer = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelAttacksPlayer.setOpaque(false);
-        //panelAttacksPlayer.setBackground(Color.LIGHT_GRAY);
         panelGlobalPlayer.add(panelAttacksPlayer, BorderLayout.CENTER);
         panelGlobalPlayer.setBounds(width * 620 /10000 , height * 12 /100, width * 20/100, height * 20/100);
         gamePanel.add(panelGlobalPlayer, Integer.valueOf(3));
 
-        // panel global pour CPU Fast
+        // panel global for CPU Fast
         JPanel panelGlobalCPUFast = new JPanel(new BorderLayout());
         panelGlobalCPUFast.setOpaque(false);
-        //JLabel labelCPUFast = new JLabel("CPU Agro", JLabel.CENTER);
-        //panelGlobalCPUFast.add(labelCPUFast, BorderLayout.NORTH);
 
         panelAttacksCPUFast = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelAttacksCPUFast.setOpaque(false);
-        //panelAttacksCPUFast.setBackground(Color.LIGHT_GRAY);
         panelGlobalCPUFast.add(panelAttacksCPUFast, BorderLayout.CENTER);
         panelGlobalCPUFast.setBounds(width * 620 /10000 , height * 439 /1000, width * 20/100, height * 20/100);
         gamePanel.add(panelGlobalCPUFast, Integer.valueOf(3));
 
-        // panel global pour CPU Agro
+        // panel global for CPU Agro
         JPanel panelGlobalCPUAgro = new JPanel(new BorderLayout());
         panelGlobalCPUAgro.setOpaque(false);
-        //JLabel labelCPUAgro = new JLabel("CPU Fast", JLabel.CENTER);
-        //panelGlobalCPUAgro.add(labelCPUAgro, BorderLayout.NORTH);
 
         panelAttacksCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelAttacksCPUAgro.setOpaque(false);
-        //panelAttacksCPUAgro.setBackground(Color.LIGHT_GRAY);
         panelGlobalCPUAgro.add(panelAttacksCPUAgro, BorderLayout.CENTER);
         panelGlobalCPUAgro.setBounds(width * 620 /10000 , height * 2795 /10000, width * 20/100, height * 20/100);
         gamePanel.add(panelGlobalCPUAgro, Integer.valueOf(3));
     }
 
-// This method handles the logic for createDisplayBoots
+    // This method handles the logic for createDisplayBoots
     public void createDisplayBoots() {
-        // panel global pour Player
+        // panel global for Player
         JPanel panelGlobalPlayer = new JPanel(new BorderLayout());
         panelGlobalPlayer.setOpaque(false);
-        //JLabel labelPlayer = new JLabel("Player", JLabel.CENTER);
-        //panelGlobalPlayer.add(labelPlayer, BorderLayout.NORTH);
 
         panelBootsPlayer = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBootsPlayer.setOpaque(false);
@@ -692,13 +677,13 @@ public class WindowGame {
     
 // This method handles the logic for refreshAttacks
     public void refreshAttacks(Game Game) {
-        // Effacer les anciennes cards des panelx
+        // Delete previous cards
 
         panelAttacksPlayer.removeAll();
         panelAttacksCPUFast.removeAll();
         panelAttacksCPUAgro.removeAll();
     
-        // add les nouvelles cards pour chaque participant
+        // add new cards
         addAttacksForPlayer(Game.getPlayer1(), panelAttacksPlayer);
         addAttacksForPlayer(Game.getPlayer2(), panelAttacksCPUFast);
         addAttacksForPlayer(Game.getPlayer3(), panelAttacksCPUAgro);
@@ -713,12 +698,12 @@ public class WindowGame {
 
 // This method handles the logic for refreshBoots
     public void refreshBoots(Game Game) {
-        // Effacer les anciennes cards des panelx
+        // Delete previous cards
         panelBootsPlayer.removeAll();
         panelBootsCPUFast.removeAll();
         panelBootsCPUAgro.removeAll();
     
-        // add les nouvelles cards pour chaque participant
+        // add new cards
         addBootsForPlayer(Game.getPlayer1(), panelBootsPlayer);
         addBootsForPlayer(Game.getPlayer2(), panelBootsCPUFast);
         addBootsForPlayer(Game.getPlayer3(), panelBootsCPUAgro);
@@ -739,10 +724,10 @@ public class WindowGame {
         }
 
         for (Card card : player.getCurrentAttacks()) {
-            // Réduire la size de l'image de la card
+            // resize image
             ImageIcon image = new ImageIcon(card.getImage().getImage().getScaledInstance(width*25/1000, height * 7/100, Image.SCALE_SMOOTH));
             JLabel label = new JLabel(image);
-            panel.add(label); // add la card au panel
+            panel.add(label); // add card to the panel
         }
     }
 
@@ -753,10 +738,10 @@ public class WindowGame {
         }
         
         for (Card card : player.getPlayedBoots()) {
-            // Réduire la size de l'image de la card
+            // Resize th card
             ImageIcon image = new ImageIcon(card.getImage().getImage().getScaledInstance(width*25/1000, height * 7/100, Image.SCALE_SMOOTH));
             JLabel label = new JLabel(image);
-            panel.add(label); // add la card au panel
+            panel.add(label); // add card to the panel
         }
     }
     
@@ -773,26 +758,26 @@ public class WindowGame {
 // Private or protected member
     private void printTextArea() {
     
-        // Zone Display des messages
+        // Message area
         JPanel messagePanel = new JPanel();
         messagePanel.setOpaque(false); // Rend le panel transparent
         messagePanel.setBounds(42, height * 62 / 100, width * 15 / 100, height * 30 / 100);
         messagePanel.setLayout(new BorderLayout());
         gamePanel.add(messagePanel, Integer.valueOf(10));
     
-        // Configurer la zone de texte
+        // config text area
         textArea.setEditable(false);
         textArea.setOpaque(false); // Rendre la zone de texte transparente
         textArea.setForeground(Color.BLACK); // Couleur du texte
     
-        // Configurer le JScrollPane
+        // Config JScrollPane
         scrollPane = new JScrollPane(textArea);
         scrollPane.setOpaque(false); // Rendre le JScrollPane transparent
         scrollPane.getViewport().setOpaque(false); // Rendre la vue du viewport transparente
         scrollPane.setBorder(null); // Supprime la bordure si nécessaire
         scrollPane.setBounds(0, height * 50 / 100, width * 15 / 100, height * 49 / 100);
     
-        // add les composants
+        // add components
         messagePanel.add(scrollPane);
         textArea.setText("");
     }
@@ -810,7 +795,7 @@ public class WindowGame {
     }
 
 // This method handles the logic for addMessage
-    public void addMessage(String message, boolean b){ //Booléen pour savoir si on l'ajoute à l'historique de Game
+    public void addMessage(String message, boolean b){ //to know if we add the log to the saves
         textArea.append(message);
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
         verticalBar.setValue(verticalBar.getMaximum());
@@ -824,7 +809,7 @@ public class WindowGame {
 
     
             } catch (IOException e) {
-                e.printStackTrace(); // Gérer les exceptions d'écriture
+                e.printStackTrace(); // handle exceptions
             }
         }
     }
@@ -833,9 +818,9 @@ public class WindowGame {
     public void loadLogs()
     {
         try {
-            // Lire tout le Content du file
+            // read all the content
             String Content = new String(Files.readAllBytes(Paths.get("SauvegardeDesHistoriques/" + nameGame)));
-            // Print le Content
+            // Print content
             addMessage(Content, false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -887,9 +872,8 @@ public class WindowGame {
     }
 
     /*
-     * Avance la Car en function des kilomètres totaux du player
-     * Seulement la première line droite pour l'instant
-     * player = id du player
+     * Move the car with the kilometers of each players
+     * player = player id
      */
 // This method handles the logic for moveForwadCar
     public void moveForwadCar(int distance, int player, Controler control){
@@ -900,7 +884,7 @@ public class WindowGame {
         int kilo = 0;
         boolean zero = false;
 
-        // Choix en function du numéro de la Car
+        // Choice with the id of the player
         if(player == 0){
             Car = ButtonCar1; 
             color = "rouge";
@@ -933,13 +917,13 @@ public class WindowGame {
             }
         }
         
-        // Si la Car Must moveForwad par rapport à sound dernier déplacement
+        // if the car has to move and has already move
         if((player == 0 && distance > kilometersV1) | (player == 1 && distance > kilometersV2) | (player == 2 && distance > kilometersV3)){
             Rectangle position = Car.getBounds();
             int movementY = 0;
             int percentageX = 0;
             
-            // Calcul la position Endale de la Car
+            // calcul of the finale position of the car
             if(distance <= 25){
                 movementY = (circuit.getIconHeight() * 9 / 100);
                 position.setBounds((int)position.getX(), (int)position.getY() - movementY, 1, 1);
@@ -960,36 +944,36 @@ public class WindowGame {
                 position.setBounds((int)position.getX() + percentageX, (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
             }
             
-            // Fait déplacer la Car en function de la direction
+            // move the car
             if(Car.getIcon().toString().compareTo("Images/voiture " + color + " idle haut.gif") == 0){
-                // Car démarrage hight
+                // Car start hight
                 ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " démarrage haut.gif");
                 Car.setIcon(Car1);
                 java.util.Timer chrono = new java.util.Timer();
                 chrono.schedule(new TimerTask() {
                     @Override
-// This method handles the logic for run
+                    // This method handles the logic for run
                     public void run(){
                         ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " roule haut.gif");
                         Car.setIcon(Car1);
-                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                             int x = Car.getX();
                             int y = Car.getY();
                             boolean sound = true;
                             @Override
-// This method handles the logic for actionPerformed
+                            // This method handles the logic for actionPerformed
                             public void actionPerformed(ActionEvent e){
                                 if(sound){
                                     control.getsoundList().setFile(2);
                                     control.getsoundList().play(2);
                                     sound = false;
                                 }
-                                // Mettre à jour les coordonnées
+                                // refresh position
                                 y -= vitesse;
                                 Car.setLocation(x, y);
                         
                                 if(distance >= 175 && (Car.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() - ((Car.getIcon().getIconHeight() * 50 / 100) * player) | y < (circuit.getIconHeight() * 125 / 1000) - player * (circuit.getIconHeight() * 50 / 1000))) {
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture" + color + " idle haut.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1002,7 +986,7 @@ public class WindowGame {
                                         kilometersV3 = 175;
                                         turboV3 = false;
                                     }
-                                    if(distance >= 175){ // Tourne vers la gauche
+                                    if(distance >= 175){ // turn left
                                         turbo = false;
                                         Car1 = new ImageIcon("Images/voiture " + color + " tourne haut vers gauche.gif");
                                         Car.setIcon(Car1);
@@ -1014,32 +998,32 @@ public class WindowGame {
 										java.util.Timer chrono = new java.util.Timer();
 										chrono.schedule(new TimerTask() {
 											@Override
-// This method handles the logic for run
+                                            // This method handles the logic for run
 											public void run(){
-												((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+												((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
 												ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle gauche.gif");
 												Car.setIcon(Car1);
                                                 
                                                 Car.setBounds((circuit.getIconWidth() * 66 / 100) + (circuit.getIconWidth() * 3 / 100) * player, (circuit.getIconHeight() * 14 / 100) - (circuit.getIconHeight() * 5 / 100) * player, 
 																    (Car1.getIconWidth() * 50 / 100), (Car1.getIconHeight() * 20 / 100));
                                                 
-												javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+												javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                                                     int x = Car.getX();
                                                     int y = Car.getY();
                                                     boolean sound = true;
                                                     @Override
-// This method handles the logic for actionPerformed
+                                                    // This method handles the logic for actionPerformed
                                                     public void actionPerformed(ActionEvent e){
                                                         if(sound){
                                                             control.getsoundList().setFile(2);
                                                             control.getsoundList().play(2);
                                                             sound = false;
                                                         }
-                                                        // Mettre à jour les coordonnées
+                                                        // Refresh position
                                                         x -= vitesse;
                                                         Car.setLocation(x, y);
                                                         if(x < (circuit.getIconWidth() * 64 / 100)){
-                                                            ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                                            ((javax.swing.Timer) e.getSource()).stop(); // Stop the Timer
                                                             control.getsoundList().stop(2);
                                                             moveForwadCar(distance, player, control);
                                                         }
@@ -1050,7 +1034,7 @@ public class WindowGame {
                                     	}, 700);
                                     }
                                 }else if(distance < 175 && (Car.getY() <= (int)position.getY())){
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // Stop the Timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle haut.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1070,7 +1054,7 @@ public class WindowGame {
                     }
                 }, 2500);
             }else if(Car.getIcon().toString().compareTo("Images/voiture " + color + " idle gauche.gif") == 0){
-                // Car démarrage gauche
+                // Car start left
                 int temps = 0;
                 if(turbo){
                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " démarrage gauche.gif");
@@ -1080,27 +1064,27 @@ public class WindowGame {
                 java.util.Timer chrono = new java.util.Timer();
                 chrono.schedule(new TimerTask(){
                     @Override
-// This method handles the logic for run
+                    // This method handles the logic for run
                     public void run(){
                         ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " roule gauche.gif");
                         Car.setIcon(Car1);
-                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                             int x = Car.getX();
                             int y = Car.getY();
                             boolean sound = true;
                             @Override
-// This method handles the logic for actionPerformed
+                            // This method handles the logic for actionPerformed
                             public void actionPerformed(ActionEvent e) {
                                 if(sound){
                                     control.getsoundList().setFile(2);
                                     control.getsoundList().play(2);
                                     sound = false;
                                 }
-                                // Mettre à jour les coordonnées
+                                // Refresh position
                                 x -= vitesse;
                                 Car.setLocation(x, y);
                                 if(distance >= 400 && (Car.getX() + (circuit.getIconWidth() * 0 / 1300) <= (int)position.getX() - ((circuit.getIconWidth() * 50 / 100) * player) | x < (circuit.getIconWidth() * 300 / 1000) - player * (circuit.getIconWidth() * 40 / 1000))) {
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // stop the timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle gauche.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1113,7 +1097,7 @@ public class WindowGame {
                                         kilometersV3 = 400;
                                         turboV3 = false;
                                     }
-                                    if(distance >= 400){ // Tourne vers la bas
+                                    if(distance >= 400){ // turn down
                                         Car1 = new ImageIcon("Images/voiture " + color + " tourne gauche vers bas.gif");
                                         Car.setIcon(Car1);
                                         Car.setBounds((circuit.getIconWidth() * 23 / 100) - (circuit.getIconWidth() * 2 / 100) * player, (circuit.getIconHeight() * 60 / 1000) - (circuit.getIconHeight() * 40 / 1000) * player, 
@@ -1121,30 +1105,30 @@ public class WindowGame {
                                         java.util.Timer chrono = new java.util.Timer();
 										chrono.schedule(new TimerTask() {
 											@Override
-// This method handles the logic for run
+                                            // This method handles the logic for run
 											public void run(){
-                                                ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                                ((javax.swing.Timer) e.getSource()).stop(); // stop the Timer
                                                 ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle bas.gif");
                                                 Car.setIcon(Car1);
                                                 Car.setBounds((circuit.getIconWidth() * 27 / 100) - (circuit.getIconWidth() * 2 / 100) * player, (circuit.getIconHeight() * 80 / 1000) - (circuit.getIconHeight() * 3 / 100) * player, 
 																	(circuit.getIconWidth() * 3 / 100), (Car1.getIconHeight() * 50 / 100));
-                                                javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                                                javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                                                     int x = Car.getX();
                                                     int y = Car.getY();
                                                     boolean sound = true;
                                                     @Override
-// This method handles the logic for actionPerformed
+                                                    // This method handles the logic for actionPerformed
                                                     public void actionPerformed(ActionEvent e){
                                                         if(sound){
                                                             control.getsoundList().setFile(2);
                                                             control.getsoundList().play(2);
                                                             sound = false;
                                                         }
-                                                        // Mettre à jour les coordonnées
+                                                        // Refresh position
                                                         y += vitesse;
                                                         Car.setLocation(x, y);
                                                         if(y > (circuit.getIconHeight() * 14 / 100)){
-                                                            ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                                            ((javax.swing.Timer) e.getSource()).stop(); // stop the timer
                                                             control.getsoundList().stop(2);
                                                             moveForwadCar(distance, player, control);
                                                         }
@@ -1155,7 +1139,7 @@ public class WindowGame {
                                     	}, 700);
 									}
                                 }else if(distance < 400 && (Car.getX() <= (int)position.getX())){
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // stop the Timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle gauche.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1175,7 +1159,7 @@ public class WindowGame {
                     }
 				}, temps);
             }else if(Car.getIcon().toString().compareTo("Images/voiture " + color + " idle bas.gif") == 0){
-                // Car démarrage bas
+                // Car start down
                 int temps = 0;
                 if(turbo){
                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " démarrage bas.gif");
@@ -1185,28 +1169,28 @@ public class WindowGame {
                 java.util.Timer chrono = new java.util.Timer();
                 chrono.schedule(new TimerTask() {
                     @Override
-// This method handles the logic for run
+                    // This method handles the logic for run
                     public void run(){
                         ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " roule bas.gif");
                         Car.setIcon(Car1);
-                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                             int x = Car.getX();
                             int y = Car.getY();
                             boolean sound = true;
                             @Override
-// This method handles the logic for actionPerformed
+                            // This method handles the logic for actionPerformed
                             public void actionPerformed(ActionEvent e) {
                                 if(sound){
                                     control.getsoundList().setFile(2);
                                     control.getsoundList().play(2);
                                     sound = false;
                                 }
-                                // Mettre à jour les coordonnées
+                                // Refresh position
                                 y += vitesse;
                                 Car.setLocation(x, y);
                                     
                                 if(distance >= 550 && y > (circuit.getIconHeight() * 580 / 1000) + player * (circuit.getIconHeight() * 45 / 1000)) {
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle bas.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1219,7 +1203,7 @@ public class WindowGame {
                                         kilometersV3 = 550;
                                         turboV3 = false;
                                     }
-                                    if(distance >= 550){ // Tourne vers la droite
+                                    if(distance >= 550){ // Turn right
                                         Car1 = new ImageIcon("Images/voiture " + color + " tourne bas vers droite.gif");
                                         Car.setIcon(Car1);
                                         Car.setBounds((circuit.getIconWidth() * 22 / 100) - (circuit.getIconWidth() * 2 / 100) * player, (circuit.getIconHeight() * 530 / 1000) + (circuit.getIconHeight() * 4 / 100) * player, 
@@ -1227,30 +1211,30 @@ public class WindowGame {
                                         java.util.Timer chrono = new java.util.Timer();
 										chrono.schedule(new TimerTask() {
 											@Override
-// This method handles the logic for run
+                                            // This method handles the logic for run
 											public void run(){
-                                                ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                                ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                                 ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle droite.gif");
                                                 Car.setIcon(Car1);
                                                 Car.setBounds((circuit.getIconWidth() * 27 / 100) - (circuit.getIconWidth() * 3 / 100) * player, (circuit.getIconHeight() * 610 / 1000) + (circuit.getIconHeight() * 45 / 1000) * player, 
                                                                     (Car1.getIconWidth() * 50 / 100), (Car1.getIconHeight() * 20 / 100));
-                                                javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                                                javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                                                     int x = Car.getX();
                                                     int y = Car.getY();
                                                     boolean sound = true;
                                                     @Override
-// This method handles the logic for actionPerformed
+                                                    // This method handles the logic for actionPerformed
                                                     public void actionPerformed(ActionEvent e){
                                                         if(sound){
                                                             control.getsoundList().setFile(2);
                                                             control.getsoundList().play(2);
                                                             sound = false;
                                                         }
-                                                        // Mettre à jour les coordonnées
+                                                        // refresh position
                                                         x += vitesse;
                                                         Car.setLocation(x, y);
                                                         if(x > (circuit.getIconWidth() * 29 / 100)){
-                                                            ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                                            ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                                             control.getsoundList().stop(2);
                                                             moveForwadCar(distance, player, control);
                                                         }
@@ -1261,7 +1245,7 @@ public class WindowGame {
 										}, 700);
 									}
                                 }else if(distance < 550 && (Car.getY() > (int)position.getY())) {
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle bas.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1282,7 +1266,7 @@ public class WindowGame {
                     }
 				}, temps); 
             }else if(Car.getIcon().toString().compareTo("Images/voiture " + color + " idle droite.gif") == 0){
-                // Car démarrage droit
+                // Car start right
                 int temps = 0;
                 if(turbo){
                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " démarrage droite.gif");
@@ -1292,27 +1276,27 @@ public class WindowGame {
 				java.util.Timer chrono = new java.util.Timer();
                 chrono.schedule(new TimerTask() {
                     @Override
-// This method handles the logic for run
+                    // This method handles the logic for run
                     public void run(){
                         ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " roule droite.gif");
                         Car.setIcon(Car1);
-                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Mise à jour toutes les 10 ms
+                        javax.swing.Timer timer = new javax.swing.Timer(10, new ActionListener() { // Refresh every 10 ms
                             int x = Car.getX();
                             int y = Car.getY();
                             boolean sound = true;
                             @Override
-// This method handles the logic for actionPerformed
+                            // This method handles the logic for actionPerformed
                             public void actionPerformed(ActionEvent e){
                                 if(sound){
                                     control.getsoundList().setFile(2);
                                     control.getsoundList().play(2);
                                     sound = false;
                                 }
-                                // Mettre à jour les coordonnées
+                                // Refresh position
                                 x += vitesse;
                                 Car.setLocation(x, y);
                                 if(Car.getX()  > (int)position.getX()){
-                                    ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
+                                    ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
                                     ImageIcon Car1 = new ImageIcon("Images/voiture " + color + " idle droite.gif");
                                     Car.setIcon(Car1);
                                     if(player == 0){
@@ -1332,7 +1316,6 @@ public class WindowGame {
                     }
 				}, temps); 
             }
-            //control.getsoundList().stop();
         }
         newDistance = 0;
     }
