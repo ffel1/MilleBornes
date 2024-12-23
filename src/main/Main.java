@@ -1,7 +1,7 @@
 package main;
 
 // This class represents Hand
-public class main {
+public class Main {
     
 // This method handles the logic for Hand
     public static void main(String[] args){

@@ -81,10 +81,7 @@ Implémentation de l’Display des bottes et attaques pour que le player ait un 
 
 Semaine 20/12 :
 
-<<<<<<< HEAD
 Implémentation du comptage des pts pour chaque player dans la classe Game et implémentation des coups fourrés dans la classe player.
-=======
-Implémentation du comptage des points pour chaque joueur dans la classe Partie et implémentation des coups fourrés dans la classe Joueur.
 
 
 Enzo :
@@ -116,4 +113,3 @@ J'ai continué à améliorer les déplacements des voitures en ajoutant un GIF d
 - J'ai enrichi le système sonore avec un bouton permettant d'activer ou de couper les sons.  
 - J'ai continué à fluidifier les déplacements des voitures, car elles se "téléportaient" dans les virages.  
 - Enfin, j'ai ajouté des tests sur le comportement des cartes jouées par les CPU, en tenant compte de leur main et de leur stratégie (rapide ou agressive). J'ai également intégré des timers entre chaque tour des CPU pour ralentir le rythme du jeu, ce qui permet aux joueurs de mieux suivre les actions et de réagir avec des "coups fourrés". 
->>>>>>> 34ea567f1cdb9a7860f82dc8046d7624ce02d440
