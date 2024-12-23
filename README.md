@@ -133,19 +133,19 @@ Semaine du 25/11 :
 - J'ai implémenté la sauvegarde automatique et le chargement de la sauvegarde automatique 
 - J'ai donc supprimer les boutons sauvegarder dans la fenetre du jeu et charger la sauvegarde dans le menu principal
 - J'ai implémenté le plein écran dans tout le jeu avec quelques difficultés, ça m'a valu de devoir supprimer le pop-up demandant si on veut vraiment revenir au menu principal pour ne pas avoir de problème d'affichage
-- En parralelle, j'ameliorais les autres methodes du jeu quand je voyais qu'une amelioration etait possible, je l'ai fait tout au long du projet
+- En parallèle, j'ameliorais les autres methodes du jeu quand je voyais qu'une amelioration etait possible, je l'ai fait tout au long du projet
 
 Semaine du 02/12 :
 - J'ai implémenté la methode choisirCarte() pour les CPU qui permet de choisir automatiquement la carte à jouer selon le profil du CPU
 
 Semaine du 09/12 :
-- J'ai ajouter à la methode jouerDistance(Carte c) différent return expliquant clairement pourquoi on ne peut pas jouer une carte de distance
-- J'ai par le suite changer un message dans Controler pour que mes return s'affichent
+- J'ai ajouté à la methode jouerDistance(Carte c) différent return expliquant clairement pourquoi on ne peut pas jouer une carte de distance
+- J'ai par la suite changer un message dans Controler pour que mes return s'affichent
 
 Semaine du 16/12 :
 - J'ai ajouté un bouton "Historique" à l'écran principal pour permettre de revoir les actions des manches précédentes
 
 
 Semaine du 23/12 :
-- J'ai continuer à travailler sur l'historique, on peut desormais voir les parties précédentes.
+- J'ai continué à travailler sur l'historique, on peut desormais voir les parties précédentes.
 - J'ai mis un bouton permettant de revenir au menu principal depuis l'historique
