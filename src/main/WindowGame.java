@@ -180,7 +180,7 @@ public class WindowGame {
         winetre.setUndecorated(true); // Supprime les bordures et la barre de titre
         screen.setFullScreenWindow(winetre); // Passe la winêtre en mode plein écran
     }
-
+    
     /**
      * Permet de connecter une action au Button "play"
      * @param action L'action à exécuter lors du clic sur le Button
@@ -587,6 +587,8 @@ public class WindowGame {
         for (File file : files) {
             file.delete();
         }
+        File fileSaves = new File("save.ser");
+        fileSaves.delete();
 
         createWindowSaves();
     }
@@ -915,7 +917,6 @@ public class WindowGame {
         kilometersV1 = 0;
         kilometersV2 = 0;
         kilometersV3 = 0;
-        printCars(circuit);
     }
 
     /*

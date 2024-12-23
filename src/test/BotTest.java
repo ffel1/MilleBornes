@@ -19,18 +19,12 @@ public class BotTest {
     private Distance _200KM;
     private Attack cardAccident;
     private Attack cardFLAT_TIRE;
-    private Attack cardPanne;
-    private Attack cardFeuRouge;
-    private Attack cardLimitation;
     private Safety cardGreenLight;
-    private Safety cardREPAIR;
-    private Safety cardFUEL;
     private Safety cardSpareWheel;
     private Safety cardEndLimitation;
     private Boot asDuVolant;
     private Boot camionCiterne;
     private Boot punctureProof;
-    private Boot vehiculePrioritaire;
     private CPUFast botFast;
     private CPUAgro botAgro;
     private CPUFast botTestFast;
@@ -55,23 +49,17 @@ public class BotTest {
 
         // Initialize safety cards
         cardGreenLight = new Safety(TypeCard.GREEN_LIGHT);
-        cardREPAIR = new Safety(TypeCard.REPAIR);
-        cardFUEL = new Safety(TypeCard.FUEL);
         cardSpareWheel = new Safety(TypeCard.SPARE_WHEEL);
         cardEndLimitation = new Safety(TypeCard.END_SPEED_LIMITATION);
 
         // Initialize attack cards
         cardAccident = new Attack(TypeCard.ACCIDENT);
         cardFLAT_TIRE = new Attack(TypeCard.FLAT_TIRE);
-        cardPanne = new Attack(TypeCard.OUT_OF_FUEL);
-        cardFeuRouge = new Attack(TypeCard.RED_LIGHT);
-        cardLimitation = new Attack(TypeCard.SPEED_LIMITATION);
 
         // Initialize boot cards
         asDuVolant = new Boot(TypeCard.EXPERT_DRIVER);
         camionCiterne = new Boot(TypeCard.TANK_TRUCK);
         punctureProof = new Boot(TypeCard.PUNCTURE_PROOF);
-        vehiculePrioritaire = new Boot(TypeCard.PRIORITY_VEHICLE);
 
         // Get bot instances from the game
         botFast = (CPUFast)game.getPlayer3();
