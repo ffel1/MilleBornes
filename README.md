@@ -116,3 +116,36 @@ J'ai continué à améliorer les déplacements des voitures en ajoutant un GIF d
 
 Semaine du 23/12 :
 Le jeu étant globalement fonctionnel, j'ai ajouté des commentaires détaillés en anglais dans l'ensemble du code du projet. Cela vise à faciliter l'internationalisation, en particulier pour les classes et les méthodes. J'ai également amélioré le système de gestion du son. 
+
+Max :
+
+Semaine du 11/11 :
+- J'ai implémenté les méthodes des différentes classes cartes (Attaque, Botte, Distance, Parade).
+- J'ai implémenté la methode initialiserPioche() qui permet de créer un deck de cartes mélangées
+- J'ai ajouté les méthodes taillePioche(), getPioche(), mainPleine() et la premiere version de piocher()
+- J'ai ajouté la méthode toString() pour TypeCard
+
+Semaine du 18/11 :
+- J'ai ajouté un bouton "Menu principal" dans la fenêtre de jeu pour permettre de revenir au menu principal
+- Je suis repasser derrière enzo et j'ai allégé la méthode permettant d'afficher les cartes du joueur 
+
+Semaine du 25/11 : 
+- J'ai implémenté la sauvegarde automatique et le chargement de la sauvegarde automatique 
+- J'ai donc supprimer les boutons sauvegarder dans la fenetre du jeu et charger la sauvegarde dans le menu principal
+- J'ai implémenté le plein écran dans tout le jeu avec quelques difficultés, ça m'a valu de devoir supprimer le pop-up demandant si on veut vraiment revenir au menu principal pour ne pas avoir de problème d'affichage
+- En parralelle, j'ameliorais les autres methodes du jeu quand je voyais qu'une amelioration etait possible, je l'ai fait tout au long du projet
+
+Semaine du 02/12 :
+- J'ai implémenté la methode choisirCarte() pour les CPU qui permet de choisir automatiquement la carte à jouer selon le profil du CPU
+
+Semaine du 09/12 :
+- J'ai ajouter à la methode jouerDistance(Carte c) différent return expliquant clairement pourquoi on ne peut pas jouer une carte de distance
+- J'ai par le suite changer un message dans Controler pour que mes return s'affichent
+
+Semaine du 16/12 :
+- J'ai ajouté un bouton "Historique" à l'écran principal pour permettre de revoir les actions des manches précédentes
+
+
+Semaine du 23/12 :
+- J'ai continuer à travailler sur l'historique, on peut desormais voir les parties précédentes.
+- J'ai mis un bouton permettant de revenir au menu principal depuis l'historique
