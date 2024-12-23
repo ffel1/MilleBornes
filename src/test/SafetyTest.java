@@ -6,124 +6,144 @@ import org.junit.jupiter.api.Test;
 
 import main.*;
 
-/*
- * Tests sur les cards parades.
+/**
+ * Unit test class for "Safety" type cards in the game.
+ * Each test verifies the basic properties of the cards and their behavior when played.
  */
-public class SafetyTest{
+public class SafetyTest {
 
-    private Safety cardgreenLight;
-    private Safety cardREPAIR;
-    private Safety cardFUEL;
-    private Safety cardRoueDeSecours;
-    private Safety cardEndDeLimitation;
+    private Safety cardGreenLight;
+    private Safety cardRepair;
+    private Safety cardFuel;
+    private Safety cardSpareWheel;
+    private Safety cardEndSpeedLimitation;
     private Attack cardAccident;
-    private Attack cardFLAT_TIRE;
-    private Attack cardPanne;
-    private Attack cardFeuRouge;
-    private Attack cardLimitation;
+    private Attack cardFlatTire;
+    private Attack cardOutOfFuel;
+    private Attack cardRedLight;
+    private Attack cardSpeedLimitation;
     private User source;
     private User target;
 
+    /**
+     * Initializes objects before each test.
+     * Creates safety and attack cards, and user instances.
+     */
     @BeforeEach
-    public void init(){
-        cardgreenLight = new Safety(TypeCard.GREEN_LIGHT);
-        cardREPAIR = new Safety(TypeCard.REPAIR);
-        cardFUEL = new Safety(TypeCard.FUEL);
-        cardRoueDeSecours = new Safety(TypeCard.SPARE_WHEEL);
-        cardEndDeLimitation = new Safety(TypeCard.END_SPEED_LIMITATION);
+    public void init() {
+        cardGreenLight = new Safety(TypeCard.GREEN_LIGHT);
+        cardRepair = new Safety(TypeCard.REPAIR);
+        cardFuel = new Safety(TypeCard.FUEL);
+        cardSpareWheel = new Safety(TypeCard.SPARE_WHEEL);
+        cardEndSpeedLimitation = new Safety(TypeCard.END_SPEED_LIMITATION);
         source = new User("Source", 0, 0, null);
-        target = new User("target", 0, 0, null);
+        target = new User("Target", 0, 0, null);
         cardAccident = new Attack(TypeCard.ACCIDENT);
-        cardFLAT_TIRE = new Attack(TypeCard.FLAT_TIRE);
-        cardPanne = new Attack(TypeCard.OUT_OF_FUEL);
-        cardFeuRouge = new Attack(TypeCard.RED_LIGHT);
-        cardLimitation = new Attack(TypeCard.SPEED_LIMITATION);
+        cardFlatTire = new Attack(TypeCard.FLAT_TIRE);
+        cardOutOfFuel = new Attack(TypeCard.OUT_OF_FUEL);
+        cardRedLight = new Attack(TypeCard.RED_LIGHT);
+        cardSpeedLimitation = new Attack(TypeCard.SPEED_LIMITATION);
     }
 
+    /**
+     * Tests the properties and behavior of the "Green Light" safety card.
+     */
     @Test
-    public void testgreenLight(){
-        // Test de la card
-        assertEquals("GREEN_LIGHT", cardgreenLight.getName());
-        assertEquals(TypeCard.GREEN_LIGHT, cardgreenLight.getType());
-        assertEquals(0, cardgreenLight.getKilometers());
-        assertNotNull(cardgreenLight.getImage());
+    public void testGreenLight() {
+        // Verify card properties
+        assertEquals("Feu vert", cardGreenLight.getName());
+        assertEquals(TypeCard.GREEN_LIGHT, cardGreenLight.getType());
+        assertEquals(0, cardGreenLight.getKilometers());
+        assertNotNull(cardGreenLight.getImage());
 
-        // Test utilisation de la card
-        source.addCard(cardFeuRouge);
-        target.setGreenLight(true); // Car on commence avec un feu rouge
-        target.addCard(cardgreenLight);
-        source.playAttack(cardFeuRouge, target);
-        target.playSafety(cardgreenLight);
-        assertEquals(target.getHand().size(), 0);
-        assertEquals(target.getCurrentAttacks().size(), 0);
-        assertEquals(target.getgreenLight(), true);
+        // Verify card usage
+        source.addCard(cardRedLight);
+        target.setGreenLight(false); // Start with a red light
+        target.addCard(cardGreenLight);
+        source.playAttack(cardRedLight, target);
+        target.playSafety(cardGreenLight);
+        assertEquals(target.getHand().size(), 0); // Card played, hand size reduced
+        assertEquals(target.getCurrentAttacks().size(), 1); // A red light
+        assertTrue(target.getgreenLight()); // Green light is set
     }
 
+    /**
+     * Tests the properties and behavior of the "Repair" safety card.
+     */
     @Test
-    public void testREPAIR(){
-        // Test de la card
-        assertEquals("REPAIR", cardREPAIR.getName());
-        assertEquals(TypeCard.REPAIR, cardREPAIR.getType());
-        assertEquals(0, cardREPAIR.getKilometers());
-        assertNotNull(cardREPAIR.getImage());
+    public void testRepair() {
+        // Verify card properties
+        assertEquals("Réparation", cardRepair.getName());
+        assertEquals(TypeCard.REPAIR, cardRepair.getType());
+        assertEquals(0, cardRepair.getKilometers());
+        assertNotNull(cardRepair.getImage());
 
-        // Test utilisation de la card
+        // Verify card usage
         source.addCard(cardAccident);
-        target.addCard(cardREPAIR);
+        target.addCard(cardRepair);
         source.playAttack(cardAccident, target);
-        target.playSafety(cardREPAIR);
-        assertEquals(target.getHand().size(), 0);
-        assertEquals(target.getCurrentAttacks().size(), 0);
+        target.playSafety(cardRepair);
+        assertEquals(target.getHand().size(), 0); // Card played, hand size reduced
+        assertEquals(target.getCurrentAttacks().size(), 0); // No active attacks left
     }
 
+    /**
+     * Tests the properties and behavior of the "Fuel" safety card.
+     */
     @Test
-    public void testFUEL(){
-        // Test de la card
-        assertEquals("FUEL", cardFUEL.getName());
-        assertEquals(TypeCard.FUEL, cardFUEL.getType());
-        assertEquals(0, cardFUEL.getKilometers());
-        assertNotNull(cardFUEL.getImage());
+    public void testFuel() {
+        // Verify card properties
+        assertEquals("Essence", cardFuel.getName());
+        assertEquals(TypeCard.FUEL, cardFuel.getType());
+        assertEquals(0, cardFuel.getKilometers());
+        assertNotNull(cardFuel.getImage());
 
-        // Test utilisation de la card
-        source.addCard(cardPanne);
-        target.addCard(cardFUEL);
-        source.playAttack(cardPanne, target);
-        target.playSafety(cardFUEL);
-        assertEquals(target.getHand().size(), 0);
-        assertEquals(target.getCurrentAttacks().size(), 0);
+        // Verify card usage
+        source.addCard(cardOutOfFuel);
+        target.addCard(cardFuel);
+        source.playAttack(cardOutOfFuel, target);
+        target.playSafety(cardFuel);
+        assertEquals(target.getHand().size(), 0); // Card played, hand size reduced
+        assertEquals(target.getCurrentAttacks().size(), 0); // No active attacks left
     }
 
+    /**
+     * Tests the properties and behavior of the "Spare Wheel" safety card.
+     */
     @Test
-    public void testRoueDeSecours(){
-        // Test de la card
-        assertEquals("SPARE_WHEEL", cardRoueDeSecours.getName());
-        assertEquals(TypeCard.SPARE_WHEEL, cardRoueDeSecours.getType());
-        assertEquals(0, cardRoueDeSecours.getKilometers());
-        assertNotNull(cardRoueDeSecours.getImage());
+    public void testSpareWheel() {
+        // Verify card properties
+        assertEquals("Roue de secours", cardSpareWheel.getName());
+        assertEquals(TypeCard.SPARE_WHEEL, cardSpareWheel.getType());
+        assertEquals(0, cardSpareWheel.getKilometers());
+        assertNotNull(cardSpareWheel.getImage());
 
-        // Test utilisation de la card
-        source.addCard(cardFLAT_TIRE);
-        target.addCard(cardRoueDeSecours);
-        source.playAttack(cardFLAT_TIRE, target);
-        target.playSafety(cardRoueDeSecours);
-        assertEquals(target.getHand().size(), 0);
-        assertEquals(target.getCurrentAttacks().size(), 0);
+        // Verify card usage
+        source.addCard(cardFlatTire);
+        target.addCard(cardSpareWheel);
+        source.playAttack(cardFlatTire, target);
+        target.playSafety(cardSpareWheel);
+        assertEquals(target.getHand().size(), 0); // Card played, hand size reduced
+        assertEquals(target.getCurrentAttacks().size(), 0); // No active attacks left
     }
 
+    /**
+     * Tests the properties and behavior of the "End Speed Limitation" safety card.
+     */
     @Test
-    public void testEndDeLimitation(){
-        // Test de la card
-        assertEquals("END_SPEED_LIMITATION", cardEndDeLimitation.getName());
-        assertEquals(TypeCard.END_SPEED_LIMITATION, cardEndDeLimitation.getType());
-        assertEquals(0, cardEndDeLimitation.getKilometers());
-        assertNotNull(cardEndDeLimitation.getImage());
+    public void testEndSpeedLimitation() {
+        // Verify card properties
+        assertEquals("Fin de limitation de vitesse", cardEndSpeedLimitation.getName());
+        assertEquals(TypeCard.END_SPEED_LIMITATION, cardEndSpeedLimitation.getType());
+        assertEquals(0, cardEndSpeedLimitation.getKilometers());
+        assertNotNull(cardEndSpeedLimitation.getImage());
 
-        // Test utilisation de la card
-        source.addCard(cardLimitation);
-        target.addCard(cardEndDeLimitation);
-        source.playAttack(cardLimitation, target);
-        target.playSafety(cardEndDeLimitation);
-        assertEquals(target.getHand().size(), 0);
-        assertEquals(target.getCurrentAttacks().size(), 0);
+        // Verify card usage
+        source.addCard(cardSpeedLimitation);
+        target.addCard(cardEndSpeedLimitation);
+        source.playAttack(cardSpeedLimitation, target);
+        target.playSafety(cardEndSpeedLimitation);
+        assertEquals(target.getHand().size(), 0); // Card played, hand size reduced
+        assertEquals(target.getCurrentAttacks().size(), 0); // No active attacks left
     }
 }
