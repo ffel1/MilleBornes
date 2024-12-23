@@ -765,7 +765,7 @@ public class FenetreJeu {
 
     private void afficherVoitures(ImageIcon circuit){
         // Voiture 1
-        ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.gif");
+        ImageIcon voiture1 = new ImageIcon("Images/voiture rouge idle haut.png");
         boutonVoiture1 = new JButton("", voiture1);
         boutonVoiture1.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture1.setFocusPainted(false);
@@ -776,7 +776,7 @@ public class FenetreJeu {
         panelJeu.add(boutonVoiture1, Integer.valueOf(2));
 
         // Voiture 2
-        ImageIcon voiture2 = new ImageIcon("Images/voiture bleue idle haut.gif");
+        ImageIcon voiture2 = new ImageIcon("Images/voiture bleue idle haut.png");
         boutonVoiture2 = new JButton("", voiture2);
         boutonVoiture2.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture2.setFocusPainted(false);
@@ -787,7 +787,7 @@ public class FenetreJeu {
         panelJeu.add(boutonVoiture2, Integer.valueOf(2));
 
         // Voiture 3
-        ImageIcon voiture3 = new ImageIcon("Images/voiture verte idle haut.gif");
+        ImageIcon voiture3 = new ImageIcon("Images/voiture verte idle haut.png");
         boutonVoiture3 = new JButton("", voiture3);
         boutonVoiture3.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture3.setFocusPainted(false);
