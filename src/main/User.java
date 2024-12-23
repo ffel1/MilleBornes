@@ -224,7 +224,7 @@ public class User extends Player {
         if (c instanceof Attack) {
             Controler.getVue().addMessage("Vous avez attaqué le CPU " + getTarget(c).getName() + " avec " + c.getName() + "! \n", true);
         } else {
-            Controler.getVue().addMessage("Vous avez joué la carte  c.getName()\n", true); 
+            Controler.getVue().addMessage("Vous avez joué la carte " +  c.getName() + "\n !", true); 
         }
         getHand().remove(c);
         Controler.getVue().deleteCardsPlayers();
