@@ -5,33 +5,47 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 import java.io.File;
 
 public class Son{
     
     private Clip clip;
     private File sonURL[] = new File[30];
+    private Clip clipList[] = new Clip[30];
     private boolean sonON = true;
+    private FloatControl fc;
 
     public Son(){ // Ajouter d'autre son ici
-        sonURL[0] = new File("son/Foule.wav");
+        sonURL[0] = new File("son/Fond.wav"); // 0 = son principal
         sonURL[1] = new File("son/Klaxon.wav");
         sonURL[2] = new File("son/VoitureAvance.wav");
+        sonURL[3] = new File("son/Foule.wav");
+    }
+
+    public void setSonON(boolean b){
+        sonON = b;
+    }
+
+    public boolean getSonON(){
+        return sonON;
     }
 
     public void setFile(int i){
         try{
             AudioInputStream ais = AudioSystem.getAudioInputStream(sonURL[i]);
-            clip = AudioSystem.getClip();
-            clip.open(ais);  
+            clipList[i] = AudioSystem.getClip();
+            clipList[i].open(ais);  
+            fc = (FloatControl) clipList[i].getControl(FloatControl.Type.MASTER_GAIN);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public void play(){
+    public void play(int i){
         if(sonON){
-            clip.start();
+            clipList[i].start();
         }
     }
 
@@ -39,13 +53,17 @@ public class Son{
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void stop(){
-        clip.stop();
-        if(sonON){
-            sonON = false;
-        }else{
-            sonON = true;
-            play();
-        }   
+    public void stop(int i){
+        if(clipList[i] != null){
+            fc.setValue(0);
+            clipList[i].stop();
+            if(sonON){
+                sonON = false;
+            }else{
+                sonON = true;
+                play(0);
+            }  
+        }
+         
     }
 }
