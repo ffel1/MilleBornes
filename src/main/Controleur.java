@@ -75,6 +75,7 @@ public class Controleur
             partieChargée = true;
         }
 
+        
         String nomDeLaPartie = modele.getNomDeLaPartie();
         vue.setNomDeLaPartie(nomDeLaPartie);
         if(partieChargée)
@@ -84,6 +85,9 @@ public class Controleur
 
         vue.mettreAJourAttaques(modele);
         vue.mettreAJourBottes(modele);
+        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, getControleur());
+        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
+        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, getControleur());
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {

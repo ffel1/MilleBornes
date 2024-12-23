@@ -611,7 +611,7 @@ public class FenetreJeu {
         panneauBottesCPUAgro = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panneauBottesCPUAgro.setOpaque(false);
         panneauGlobalCPUAgro.add(panneauBottesCPUAgro, BorderLayout.CENTER);
-        panneauGlobalCPUAgro.setBounds(largeur * 8585 /10000 , hauteur * 2795 /1000, largeur * 20/100, hauteur * 20/100);
+        panneauGlobalCPUAgro.setBounds(largeur * 8585 /10000 , hauteur * 2795 /10000, largeur * 20/100, hauteur * 20/100);
         panelJeu.add(panneauGlobalCPUAgro, Integer.valueOf(3));
 
     }
@@ -620,6 +620,7 @@ public class FenetreJeu {
     
     public void mettreAJourAttaques(Partie partie) {
         // Effacer les anciennes cartes des panneaux
+
         panneauAttaquesJoueur.removeAll();
         panneauAttaquesCPUFast.removeAll();
         panneauAttaquesCPUAgro.removeAll();
