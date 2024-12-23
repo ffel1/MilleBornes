@@ -67,7 +67,7 @@ public class Controler {
         vue.createWindowMenu(); // Create the main menu window
 
         // Set up action listener for "Play" button
-        vue.addActionbuttonPlay(e -> {
+        vue.addActionButtonPlay(e -> {
             playMainMusic(0); // Play main music
             vue.getWindow().getContentPane().removeAll(); // Clear the window content
             vue.getWindow().repaint();
@@ -138,7 +138,7 @@ public class Controler {
 
 
         // Set up action listener for "Main Menu" button
-        vue.addActionreturnButton(e -> {
+        vue.addActionReturnButton(e -> {
             if (soundList.getSoundON()) {
                 stopMusic(); // Stop the music if it's playing
             }
@@ -156,13 +156,13 @@ public class Controler {
         });
 
         // Set up action listener for "New Game" button
-        vue.addActionbuttonNewGame(e -> {
+        vue.addActionButtonNewGame(e -> {
             vue.addMessage("Vous avez mis fin à la round " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
             newRound(true, true); // Start a new round
         });
 
         // Set up action listener for "Discard" button
-        vue.addActionbuttonDiscard(e -> {
+        vue.addActionButtonDiscard(e -> {
             // Various conditions check if the player can discard a card
             if (!modele.getPlayer1().getmyTurn()) {
                 vue.addMessage("Ce n'est pas votre tour ! \n", false);
@@ -176,14 +176,14 @@ public class Controler {
                 vue.addMessage("Vous avez déjà joué une carte, vous ne pouvez plus défausser ! \n", false);
             } else if (!modele.getPlayer1().HandFull()) {
                 vue.addMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n", false);
-            } else if (!modele.getPlayer1().getdiscard()) {
+            } else if (!modele.getPlayer1().getDiscard()) {
                 vue.addMessage("Cliquez sur la card que vous voulez défausser ! \nCliquez à nouveau sur la pioche pour annuler \n", false);
                 modele.getPlayer1().setdiscard(true); // Enable discard mode
-                vue.getdiscard().setText("Annuler"); // Update discard button text
+                vue.getDiscard().setText("Annuler"); // Update discard button text
             } else {
                 vue.addMessage("Vous avez change d'avis \n", false);
                 modele.getPlayer1().setdiscard(false); // Disable discard mode
-                vue.getdiscard().setText(""); // Reset discard button text
+                vue.getDiscard().setText(""); // Reset discard button text
             }
         });
 
@@ -194,7 +194,7 @@ public class Controler {
                 vue.addMessage("Ce n'est pas votre tour ! \n", false);
             }
             // Check if the player is in the middle of discarding cards
-            else if (modele.getPlayer1().getdiscard()) {
+            else if (modele.getPlayer1().getDiscard()) {
                 vue.addMessage("Vous êtes en train de défausser, impossible de finir votre tour ! \n", false);
             }
             // Check if the player needs to draw a card after playing a boot
@@ -376,7 +376,7 @@ public class Controler {
                 }
                 // Reset the attacking card and update the player's hand
                 modele.getPlayer1().getIsAttackingWith().setImageBack();
-                vue.effacerCardsPlayers();
+                vue.deleteCardsPlayers();
                 vue.printCardsPlayer(modele.getPlayer1().getHand());
                 initButtonCards(modele.getPlayer1().getHand());
                 // End the attacking state
@@ -418,7 +418,7 @@ public class Controler {
                 }
                 // Reset the attacking card and update the player's hand
                 modele.getPlayer1().getIsAttackingWith().setImageBack();
-                vue.effacerCardsPlayers();
+                vue.deleteCardsPlayers();
                 vue.printCardsPlayer(modele.getPlayer1().getHand());
                 initButtonCards(modele.getPlayer1().getHand());
                 // End the attacking state
@@ -440,7 +440,7 @@ public class Controler {
         });
 
         //Button draw 
-        vue.addActionbuttonDraw(e -> {
+        vue.addActionButtonDraw(e -> {
             // Check if the player must draw a card
             if(modele.getPlayer1().getMustDraw()) {
                 modele.getPlayer1().setmustDraw(false); // Mark that the player no longer needs to draw
@@ -486,7 +486,7 @@ public class Controler {
         }); 
 
         // Button to toggle sound on and off
-        vue.addActionsoundButton(e -> {
+        vue.addActionSoundButton(e -> {
             if(secondarySoundList.getSoundON()){
                 secondarySoundList.setSoundON(false); // Turn off the sound
             } else {
@@ -621,7 +621,7 @@ public class Controler {
                         else if (modele.getPlayer1().getIsAttacking() && modele.getPlayer1().getHand().get(j) == modele.getPlayer1().getIsAttackingWith()) {
                             vue.addMessage("Vous avez changé d'avis \n", false);
                             modele.getPlayer1().getIsAttackingWith().setImageBack();
-                            vue.effacerCardsPlayers();
+                            vue.deleteCardsPlayers();
                             vue.printCardsPlayer(Hand);
                             initButtonCards(Hand);
                             modele.getPlayer1().setIsAttacking(false);
@@ -645,10 +645,10 @@ public class Controler {
                             vue.addMessage("Vous avez déjà joué lors de votre tour \n", false);
                         }
                         // If the player is discarding a card.
-                        else if (modele.getPlayer1().getdiscard()) {
+                        else if (modele.getPlayer1().getDiscard()) {
                             vue.addMessage(modele.getPlayer1().discard(modele.getPlayer1().getHand().get(j), getControler()), true);
                             modele.getPlayer1().setHasDiscard(true);
-                            vue.getdiscard().setText("");
+                            vue.getDiscard().setText("");
                             modele.getPlayer1().setdiscard(false);
                         }
                         else {
@@ -664,7 +664,7 @@ public class Controler {
                                 modele.getPlayer1().setIsAttacking(true);
                                 modele.getPlayer1().setIsAttackingWith(modele.getPlayer1().getHand().get(j));
                                 modele.getPlayer1().getHand().get(j).setImageIcon(null);
-                                vue.effacerCardsPlayers();
+                                vue.deleteCardsPlayers();
                                 vue.printCardsPlayer(Hand);
                                 initButtonCards(modele.getPlayer1().getHand());
                             }
@@ -722,7 +722,7 @@ public class Controler {
         modele.getPlayer1().myTurn(false);
 
         // Clear and refresh the game window
-        vue.getdiscard().setText("");
+        vue.getDiscard().setText("");
         vue.getWindow().getContentPane().removeAll();
         vue.getWindow().repaint();
         vue.getWindow().revalidate();
@@ -911,7 +911,7 @@ public class Controler {
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
             modele = (Game)ois.readObject();
             modele.getPlayer1().setdiscard(false);
-            vue.getdiscard().setText("");
+            vue.getDiscard().setText("");
             modele.getPlayer1().setIsAttacking(false);
             System.out.println(modele.getdraw().size());
             if (modele != null && modele.getPlayer1() != null){
@@ -972,7 +972,7 @@ public class Controler {
      */
     @SuppressWarnings("unused")
     public void initSoundButton(){
-        vue.addActionsoundButton(e -> {
+        vue.addActionSoundButton(e -> {
             if(secondarySoundList.getSoundON()){
                 secondarySoundList.setSoundON(false);
             }else{

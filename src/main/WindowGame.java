@@ -155,7 +155,7 @@ public class WindowGame {
         width  = (int)dimension.getWidth();
         windowMenu.setSize(width, height); 
 
-        activerFullcran(windowMenu);
+        enableFullScreen(windowMenu);
     } 
 
 // This method handles the logic for getWindow
@@ -163,19 +163,19 @@ public class WindowGame {
         return windowMenu;
     }
 
-// This method handles the logic for getdiscard
-    public JButton getdiscard()
+// This method handles the logic for getDiscard
+    public JButton getDiscard()
     {
         return buttonDiscard;
     }
 
-// This method handles the logic for getbuttonHandPlayer
-    public ArrayList<JButton> getbuttonHandPlayer(){
+// This method handles the logic for getButtonHandPlayer
+    public ArrayList<JButton> getButtonHandPlayer(){
         return buttonHandPlayer;
     }
 
 // Private or protected member
-    private void activerFullcran(JFrame winetre) {
+    private void enableFullScreen(JFrame winetre) {
         winetre.dispose(); // Nécessaire pour certaines modifications de winêtre
         winetre.setUndecorated(true); // Supprime les bordures et la barre de titre
         screen.setFullScreenWindow(winetre); // Passe la winêtre en mode plein écran
@@ -185,8 +185,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "play"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionbuttonPlay
-    public void addActionbuttonPlay(ActionListener action){
+// This method handles the logic for addActionButtonPlay
+    public void addActionButtonPlay(ActionListener action){
         buttonPlay.addActionListener(action);
     }
 
@@ -212,8 +212,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "Retour menu"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionreturnButton
-    public void addActionreturnButton(ActionListener action){
+// This method handles the logic for addActionReturnButton
+    public void addActionReturnButton(ActionListener action){
         returnButton.addActionListener(action);
     }
 
@@ -221,8 +221,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "Nouvelle Game"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionbuttonNewGame
-    public void addActionbuttonNewGame(ActionListener action){
+// This method handles the logic for addActionButtonNewGame
+    public void addActionButtonNewGame(ActionListener action){
         buttonNewGame.addActionListener(action);
     }
 
@@ -239,8 +239,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "draw"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionbuttonDraw
-    public void addActionbuttonDraw(ActionListener action){
+// This method handles the logic for addActionButtonDraw
+    public void addActionButtonDraw(ActionListener action){
         buttonDraw.addActionListener(action);
     }
 
@@ -248,8 +248,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "Défausse"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionbuttonDiscard
-    public void addActionbuttonDiscard(ActionListener action){
+// This method handles the logic for addActionButtonDiscard
+    public void addActionButtonDiscard(ActionListener action){
         buttonDiscard.addActionListener(action);
     }
 
@@ -285,8 +285,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "Sound"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionsoundButton
-    public void addActionsoundButton(ActionListener action){
+// This method handles the logic for addActionSoundButton
+    public void addActionSoundButton(ActionListener action){
         soundButton.addActionListener(action);
     }
 
@@ -365,7 +365,7 @@ public class WindowGame {
         gamePanel.add(labelCircuit, Integer.valueOf(1));
 
         // Eléments
-        PrintTextArea();
+        printTextArea();
         printCars(circuit);
 
         // Button Menu principal
@@ -506,7 +506,7 @@ public class WindowGame {
 
         JButton ButtonDelete = new JButton("Supprimer historique");
         ButtonDelete.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); 
-        ButtonDelete.addActionListener(e -> DeleteHistorique());
+        ButtonDelete.addActionListener(e -> deleteHistory());
         grid.gridx = 0;
         grid.gridy = i; 
         grid.insets = new Insets(20, 0, 10, 0); 
@@ -581,13 +581,15 @@ public class WindowGame {
     }
 
 // Private or protected member
-    private void DeleteHistorique() {
+    private void deleteHistory() {
         File directory = new File("SauvegardeDesHistoriques");
         File[] files = directory.listFiles();
         for (File file : files) {
             file.delete();
         }
-
+        File fileSaves = new File("save.ser");
+        fileSaves.delete();
+        
         createWindowSaves();
     }
     
@@ -625,8 +627,8 @@ public class WindowGame {
         }
     }
 
-// This method handles the logic for effacerCardsPlayers
-    public void effacerCardsPlayers(){
+// This method handles the logic for deleteCardsPlayers
+    public void deleteCardsPlayers(){
         // Efface toutes les cards
         for(int j = 0; j < buttonHandPlayer.size(); j++){
             buttonHandPlayer.get(j).setIcon(null);
@@ -795,14 +797,14 @@ public class WindowGame {
     
 
 
-// This method handles the logic for getbuttonHandsPlayers
-    public ArrayList<JButton> getbuttonHandsPlayers()
+// This method handles the logic for getButtonHandsPlayers
+    public ArrayList<JButton> getButtonHandsPlayers()
     {
         return buttonHandPlayer;
     }
 
 // Private or protected member
-    private void PrintTextArea() {
+    private void printTextArea() {
     
         // Zone Display des messages
         JPanel messagePanel = new JPanel();
