@@ -185,7 +185,7 @@ public abstract class Player implements Serializable{
                 case PUNCTURE_PROOF:
                     dirtyTrick = currentAttacks.removeIf(card -> card.getType() == TypeCard.FLAT_TIRE);
                     break;
-                case PRIOTIRY_VEHICLE:
+                case PRIORITY_VEHICLE:
                     dirtyTrick = currentAttacks.removeIf(card -> card.getType() == TypeCard.SPEED_LIMITATION || card.getType() == TypeCard.RED_LIGHT);
                     setGreenLight(true);
                     break;
@@ -339,10 +339,10 @@ public abstract class Player implements Serializable{
                         if (card.getType() == TypeCard.TANK_TRUCK) return false;
                         break;
                     case SPEED_LIMITATION:
-                        if (card.getType() == TypeCard.PRIOTIRY_VEHICLE) return false;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false;
                         break;
                     case RED_LIGHT:
-                        if (card.getType() == TypeCard.PRIOTIRY_VEHICLE) return false;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false;
                         break;
                     default:
                         break;

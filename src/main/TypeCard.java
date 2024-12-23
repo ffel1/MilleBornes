@@ -19,7 +19,7 @@ public enum TypeCard {
     EXPERT_DRIVER,       // A card that represents an expert driver.
     TANK_TRUCK,          // A card that represents a tank truck.
     PUNCTURE_PROOF,      // A card that represents a puncture-proof ability.
-    PRIOTIRY_VEHICLE,    // A card that represents a priority vehicle.
+    PRIORITY_VEHICLE,    // A card that represents a priority vehicle.
     FLAT_TIRE,           // A card that represents a flat tire (obstacle).
     ACCIDENT,            // A card that represents an accident (obstacle).
     OUT_OF_FUEL,         // A card that represents running out of fuel (obstacle).
@@ -53,7 +53,7 @@ public enum TypeCard {
                 return "Camion citerne";
             case PUNCTURE_PROOF:
                 return "Increvable";
-            case PRIOTIRY_VEHICLE:
+            case PRIORITY_VEHICLE:
                 return "Véhicule prioritaire";
             case FLAT_TIRE:
                 return "Crevaison";

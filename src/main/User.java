@@ -205,10 +205,10 @@ public class User extends Player{
                         if (card.getType() == TypeCard.TANK_TRUCK) return 1;
                         break;
                     case SPEED_LIMITATION:
-                        if (card.getType() == TypeCard.PRIOTIRY_VEHICLE) return 1;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return 1;
                         break;
                     case RED_LIGHT:
-                        if (card.getType() == TypeCard.PRIOTIRY_VEHICLE) return 1;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return 1;
                         break;
                     default:
                         break;
