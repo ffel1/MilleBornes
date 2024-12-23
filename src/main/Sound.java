@@ -7,84 +7,106 @@ import javax.sound.sampled.FloatControl;
 
 import java.io.File;
 
-// This class represents Sound{
-public class Sound{
-    
-// Private or protected member
+/**
+ * This class represents the Sound system, handling the playback and control of various sound effects.
+ * It allows playing, looping, and stopping sounds, with a toggle option to enable or disable sound.
+ */
+public class Sound {
+
+    // Array of Clip objects to manage sound playback
     private Clip clip;
-// Private or protected member
+    // Array of File objects that represent the sound files
     private File soundURL[] = new File[30];
-// Private or protected member
+    // Array of Clip objects corresponding to each sound file
     private Clip clipList[] = new Clip[30];
-// Private or protected member
+    // Boolean flag to track whether sound is enabled or disabled
     private boolean soundON = true;
-// Private or protected member
+    // FloatControl to adjust the volume of sound clips
     private FloatControl fc;
 
-// This method handles the logic for Sound
-    public Sound(){ // add d'autre sound ici
-        soundURL[0] = new File("son/Fond.wav"); // 0 = sound principal
+    /**
+     * Constructor for the Sound class.
+     * Initializes an array of sound files and maps each sound to an index.
+     */
+    public Sound() { 
+        soundURL[0] = new File("son/Fond.wav"); // 0 = main background sound
         soundURL[1] = new File("son/Klaxon.wav");
         soundURL[2] = new File("son/voitureAvance.wav");
         soundURL[3] = new File("son/Foule.wav");
     }
 
-// This method handles the logic for setSoundON
-    public void setSoundON(boolean b){
+    /**
+     * Sets whether the sound is on or off.
+     * 
+     * @param b - Boolean value indicating whether sound should be on (true) or off (false).
+     */
+    public void setSoundON(boolean b) {
         soundON = b;
     }
 
-// This method handles the logic for getSoundON
-    public boolean getSoundON(){
+    /**
+     * Gets the current sound state (on or off).
+     * 
+     * @return boolean - true if sound is enabled, false otherwise.
+     */
+    public boolean getSoundON() {
         return soundON;
     }
 
-    /*
-     * Creer le sound
+    /**
+     * Loads a sound file and prepares it for playback.
+     * 
+     * @param i - Index of the sound file to load (0 to 29).
      */
-// This method handles the logic for setFile
-    public void setFile(int i){
-        try{
+    public void setFile(int i) {
+        try {
+            // Open the sound file as an AudioInputStream
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+            // Create a new Clip object to play the sound
             clipList[i] = AudioSystem.getClip();
-            clipList[i].open(ais);  
+            clipList[i].open(ais);
+            // Get the FloatControl for volume adjustment
             fc = (FloatControl) clipList[i].getControl(FloatControl.Type.MASTER_GAIN);
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();  // Handle any exceptions by printing the stack trace
         }
     }
 
-    /*
-     * Joue un sound une fois
+    /**
+     * Plays a sound once, if sound is enabled.
+     * 
+     * @param i - Index of the sound file to play (0 to 29).
      */
-// This method handles the logic for play
-    public void play(int i){
-        if(soundON){
-            clipList[i].start();
+    public void play(int i) {
+        if (soundON) {
+            clipList[i].start();  // Start the sound if sound is on
         }
     }
 
-    /*
-     * Joue un sound en boucle
+    /**
+     * Loops the main sound continuously until manually stopped.
      */
-// This method handles the logic for loop
-    public void loop(){
+    public void loop() {
+        // Loop the clip continuously
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    /*
-     * Stop la musique principale
+    /**
+     * Stops the main background music and toggles the sound state.
+     * If the sound is on, it will be turned off; otherwise, it will be turned on and the main sound will play.
+     * 
+     * @param i - Index of the sound file to stop (0 to 29).
      */
-// This method handles the logic for stop
-    public void stop(int i){
-        if(clipList[i] != null){
-            fc.setValue(0);
-            clipList[i].stop();
-            if(soundON){
-                soundON = false;
-            }else{
-                soundON = true;
-                play(0);
+    public void stop(int i) {
+        if (clipList[i] != null) {
+            fc.setValue(0);  // Mute the clip
+            clipList[i].stop();  // Stop the clip
+            // Toggle the sound state
+            if (soundON) {
+                soundON = false;  // Turn off sound
+            } else {
+                soundON = true;  // Turn on sound
+                play(0);  // Play the main sound again
             }  
         }
     }
