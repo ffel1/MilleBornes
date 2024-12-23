@@ -377,8 +377,10 @@ public class FenetreJeu {
         }
     }
 
+    
     public void creerFenetreHistorique() {
         JPanel panelHistorique = new JPanel();
+   
         panelHistorique.setLayout(new GridBagLayout());
         GridBagConstraints grille = new GridBagConstraints();
     
@@ -392,15 +394,13 @@ public class FenetreJeu {
             JButton boutonFichier = new JButton("Manche " + i);
             boutonFichier.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
     
-            //boutonFichier.addActionListener(e -> afficherContenuFichier(path));
             boutonFichier.addActionListener(e -> {
-                System.out.println("Bouton cliqué : " + path);
                 afficherContenuFichier(path);
             });
 
             grille.gridx = 0; 
             grille.gridy = i; 
-            grille.insets = new Insets(10, 0, 10, 0); 
+            grille.insets = new Insets(40, 40, 40, 40);
             grille.anchor = GridBagConstraints.CENTER;
 
             panelHistorique.add(boutonFichier, grille);
@@ -410,7 +410,7 @@ public class FenetreJeu {
         }
     
         JButton boutonRetourMenu = new JButton("Menu Principal");
-        boutonRetourMenu.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); // Taille en %
+        boutonRetourMenu.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
         boutonRetourMenu.addActionListener(e -> creerFenetreMenu());
         grille.gridx = 0;
         grille.gridy = i; 
@@ -418,12 +418,17 @@ public class FenetreJeu {
         grille.anchor = GridBagConstraints.CENTER;
     
         panelHistorique.add(boutonRetourMenu, grille);
-    
-        fenetreMenu.setContentPane(panelHistorique);
+
+        JScrollPane scrollPane = new JScrollPane(panelHistorique);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(40); // Rend le défilement plus rapide
+
+        fenetreMenu.setContentPane(scrollPane);
         fenetreMenu.revalidate();
         fenetreMenu.repaint();
     }
-
+    
     private void afficherContenuFichier(String cheminFichier) {
         JPanel panelAfficher = new JPanel();
         panelAfficher.setLayout(new GridBagLayout()); 
