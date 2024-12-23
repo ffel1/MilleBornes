@@ -589,11 +589,7 @@ public class WindowGame {
         }
         File fileSaves = new File("save.ser");
         fileSaves.delete();
-<<<<<<< HEAD
         
-=======
-
->>>>>>> ee51a172e885dedf5dc8909e440a9ffbd6715b36
         createWindowSaves();
     }
     

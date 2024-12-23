@@ -139,14 +139,11 @@ public class Controler {
 
         // Set up action listener for "Main Menu" button
         vue.addActionReturnButton(e -> {
-<<<<<<< HEAD
-=======
             if(!modele.getPlayer1().getmyTurn())
             {
                 vue.addMessage("Attendez votre tour pour quitter la partie !\n", false);
                 return;
             }
->>>>>>> ee51a172e885dedf5dc8909e440a9ffbd6715b36
             if (soundList.getSoundON()) {
                 stopMusic(); // Stop the music if it's playing
             }
