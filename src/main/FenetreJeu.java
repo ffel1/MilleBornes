@@ -803,7 +803,7 @@ public class FenetreJeu {
         panelJeu.add(boutonVoiture1, Integer.valueOf(2));
 
         // Voiture 2
-        ImageIcon voiture2 = new ImageIcon("Images/voiture bleue idle haut.png");
+        ImageIcon voiture2 = new ImageIcon("Images/voiture bleue idle haut.gif");
         boutonVoiture2 = new JButton("", voiture2);
         boutonVoiture2.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture2.setFocusPainted(false);
@@ -814,7 +814,7 @@ public class FenetreJeu {
         panelJeu.add(boutonVoiture2, Integer.valueOf(2));
 
         // Voiture 3
-        ImageIcon voiture3 = new ImageIcon("Images/voiture verte idle haut.png");
+        ImageIcon voiture3 = new ImageIcon("Images/voiture verte idle haut.gif");
         boutonVoiture3 = new JButton("", voiture3);
         boutonVoiture3.setBorder(BorderFactory.createEmptyBorder());
         boutonVoiture3.setFocusPainted(false);
