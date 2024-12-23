@@ -398,7 +398,7 @@ public class FenetreJeu {
                 afficherContenuFichier(path);
             });
 
-            grille.gridx = 0; 
+            grille.gridx = 1; 
             grille.gridy = i; 
             grille.insets = new Insets(40, 40, 40, 40);
             grille.anchor = GridBagConstraints.CENTER;
@@ -408,11 +408,21 @@ public class FenetreJeu {
             i++;
             fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
         }
+
+        JButton boutonSupprimer = new JButton("Supprimer historique");
+        boutonSupprimer.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
+        boutonSupprimer.addActionListener(e -> supprimerHistorique());
+        grille.gridx = 0;
+        grille.gridy = i; 
+        grille.insets = new Insets(20, 0, 10, 0); 
+        grille.anchor = GridBagConstraints.CENTER;
+
+        panelHistorique.add(boutonSupprimer, grille);
     
         JButton boutonRetourMenu = new JButton("Menu Principal");
         boutonRetourMenu.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
         boutonRetourMenu.addActionListener(e -> creerFenetreMenu());
-        grille.gridx = 0;
+        grille.gridx = 2;
         grille.gridy = i; 
         grille.insets = new Insets(20, 0, 10, 0); 
         grille.anchor = GridBagConstraints.CENTER;
@@ -422,7 +432,7 @@ public class FenetreJeu {
         JScrollPane scrollPane = new JScrollPane(panelHistorique);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(40); // Rend le défilement plus rapide
+        scrollPane.getVerticalScrollBar().setUnitIncrement(40); 
 
         fenetreMenu.setContentPane(scrollPane);
         fenetreMenu.revalidate();
@@ -438,8 +448,7 @@ public class FenetreJeu {
         textArea.setEditable(false);
     
         JScrollPane scrollPane = new JScrollPane(textArea);
-        //prends 75% de la largeur et 50% de la hauteur
-
+       
         scrollPane.setPreferredSize(new Dimension(largeur*95/100, hauteur * 75 / 100)); 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -474,6 +483,16 @@ public class FenetreJeu {
         fenetreMenu.repaint();
     }
 
+    private void supprimerHistorique() {
+        File dossier = new File("SauvegardeDesHistoriques");
+        File[] fichiers = dossier.listFiles();
+        for (File fichier : fichiers) {
+            fichier.delete();
+        }
+
+        creerFenetreHistorique();
+    }
+    
     public void afficherCartesJoueur(ArrayList<Carte> main){
         if(hauteurCarte == 0)
         {
