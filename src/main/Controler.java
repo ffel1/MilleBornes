@@ -111,6 +111,10 @@ public class Controler {
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
         }
+        else
+        {
+            modele = new Game();
+        }
 
         // If the game is not loaded or the flag b is true, start a new game
         if (!modele.loadedGame() || b) {
