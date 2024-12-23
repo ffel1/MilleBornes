@@ -28,12 +28,9 @@ public class BotTest{
     private Botte asDuVolant;
     private Botte camionCiterne;
     private Botte increvable;
-    private Botte vehiculePrioritaire;
     private CPUFast botFast;
     private CPUAgro botAgro;
     private CPUFast botTestFAST;
-    private CPUAgro botTestAGRO;
-    private Utilisateur joueurTest;
     private Partie partie;
 
     @BeforeEach
@@ -58,12 +55,9 @@ public class BotTest{
         asDuVolant = new Botte(TypeCarte.AS_DU_VOLANT);
         camionCiterne = new Botte(TypeCarte.CAMION_CITERNE);
         increvable = new Botte(TypeCarte.INCREVABLE);
-        vehiculePrioritaire = new Botte(TypeCarte.VEHICULE_PRIORITAIRE);
         botFast = (CPUFast)partie.getJoueur3();
         botAgro = (CPUAgro)partie.getJoueur2();
         //botTestFAST = new CPUFast("fast", 0, 0, null);
-        botTestAGRO = new CPUAgro("agro", 200, 2, null);
-        joueurTest = new Utilisateur("joueur", 100, 0, null);
 
     }
 

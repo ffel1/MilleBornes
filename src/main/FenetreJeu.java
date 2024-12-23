@@ -381,6 +381,7 @@ public class FenetreJeu {
     }
 
     
+    @SuppressWarnings("unused")
     public void creerFenetreHistorique() {
         JPanel panelHistorique = new JPanel();
    
@@ -467,6 +468,7 @@ public class FenetreJeu {
         fenetreMenu.repaint();
     }
     
+    @SuppressWarnings("unused")
     private void afficherContenuFichier(String cheminFichier) {
         JPanel panelAfficher = new JPanel();
         panelAfficher.setLayout(new GridBagLayout()); 

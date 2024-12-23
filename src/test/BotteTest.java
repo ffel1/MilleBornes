@@ -10,21 +10,11 @@ import org.junit.jupiter.api.Test;
  */
 public class BotteTest{
 
-    private Parade carteFeuVert;
-    private Parade carteReparation;
-    private Parade carteEssence;
-    private Parade carteRoueDeSecours;
-    private Parade carteFinDeLimitation;
     private Attaque carteAccident;
     private Attaque carteCrevaison;
     private Attaque cartePanne;
     private Attaque carteFeuRouge;
     private Attaque carteLimitation;
-    private Distance _25KM;
-    private Distance _50KM;
-    private Distance _75KM;
-    private Distance _100KM;
-    private Distance _200KM;
     private Botte asDuVolant;
     private Botte camionCiterne;
     private Botte increvable;
@@ -34,11 +24,6 @@ public class BotteTest{
 
     @BeforeEach
     public void init(){
-        carteFeuVert = new Parade(TypeCarte.FEU_VERT);
-        carteReparation = new Parade(TypeCarte.REPARATION);
-        carteEssence = new Parade(TypeCarte.ESSENCE);
-        carteRoueDeSecours = new Parade(TypeCarte.ROUE_DE_SECOURS);
-        carteFinDeLimitation = new Parade(TypeCarte.FIN_LIMITATION_VITESSE);
         source = new Utilisateur("Source", 0, 0, null);
         cible = new Utilisateur("Cible", 0, 0, null);
         carteAccident = new Attaque(TypeCarte.ACCIDENT);
@@ -46,11 +31,6 @@ public class BotteTest{
         cartePanne = new Attaque(TypeCarte.PANNE_D_ESSENCE);
         carteFeuRouge = new Attaque(TypeCarte.FEU_ROUGE);
         carteLimitation = new Attaque(TypeCarte.LIMITATION_DE_VITESSE);
-        _25KM = new Distance(TypeCarte._25KM, 25);
-        _50KM = new Distance(TypeCarte._50KM, 50);
-        _75KM = new Distance(TypeCarte._75KM, 75);
-        _100KM = new Distance(TypeCarte._100KM, 100);
-        _200KM = new Distance(TypeCarte._200KM, 200);
         asDuVolant = new Botte(TypeCarte.AS_DU_VOLANT);
         camionCiterne = new Botte(TypeCarte.CAMION_CITERNE);
         increvable = new Botte(TypeCarte.INCREVABLE);

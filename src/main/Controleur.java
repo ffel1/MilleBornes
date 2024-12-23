@@ -26,6 +26,7 @@ public class Controleur
     private int tempsEntreTour;
     private Son listeSonSecondaire;
 
+    @SuppressWarnings("unused")
     public Controleur(Partie modele, FenetreJeu vue) 
     {
         this.modele = modele;
@@ -58,6 +59,7 @@ public class Controleur
         return listeSon;
     }
 
+    @SuppressWarnings("unused")
     private void nouvellePartie(boolean b, boolean finPartieForcee){
 
         File fichier = new File("save.ser");
@@ -858,6 +860,7 @@ public class Controleur
         }
     }
 
+    @SuppressWarnings("unused")
     private void joueEnContinueMusic(int i){
         listeSon.setFile(i);
         listeSon.play(i);
@@ -868,6 +871,7 @@ public class Controleur
         listeSon.stop(0);
     }
 
+    @SuppressWarnings("unused")
     public void initialiserBoutonSon(){
         vue.ajouterActionBoutonSon(e -> {
             if(listeSonSecondaire.getSonON()){
