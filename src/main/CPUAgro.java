@@ -1,85 +1,88 @@
 package main;
-
 import java.util.ArrayList;
 
+// This class represents CPUAgro
 public class CPUAgro extends CPU{
 
-    public CPUAgro(String nom, int k, int id, Partie partie){
-        super(nom, k, id, partie);
+// This method handles the logic for CPUAgro
+    public CPUAgro(String name, int k, int id, Game Game){
+        super(name, k, id, Game);
     }
 
     /*
-     * Choisi de jouer une carte, en priorité des carte attaques
+     * Choisi de play une card, en priorité des card attaques
      */
-    public Carte choisirCarte(){
-        ArrayList<Carte> main = getMain();
-        Carte carteAJouer = null;
-        boolean findAttaque = false, findParade = false, findFeuVert = false;
+// This method handles the logic for chooseCard
+    public Card chooseCard(){
+        ArrayList<Card> Hand = getHand();
+        Card playedCard = null;
+        boolean EnddAttack = false, endSafety = false, endGreenLight = false;
 
         //botte -> attaque -> parade -> distance
 
-        for(Carte carte : main){
-            if(carte instanceof Botte){
-                carteAJouer = carte;
+        for(Card card : Hand){
+            if(card instanceof Boot){
+                playedCard = card;
                 break;
             }
-            else if(carte instanceof Attaque && !findAttaque && verification(carte, this, getCible(carte))){
-                carteAJouer = carte;
-                findAttaque = true;
+            else if(card instanceof Attack && !EnddAttack && check(card, this, getTarget(card))){
+                playedCard = card;
+                EnddAttack = true;
             }
-            else if (carte.getType() == TypeCarte.FEU_VERT && !findAttaque && verification(carte, this, null)) 
+            else if (card.getType() == TypeCard.GREEN_LIGHT && !EnddAttack && check(card, this, null)) 
             {
-                carteAJouer = carte;
-                findFeuVert = true;
+                playedCard = card;
+                endGreenLight = true;
             }
-            else if(carte instanceof Parade && !findAttaque && !findFeuVert && !findParade && verification(carte, this, null)){
-                carteAJouer = carte;
-                findParade = true;
+            else if(card instanceof Safety && !EnddAttack && !endGreenLight && !endSafety && check(card, this, null)){
+                playedCard = card;
+                endSafety = true;
             }
-            else if(carte instanceof Distance && !findAttaque && !findParade && !findFeuVert && verification(carte, this, null)){
-                if((carteAJouer instanceof Distance && carte.getKilometre() > carteAJouer.getKilometre()) || !(carteAJouer instanceof Distance))
+            else if(card instanceof Distance && !EnddAttack && !endSafety && !endGreenLight && check(card, this, null)){
+                if((playedCard instanceof Distance && card.getKilometers() > playedCard.getKilometers()) || !(playedCard instanceof Distance))
                 {
-                    carteAJouer = carte;
+                    playedCard = card;
                 }
             }
         }
 
-        return carteAJouer;
+        return playedCard;
     }
 
     @Override
-    public Carte choixDeDefausse()
+// This method handles the logic for discardChoice
+    public Card discardChoice()
     {
-        ArrayList<Carte> main = getMain();
-        Carte carteADefausser = main.get(0);
+        ArrayList<Card> Hand = getHand();
+        Card cartdToDiscard = Hand.get(0);
 
         //botte -> attaque -> parade -> distance
 
-        for(Carte carte : main){
-            if(carte instanceof Distance){
-                if(!(carteADefausser instanceof Distance))
+        for(Card card : Hand){
+            if(card instanceof Distance){
+                if(!(cartdToDiscard instanceof Distance))
                 {
-                    carteADefausser = carte;
+                    cartdToDiscard = card;
                 }
-                else if(carteADefausser instanceof Distance && carteADefausser.getKilometre() > carte.getKilometre())
+                else if(cartdToDiscard instanceof Distance && cartdToDiscard.getKilometers() > card.getKilometers())
                 {
-                    carteADefausser = carte;
-                }
-            }
-            else if(carte instanceof Parade){
-                if(carteADefausser instanceof Attaque || carteADefausser instanceof Botte)
-                {
-                    carteADefausser = carte;
+                    cartdToDiscard = card;
                 }
             }
-            else if (carte instanceof Attaque) 
+            else if(card instanceof Safety){
+                if(cartdToDiscard instanceof Attack || cartdToDiscard instanceof Boot)
+                {
+                    cartdToDiscard = card;
+                }
+            }
+            else if (card instanceof Attack) 
             {
-                if(carteADefausser instanceof Botte)
+                if(cartdToDiscard instanceof Boot)
                 {
-                    carteADefausser = carte;
+                    cartdToDiscard = card;
                 }
             }
         }
-        return carteADefausser;
+        return cartdToDiscard;
     }
 }

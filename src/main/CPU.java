@@ -1,121 +1,115 @@
 package main;
+
 import java.util.Random;
 
-public abstract class CPU extends Joueur{
+// This class represents CPU
+public abstract class CPU extends Player{
     
-    private Joueur cible;
+// Private or protected member
+    private Player target;
 
-    public CPU(String nom, int k, int id, Partie partie){
-        super(nom, k, id, partie);
+// This method handles the logic for CPU
+    public CPU(String name, int k, int id, Game Game){
+        super(name, k, id, Game);
     }
 
-    public void actionBot(Controleur controleur) //le boolean sert à gérer le cas ou on pose une botte (on rejoue sans afficher nouveau tour)
+// This method handles the logic for botAction
+    public void botAction(Controler Controler) //le boolean sert à gérer le cas ou on pose une botte (on rejoue sans Print nouveau tour)
     {
-        controleur.getVue().ajouterMessage("\nC'est au tour du CPU " + getNom() + " ! Distance parcourue : " + getKilometre() + " km \n", true);
-        piocher();
-        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a pioché ! \n", true);
+        Controler.getVue().addMessage("\nC'est au tour du CPU " + getName() + " ! Distance parcourue : " + getKilometers() + " km \n", true);
+        draw();
+        Controler.getVue().addMessage("Le CPU " + getName() + " a pioché ! \n", true);
 
-        //Pour afficher les cartes des bots pour vérifier si leur coups sont biens
-/*
-        for(Carte carte : getMain())
-        {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
-        }
-        controleur.getVue().ajouterMessage("Les attaques\n", false);
-        for(Carte carte : getAttaquesEnCours())
-        {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
-        }
-        controleur.getVue().ajouterMessage("Les bottes\n", false);
-        for(Carte carte : getBottesPosées())
-        {
-            controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
-        }
-*/
-        Carte carteJoué = choisirCarte();
+        Card playedCard = chooseCard();
 
-        if(carteJoué == null)
+        if(playedCard == null)
         {
-            controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer ! \n", true);
-            defausse(choixDeDefausse(), controleur);
+            Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas play ! \n", true);
+            discard(discardChoice(), Controler);
         }
         else
         {
-            while (carteJoué instanceof Botte) 
+            while (playedCard instanceof Boot) 
             {
-                controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
-                piocher();
-                controleur.getVue().ajouterMessage("Le CPU " + getNom() + " a encore pioché ! \n", true);
-                carteJoué = choisirCarte();
-                if(carteJoué == null)
+                Controler.getVue().addMessage(playCard(playedCard, target), true);
+                draw();
+                Controler.getVue().addMessage("Le CPU " + getName() + " a encore pioché ! \n", true);
+                playedCard = chooseCard();
+                if(playedCard == null)
                 {
-                    controleur.getVue().ajouterMessage("Le CPU " + getNom() + " ne peut pas jouer !\n", true);
-                    defausse(choixDeDefausse(), controleur);
+                    Controler.getVue().addMessage("Le CPU " + getName() + " ne peut pas play !\n", true);
+                    discard(discardChoice(), Controler);
                 }
             }
-            controleur.getVue().ajouterMessage(jouerCarte(carteJoué, cible), true);
-            controleur.getVue().ajouterMessage("C'est la fin du tour de " +  getNom() + " ! Distance parcourue : " + getKilometre() + " km \n", true);
-            if(controleur.getModel().gagnant() == this)
+            Controler.getVue().addMessage(playCard(playedCard, target), true);
+            Controler.getVue().addMessage("C'est la End du tour de " +  getName() + " ! Distance parcourue : " + getKilometers() + " km \n", true);
+            if(Controler.getModel().winner() == this)
             {
-                controleur.getVue().ajouterMessage( "\n Le CPU "  + getNom() + " a gagné... La prochaine fois peut être... \n", true);
+                Controler.getVue().addMessage( "\n Le CPU "  + getName() + " a gagné... La prochaine fois peut être... \n", true);
             }
         }
 
-        controleur.getVue().mettreAJourAttaques(getPartie());
-        controleur.getVue().mettreAJourBottes(getPartie());
+        Controler.getVue().refreshAttacks(getGame());
+        Controler.getVue().refreshBoots(getGame());
         
     }
 
-    public abstract Carte choixDeDefausse();
+// This method handles the logic for discardChoice
+    public abstract Card discardChoice();
 
-    public String defausse(Carte c,Controleur controleur)
+// This method handles the logic for discard
+    public String discard(Card c,Controler Controler)
     {
-        controleur.getVue().ajouterMessage("Le CPU " + getNom() + " défausse la carte :" + c.getNom() +" \n", true);
-        getMain().remove(c);
+        Controler.getVue().addMessage("Le CPU " + getName() + " défausse la card :" + c.getName() +" \n", true);
+        getHand().remove(c);
         return null;
     }
-    public abstract Carte choisirCarte();
+// This method handles the logic for chooseCard
+    public abstract Card chooseCard();
 
-    public void setCurrentCible(Joueur c)
+// This method handles the logic for setCurrenttarget
+    public void setCurrenttarget(Player c)
     {
-        cible = c;
+        target = c;
     }
-    public Joueur getCurrentCible()
+// This method handles the logic for getCurrenttarget
+    public Player getCurrenttarget()
     {
-        return cible;
+        return target;
     }
 
-    public Joueur getCible(Carte c)
+// This method handles the logic for getTarget
+    public Player getTarget(Card c)
     {
-        Joueur gagnantActuel = getPartie().getJoueur1();
-        for(Joueur j : getPartie().getJoueurs())
+        Player actualWinner = getGame().getPlayer1();
+        for(Player j : getGame().getPlayers())
         {
-            if(j.getKilometre() > gagnantActuel.getKilometre() && j.getId() != getId())
+            if(j.getKilometers() > actualWinner.getKilometers() && j.getId() != getId())
             {
-                gagnantActuel = j;
+                actualWinner = j;
             }
-            else if(j.getKilometre() == gagnantActuel.getKilometre() && j.getId() != getId())
+            else if(j.getKilometers() == actualWinner.getKilometers() && j.getId() != getId())
             {
                 Random r = new Random();
                 int i = r.nextInt(2);
                 if(i == 0)
                 {
-                    gagnantActuel = j;
+                    actualWinner = j;
                 }
             }
         }
-        if(verification(c, this, gagnantActuel))
+        if(check(c, this, actualWinner))
         {
-            cible = gagnantActuel;
-            return gagnantActuel;
+            target = actualWinner;
+            return actualWinner;
         }
         else
         {
-            for(Joueur j : getPartie().getJoueurs())
+            for(Player j : getGame().getPlayers())
             {
-                if(j.getId() != getId() && j.getId() != gagnantActuel.getId()&& verification(c, this, j))
+                if(j.getId() != getId() && j.getId() != actualWinner.getId()&& check(c, this, j))
                 {
-                    cible = j;
+                    target = j;
                     return j;
                 }
             }

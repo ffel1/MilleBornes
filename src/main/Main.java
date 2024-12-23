@@ -1,10 +1,12 @@
 package main;
 
-public class Main {
+// This class represents Hand
+public class main {
     
+// This method handles the logic for Hand
     public static void main(String[] args){
-        Partie partie = new Partie();
-        FenetreJeu fen = new FenetreJeu();
-        new Controleur(partie, fen);
+        Game Game = new Game();
+        WindowGame win = new WindowGame();
+        new Controler(Game, win);
     }
 }
