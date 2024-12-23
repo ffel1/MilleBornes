@@ -366,6 +366,10 @@ public class FenetreJeu {
         boutonSon.setContentAreaFilled(false);
         boutonSon.setOpaque(false);
         panelJeu.add(boutonSon, Integer.valueOf(10));
+        if(boutonSon.getActionListeners().length == 1)
+        {
+            boutonSon.removeActionListener(boutonSon.getActionListeners()[0]);
+        }
         
 
         fenetreMenu.setLayout(null);

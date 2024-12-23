@@ -725,7 +725,17 @@ public class Controleur
         }
         else if(b2)
         {
-            nouvellePartie(b1, b2);
+            vue.ajouterMessage("Vous avez arrêté la manche, les points gagnés\nne seront pas comptabilisés \n", false);
+            vue.ajouterMessage("Chargement de la prochaine manche...\n", false);
+            vue.remiseDesKilometres0();
+            modele.getJoueurs().clear();
+            Timer chrono = new Timer();
+            chrono.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                nouvellePartie(b1, b2);
+                }
+            }, tempsEntreTour*2);
         }
         else
         {
