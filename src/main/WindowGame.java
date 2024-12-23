@@ -587,6 +587,8 @@ public class WindowGame {
         for (File file : files) {
             file.delete();
         }
+        File fileSaves = new File("save.ser");
+        fileSaves.delete();
 
         createWindowSaves();
     }
