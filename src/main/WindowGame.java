@@ -481,11 +481,11 @@ public class WindowGame {
         }
 
         int j = 1;
-        round = new File("SauvegardeDesHistoriques/Manche_" + j+".txt");
+        round = new File("SauvegardeDesHistoriques/round_" + j+".txt");
         //Button round_x
         while (round.exists()) {
             String path = round.getPath();
-            JButton Buttonfile = new JButton("Manche " + j);
+            JButton Buttonfile = new JButton("round " + j);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); 
     
             Buttonfile.addActionListener(e -> {
@@ -501,7 +501,7 @@ public class WindowGame {
     
             j++;
             i++;
-            round = new File("SauvegardeDesHistoriques/Manche_" + j+".txt");
+            round = new File("SauvegardeDesHistoriques/round_" + j+".txt");
         }
 
         JButton ButtonDelete = new JButton("Supprimer historique");
