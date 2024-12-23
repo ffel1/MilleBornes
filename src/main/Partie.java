@@ -32,7 +32,6 @@ public class Partie implements Serializable{
         File fichier;
         int i = 1;
 
-        //si le dossier n'existe pas, on le crée
         File dossier = new File("SauvegardeDesHistoriques");
         if(!dossier.exists())
         {
