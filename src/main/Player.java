@@ -3,124 +3,196 @@ package main;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-// This class represents Player
-public abstract class Player implements Serializable{
-// Private or protected member
-    private ArrayList<Card> Hand;
-// Private or protected member
-    private ArrayList<Card> currentAttacks;
-// Private or protected member
-    private boolean greenLight;
-// Private or protected member
-    private ArrayList<Card> playedBoots;
-// Private or protected member
-    private String name;
-// Private or protected member
-    private int kilometersP;
-// Private or protected member
-    private int id;
-// Private or protected member
-    private int pts;
-// Private or protected member
-    private Game Game;
-// Private or protected member
-    private int dirtyTrickes = 0;
-// Private or protected member
-    private ArrayList<Card> cardsDistanceJouees;
+/**
+ * Represents a player in the game, with the ability to hold a hand of cards, perform attacks, play defense cards,
+ * manage distance, and interact with other players.
+ * A player can have a set of current attacks, green light status, played boots, and other attributes like kilometers 
+ * traveled, points, and dirty tricks performed.
+ */
+public abstract class Player implements Serializable {
+    // Private attributes
+    private ArrayList<Card> Hand;  // The player's hand of cards
+    private ArrayList<Card> currentAttacks;  // The attacks currently being played by the player
+    private boolean greenLight;  // Green light status (can play distance cards)
+    private ArrayList<Card> playedBoots;  // The boots (special cards) played by the player
+    private String name;  // The player's name
+    private int kilometersP;  // Kilometers traveled by the player
+    private int id;  // Unique player ID
+    private int pts;  // Points the player has earned
+    private Game Game;  // The game the player is part of
+    private int dirtyTrickes = 0;  // Count of dirty tricks performed
+    private ArrayList<Card> cardsDistanceJouees;  // Distance cards played by the player
 
-// This method handles the logic for Player
-    public Player(String name, int km, int id, Game Game){
-        cardsDistanceJouees  = new ArrayList<Card>();
+    /**
+     * Constructor to initialize a new player with the specified name, kilometers traveled, ID, and associated game.
+     * The player starts with an empty hand, no attacks, no green light, and no played boots.
+     * 
+     * @param name The player's name.
+     * @param km The initial kilometers traveled by the player.
+     * @param id The player's unique ID.
+     * @param Game The game the player is part of.
+     */
+    public Player(String name, int km, int id, Game Game) {
+        cardsDistanceJouees = new ArrayList<Card>();
         Hand = new ArrayList<Card>();
         currentAttacks = new ArrayList<Card>();
         greenLight = false;
         playedBoots = new ArrayList<Card>();
         this.name = name;
         kilometersP = km;
-        this.id = id; 
+        this.id = id;
         this.Game = Game;
     }
 
-// This method handles the logic for getHand
-    public ArrayList<Card> getHand(){
+    /**
+     * Returns the player's hand of cards.
+     *
+     * @return ArrayList<Card> The player's hand.
+     */
+    public ArrayList<Card> getHand() {
         return Hand;
     }
-// This method handles the logic for getCurrentAttacks
-    public ArrayList<Card> getCurrentAttacks(){
+
+    /**
+     * Returns the list of attacks currently being played by the player.
+     *
+     * @return ArrayList<Card> The player's current attacks.
+     */
+    public ArrayList<Card> getCurrentAttacks() {
         return currentAttacks;
     }
-// This method handles the logic for getgreenLight
-    public boolean getgreenLight(){
+
+    /**
+     * Returns the green light status for the player.
+     *
+     * @return boolean True if the player has the green light, false otherwise.
+     */
+    public boolean getgreenLight() {
         return greenLight;
     }
 
-// This method handles the logic for setpts
-    public void setpts(int pts)
-    {
+    /**
+     * Sets the player's points.
+     *
+     * @param pts The points to set.
+     */
+    public void setpts(int pts) {
         this.pts = pts;
     }
 
-// This method handles the logic for getPts
-    public int getPts()
-    {
+    /**
+     * Returns the player's points.
+     *
+     * @return int The player's points.
+     */
+    public int getPts() {
         return pts;
     }
 
-// This method handles the logic for getGame
-    public Game getGame()
-    {
+    /**
+     * Returns the game that the player is part of.
+     *
+     * @return Game The game object associated with the player.
+     */
+    public Game getGame() {
         return Game;
     }
 
-// This method handles the logic for setGreenLight
-    public void setGreenLight(boolean b)
-    {
+    /**
+     * Sets the player's green light status.
+     *
+     * @param b True to enable the green light, false to disable.
+     */
+    public void setGreenLight(boolean b) {
         greenLight = b;
     }
-// This method handles the logic for getPlayedBoots
-    public ArrayList<Card> getPlayedBoots(){
+
+    /**
+     * Returns the list of boots (special cards) that the player has played.
+     *
+     * @return ArrayList<Card> The player's played boots.
+     */
+    public ArrayList<Card> getPlayedBoots() {
         return playedBoots;
     }
-// This method handles the logic for getName
-    public String getName(){
+
+    /**
+     * Returns the player's name.
+     *
+     * @return String The player's name.
+     */
+    public String getName() {
         return name;
     }
-// This method handles the logic for getKilometers
-    public int getKilometers(){
+
+    /**
+     * Returns the total kilometers the player has traveled.
+     *
+     * @return int The player's kilometers.
+     */
+    public int getKilometers() {
         return kilometersP;
     }
-// This method handles the logic for setKilometers
-    public void setKilometers(int Kilometers)
-    {
-        kilometersP+=Kilometers;
+
+    /**
+     * Sets the player's kilometers by adding the specified value.
+     *
+     * @param Kilometers The kilometers to add.
+     */
+    public void setKilometers(int Kilometers) {
+        kilometersP += Kilometers;
     }
-// This method handles the logic for getId
-    public int getId(){
+
+    /**
+     * Returns the player's unique ID.
+     *
+     * @return int The player's ID.
+     */
+    public int getId() {
         return id;
     }
 
-// This method handles the logic for getdirtyTricks
-    public int getdirtyTricks(){
+    /**
+     * Returns the number of dirty tricks the player has performed.
+     *
+     * @return int The player's dirty tricks count.
+     */
+    public int getdirtyTricks() {
         return dirtyTrickes;
     }
 
-// This method handles the logic for HandFull
-    public boolean HandFull(){
+    /**
+     * Checks if the player's hand is full (i.e., has 7 or more cards).
+     *
+     * @return boolean True if the player's hand is full, false otherwise.
+     */
+    public boolean HandFull() {
         return Hand.size() >= 7;
     }
 
-// This method handles the logic for removeCard
-    public void removeCard(Card c){
+    /**
+     * Removes the specified card from the player's hand.
+     *
+     * @param c The card to remove.
+     */
+    public void removeCard(Card c) {
         Hand.remove(c);
     }
 
-// This method handles the logic for addCard
-    public void addCard(Card c){
+    /**
+     * Adds a card to the player's hand.
+     *
+     * @param c The card to add.
+     */
+    public void addCard(Card c) {
         Hand.add(c);
-
     }
-    
-// This method handles the logic for use200KM
+
+    /**
+     * Checks if the player has already played a 200KM distance card.
+     *
+     * @return boolean True if the player has used a 200KM distance card, false otherwise.
+     */
     public boolean use200KM() {
         for (Card card : cardsDistanceJouees) {
             if (card instanceof Distance && ((Distance) card).getKilometers() == 200) {
@@ -130,54 +202,64 @@ public abstract class Player implements Serializable{
         return false;
     }
 
-// This method handles the logic for draw
-    public void draw()
-    {
-        ArrayList<Card> draw = Game.getdraw();  
-        //La draw a déjà été mélangé dans Game
-        if(!HandFull())
-        {
+    /**
+     * Draws a card from the game deck into the player's hand, if the hand is not full.
+     */
+    public void draw() {
+        ArrayList<Card> draw = Game.getdraw();
+        if (!HandFull()) {
             Card c = draw.get(0);
             getHand().add(c);
             draw.remove(c);
-        }
-        else
-        {
+        } else {
             System.out.println("Hand Full");
         }
     }
 
-    /*
-     * choose l'action en function du type de card
+    /**
+     * Plays a card based on its type, either an attack, safety, boot, or distance card.
+     * The method will call the appropriate play method for each type of card.
+     *
+     * @param c The card to play.
+     * @param target The target player (for attacks).
+     * @return String The result of playing the card.
      */
-// This method handles the logic for playCard
     public String playCard(Card c, Player target) {
-        if (c instanceof Attack){
+        if (c instanceof Attack) {
             return playAttack(c, target);
-        } else if (c instanceof Safety){
+        } else if (c instanceof Safety) {
             return playSafety(c);
-        } else if (c instanceof Boot){
+        } else if (c instanceof Boot) {
             return playBoot(c);
-        } else if (c instanceof Distance){
+        } else if (c instanceof Distance) {
             return playDistance(c);
-        }   
+        }
         return null;
     }
 
-// This method handles the logic for getTarget
+    /**
+     * Abstract method to get the target player for an attack card.
+     * This method needs to be implemented by subclasses to determine the target.
+     *
+     * @param c The card being played.
+     * @return Player The target player for the attack.
+     */
     public abstract Player getTarget(Card c);
 
-    /*
-     * Joue une card botte au player et enleve l'attaque en cours si il y en a une
+    /**
+     * Plays a boot card to the player, removing any relevant attacks in progress.
+     * The method also tracks "dirty tricks" performed by the player and updates the player's state.
+     *
+     * @param c The boot card to play.
+     * @return String A message indicating the result of playing the boot card.
      */
-// This method handles the logic for playBoot
     public String playBoot(Card c) {
         if (c instanceof Boot) {
             playedBoots.add(c);
             boolean dirtyTrick = false;
             switch (c.getType()) {
-                case EXPERT_DRIVER:  
-                    dirtyTrick = currentAttacks.removeIf(card -> card.getType() == TypeCard.ACCIDENT); 
+                case EXPERT_DRIVER:
+                    dirtyTrick = currentAttacks.removeIf(card -> card.getType() == TypeCard.ACCIDENT);
                     break;
                 case TANK_TRUCK:
                     dirtyTrick = currentAttacks.removeIf(card -> card.getType() == TypeCard.OUT_OF_FUEL);
@@ -192,7 +274,7 @@ public abstract class Player implements Serializable{
                 default:
                     break;
             }
-            if(dirtyTrick){
+            if (dirtyTrick) {
                 dirtyTrickes++;
             }
             removeCard(c);
@@ -201,19 +283,28 @@ public abstract class Player implements Serializable{
         return null;
     }
 
-// This method handles the logic for discard
+    /**
+     * Abstract method for discarding a card. 
+     * This method must be implemented by subclasses to handle specific discard logic.
+     *
+     * @param c The card to discard.
+     * @param Controler The controller that manages the game.
+     * @return String A message indicating the result of discarding the card.
+     */
     public abstract String discard(Card c, Controler Controler);
     
-    /*
-     * Joue une card parade et enleve l'attaque en cours
+    /**
+     * Plays a safety card to defend against specific attacks and removes the corresponding attacks from the player.
+     *
+     * @param c The safety card to play.
+     * @return String A message indicating the result of playing the safety card.
      */
-// This method handles the logic for playSafety
     public String playSafety(Card c) {
         if (c instanceof Safety) {
             switch (c.getType()) {
                 case GREEN_LIGHT:
-                    currentAttacks.removeIf(card -> card.getType() == TypeCard.RED_LIGHT); 
-                    currentAttacks.add(0,c);
+                    currentAttacks.removeIf(card -> card.getType() == TypeCard.RED_LIGHT);
+                    currentAttacks.add(0, c);
                     greenLight = true;
                     break;
                 case END_SPEED_LIMITATION:
@@ -232,8 +323,7 @@ public abstract class Player implements Serializable{
                     break;
             }
             removeCard(c);
-            if(c.getType() == TypeCard.GREEN_LIGHT)
-            {
+            if (c.getType() == TypeCard.GREEN_LIGHT) {
                 return getName() + " joue un " + c.getName() + " ! \n";
             }
             return getName() + " joue la parade : " + c.getName() + "\n";
@@ -241,20 +331,20 @@ public abstract class Player implements Serializable{
         return null;
     }
     
-    /*
-     * Joue une card attaque et demande sur quel player
+    /**
+     * Plays an attack card against a target player. 
+     * If the attack is valid, it applies the attack and removes the card from the player's hand.
+     *
+     * @param c The attack card to play.
+     * @param target The target player for the attack.
+     * @return String A message indicating the result of playing the attack card.
      */
-// This method handles the logic for playAttack
     public String playAttack(Card c, Player target) {
         if (check(c, this, target)) {
-            if(c.getType() == TypeCard.RED_LIGHT)
-            {
+            if (c.getType() == TypeCard.RED_LIGHT) {
                 target.setGreenLight(false);
-                for(Card card : target.currentAttacks)
-                {
-                    if(card.getType() == TypeCard.GREEN_LIGHT)
-                    {
-
+                for (Card card : target.currentAttacks) {
+                    if (card.getType() == TypeCard.GREEN_LIGHT) {
                         target.currentAttacks.remove(card);
                         break;
                     }
@@ -267,46 +357,40 @@ public abstract class Player implements Serializable{
         return null;
     }
     
-
     /*
-     * Augmente le namebre de km du player
+     * Handles the logic for playing a Distance card, which increases the player's kilometers.
+     * It also checks if there are any attack cards that prevent the player from advancing.
+     * If there are no attacks preventing the movement, the player's kilometers are updated, 
+     * and the card is added to the list of played Distance cards.
+     *
+     * @param c The Distance card being played.
+     * @return A string indicating the result of playing the Distance card.
      */
-// This method handles the logic for playDistance
     public String playDistance(Card c) {
         if (check(c, this, this)) {
-            int Kilometers = ((Distance) c).getKilometers();
-            kilometersP += Kilometers;
-            cardsDistanceJouees.add(c);
-            removeCard(c);
+            int Kilometers = ((Distance) c).getKilometers(); // Retrieve the kilometers from the Distance card
+            kilometersP += Kilometers; // Add the kilometers to the player's total distance
+            cardsDistanceJouees.add(c); // Add the played Distance card to the list
+            removeCard(c); // Remove the card from the player's hand
             return (getName() + " avance de " + Kilometers + " km. Distance totale : " + kilometersP + " km. \n");
-        }
-        else{
-            String message = name+" ne peut pas moveForwad. Problème : ";
-            for(Card card : currentAttacks)
-            {
-                if(card.getType() == TypeCard.RED_LIGHT)
-                {
-                    return message+"feu rouge.\n";
+        } else {
+            String message = name + " ne peut pas moveForwad. Problème : ";
+            // Loop through the current attack cards and check if any prevent movement
+            for (Card card : currentAttacks) {
+                if (card.getType() == TypeCard.RED_LIGHT) {
+                    return message + "feu rouge.\n"; // Red light stops movement
                 }
-
-                if(card.getType() == TypeCard.OUT_OF_FUEL)
-                {
-                    return message+"panne d'FUEL.\n";
+                if (card.getType() == TypeCard.OUT_OF_FUEL) {
+                    return message + "panne d'FUEL.\n"; // Out of fuel stops movement
                 }
-
-                if(card.getType() == TypeCard.FLAT_TIRE)
-                {
-                    return message+"FLAT_TIRE.\n";
+                if (card.getType() == TypeCard.FLAT_TIRE) {
+                    return message + "FLAT_TIRE.\n"; // Flat tire stops movement
                 }
-
-                if(card.getType() == TypeCard.ACCIDENT)
-                {
-                    return message+"accident.\n";
+                if (card.getType() == TypeCard.ACCIDENT) {
+                    return message + "accident.\n"; // Accident stops movement
                 }
-
-                if(card.getType() == TypeCard.SPEED_LIMITATION)
-                {
-                    return message+"limitation de vitesse.\n";
+                if (card.getType() == TypeCard.SPEED_LIMITATION) {
+                    return message + "limitation de vitesse.\n"; // Speed limitation stops movement
                 }
             }
         }
@@ -314,122 +398,124 @@ public abstract class Player implements Serializable{
     }
 
     /*
-     * Vérifie qu'une card soit jouable
+     * Verifies if a given card can be played based on the current player's state 
+     * and the target player's current attacks and conditions.
+     * The check ensures that the attack can be made, the distance can be covered, 
+     * or the safety card can be played, based on the existing conditions and attacks.
+     *
+     * @param c The card being checked.
+     * @param u The player attempting to play the card.
+     * @param target The target player for attack (may be null for some actions).
+     * @return True if the card is valid to play, false otherwise.
      */
-// This method handles the logic for check
-    public boolean check(Card c, Player u, Player target){
-        if (c instanceof Attack){
-            if(target == null)
-            {
-                return false;
+    public boolean check(Card c, Player u, Player target) {
+        if (c instanceof Attack) {
+            if (target == null) {
+                return false; // Attack requires a target
             }
-            if(c.getType() == TypeCard.RED_LIGHT && !target.getgreenLight())
-            {
-                return false;
+            if (c.getType() == TypeCard.RED_LIGHT && !target.getgreenLight()) {
+                return false; // Cannot attack if the target is not green-lighted
             }
+            // Check if any played boots on the target prevent the attack
             for (Card card : target.getPlayedBoots()) {
                 switch (c.getType()) {
                     case FLAT_TIRE:
-                        if (card.getType() == TypeCard.PUNCTURE_PROOF) return false;
+                        if (card.getType() == TypeCard.PUNCTURE_PROOF) return false; // Puncture-proof prevents flat tire
                         break;
                     case ACCIDENT:
-                        if (card.getType() == TypeCard.EXPERT_DRIVER) return false;
+                        if (card.getType() == TypeCard.EXPERT_DRIVER) return false; // Expert driver prevents accident
                         break;
                     case OUT_OF_FUEL:
-                        if (card.getType() == TypeCard.TANK_TRUCK) return false;
+                        if (card.getType() == TypeCard.TANK_TRUCK) return false; // Tank truck prevents fuel shortage
                         break;
                     case SPEED_LIMITATION:
-                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false; // Priority vehicle prevents speed limitation
                         break;
                     case RED_LIGHT:
-                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false;
+                        if (card.getType() == TypeCard.PRIORITY_VEHICLE) return false; // Priority vehicle prevents red light
                         break;
                     default:
                         break;
                 }
             }
+            // Check if any active attacks on the target prevent the current attack
             for (Card card : target.getCurrentAttacks()) {
                 switch (c.getType()) {
                     case FLAT_TIRE:
-                        if (card.getType() == TypeCard.FLAT_TIRE) return false;
+                        if (card.getType() == TypeCard.FLAT_TIRE) return false; // Flat tire blocks another flat tire
                         break;
                     case ACCIDENT:
-                        if (card.getType() == TypeCard.ACCIDENT) return false;
+                        if (card.getType() == TypeCard.ACCIDENT) return false; // Accident blocks another accident
                         break;
                     case OUT_OF_FUEL:
-                        if (card.getType() == TypeCard.OUT_OF_FUEL) return false;
+                        if (card.getType() == TypeCard.OUT_OF_FUEL) return false; // Out of fuel blocks another fuel shortage
                         break;
                     case SPEED_LIMITATION:
-                        if (card.getType() == TypeCard.SPEED_LIMITATION) return false;
+                        if (card.getType() == TypeCard.SPEED_LIMITATION) return false; // Speed limitation blocks another speed limitation
                         break;
                     case RED_LIGHT:
-                        if (card.getType() == TypeCard.RED_LIGHT) return false;
+                        if (card.getType() == TypeCard.RED_LIGHT) return false; // Red light blocks another red light
                         break;
                     default:
                         break;
                 }
             }
-            
-        } else if (c instanceof Distance){
-            if(!greenLight)
-            {
-                return false;
+        } else if (c instanceof Distance) {
+            if (!greenLight) {
+                return false; // Cannot play Distance card without green light
             }
-            if(c.getKilometers()+u.getKilometers() > 700)
-            {
-                return false;
+            if (c.getKilometers() + u.getKilometers() > 700) {
+                return false; // Cannot exceed 700 km total distance
             }
-            for (Card card : u.getCurrentAttacks()){
+            // Check if any attack cards prevent movement for Distance cards
+            for (Card card : u.getCurrentAttacks()) {
                 switch (c.getType()) {
-                    case _25KM :
-                    case _50KM :
-                        if (card.getType() == TypeCard.RED_LIGHT | card.getType() == TypeCard.OUT_OF_FUEL | card.getType() == TypeCard.FLAT_TIRE | card.getType() == TypeCard.ACCIDENT) return false;
+                    case _25KM:
+                    case _50KM:
+                        if (card.getType() == TypeCard.RED_LIGHT || card.getType() == TypeCard.OUT_OF_FUEL || 
+                            card.getType() == TypeCard.FLAT_TIRE || card.getType() == TypeCard.ACCIDENT) return false;
                         break;
-                    case _75KM : 
-                    case _100KM :
-                    case _200KM :
-                        if (card.getType() == TypeCard.RED_LIGHT | card.getType() == TypeCard.OUT_OF_FUEL | card.getType() == TypeCard.FLAT_TIRE | card.getType() == TypeCard.ACCIDENT | card.getType() == TypeCard.SPEED_LIMITATION) return false;
+                    case _75KM:
+                    case _100KM:
+                    case _200KM:
+                        if (card.getType() == TypeCard.RED_LIGHT || card.getType() == TypeCard.OUT_OF_FUEL ||
+                            card.getType() == TypeCard.FLAT_TIRE || card.getType() == TypeCard.ACCIDENT || 
+                            card.getType() == TypeCard.SPEED_LIMITATION) return false;
                         break;
                     default:
                         break;
                 }
             }
-        } else if (c instanceof Safety){
+        } else if (c instanceof Safety) {
+            // Safety cards can only be played if specific attack conditions exist
             switch (c.getType()) {
                 case GREEN_LIGHT:
-                    if(getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.RED_LIGHT) || !getgreenLight())
-                    {
-                        return true;
-                    }
-                    else if(getgreenLight())
-                    {
-                        return false;
+                    if (getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.RED_LIGHT) || !getgreenLight()) {
+                        return true; // Green light can be played if there is a red light or no green light
+                    } else if (getgreenLight()) {
+                        return false; // Green light cannot be played if already active
                     }
                 case END_SPEED_LIMITATION:
-                    if(getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.SPEED_LIMITATION))
-                    {
-                        return true;
+                    if (getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.SPEED_LIMITATION)) {
+                        return true; // Speed limitation can be removed if it's already active
                     }
                 case FUEL:
-                    if(getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.OUT_OF_FUEL))
-                    {
-                        return true;
+                    if (getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.OUT_OF_FUEL)) {
+                        return true; // Fuel card can be played if out of fuel
                     }
                 case SPARE_WHEEL:
-                    if(getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.FLAT_TIRE))
-                    {
-                        return true;
+                    if (getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.FLAT_TIRE)) {
+                        return true; // Spare wheel can be played if there's a flat tire
                     }
                 case REPAIR:
-                    if(getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.ACCIDENT))
-                    {
-                        return true;
+                    if (getCurrentAttacks().stream().anyMatch(card -> card.getType() == TypeCard.ACCIDENT)) {
+                        return true; // Repair can be played if there's an accident
                     }
                 default:
                     break;
             }
             return false;
         }
-        return true;
+        return true; // Default return for valid conditions
     }
 }
