@@ -141,7 +141,7 @@ public class Controler {
         vue.addActionReturnButton(e -> {
             if(!modele.getPlayer1().getmyTurn())
             {
-                vue.addMessage("Attendez votre tour pour quitter la partie !", false);
+                vue.addMessage("Attendez votre tour pour quitter la partie !\n", false);
                 return;
             }
             if (soundList.getSoundON()) {
@@ -163,6 +163,7 @@ public class Controler {
         // Set up action listener for "New Game" button
         vue.addActionbuttonNewGame(e -> {
             vue.addMessage("Vous avez mis fin à la round " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
+            vue.resettingKilometers();
             newRound(true, true); // Start a new round
         });
 
