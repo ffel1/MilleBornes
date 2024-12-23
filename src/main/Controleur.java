@@ -520,8 +520,8 @@ public class Controleur
                 @Override
                 public void run(){
                     modele.getJoueur2().actionBot(getControleur());
-                    vue.creerAffichageAttaques();
-                    vue.creerAffichageBottes();
+                    vue.mettreAJourAttaques(modele);
+                    vue.mettreAJourBottes(modele);
                     vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
