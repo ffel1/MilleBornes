@@ -60,3 +60,34 @@ Enzo :
 J'ai commencé par faire la structure du système (Modèle Vue Controleur) pour pouvoir directement commencer avec cette structure. Puis j'ai créé la base de la page de menu puis la page de jeu avec ses différents éléments (Les cartes, le circuit, la fenêtre d'affichage des messages, les boutons).
 Et j'ai également réaliser le déplacement des avec les imagess et gifs réalisées par Xavier, cela pris pas mal de temps car cela necéssitait d'attendre que certains gifs se finissent pour les remplacer par d'autres, et également d'adapter les déplacements par rapport à la taille de l'écran de l'utilisateur pour que les voitures suivent la route du circuit.
 Et j'ai commencé les premiers tests sur les cartes et leurs utilisations grâce à JUnit.
+
+
+Felix : 
+
+Semaine 25/10 :
+
+Mise en place du git et apprentissage de ses commandes.
+
+Semaine 08/11 :
+
+Début d’implémentation des méthodes des classes Joueur, CPUFast et CPU Agro et de leur logique, tel que savoir si une carte est posable ou non ou quel carte les CPU vont vouloir poser en premier.
+
+Semaine 15/11 :
+
+Suite de l’implémentation de ces méthodes.
+
+Semaine 22/11 :
+
+Implémentation de nouvelles méthodes dans la classe Joueur pour que le joueur et les CPU puisse jouer leurs cartes et que cela soit affiché en fonction du type de carte.
+
+Semaine 29/11 : 
+
+Modification de certaines méthodes pour aider à l’affichage des cartes qui sont jouées par chaque joueur.
+
+Semaine 06/12 :
+
+Implémentation de l’affichage des bottes et attaques pour que le joueur ait un visuel des bottes et attaques en cours des CPU et de lui même.
+
+Semaine 20/12 :
+
+Implémentation du comptage des points pour chaque joueur dans la classe Partie et implémentation des coups fourrés dans la classe Joueur.
