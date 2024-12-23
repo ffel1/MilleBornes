@@ -387,14 +387,15 @@ public class FenetreJeu {
         panelHistorique.setLayout(new GridBagLayout());
         GridBagConstraints grille = new GridBagConstraints();
     
-        File fichier;
-        int i = 1;
-    
-        fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
+        File manche,partie;
 
-        while (fichier.exists()) {
-            String path = fichier.getPath();
-            JButton boutonFichier = new JButton("Manche " + i);
+        int i = 1;
+        
+        partie = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
+        //bouton partie_x
+        while (partie.exists()) {
+            String path = partie.getPath();
+            JButton boutonFichier = new JButton("Partie " + i);
             boutonFichier.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
     
             boutonFichier.addActionListener(e -> {
@@ -409,7 +410,31 @@ public class FenetreJeu {
             panelHistorique.add(boutonFichier, grille);
     
             i++;
-            fichier = new File("SauvegardeDesHistoriques/Manche_" + i+".txt");
+            partie = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
+        }
+
+        int j = 1;
+        manche = new File("SauvegardeDesHistoriques/Manche_" + j+".txt");
+        //bouton manche_x
+        while (manche.exists()) {
+            String path = manche.getPath();
+            JButton boutonFichier = new JButton("Manche " + j);
+            boutonFichier.setPreferredSize(new Dimension(largeur * 25 / 100, hauteur * 10 / 100)); 
+    
+            boutonFichier.addActionListener(e -> {
+                afficherContenuFichier(path);
+            });
+
+            grille.gridx = 1; 
+            grille.gridy = i; 
+            grille.insets = new Insets(40, 40, 40, 40);
+            grille.anchor = GridBagConstraints.CENTER;
+
+            panelHistorique.add(boutonFichier, grille);
+    
+            j++;
+            i++;
+            manche = new File("SauvegardeDesHistoriques/Manche_" + j+".txt");
         }
 
         JButton boutonSupprimer = new JButton("Supprimer historique");
