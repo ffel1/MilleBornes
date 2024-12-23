@@ -135,7 +135,7 @@ public class User extends Player {
      * 
      * @return True if the user is discarding a card, false otherwise.
      */
-    public boolean getdiscard() {
+    public boolean getDiscard() {
         return discard;
     }
 
@@ -227,7 +227,7 @@ public class User extends Player {
             Controler.getVue().addMessage("Vous avez joué la card " + nbCard + " (" + c.getName() + ") \n", true); 
         }
         getHand().remove(c);
-        Controler.getVue().effacerCardsPlayers();
+        Controler.getVue().deleteCardsPlayers();
         Controler.getVue().printCardsPlayer(getHand());
         Controler.initButtonCards(getHand());
         Controler.getVue().getWindow().repaint();
@@ -396,7 +396,7 @@ public class User extends Player {
         getHand().remove(c);
 
         // Update the game view by clearing the cards and printing the updated hand
-        Controler.getVue().effacerCardsPlayers();
+        Controler.getVue().deleteCardsPlayers();
         Controler.getVue().printCardsPlayer(getHand());
 
         // Initialize buttons for the remaining cards and refresh the view
