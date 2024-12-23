@@ -136,6 +136,7 @@ public class Controler {
         vue.moveForwadCar(modele.getPlayer2().getKilometers(), 1, getControler());
         vue.moveForwadCar(modele.getPlayer3().getKilometers(), 2, getControler());
 
+
         // Set up action listener for "Main Menu" button
         vue.addActionreturnButton(e -> {
             if (soundList.getSoundON()) {
@@ -157,7 +158,6 @@ public class Controler {
         // Set up action listener for "New Game" button
         vue.addActionbuttonNewGame(e -> {
             vue.addMessage("Vous avez mis fin à la round " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
-            vue.resettingKilometers(); // Reset players' kilometers
             newRound(true, true); // Start a new round
         });
 
@@ -177,7 +177,7 @@ public class Controler {
             } else if (!modele.getPlayer1().HandFull()) {
                 vue.addMessage("Vous n'avez pas plus de 6 cartes, vous ne pouvez pas défausser \n", false);
             } else if (!modele.getPlayer1().getdiscard()) {
-                vue.addMessage("Cliquez sur la card que vous voulez défausser ! \nCliquez à nouveau sur la draw pour annuler \n", false);
+                vue.addMessage("Cliquez sur la card que vous voulez défausser ! \nCliquez à nouveau sur la pioche pour annuler \n", false);
                 modele.getPlayer1().setdiscard(true); // Enable discard mode
                 vue.getdiscard().setText("Annuler"); // Update discard button text
             } else {
@@ -587,6 +587,7 @@ public class Controler {
                 }
             }, turnDelay);
         }
+
         vue.getWindow().revalidate();
         vue.getWindow().repaint();
     }
@@ -726,7 +727,7 @@ public class Controler {
         vue.getWindow().repaint();
         vue.getWindow().revalidate();
         vue.createWindowGame();
-
+    
         // If there's a winner, handle the result
         if(modele.getwinnerOfTheGame() != null){
             // If player 1 is the winner
@@ -764,6 +765,7 @@ public class Controler {
             vue.addMessage("Vous avez arrêté la manche, les points gagnés\nne seront pas comptabilisés \n\n\n", false);
             vue.addMessage("Chargement de la prochaine manche...\n", false);
             vue.resettingKilometers();
+            
             modele.getPlayers().clear();
             Timer chrono = new Timer();
             chrono.schedule(new TimerTask(){
