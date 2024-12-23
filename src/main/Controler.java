@@ -72,6 +72,7 @@ public class Controler {
             vue.getWindow().getContentPane().removeAll(); // Clear the window content
             vue.getWindow().repaint();
             vue.getWindow().revalidate();
+            vue.resettingKilometers();
             vue.createWindowGame(); // Create the game window
             newGame(false, false); // Start a new game
         });
@@ -110,10 +111,6 @@ public class Controler {
         boolean loadedGame;
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
-        }
-        else
-        {
-            modele = new Game();
         }
 
         // If the game is not loaded or the flag b is true, start a new game
