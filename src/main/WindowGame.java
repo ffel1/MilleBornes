@@ -504,7 +504,7 @@ public class WindowGame {
             round = new File("SauvegardeDesHistoriques/Manche_" + j+".txt");
         }
 
-        JButton ButtonDelete = new JButton("Delete historique");
+        JButton ButtonDelete = new JButton("Supprimer historique");
         ButtonDelete.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); 
         ButtonDelete.addActionListener(e -> DeleteHistorique());
         grid.gridx = 0;
