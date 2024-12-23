@@ -45,6 +45,8 @@ Semaine du 06/12 :
 
 J'ai implémenté le système de partie, le joueur qui commence à jouer est choisit au hasard. J'ai aussi commencé à implémenté le système de sauvegarde des parties. J'ai simplement fait en sorte que certains logs importants soient stockés dans nouveau un fichier .txt à chaque partie. Lorsqu'on reprends une partie, le fichier .txt associé à la manche que l'on reprend est chargé dans la console de log.
 
+Semaine du 20/12 :
+
 Le jeu était globalement opérationnel, j'ai donc commencé à ajouter des éléments visuels secondaires (des cartes personnalisées en pixel art, des couleurs différentes pour chaque voiture, une interface entièrement en pixel art pour plus de cohérence visuelle, des meilleurs animations de voitures avec des ombres). J'ai prit soin que l'inteface s'adapte à la taille à l'écran sur lequel on affiche le jeu.
 
 J'ai continué l'implémentation du système de manche et de partie qu'avait commencé Felix. Il faut finir la manche à pile 700 bornes pour gagner une manche. Lorsqu'un joueur gagne le jeu s'arrête quelques secondes en annonçant le gagnant, et lance ensuite une autre manche en annonçant les points des joueurs. Si la partie est gagnée, le jeu annonce le gagnant de la partie et relance une partie. Les fichiers de sauvegardes de manche sont tous mit dans un nouveau fichier .txt.
