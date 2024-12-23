@@ -61,6 +61,7 @@ public class Controler {
     public Controler(Game modele, WindowGame vue) {
         this.modele = modele;
         this.vue = vue;
+        vue.setControler(this);
         soundList = new Sound();
         secondarySoundList = new Sound();
         turnDelay = 3000; // Set the turn delay to 3 seconds
@@ -102,20 +103,17 @@ public class Controler {
      * Starts a new game. If a save file exists and no flag is passed, it loads the saved game.
      * 
      * @param b If true, starts a new game regardless of existing save.
-     * @param EndGameForcee If true, forces the end of the game without saving.
+     * @param endGameForced If true, forces the end of the game without saving.
      */
     @SuppressWarnings("unused")
-    private void newGame(boolean b, boolean EndGameForcee) {
+    private void newGame(boolean b, boolean endGameForced) {
 
         File file = new File("save.ser");
         boolean loadedGame;
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
         }
-        else
-        {
-            modele = new Game();
-        }
+
         // If the game is not loaded or the flag b is true, start a new game
         if (!modele.loadedGame() || b) {
             modele.newGame();
@@ -166,7 +164,7 @@ public class Controler {
 
         // Set up action listener for "New Game" button
         vue.addActionButtonNewGame(e -> {
-            vue.addMessage("Vous avez mis fin à la round " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
+            vue.addMessage("Vous avez mis fin à la manche " + modele.getNumeroround() + ", les points ne seront pas comptabilisés\n", true);
             vue.resettingKilometers();
             newRound(true, true); // Start a new round
         });
@@ -225,7 +223,6 @@ public class Controler {
                     // Check if the player is the winner and end the game
                     if (modele.winner() == modele.getPlayer1()) {
                         vue.addMessage("\n VOUS AVEZ GAGNE LA MANCHE !! BRAVO ! \n", true);
-                        modele.endTheGame(vue);
                         newRound(true, false);
                         return;
                     }
@@ -253,7 +250,6 @@ public class Controler {
                                 if (modele.getdraw().size() == 0) {
                                     vue.addMessage("La pioche est vide ! \n", b);
                                 }
-                                modele.endTheGame(vue);
                                 newRound(true, false);
                                 return;
                             }
@@ -275,7 +271,6 @@ public class Controler {
                                         if (modele.getdraw().size() == 0) {
                                             vue.addMessage("La pioche est vide ! \n", b);
                                         }
-                                        modele.endTheGame(vue);
                                         newRound(true, false);
                                         return;
                                     }
@@ -320,7 +315,6 @@ public class Controler {
                             if (modele.getdraw().size() == 0) {
                                 vue.addMessage("La pioche est vide ! \n", b);
                             }
-                            modele.endTheGame(vue);
                             newRound(true, false);
                             return;
                         }
@@ -339,7 +333,6 @@ public class Controler {
                                     if (modele.getdraw().size() == 0) {
                                         vue.addMessage("La pioche est vide ! \n", b);
                                     }
-                                    modele.endTheGame(vue);
                                     newRound(true, false);
                                     return;
                                 }
@@ -489,7 +482,6 @@ public class Controler {
             // Check if the draw pile is empty
             if(modele.getdraw().size() == 0) {
                 vue.addMessage("La pioche est vide !", true);
-                modele.endTheGame(vue); // End the game if the draw pile is empty
                 newRound(true, false); // Start a new round
                 return;
             }
@@ -510,7 +502,7 @@ public class Controler {
         vue.printCardsPlayer(Hand);
         initButtonCards(Hand);
         // Check if the round was forced to end.
-        if (EndGameForcee) {
+        if (endGameForced) {
             vue.addMessage("Vous avez arrêté la manche " + (modele.getNumeroround() - 1) + ", les points ne seront pas comptabilisés ! \n", true);
         }
         // If the game is loaded, display the scores and allow the player to start playing.
@@ -738,39 +730,8 @@ public class Controler {
         vue.getWindow().revalidate();
         vue.createWindowGame();
     
-        // If there's a winner, handle the result
-        if(modele.getwinnerOfTheGame() != null){
-            // If player 1 is the winner
-            if(modele.getwinnerOfTheGame().getId() == modele.getPlayer1().getId()){
-                int i = 0;
-                vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", true);
-                vue.addMessage("VOUS AVEZ GAGNE !\n", true);
-                while(i < 500)
-                {
-                    vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", false);
-                    vue.addMessage("VOUS AVEZ GAGNE !\n", false);
-                    i++;
-                }
-            }
-            else{
-                // If CPU is the winner
-                vue.addMessage("Le CPU " + modele.getwinnerOfTheGame().getName() + " a accumulé 5000 POINTS...", true);
-                vue.addMessage("Vous avez perdu cette Game...", true);
-            }
-            
-            // Save game history and reset the game
-            saveManagement();
-            modele = new Game();
-            Timer chrono = new Timer();
-            chrono.schedule(new TimerTask(){
-                @Override
-                public void run(){
-                    vue.clearConsole();
-                    newGame(true, false);
-                }
-            }, turnDelay);
-        }
-        else if(b2){
+
+        if(b2){
             // If the round was forced to stop by the player
             vue.addMessage("Vous avez arrêté la manche, les points gagnés\nne seront pas comptabilisés \n\n\n", false);
             vue.addMessage("Chargement de la prochaine manche...\n", false);
@@ -784,30 +745,75 @@ public class Controler {
                     newGame(b1, b2);
                 }
             }, turnDelay*2);
-        }else{
-            // If there was no winner and the round ended normally
-            if(modele.getdraw().size() == 0){
-                vue.addMessage("La pioche s'est vidé :\n", false);
-                vue.addMessage("Le gagnant est donc celui qui est allé le plus loin...\n", false);
+        }
+        else
+        {
+            modele.countingPts();
+            if(modele.getwinnerOfTheGame() != null){// If there's a winner, handle the result
+                // If player 1 is the winner
+                if(modele.getwinnerOfTheGame().getId() == modele.getPlayer1().getId())
+                {
+                    int i = 0;
+                    vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", true);
+                    vue.addMessage("VOUS AVEZ GAGNE !\n", true);
+                    while(i < 500)
+                    {
+                        vue.addMessage("VOUS AVEZ ACCUMULE 5000 POINTS!!!\n", false);
+                        vue.addMessage("VOUS AVEZ GAGNE !\n", false);
+                        i++;
+                    }
+                }
+                else{
+                // If CPU is the winner
+                vue.addMessage("Le CPU " + modele.getwinnerOfTheGame().getName() + " a accumulé 5000 POINTS...", true);
+                vue.addMessage("Vous avez perdu cette Partie...", true);
+                }
+            
+                // Save game history and reset the game
+                saveManagement();
+                modele = new Game();
+                Timer chrono = new Timer();
+                chrono.schedule(new TimerTask(){
+                    @Override
+                    public void run(){
+                        vue.clearConsole();
+                        newGame(true, false);
+                    }
+                }, turnDelay);
+            }
+            else{
+                // If there was no winner and the round ended normally
+                if(modele.getdraw().size() == 0){
+                    vue.addMessage("La pioche s'est vidé :\n", false);
+                    vue.addMessage("Le gagnant est donc celui qui est allé le plus loin...\n", false);
+                }
+    
+                // Check if player 1 is the leading player
+                if(modele.theLeadingPlayer().getId() == modele.getPlayer1().getId()){
+                    vue.addMessage("VOUS AVEZ GAGNE CETTE MANCHE, BRAVO !! \n\n\n\n", false);
+                }else{
+                    vue.addMessage("Dommage, c'est le CPU " + modele.theLeadingPlayer().getName() + " qui a gagné cette manche, bravo !! \n\n\n\n", false);
+                }
+                // Start the next round
+                vue.addMessage("Chargement de la partie suivante...\n\n\n", false);
+                modele.getPlayers().clear();
+                Timer chrono = new Timer();
+                chrono.schedule(new TimerTask(){
+                    @Override
+                    public void run(){
+                        newGame(true, false);
+                    }
+                }, turnDelay);
             }
 
-            // Check if player 1 is the leading player
-            if(modele.theLeadingPlayer().getId() == modele.getPlayer1().getId()){
-                vue.addMessage("VOUS AVEZ GAGNE CETTE MANCHE, BRAVO !! \n\n\n\n", false);
-            }else{
-                vue.addMessage("Dommage, c'est le CPU " + modele.theLeadingPlayer().getName() + " qui a gagné cette manche, bravo !! \n\n\n\n", false);
-            }
-            // Start the next round
-            vue.addMessage("Chargement de la partie suivante...\n\n\n", false);
-            modele.getPlayers().clear();
-            Timer chrono = new Timer();
-            chrono.schedule(new TimerTask(){
-                @Override
-                public void run(){
-                    newGame(true, false);
-                }
-            }, turnDelay);
         }
+    }
+
+    //setter for the modele 
+    //used for reset de modele when saves are deleted
+    public void setModele(Game newModele)
+    {
+        modele = newModele;
     }
 
     /**
@@ -844,7 +850,7 @@ public class Controler {
         ) {
             // Traverse through the files in the directory
             Files.list(Paths.get(directoryPath))
-                .filter(path -> path.getFileName().toString().startsWith("Manche") && path.getFileName().toString().endsWith(".txt"))
+                .filter(path -> path.getFileName().toString().startsWith("round") && path.getFileName().toString().endsWith(".txt"))
                 .forEach(fileBis -> {
                     try (BufferedReader reader = new BufferedReader(new FileReader(fileBis.toFile()))) {
                         String line;

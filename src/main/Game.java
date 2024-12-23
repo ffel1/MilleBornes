@@ -276,15 +276,6 @@ public class Game implements Serializable {
         return null; // No winner yet
     }
 
-    /**
-     * Ends the game and calculates the points.
-     * 
-     * @param vue The window displaying the game state.
-     */
-    public void endTheGame(WindowGame vue) {    
-        countingpts(); // Calculate points for all players
-    }
-
     // @return the points of the main player
     public int getPtsPlayer() {
         return ptsPlayer;
@@ -314,7 +305,7 @@ public class Game implements Serializable {
      * - dirty tricks
      * - victory points for the winner of the round
      */
-    public void countingpts() {
+    public void countingPts() {
         Player winner = winner();  // Get the winner of the round
 
         // Points from distance traveled
@@ -407,6 +398,8 @@ public class Game implements Serializable {
         if (localWinner.getPts() > 5000) {
             winnerOfTheGame = localWinner;
         }
+
+        System.out.println(ptsPlayer);
     }
 
     /**

@@ -39,86 +39,47 @@ import java.awt.Rectangle;
 // This class represents WindowGame
 public class WindowGame {
     public boolean getCurrentAnimation;
-// Private or protected member
     private JFrame windowMenu;
-// Private or protected member
     private int height;
-// Private or protected member
     private int width;
-// Private or protected member
     private int heightCard;
-// Private or protected member
     private JTextArea textArea;
-// Private or protected member
     private JScrollPane scrollPane;
-// Private or protected member
     private JButton buttonPlay;
-// Private or protected member
     private JButton buttonQuit;
-// Private or protected member
     private JButton buttonSaves;
-// Private or protected member
     private JButton returnButton;
-// Private or protected member
     private JButton buttonDraw;
-// Private or protected member
     private JButton buttonDiscard;
-// Private or protected member
     private JButton buttonEndOfTurn;
-// Private or protected member
     private JButton buttonNewGame;
-// Private or protected member
     private JPanel menuPanel;
-// Private or protected member
     private JLayeredPane gamePanel;
-// Private or protected member
     private ArrayList<JButton> buttonHandPlayer;
-// Private or protected member
     private GraphicsEnvironment env;
-// Private or protected member
     private GraphicsDevice screen;
-// Private or protected member
     private JButton ButtonCar1;
-// Private or protected member
     private JButton ButtonCar2;
-// Private or protected member
     private JButton ButtonCar3;
-// Private or protected member
     private int kilometersV1;
-// Private or protected member
     private int kilometersV2;
-// Private or protected member
     private int kilometersV3;
-// Private or protected member
     private ImageIcon circuit;
-// Private or protected member
     private String nameGame;
-// Private or protected member
     private JPanel panelAttacksPlayer;
-// Private or protected member
     private JPanel panelAttacksCPUFast;
-// Private or protected member
     private JPanel panelAttacksCPUAgro;
-// Private or protected member
     private JPanel panelBootsPlayer;
-// Private or protected member
     private JPanel panelBootsCPUFast;
-// Private or protected member
     private JPanel panelBootsCPUAgro;
-// Private or protected member
     private ImageIcon soundOn;
-// Private or protected member
     private ImageIcon soundOff;
-// Private or protected member
     private JButton soundButton;
-// Private or protected member
     private boolean turboV1;
-// Private or protected member
     private boolean turboV2;
-// Private or protected member
     private boolean turboV3;
-// Private or protected member
     private boolean turbo;
+    private Controler controler;
 
 
 // This method handles the logic for WindowGame
@@ -176,7 +137,7 @@ public class WindowGame {
 
 // Private or protected member
     private void enableFullScreen(JFrame winetre) {
-        winetre.dispose(); // Nécessaire pour certaines modifications de winêtre
+        winetre.dispose(); // Nécessaire pour certaines modifications de fenêtre
         winetre.setUndecorated(true); // Supprime les bordures et la barre de titre
         screen.setFullScreenWindow(winetre); // Passe la winêtre en mode plein écran
     }
@@ -485,7 +446,7 @@ public class WindowGame {
         //Button round_x
         while (round.exists()) {
             String path = round.getPath();
-            JButton Buttonfile = new JButton("round " + j);
+            JButton Buttonfile = new JButton("Manche " + j);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); 
     
             Buttonfile.addActionListener(e -> {
@@ -580,8 +541,14 @@ public class WindowGame {
         windowMenu.repaint();
     }
 
-// Private or protected member
+    public void setControler(Controler controler)
+    {
+        this.controler = controler;
+    }
+
+//This method delete all the saves and the actual round
     private void deleteHistory() {
+        controler.setModele(new Game());
         File directory = new File("SauvegardeDesHistoriques");
         File[] files = directory.listFiles();
         for (File file : files) {
