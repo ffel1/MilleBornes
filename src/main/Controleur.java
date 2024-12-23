@@ -75,10 +75,6 @@ public class Controleur
             partieChargée = true;
         }
 
-        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, getControleur());
-        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, getControleur());
-        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, getControleur());
-
         String nomDeLaPartie = modele.getNomDeLaPartie();
         vue.setNomDeLaPartie(nomDeLaPartie);
         if(partieChargée)
@@ -105,6 +101,8 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
+            vue.ajouterMessage("Vous avez mis fin à la manche " + modele.getNumeroManche() + ", les points ne seront pas comptabilisés\n", true);
+            vue.remiseDesKilometres0();
             nouvelleManche(true, true);
         });
 
@@ -196,6 +194,8 @@ public class Controleur
                         @Override
                         public void run(){
                             modele.getJoueur2().actionBot(getControleur());
+                            vue.mettreAJourAttaques(modele);
+                            vue.mettreAJourBottes(modele);
                             if(modele.gagnant() != null || modele.getPioche().size() == 0)
                             {
                                 if(modele.getPioche().size() == 0)
@@ -213,6 +213,8 @@ public class Controleur
                                 @Override
                                 public void run(){
                                     modele.getJoueur3().actionBot(getControleur());
+                                    vue.mettreAJourAttaques(modele);
+                                    vue.mettreAJourBottes(modele);
                                     if(modele.gagnant() != null || modele.getPioche().size() == 0)
                                     {
                                         if(modele.getPioche().size() == 0)
@@ -255,6 +257,8 @@ public class Controleur
                     public void run(){
                         vue.ajouterMessage("\nEn attente du joueur Agro\n", true);
                         modele.getJoueur2().actionBot(getControleur());
+                        vue.mettreAJourAttaques(modele);
+                        vue.mettreAJourBottes(modele);
                         if(modele.gagnant() != null || modele.getPioche().size() == 0)
                         {
                             if(modele.getPioche().size() == 0)
@@ -272,6 +276,8 @@ public class Controleur
                             public void run(){
                                 vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
                                 modele.getJoueur3().actionBot(getControleur());
+                                vue.mettreAJourAttaques(modele);
+                                vue.mettreAJourBottes(modele);
                                 if(modele.gagnant() != null || modele.getPioche().size() == 0)
                                 {
                                     if(modele.getPioche().size() == 0)
@@ -397,7 +403,7 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-            joueMusic(2);
+            //joueMusic(2);
             if(modele.getJoueur1().getDoitPiocher())
             {
                 modele.getJoueur1().setDoitPiocher(false);
@@ -498,6 +504,8 @@ public class Controleur
                 @Override
                 public void run(){
                     modele.getJoueur2().actionBot(getControleur());
+                    vue.creerAffichageAttaques();
+                    vue.creerAffichageBottes();
                     vue.ajouterMessage("\nEn attente du joueur Fast\n", true);
                     Timer chrono = new Timer();
                     chrono.schedule(new TimerTask(){
@@ -538,9 +546,6 @@ public class Controleur
                 }
             }, tempsEntreTour);
         }
-        vue.avancerVoiture(modele.getJoueur1().getKilometre(), 0, this);
-        vue.avancerVoiture(modele.getJoueur2().getKilometre(), 1, this);
-        vue.avancerVoiture(modele.getJoueur3().getKilometre(), 2, this);
         vue.getFenetre().revalidate();
         vue.getFenetre().repaint();
     }

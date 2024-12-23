@@ -32,8 +32,8 @@ public abstract class CPU extends Joueur{
         for(Carte carte : getBottesPosées())
         {
             controleur.getVue().ajouterMessage(carte.getNom()+"\n", false);
-        }*/
-
+        }
+*/
         Carte carteJoué = choisirCarte();
 
         if(carteJoué == null)
