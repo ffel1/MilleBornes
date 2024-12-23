@@ -32,7 +32,7 @@ public class CPUAgro extends CPU{
                 carteAJouer = carte;
                 findFeuVert = true;
             }
-            else if(carte instanceof Parade && !findAttaque && !findFeuVert && verification(carte, this, null)){
+            else if(carte instanceof Parade && !findAttaque && !findFeuVert && !findParade && verification(carte, this, null)){
                 carteAJouer = carte;
                 findParade = true;
             }

@@ -27,7 +27,7 @@ public class CPUFast extends CPU{
                 carteAJouer = carte;
                 findFeuVert = true;
             }
-            else if(carte instanceof Parade && !findFeuVert && verification(carte, this, null)){
+            else if(carte instanceof Parade && !findFeuVert && !findParade && verification(carte, this, null)){
                 carteAJouer = carte;
                 findParade = true;
             }
