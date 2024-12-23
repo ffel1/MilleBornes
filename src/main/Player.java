@@ -374,7 +374,7 @@ public abstract class Player implements Serializable {
             removeCard(c); // Remove the card from the player's hand
             return (getName() + " avance de " + Kilometers + " km. Distance totale : " + kilometersP + " km. \n");
         } else {
-            String message = name + " ne peut pas moveForwad. Problème : ";
+            String message = name + " ne pouvez pas avancer. Problème : ";
             // Loop through the current attack cards and check if any prevent movement
             for (Card card : currentAttacks) {
                 if (card.getType() == TypeCard.RED_LIGHT) {
