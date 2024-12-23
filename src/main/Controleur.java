@@ -24,17 +24,19 @@ public class Controleur
     private FenetreJeu vue;
     private Son listeSon;
     private int tempsEntreTour;
+    private Son listeSonSecondaire;
 
     public Controleur(Partie modele, FenetreJeu vue) 
     {
         this.modele = modele;
         this.vue = vue;
         listeSon = new Son();
+        listeSonSecondaire = new Son();
         tempsEntreTour = 3000; // 3 secondes
         vue.creerFenetreMenu();
 
         vue.ajouterActionBoutonJouer(e -> {
-            //joueMusic(0);
+            joueMusicPrincipale(0);
             vue.getFenetre().getContentPane().removeAll();
             vue.getFenetre().repaint();
             vue.getFenetre().revalidate();
@@ -91,6 +93,9 @@ public class Controleur
 
         //Bouton Menu Principal
         vue.ajouterActionBoutonRetour(e -> {
+            stopMusic();
+            listeSon = new Son();
+            listeSonSecondaire = new Son();
             if(modele.getJoueur1().getEnTraindAttaquerAvec() != null)
             {
                 modele.getJoueur1().getEnTraindAttaquerAvec().setImageBack();
@@ -321,7 +326,7 @@ public class Controleur
 
         //Bouton AttaqueBotAgro
         vue.ajouterActionBoutonCPUAgro(e -> {
-            // joueMusic(1); j'enlève parce que sinon ça fait de la latence quand on clique dessus, faudrait lancer le son dans un thread
+            joueMusic(1);
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur2());
@@ -364,7 +369,7 @@ public class Controleur
 
         //Bouton AttaqueBotFast
         vue.ajouterActionBoutonCPUFast(e -> {
-            //joueMusic(1); j'enlève parce que sinon ça fait de la latence quand on clique dessus, faudrait lancer le son dans un thread
+            joueMusic(1);
             if(modele.getJoueur1().getMonTour() && modele.getJoueur1().getenTraindAttaquer())
             {
                 modele.getJoueur1().setCible(modele.getJoueur3());
@@ -407,7 +412,6 @@ public class Controleur
 
         //Bouton Pioche 
         vue.ajouterActionBoutonPioche(e -> {
-            //joueMusic(2);
             if(modele.getJoueur1().getDoitPiocher())
             {
                 modele.getJoueur1().setDoitPiocher(false);
@@ -454,7 +458,12 @@ public class Controleur
             }
         }); 
 
-            vue.ajouterActionBoutonSon(e -> {
+        vue.ajouterActionBoutonSon(e -> {
+            if(listeSonSecondaire.getSonON()){
+                listeSonSecondaire.setSonON(false);
+            }else{
+                listeSonSecondaire.setSonON(true);
+            }
             stopMusic();
             vue.changerImageSon();
         });
@@ -834,18 +843,25 @@ public class Controleur
             }
     }
 
-    private void joueMusic(int i){
+    private void joueMusicPrincipale(int i){
         listeSon.setFile(i);
-        listeSon.play();
+        listeSon.play(i);
+    }
+
+    private void joueMusic(int i){
+        if(i != 0){
+            listeSonSecondaire.setFile(i);
+            listeSonSecondaire.play(i);
+        }
     }
 
     private void joueEnContinueMusic(int i){
         listeSon.setFile(i);
-        listeSon.play();
+        listeSon.play(i);
         listeSon.loop();
     }
 
     public void stopMusic(){
-        listeSon.stop();
+        listeSon.stop(0);
     }
 }
