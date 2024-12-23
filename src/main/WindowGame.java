@@ -276,8 +276,8 @@ public class WindowGame {
      * Permet de connecter une action au Button "End de Tour"
      * @param action L'action à exécuter lors du clic sur le Button
      */
-// This method handles the logic for addActionButtonEndDemyTurn
-    public void addActionButtonEndDemyTurn(ActionListener action){
+// This method handles the logic for AddActionButtonEndOfMyTurn
+    public void AddActionButtonEndOfMyTurn(ActionListener action){
         buttonEndOfTurn.addActionListener(action);
     }
 
@@ -589,7 +589,11 @@ public class WindowGame {
         }
         File fileSaves = new File("save.ser");
         fileSaves.delete();
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> ee51a172e885dedf5dc8909e440a9ffbd6715b36
         createWindowSaves();
     }
     
