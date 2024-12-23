@@ -138,7 +138,12 @@ public class Controler {
 
 
         // Set up action listener for "Main Menu" button
-        vue.addActionreturnButton(e -> {
+        vue.addActionReturnButton(e -> {
+            if(!modele.getPlayer1().getmyTurn())
+            {
+                vue.addMessage("Attendez votre tour pour quitter la partie !", false);
+                return;
+            }
             if (soundList.getSoundON()) {
                 stopMusic(); // Stop the music if it's playing
             }
@@ -188,7 +193,7 @@ public class Controler {
         });
 
         // Button to end the player's turn
-        vue.addActionButtonEndDemyTurn(e -> {
+        vue.AddActionButtonEndOfMyTurn(e -> {
             // Check if it's the player's turn
             if (!modele.getPlayer1().getmyTurn()) {
                 vue.addMessage("Ce n'est pas votre tour ! \n", false);
