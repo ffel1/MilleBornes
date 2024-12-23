@@ -794,6 +794,14 @@ public class FenetreJeu {
         panelJeu.add(boutonVoiture3, Integer.valueOf(2));
     }
 
+    public void remiseDesKilometres0()
+    {
+        kilometreV1 = 0;
+        kilometreV2 = 0;
+        kilometreV3 = 0;
+        afficherVoitures(circuit);
+    }
+
     /*
      * Avance la voiture en fonction des kilomètres totaux du joueur
      * Seulement la première ligne droite pour l'instant

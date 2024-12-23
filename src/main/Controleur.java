@@ -101,6 +101,8 @@ public class Controleur
 
         //Bouton Nouvelle Partie 
         vue.ajouterActionBoutonNouvellePartie(e -> {
+            vue.ajouterMessage("Vous avez mis fin à la manche " + modele.getNumeroManche() + ", les points ne seront pas comptabilisés\n", true);
+            vue.remiseDesKilometres0();
             nouvelleManche(true, true);
         });
 
