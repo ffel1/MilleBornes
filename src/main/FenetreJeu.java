@@ -355,13 +355,16 @@ public class FenetreJeu {
 
         // BoutonSon
         sonOn = new ImageIcon("Images/SonON.png");
-        Image imageRedimensionneeSonOn = sonOn.getImage().getScaledInstance(largeur * 2 / 100, hauteur * 25 / 1000, Image.SCALE_SMOOTH);
+        Image imageRedimensionneeSonOn = sonOn.getImage().getScaledInstance(largeur * 27 / 1000, hauteur * 50 / 1000, Image.SCALE_SMOOTH);
         sonOn = new ImageIcon(imageRedimensionneeSonOn);
         sonOff = new ImageIcon("Images/SonOFF.png");
-        Image imageRedimensionneeSonOff = sonOff.getImage().getScaledInstance(largeur * 5 / 100, hauteur * 5 / 100, Image.SCALE_SMOOTH);
+        Image imageRedimensionneeSonOff = sonOff.getImage().getScaledInstance(largeur * 27 / 1000, hauteur * 50 / 1000, Image.SCALE_SMOOTH);
         sonOff = new ImageIcon(imageRedimensionneeSonOff);
         boutonSon.setIcon(sonOn);
-        boutonSon.setBounds(largeur - sonOn.getIconWidth() - 26, hauteur - sonOn.getIconHeight() - 56, sonOn.getIconWidth(), sonOn.getIconHeight());
+        boutonSon.setBounds(largeur - (sonOn.getIconWidth() * 135 / 100), hauteur - (sonOn.getIconHeight() * 180 / 100), sonOn.getIconWidth(), sonOn.getIconHeight());
+        boutonSon.setFocusPainted(false);
+        boutonSon.setContentAreaFilled(false);
+        boutonSon.setOpaque(false);
         panelJeu.add(boutonSon, Integer.valueOf(10));
         
 
@@ -895,7 +898,7 @@ public class FenetreJeu {
                             public void actionPerformed(ActionEvent e){
                                 if(son){
                                     control.getListeSon().setFile(2);
-                                    control.getListeSon().play();
+                                    control.getListeSon().play(2);
                                     son = false;
                                 }
                                 // Mettre à jour les coordonnées
@@ -944,7 +947,7 @@ public class FenetreJeu {
                                                     public void actionPerformed(ActionEvent e){
                                                         if(son){
                                                             control.getListeSon().setFile(2);
-                                                            control.getListeSon().play();
+                                                            control.getListeSon().play(2);
                                                             son = false;
                                                         }
                                                         // Mettre à jour les coordonnées
@@ -952,7 +955,7 @@ public class FenetreJeu {
                                                         voiture.setLocation(x, y);
                                                         if(x < (circuit.getIconWidth() * 64 / 100)){
                                                             ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
-                                                            control.getListeSon().stop();
+                                                            control.getListeSon().stop(2);
                                                             avancerVoiture(distance, joueur, control);
                                                         }
                                                     }
@@ -1003,7 +1006,7 @@ public class FenetreJeu {
                             public void actionPerformed(ActionEvent e) {
                                 if(son){
                                     control.getListeSon().setFile(2);
-                                    control.getListeSon().play();
+                                    control.getListeSon().play(2);
                                     son = false;
                                 }
                                 // Mettre à jour les coordonnées
@@ -1045,7 +1048,7 @@ public class FenetreJeu {
                                                     public void actionPerformed(ActionEvent e){
                                                         if(son){
                                                             control.getListeSon().setFile(2);
-                                                            control.getListeSon().play();
+                                                            control.getListeSon().play(2);
                                                             son = false;
                                                         }
                                                         // Mettre à jour les coordonnées
@@ -1053,7 +1056,7 @@ public class FenetreJeu {
                                                         voiture.setLocation(x, y);
                                                         if(y > (circuit.getIconHeight() * 14 / 100)){
                                                             ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
-                                                            control.getListeSon().stop();
+                                                            control.getListeSon().stop(2);
                                                             avancerVoiture(distance, joueur, control);
                                                         }
                                                     }
@@ -1104,7 +1107,7 @@ public class FenetreJeu {
                             public void actionPerformed(ActionEvent e) {
                                 if(son){
                                     control.getListeSon().setFile(2);
-                                    control.getListeSon().play();
+                                    control.getListeSon().play(2);
                                     son = false;
                                 }
                                 // Mettre à jour les coordonnées
@@ -1147,7 +1150,7 @@ public class FenetreJeu {
                                                     public void actionPerformed(ActionEvent e){
                                                         if(son){
                                                             control.getListeSon().setFile(2);
-                                                            control.getListeSon().play();
+                                                            control.getListeSon().play(2);
                                                             son = false;
                                                         }
                                                         // Mettre à jour les coordonnées
@@ -1155,7 +1158,7 @@ public class FenetreJeu {
                                                         voiture.setLocation(x, y);
                                                         if(x > (circuit.getIconWidth() * 29 / 100)){
                                                             ((javax.swing.Timer) e.getSource()).stop(); // Arrêter le Timer
-                                                            control.getListeSon().stop();
+                                                            control.getListeSon().stop(2);
                                                             avancerVoiture(distance, joueur, control);
                                                         }
                                                     }
@@ -1207,7 +1210,7 @@ public class FenetreJeu {
                             public void actionPerformed(ActionEvent e){
                                 if(son){
                                     control.getListeSon().setFile(2);
-                                    control.getListeSon().play();
+                                    control.getListeSon().play(2);
                                     son = false;
                                 }
                                 // Mettre à jour les coordonnées
