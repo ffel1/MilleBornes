@@ -115,4 +115,4 @@ J'ai continué à améliorer les déplacements des voitures en ajoutant un GIF d
 - Enfin, j'ai ajouté des tests sur le comportement des cartes jouées par les CPU, en tenant compte de leur main et de leur stratégie (rapide ou agressive). J'ai également intégré des timers entre chaque tour des CPU pour ralentir le rythme du jeu, ce qui permet aux joueurs de mieux suivre les actions et de réagir avec des "coups fourrés". 
 
 Semaine du 23/12 :
-Le jeu étant globalement fonctionnel, j'ai ajouté des commentaires détaillés en anglais dans l'ensemble du code du projet. Cela vise à faciliter l'internationalisation, en particulier pour les classes et les méthodes. J'ai également amélioré le système de gestion du son.
+Le jeu étant globalement fonctionnel, j'ai ajouté des commentaires détaillés en anglais dans l'ensemble du code du projet. Cela vise à faciliter l'internationalisation, en particulier pour les classes et les méthodes. J'ai également amélioré le système de gestion du son. 
