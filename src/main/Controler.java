@@ -69,7 +69,7 @@ public class Controler {
 
         // Set up action listener for "Play" button
         vue.addActionButtonPlay(e -> {
-            playMainMusic(0); // Play main music
+            playContiniouselyMusic(0); // Play main music
             vue.getWindow().getContentPane().removeAll(); // Clear the window content
             vue.getWindow().repaint();
             vue.getWindow().revalidate();
@@ -726,7 +726,7 @@ public class Controler {
         vue.getWindow().repaint();
         vue.getWindow().revalidate();
         vue.createWindowGame();
-    
+        vue.resettingKilometers();    
 
         if(b2){
             // If the round was forced to stop by the player
@@ -968,7 +968,7 @@ public class Controler {
     @SuppressWarnings("unused")
     private void playContiniouselyMusic(int i){
         soundList.setFile(i);
-        soundList.play(i);
+        //soundList.play(i);
         soundList.loop();
     }
 
