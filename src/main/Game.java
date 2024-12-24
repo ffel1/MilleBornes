@@ -310,8 +310,8 @@ public class Game implements Serializable {
 
         // Points from distance traveled
         ptsPlayer += players.get(0).getKilometers();
-        ptsCPUFast += players.get(1).getKilometers();
-        ptsCPUAgro += players.get(2).getKilometers();
+        ptsCPUAgro += players.get(1).getKilometers();
+        ptsCPUFast += players.get(2).getKilometers();
 
         // "Capot" bonus for players with 0 kilometers traveled
         if (players.get(1).getKilometers() == 0) {
@@ -329,8 +329,8 @@ public class Game implements Serializable {
 
         // Points from boots played by each player
         int nbBootsPlayer = players.get(0).getPlayedBoots().size();
-        int nbBootsCPUFast = players.get(1).getPlayedBoots().size();
-        int nbBootsCPUAgro = players.get(2).getPlayedBoots().size();
+        int nbBootsCPUAgro = players.get(1).getPlayedBoots().size();
+        int nbBootsCPUFast = players.get(2).getPlayedBoots().size();
 
         // Points for each boot
         ptsPlayer += (nbBootsPlayer == 4) ? 700 : nbBootsPlayer * 100;
@@ -339,8 +339,8 @@ public class Game implements Serializable {
 
         // Points from dirty tricks
         ptsPlayer += players.get(0).getdirtyTricks() * 300;
-        ptsCPUFast += players.get(2).getdirtyTricks() * 300;
-        ptsCPUAgro += players.get(1).getdirtyTricks() * 300;
+        ptsCPUAgro += players.get(2).getdirtyTricks() * 300;
+        ptsCPUFast += players.get(1).getdirtyTricks() * 300;
 
         // Points for round victory
         if (winner == null) {

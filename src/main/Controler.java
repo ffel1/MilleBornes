@@ -502,9 +502,6 @@ public class Controler {
         vue.printCardsPlayer(Hand);
         initButtonCards(Hand);
         // Check if the round was forced to end.
-        if (endGameForced) {
-            vue.addMessage("Vous avez arrêté la manche " + (modele.getNumeroround() - 1) + ", les points ne seront pas comptabilisés ! \n", true);
-        }
         // If the game is loaded, display the scores and allow the player to start playing.
         if (loadedGame) {
             vue.addMessage("La manche " + modele.getNumeroround() + " reprends, les score sont de : \n", false);
@@ -734,7 +731,7 @@ public class Controler {
         if(b2){
             // If the round was forced to stop by the player
             vue.addMessage("Vous avez arrêté la manche, les points gagnés\nne seront pas comptabilisés \n\n\n", false);
-            vue.addMessage("Chargement de la prochaine manche...\n", false);
+            vue.addMessage("Chargement de la prochaine manche...\n\n\n", false);
             vue.resettingKilometers();
             
             modele.getPlayers().clear();
