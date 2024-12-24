@@ -1,6 +1,6 @@
 # Mille Bornes -
 
-Bienvenue dans le projet **Mille Borne - Pixel Art Edition**, une version réinventée du célèbre jeu de cartes Mille Borne, implémentée en Java avec des graphismes en pixel art. Ce projet met en œuvre des concepts avancés de programmation Java, une interface graphique immersive et une ambiance retro.
+Bienvenue dans le projet **Mille Bornes - Pixel Art Edition**, une version réinventée du célèbre jeu de cartes Mille Borne, implémentée en Java avec des graphismes en pixel art. Ce projet met en œuvre des concepts avancés de programmation Java, une interface graphique immersive et une ambiance retro.
 
 ---
 
