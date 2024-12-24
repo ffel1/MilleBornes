@@ -20,8 +20,6 @@ Bienvenue dans le projet **Mille Borne - Pixel Art Edition**, une version réinv
 ## Introduction
 
 Le but de ce projet est de proposer une manière de jouer seul au jeu du Mille Bornes en suivant le plus fidèlement possible les mécaniques du jeu original.
-Les joueurs gagnent les manches en étant les premiers à parcourir les 700 bornes du plateau ou lorsque la pioche se vide. A la fin de chaque manche, les points sont comptés et la manche suivante commence.
-Le premier joueur arrivé à 5000 points gagne la partie !
 
 ---
 
@@ -64,7 +62,7 @@ Le premier joueur arrivé à 5000 points gagne la partie !
 
 1. Lancez le programme via la commande ou l'IDE de votre choix.
 2. Sélectionnez Jouer pour lancer la partie. Si c'est votre premier lancement, un fichier de sauvegarde va être créé.
-3. Profitez du jeu !
+3. Vous pouvez jouer au jeu ! Les joueurs gagnent les manches en étant les premiers à parcourir les 700 bornes du plateau ou lorsque la pioche se vide. A la fin de chaque manche, les points sont comptés et la manche suivante commence. Le premier joueur arrivé à 5000 points gagne la partie !
 
 ---
 
