@@ -13,8 +13,6 @@ import java.io.File;
  */
 public class Sound {
 
-    // Array of Clip objects to manage sound playback
-    private Clip clip;
     // Array of File objects that represent the sound files
     private File soundURL[] = new File[30];
     // Array of Clip objects corresponding to each sound file

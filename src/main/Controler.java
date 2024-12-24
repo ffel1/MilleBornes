@@ -943,6 +943,7 @@ public class Controler {
      * 
      * @param i The index of the music to play.
      */
+    @SuppressWarnings("unused")
     private void playMainMusic(int i){
         soundList.setFile(i);
         soundList.play(i);
@@ -965,7 +966,6 @@ public class Controler {
      * 
      * @param i The index of the music to play in a continuous loop.
      */
-    @SuppressWarnings("unused")
     private void playContiniouselyMusic(int i){
         soundList.setFile(i);
         //soundList.play(i);
