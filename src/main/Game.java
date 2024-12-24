@@ -233,7 +233,7 @@ public class Game implements Serializable {
         // Add players to the game
         players.add(0, new User("Vous", 0, 0, this));
         players.add(1, new CPUAgro("Agro", 0, 1, this));
-        players.add(2, new CPUFast("Fast", 700, 2, this));
+        players.add(2, new CPUFast("Fast", 0, 2, this));
 
         // Deal 6 cards to each player from the draw pile
         for (int i = 0; i < 6; i++) {
