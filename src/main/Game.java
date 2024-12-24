@@ -233,7 +233,7 @@ public class Game implements Serializable {
         // Add players to the game
         players.add(0, new User("Vous", 0, 0, this));
         players.add(1, new CPUAgro("Agro", 0, 1, this));
-        players.add(2, new CPUFast("Fast", 0, 2, this));
+        players.add(2, new CPUFast("Fast", 700, 2, this));
 
         // Deal 6 cards to each player from the draw pile
         for (int i = 0; i < 6; i++) {
@@ -316,11 +316,11 @@ public class Game implements Serializable {
         // "Capot" bonus for players with 0 kilometers traveled
         if (players.get(1).getKilometers() == 0) {
             ptsPlayer += 500;
-            ptsCPUAgro += 500; 
+            ptsCPUFast += 500; 
         }
         if (players.get(2).getKilometers() == 0) {
             ptsPlayer += 500;
-            ptsCPUFast += 500;
+            ptsCPUAgro += 500;
         }
         if (players.get(0).getKilometers() == 0) {
             ptsCPUFast += 500;
@@ -339,8 +339,8 @@ public class Game implements Serializable {
 
         // Points from dirty tricks
         ptsPlayer += players.get(0).getdirtyTricks() * 300;
-        ptsCPUAgro += players.get(2).getdirtyTricks() * 300;
-        ptsCPUFast += players.get(1).getdirtyTricks() * 300;
+        ptsCPUAgro += players.get(1).getdirtyTricks() * 300;
+        ptsCPUFast += players.get(2).getdirtyTricks() * 300;
 
         // Points for round victory
         if (winner == null) {
@@ -362,21 +362,21 @@ public class Game implements Serializable {
                 ptsPlayer += 300;  // Points for not using 200KM card
             }
         }
-        else if (winner == players.get(1)) {
+        else if (winner == players.get(2)) {
             ptsCPUFast += 400;  // Points for winning the round
             if (draw.isEmpty()) {
                 ptsCPUFast += 300;  // Points for "crowning"
             }
-            if (!players.get(1).use200KM()) {
+            if (!players.get(2).use200KM()) {
                 ptsCPUFast += 300;  // Points for not using 200KM card
             }
         }
-        else if (winner == players.get(2)) {
+        else if (winner == players.get(1)) {
             ptsCPUAgro += 400;  // Points for winning the round
             if (draw.isEmpty()) {
                 ptsCPUAgro += 300;  // Points for "crowning"
             }
-            if (!players.get(2).use200KM()) {
+            if (!players.get(1).use200KM()) {
                 ptsCPUAgro += 300;  // Points for not using 200KM card
             }
         }
