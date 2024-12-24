@@ -88,7 +88,7 @@ public class Sound {
      */
     public void loop() {
         // Loop the clip continuously
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clipList[0].loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     /**
