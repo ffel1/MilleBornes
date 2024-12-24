@@ -48,7 +48,7 @@ public class CPUAgro extends CPU {
     public Card chooseCard(){
         ArrayList<Card> Hand = getHand();
         Card playedCard = null;
-        boolean EnddAttack = false, endSafety = false, endGreenLight = false;
+        boolean findAttack = false, findSafety = false, findGreenLight = false;
 
         // Botte -> Attaque -> Parade -> Distance
 
@@ -58,19 +58,19 @@ public class CPUAgro extends CPU {
                 playedCard = card; // Priority to play Boot card
                 break;
             }
-            else if(card instanceof Attack && !EnddAttack && check(card, this, getTarget(card))){
+            else if(card instanceof Attack && !findAttack && check(card, this, getTarget(card))){
                 playedCard = card; // Play Attack card if valid
-                EnddAttack = true;
+                findAttack = true;
             }
-            else if (card.getType() == TypeCard.GREEN_LIGHT && !EnddAttack && check(card, this, null)) {
+            else if (card.getType() == TypeCard.GREEN_LIGHT && !findAttack && check(card, this, null)) {
                 playedCard = card; // Play Green Light card if no Attack card has been played yet
-                endGreenLight = true;
+                findGreenLight = true;
             }
-            else if(card instanceof Safety && !EnddAttack && !endGreenLight && !endSafety && check(card, this, null)){
+            else if(card instanceof Safety && !findAttack && !findGreenLight && !findSafety && check(card, this, null)){
                 playedCard = card; // Play Safety card if needed, before Distance card
-                endSafety = true;
+                findSafety = true;
             }
-            else if(card instanceof Distance && !EnddAttack && !endSafety && !endGreenLight && check(card, this, null)){
+            else if(card instanceof Distance && !findAttack && !findSafety && !findGreenLight && check(card, this, null)){
                 // Play Distance card if no other cards can be played, preferring longer distances
                 if((playedCard instanceof Distance && card.getKilometers() > playedCard.getKilometers()) || !(playedCard instanceof Distance))
                 {

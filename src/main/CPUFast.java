@@ -48,7 +48,7 @@ public class CPUFast extends CPU {
     public Card chooseCard() {
         ArrayList<Card> Hand = getHand();
         Card playedCard = null;
-        boolean EnddDistance = false, endSafety = false, endGreenLight = false;
+        boolean EnddDistance = false, findSafety = false, findGreenLight = false;
 
         // Botte -> Attaque -> Parade -> Distance
 
@@ -60,20 +60,20 @@ public class CPUFast extends CPU {
             }
             else if (card.getType() == TypeCard.GREEN_LIGHT && check(card, this, null)) {
                 playedCard = card; // Play Green Light card if valid
-                endGreenLight = true;
+                findGreenLight = true;
             }
-            else if (card instanceof Safety && !endGreenLight && !endSafety && check(card, this, null)) {
+            else if (card instanceof Safety && !findGreenLight && !findSafety && check(card, this, null)) {
                 playedCard = card; // Play Safety card if no Green Light has been played yet
-                endSafety = true;
+                findSafety = true;
             }
-            else if (card instanceof Distance && !endSafety && !endGreenLight && check(card, this, null)) {
+            else if (card instanceof Distance && !findSafety && !findGreenLight && check(card, this, null)) {
                 // Play Distance card, preferring higher kilometers if multiple Distance cards are available
                 if ((playedCard instanceof Distance && card.getKilometers() > playedCard.getKilometers()) || !(playedCard instanceof Distance)) {
                     playedCard = card;
                     EnddDistance = true;
                 }
             }
-            else if (card instanceof Attack && !EnddDistance && !endGreenLight && check(card, this, getTarget(card))) {
+            else if (card instanceof Attack && !EnddDistance && !findGreenLight && check(card, this, getTarget(card))) {
                 playedCard = card; // Play Attack card if no other card can be played
             }
         }
