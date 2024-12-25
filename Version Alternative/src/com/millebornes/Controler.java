@@ -111,10 +111,18 @@ public class Controler {
         String directoryPath = appPath + File.separator + "resources" + File.separator + "save.ser";
         File file = new File(directoryPath);
 
-        
         boolean loadedGame;
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
+        }
+
+        if(!file.exists()){
+            //creer un fichier save.ser
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         // If the game is not loaded or the flag b is true, start a new game
