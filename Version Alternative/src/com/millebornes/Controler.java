@@ -106,8 +106,12 @@ public class Controler {
      */
     private void newGame(boolean b, boolean endGameForced) {
 
+
         String appPath = System.getProperty("user.dir");
-        File file = new File(appPath + File.separator + "save.ser");
+        String directoryPath = appPath + File.separator + "resources" + File.separator + "save.ser";
+        File file = new File(directoryPath);
+
+        
         boolean loadedGame;
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
@@ -818,7 +822,8 @@ public class Controler {
      */
     public void saveManagement() {
         String appPath = System.getProperty("user.dir");
-        String directoryPath = appPath + File.separator + "SauvegardeDesHistoriques";
+        String directoryPath = appPath + File.separator + "resources" + File.separator +"SauvegardeDesHistoriques";
+ 
         String outputFile;
         File file;
         int i = 1;
@@ -832,6 +837,8 @@ public class Controler {
         // Check for available file name by incrementing the index
         file = new File(directoryPath + File.separator + "Partie_" + i + ".txt");
         while(file.exists()) {
+            //obtenir chemin du fichier
+            System.out.println(file.getAbsolutePath());
             i++;
             file = new File(directoryPath + File.separator + "Partie_" + i + ".txt");
         }
@@ -909,14 +916,20 @@ public class Controler {
      */
     private void save() {
         String appPath = System.getProperty("user.dir");
-        File saveFile = new File(appPath + File.separator + "save.ser");
+        String directoryPath = appPath + File.separator + "resources" + File.separator + "save.ser";
+        File saveFile = new File(directoryPath);
         
-        try (FileOutputStream file = new FileOutputStream(saveFile, false);
-            ObjectOutputStream oos = new ObjectOutputStream(file)) {
-            oos.writeObject(modele);
-            System.out.println("Sauvegarde OK !");
-        } catch (IOException e) {
-            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+        if(!saveFile.exists()){
+            System.out.println("Fichier de sauvegarde non trouvé : " + saveFile.getAbsolutePath());
+        }
+        else{
+            try (FileOutputStream file = new FileOutputStream(saveFile, false);
+                ObjectOutputStream oos = new ObjectOutputStream(file)) {
+                oos.writeObject(modele);
+                System.out.println("Sauvegarde OK !");
+            } catch (IOException e) {
+                System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            }
         }
     }
 
@@ -931,16 +944,16 @@ public class Controler {
     private void loadingSave(File file) {
             try (FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fileIn)) {
-            modele = (Game)ois.readObject();
-            modele.getPlayer1().setdiscard(false);
-            vue.getDiscard().setText("");
-            modele.getPlayer1().setIsAttacking(false);
-            System.out.println(modele.getdraw().size());
-            if (modele != null && modele.getPlayer1() != null){
-                System.out.println("Première cartes de la main : " + modele.getPlayer1().getHand().get(0));
-            }else{
-                System.err.println("Les données chargées sont incomplètes ou corrompues.");
-            }
+                modele = (Game)ois.readObject();
+                modele.getPlayer1().setdiscard(false);
+                vue.getDiscard().setText("");
+                modele.getPlayer1().setIsAttacking(false);
+                System.out.println(modele.getdraw().size());
+                if (modele != null && modele.getPlayer1() != null){
+                    System.out.println("Première cartes de la main : " + modele.getPlayer1().getHand().get(0));
+                }else{
+                    System.err.println("Les données chargées sont incomplètes ou corrompues.");
+                }
             }catch(IOException | ClassNotFoundException e){
                 System.err.println("Erreur lors du chargement : ");
                 e.printStackTrace();

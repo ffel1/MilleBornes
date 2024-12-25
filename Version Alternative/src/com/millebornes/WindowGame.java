@@ -449,8 +449,9 @@ public class WindowGame {
         panelHistorique.setLayout(new GridBagLayout());
         GridBagConstraints grid = new GridBagConstraints();
         
-        // Utiliser getResource pour accéder aux fichiers dans le JAR
-        String savePath = System.getProperty("user.home") + File.separator + "SauvegardeDesHistoriques";
+        String appPath = System.getProperty("user.dir");
+        String savePath = appPath + File.separator + "resources" + File.separator + "SauvegardeDesHistoriques";
+     
         File saveDirectory = new File(savePath);
         
         // Créer le répertoire s'il n'existe pas
@@ -462,29 +463,34 @@ public class WindowGame {
         int i = 1;
     
         // Dynamically add buttons for game save files
-        Game = new File(saveDirectory, "Partie_" + i + ".txt");
+        Game = new File(savePath + File.separator + "Partie_" + i + ".txt");
+        System.out.println("fenetre jeu 468 : "+Game.getAbsolutePath());
         while (Game.exists()) {
-            final String path = Game.getAbsolutePath(); // Utiliser le chemin absolu
+            //final String path = Game.getAbsolutePath(); // Utiliser le chemin absolu
+            String partiePath = savePath + File.separator + "Partie_" + i + ".txt";
             JButton Buttonfile = new JButton("Partie " + i);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
-            Buttonfile.addActionListener(e -> printContentFile(path));
+            Buttonfile.addActionListener(e -> printContentFile(partiePath));
             grid.gridx = 1;
             grid.gridy = i;
             grid.insets = new Insets(40, 40, 40, 40);
             grid.anchor = GridBagConstraints.CENTER;
             panelHistorique.add(Buttonfile, grid);
             i++;
-            Game = new File(saveDirectory, "Partie_" + i + ".txt");
+            //Game = new File(saveDirectory, "Partie_" + i + ".txt");
+            Game = new File(savePath + File.separator + "Partie_" + i + ".txt");
         }
     
         // Similar handling for round files
         int j = 1;
-        round = new File(saveDirectory, "round_" + j + ".txt");
+        //round = new File(saveDirectory, "round_" + j + ".txt");
+        round = new File(savePath + File.separator + "round_" + j + ".txt");
         while (round.exists()) {
-            final String path = round.getAbsolutePath(); // Utiliser le chemin absolu
+            //final String path = round.getAbsolutePath(); // Utiliser le chemin absolu
+            String roundPath = savePath + File.separator + "round_" + j + ".txt";
             JButton Buttonfile = new JButton("Manche " + j);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
-            Buttonfile.addActionListener(e -> printContentFile(path));
+            Buttonfile.addActionListener(e -> printContentFile(roundPath));
             grid.gridx = 1;
             grid.gridy = i;
             grid.insets = new Insets(40, 40, 40, 40);
@@ -492,10 +498,10 @@ public class WindowGame {
             panelHistorique.add(Buttonfile, grid);
             j++;
             i++;
-            round = new File(saveDirectory, "round_" + j + ".txt");
+            //round = new File(saveDirectory, "round_" + j + ".txt");
+            round = new File(savePath + File.separator + "round_" + j + ".txt");
         }
     
-        // Reste du code inchangé
         JButton ButtonDelete = new JButton("Supprimer historique");
         ButtonDelete.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
         ButtonDelete.addActionListener(e -> deleteHistory());
@@ -529,7 +535,7 @@ public class WindowGame {
     * Displays the content of a text file in a new window.
     * @param cheminfile Path to the file to be displayed.
     */
-    private void printContentFile(String cheminfile) {
+    private void printContentFile(String cheminFile) {
         JPanel panelPrint = new JPanel();
         panelPrint.setLayout(new GridBagLayout()); 
         GridBagConstraints grid = new GridBagConstraints();
@@ -550,7 +556,7 @@ public class WindowGame {
         panelPrint.add(scrollPane, grid);
 
         // Reading the file and displaying its content
-        try (BufferedReader read = new BufferedReader(new FileReader(cheminfile))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(cheminFile))) {
             String line;
             while ((line = read.readLine()) != null) {
                 textArea.append(line + "\n");
@@ -587,11 +593,11 @@ public class WindowGame {
     private void deleteHistory() {
         controler.setModele(new Game());
         
-        // Obtenir le chemin du dossier de l'application
         String appPath = System.getProperty("user.dir");
+        String savePath = appPath + File.separator + "resources" + File.separator + "SauvegardeDesHistoriques";
         
         // Création des chemins avec le dossier de l'application
-        File directory = new File(appPath + File.separator + "SauvegardeDesHistoriques");
+        File directory = new File(savePath);
         if (directory.exists() && directory.isDirectory()) {
             File[] files = directory.listFiles();
             if (files != null) {
@@ -604,7 +610,7 @@ public class WindowGame {
         }
     
         // Suppression du fichier de sauvegarde avec le chemin complet
-        File fileSaves = new File(appPath + File.separator + "save.ser");
+        File fileSaves = new File(appPath + File.separator + "resources" + File.separator + "save.ser");
         if (fileSaves.exists()) {
             fileSaves.delete();
         }
@@ -888,15 +894,16 @@ public class WindowGame {
     
         if (saveToHistory) {
             String appPath = System.getProperty("user.dir");
-            File directory = new File(appPath + File.separator + "SauvegardeDesHistoriques");
-            
+            String savePath = appPath + File.separator + "resources" + File.separator + "SauvegardeDesHistoriques";
+            File directory = new File(savePath);
+
             // Créer le dossier s'il n'existe pas
             if (!directory.exists()) {
                 directory.mkdirs();
             }
     
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(
-                    appPath + File.separator + "SauvegardeDesHistoriques" + File.separator + nameGame, true))) {
+                    savePath + File.separator+nameGame, true))) {
                 if (message != null) {
                     writer.write(message);
                 }
@@ -912,7 +919,8 @@ public class WindowGame {
     */
     public void loadLogs() {
     String appPath = System.getProperty("user.dir");
-    Path logPath = Paths.get(appPath, "SauvegardeDesHistoriques", nameGame);
+    String savePath = appPath + File.separator + "resources" + File.separator + "SauvegardeDesHistoriques";
+    Path logPath = Paths.get(savePath, nameGame);
     
     try {
         if (Files.exists(logPath)) {

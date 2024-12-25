@@ -49,34 +49,33 @@ public class Game implements Serializable {
      * It checks for existing files and increments the round number until a unique filename is found.
      */
     public void initGameName() {
+        String appPath = System.getProperty("user.dir");
+        String directoryPath = appPath + File.separator + "resources" + File.separator + "SauvegardeDesHistoriques";
         File file;
         int i = 1;
     
-        // Définir un répertoire externe pour les sauvegardes dans le répertoire utilisateur
-        File directory = new File(System.getProperty("user.home") + File.separator + "SauvegardeDesHistoriques");
-    
-        // Créer le répertoire s'il n'existe pas
+        // Créer le dossier SauvegardeDesHistoriques
+        File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
         }
     
         // Trouver un nom de fichier unique
-        file = new File(directory, "round_" + i + ".txt");
+        file = new File(directoryPath + File.separator + "round_" + i + ".txt");
         while (file.exists()) {
             i++;
-            file = new File(directory, "round_" + i + ".txt");
+            file = new File(directoryPath + File.separator + "round_" + i + ".txt");
         }
     
         try {
-            file.createNewFile(); // Créer le nouveau fichier
+            file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace(); // Gérer les erreurs de création de fichier
+            e.printStackTrace();
         }
     
-        // Définir le nom du fichier de sauvegarde
-        nameGame = file.getName();
+        nameGame = "round_" + i + ".txt";
     }
-
+    
     /**
      * Returns the name of the game (filename).
      * 
