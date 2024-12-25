@@ -91,6 +91,7 @@ README.txt : Ce fichier de documentation.
 - **Développement** : Xavier DEGRAEVE, Enzo DERO, Max M'BEY, Felix CLOEREC
 - **Graphismes** : Xavier DEGRAEVE
 - **Tests** : Xavier DEGRAEVE, Enzo DERO, Max M'BEY, Felix CLOEREC
+- **Exportation au format .jar** : Max M'BEY
 
 ---
 
