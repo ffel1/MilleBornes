@@ -57,7 +57,6 @@ public class Controler {
      * @param modele The game model
      * @param vue The game window (view)
      */
-    @SuppressWarnings("unused")
     public Controler(Game modele, WindowGame vue) {
         this.modele = modele;
         this.vue = vue;
@@ -105,10 +104,10 @@ public class Controler {
      * @param b If true, starts a new game regardless of existing save.
      * @param endGameForced If true, forces the end of the game without saving.
      */
-    @SuppressWarnings("unused")
     private void newGame(boolean b, boolean endGameForced) {
 
-        File file = new File("save.ser");
+        String appPath = System.getProperty("user.dir");
+        File file = new File(appPath + File.separator + "save.ser");
         boolean loadedGame;
         if (file.exists() && !b) {
             loadingSave(file); // Load saved game if it exists
@@ -817,21 +816,26 @@ public class Controler {
      * Manages the saving of game history.
      * Copies and saves history files from the directory into a new file.
      */
-    public void saveManagement()
-    {
-        String directoryPath = "SauvegardeDesHistoriques";
+    public void saveManagement() {
+        String appPath = System.getProperty("user.dir");
+        String directoryPath = appPath + File.separator + "SauvegardeDesHistoriques";
         String outputFile;
         File file;
         int i = 1;
-
-        // Check for available file name by incrementing the index
-        file = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
-        while(file.exists())
-        {
-            i++;
-            file = new File("SauvegardeDesHistoriques/Partie_" + i+".txt");
+    
+        // Créer le dossier s'il n'existe pas
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
-
+    
+        // Check for available file name by incrementing the index
+        file = new File(directoryPath + File.separator + "Partie_" + i + ".txt");
+        while(file.exists()) {
+            i++;
+            file = new File(directoryPath + File.separator + "Partie_" + i + ".txt");
+        }
+    
         // Create the new file
         try {
             file.createNewFile();
@@ -839,15 +843,14 @@ public class Controler {
             e.printStackTrace();
         }
         
-        outputFile = "SauvegardeDesHistoriques/Partie_"+i+".txt";
-
+        outputFile = directoryPath + File.separator + "Partie_" + i + ".txt";
+    
         // Write history to the new file
-        try (
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))
-        ) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
             // Traverse through the files in the directory
             Files.list(Paths.get(directoryPath))
-                .filter(path -> path.getFileName().toString().startsWith("round") && path.getFileName().toString().endsWith(".txt"))
+                .filter(path -> path.getFileName().toString().startsWith("round") && 
+                              path.getFileName().toString().endsWith(".txt"))
                 .forEach(fileBis -> {
                     try (BufferedReader reader = new BufferedReader(new FileReader(fileBis.toFile()))) {
                         String line;
@@ -864,12 +867,13 @@ public class Controler {
                         System.err.println("Erreur avec le file " + fileBis.getFileName() + ": " + e.getMessage());
                     }
                 });
-
+    
             System.out.println("Fusion terminée dans le file : " + outputFile);
         } catch (IOException e) {
             System.err.println("Erreur : " + e.getMessage());
         }
     }
+    
 
     /**
      * Returns the controller instance.
@@ -903,14 +907,19 @@ public class Controler {
      * 
      * @throws IOException If an I/O error occurs during saving the game.
      */
-    private void save(){
-        try (FileOutputStream file = new FileOutputStream("save.ser", false); ObjectOutputStream oos = new ObjectOutputStream(file)){
+    private void save() {
+        String appPath = System.getProperty("user.dir");
+        File saveFile = new File(appPath + File.separator + "save.ser");
+        
+        try (FileOutputStream file = new FileOutputStream(saveFile, false);
+            ObjectOutputStream oos = new ObjectOutputStream(file)) {
             oos.writeObject(modele);
             System.out.println("Sauvegarde OK !");
         } catch (IOException e) {
             System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
         }
     }
+
 
     /**
      * Loads a saved game from the given file.

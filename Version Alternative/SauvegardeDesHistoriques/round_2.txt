@@ -1,0 +1,57 @@
+Vous avez pioché
+Vous ne pouvez pas finir votre tour avec plus de 6 carte ! 
+Jouez ou défaussez une carte ! 
+Vous avez défaussé la card : Distance25 km
+Vous ne jouez rien pendant ce tour ! Distance parcourue : 0 km 
+
+En attente du joueur Agro
+
+C'est au tour du CPU Agro ! Distance parcourue : 0 km 
+Le CPU Agro a pioché ! 
+Agro joue l'attaque Limite de vitesse contre Vous
+C'est la fin du tour de Agro ! Distance parcourue : 0 km 
+
+En attente du joueur Fast
+
+C'est au tour du CPU Fast ! Distance parcourue : 0 km 
+Le CPU Fast a pioché ! 
+Fast joue un Feu vert ! 
+C'est la fin du tour de Fast ! Distance parcourue : 0 km 
+
+C'est votre tour ! Distance parcourue : 0 km 
+
+
+
+Vous avez pioché
+Vous avez défaussé la card : Distance100 km
+Vous ne jouez rien pendant ce tour ! Distance parcourue : 0 km 
+
+En attente du joueur Agro
+
+C'est au tour du CPU Agro ! Distance parcourue : 0 km 
+Le CPU Agro a pioché ! 
+Agro joue un Feu vert ! 
+C'est la fin du tour de Agro ! Distance parcourue : 0 km 
+
+En attente du joueur Fast
+
+C'est au tour du CPU Fast ! Distance parcourue : 0 km 
+Le CPU Fast a pioché ! 
+Fast avance de 200 km. Distance totale : 200 km. 
+C'est la fin du tour de Fast ! Distance parcourue : 200 km 
+
+C'est votre tour ! Distance parcourue : 0 km 
+
+
+
+Vous sautez votre tour ! Distance parcourue : 0 km 
+
+En attente du joueur Agro
+
+C'est au tour du CPU Agro ! Distance parcourue : 0 km 
+Le CPU Agro a pioché ! 
+Agro avance de 100 km. Distance totale : 100 km. 
+C'est la fin du tour de Agro ! Distance parcourue : 100 km 
+Vous avez mis fin à la manche 1, les points ne seront pas comptabilisés
+
+En attente du joueur Fast

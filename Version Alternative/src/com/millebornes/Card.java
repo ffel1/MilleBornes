@@ -63,7 +63,6 @@ public abstract class Card implements Serializable {
         type = t;
         
         // Set the card's image based on the type
-        System.out.println("/Images/" + t.toString() + ".png");
         vraieImage = new ImageIcon(getClass().getResource("/Images/" + t.toString() + ".png"));
         imageCourante = vraieImage;  // Save the original image to revert back to it if needed
     }

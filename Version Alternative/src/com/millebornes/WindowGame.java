@@ -17,8 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.print.DocFlavor.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -316,6 +318,7 @@ public class WindowGame {
         grid.anchor = GridBagConstraints.CENTER; // Center the image
         menuPanel.add(labelImage, grid);
 
+
         // Configure and add the "Historique" button (History button)
         buttonSaves.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); // Set size as percentage of screen
         grid.gridx = 0;
@@ -445,14 +448,23 @@ public class WindowGame {
         JPanel panelHistorique = new JPanel();
         panelHistorique.setLayout(new GridBagLayout());
         GridBagConstraints grid = new GridBagConstraints();
-        File saveDirectory = new File(System.getProperty("user.home"), "SauvegardeDesHistoriques");
+        
+        // Utiliser getResource pour accéder aux fichiers dans le JAR
+        String savePath = System.getProperty("user.home") + File.separator + "SauvegardeDesHistoriques";
+        File saveDirectory = new File(savePath);
+        
+        // Créer le répertoire s'il n'existe pas
+        if (!saveDirectory.exists()) {
+            saveDirectory.mkdirs();
+        }
+        
         File round, Game;
         int i = 1;
     
         // Dynamically add buttons for game save files
         Game = new File(saveDirectory, "Partie_" + i + ".txt");
         while (Game.exists()) {
-            String path = Game.getPath();
+            final String path = Game.getAbsolutePath(); // Utiliser le chemin absolu
             JButton Buttonfile = new JButton("Partie " + i);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
             Buttonfile.addActionListener(e -> printContentFile(path));
@@ -469,7 +481,7 @@ public class WindowGame {
         int j = 1;
         round = new File(saveDirectory, "round_" + j + ".txt");
         while (round.exists()) {
-            String path = round.getPath();
+            final String path = round.getAbsolutePath(); // Utiliser le chemin absolu
             JButton Buttonfile = new JButton("round " + j);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
             Buttonfile.addActionListener(e -> printContentFile(path));
@@ -483,7 +495,7 @@ public class WindowGame {
             round = new File(saveDirectory, "round_" + j + ".txt");
         }
     
-        // Add button to delete all history
+        // Reste du code inchangé
         JButton ButtonDelete = new JButton("Supprimer historique");
         ButtonDelete.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
         ButtonDelete.addActionListener(e -> deleteHistory());
@@ -493,7 +505,6 @@ public class WindowGame {
         grid.anchor = GridBagConstraints.CENTER;
         panelHistorique.add(ButtonDelete, grid);
     
-        // Add button to return to the main menu
         JButton returnButtonMenu = new JButton("Menu Principal");
         returnButtonMenu.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
         returnButtonMenu.addActionListener(e -> createWindowMenu());
@@ -503,7 +514,6 @@ public class WindowGame {
         grid.anchor = GridBagConstraints.CENTER;
         panelHistorique.add(returnButtonMenu, grid);
     
-        // Add a scroll pane for the save history
         JScrollPane scrollPane = new JScrollPane(panelHistorique);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -513,6 +523,7 @@ public class WindowGame {
         windowMenu.revalidate();
         windowMenu.repaint();
     }
+    
     
     /**
     * Displays the content of a text file in a new window.
@@ -574,34 +585,34 @@ public class WindowGame {
     * Deletes all history files in the save directory.
     */
     private void deleteHistory() {
-        // Localisation des fichiers dans le répertoire externe de l'utilisateur
-        File saveDirectory = new File(System.getProperty("user.home"), "SauvegardeDesHistoriques");
-    
-        // Vérifiez si le répertoire existe
-        if (saveDirectory.exists() && saveDirectory.isDirectory()) {
-            File[] files = saveDirectory.listFiles();
-    
-            // Supprimez chaque fichier dans le répertoire
+        controler.setModele(new Game());
+        
+        // Obtenir le chemin du dossier de l'application
+        String appPath = System.getProperty("user.dir");
+        
+        // Création des chemins avec le dossier de l'application
+        File directory = new File(appPath + File.separator + "SauvegardeDesHistoriques");
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
             if (files != null) {
                 for (File file : files) {
-                    if (!file.delete()) {
-                        System.err.println("Impossible de supprimer le fichier : " + file.getName());
+                    if (!file.isDirectory()) {
+                        file.delete();
                     }
                 }
             }
-        } else {
-            System.out.println("Le répertoire de sauvegarde n'existe pas encore.");
         }
     
-        // Supprimez le fichier spécifique "save.ser"
-        File fileSaves = new File(saveDirectory, "save.ser");
-        if (fileSaves.exists() && !fileSaves.delete()) {
-            System.err.println("Impossible de supprimer le fichier : save.ser");
+        // Suppression du fichier de sauvegarde avec le chemin complet
+        File fileSaves = new File(appPath + File.separator + "save.ser");
+        if (fileSaves.exists()) {
+            fileSaves.delete();
         }
     
-        // Retourner au menu d'historique
+        // Retour au menu des sauvegardes
         createWindowSaves();
     }
+    
 
     /**
     * Displays the player's hand cards on the game panel.
@@ -871,51 +882,49 @@ public class WindowGame {
     * @param saveToHistory Boolean indicating if the message should be saved to the game history.
     */
     public void addMessage(String message, boolean saveToHistory) {
-        textArea.append(message); // Ajouter le message à l'interface utilisateur
+        textArea.append(message);
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
-        verticalBar.setValue(verticalBar.getMaximum()); // Faire défiler jusqu'en bas
+        verticalBar.setValue(verticalBar.getMaximum());
     
         if (saveToHistory) {
-            // Définir un chemin externe pour les fichiers de sauvegarde
-            File saveDirectory = new File(System.getProperty("user.home"), "SauvegardeDesHistoriques");
+            String appPath = System.getProperty("user.dir");
+            File directory = new File(appPath + File.separator + "SauvegardeDesHistoriques");
             
-            // Créer le répertoire s'il n'existe pas
-            if (!saveDirectory.exists()) {
-                saveDirectory.mkdirs();
+            // Créer le dossier s'il n'existe pas
+            if (!directory.exists()) {
+                directory.mkdirs();
             }
-            
-            // Chemin complet du fichier de sauvegarde
-            File saveFile = new File(saveDirectory, nameGame);
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile, true))) {
+    
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(
+                    appPath + File.separator + "SauvegardeDesHistoriques" + File.separator + nameGame, true))) {
                 if (message != null) {
-                    writer.write(message); // Écrire le message dans le fichier
-                    writer.newLine(); // Ajouter une nouvelle ligne
+                    writer.write(message);
                 }
             } catch (IOException e) {
-                e.printStackTrace(); // Gérer les exceptions d'écriture
+                e.printStackTrace();
             }
         }
     }
+    
 
     /**
     * Reads the content of the game's history file and appends it to the text area.
     */
     public void loadLogs() {
-        try (InputStream inputStream = getClass().getResourceAsStream("/SauvegardeDesHistoriques/" + nameGame);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
-            if (inputStream == null) {
-                throw new IOException("File not found in JAR: /SauvegardeDesHistoriques/" + nameGame);
-            }
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                addMessage(line, false);
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); // Gérer les exceptions si le fichier ne peut pas être lu
+    String appPath = System.getProperty("user.dir");
+    Path logPath = Paths.get(appPath, "SauvegardeDesHistoriques", nameGame);
+    
+    try {
+        if (Files.exists(logPath)) {
+            String content = new String(Files.readAllBytes(logPath));
+            addMessage(content, false);
         }
+    } catch (IOException e) {
+        System.out.println("Error reading the file. (loadLogs)");
+        e.printStackTrace();
     }
+}
+
 
     /**
     * Creates and places car buttons on the circuit image, representing players' positions.
@@ -935,8 +944,8 @@ public class WindowGame {
             (Car1.getIconWidth() * 10 / 100),
             (Car1.getIconHeight() * 60 / 100)
         );
-        gamePanel.add(ButtonCar1, Integer.valueOf(2)); // Add Car 1 to the game panel
-
+        gamePanel.add(ButtonCar1, Integer.valueOf(2));
+    
         // Car 2
         ImageIcon Car2 = new ImageIcon(getClass().getResource("/Images/voiture bleue idle haut.gif"));
         ButtonCar2 = new JButton("", Car2);
@@ -950,8 +959,8 @@ public class WindowGame {
             (Car2.getIconWidth() * 10 / 100),
             (Car1.getIconHeight() * 60 / 100)
         );
-        gamePanel.add(ButtonCar2, Integer.valueOf(2)); // Add Car 2 to the game panel
-
+        gamePanel.add(ButtonCar2, Integer.valueOf(2));
+    
         // Car 3
         ImageIcon Car3 = new ImageIcon(getClass().getResource("/Images/voiture verte idle haut.gif"));
         ButtonCar3 = new JButton("", Car3);
@@ -965,8 +974,9 @@ public class WindowGame {
             (Car3.getIconWidth() * 10 / 100),
             (Car1.getIconHeight() * 60 / 100)
         );
-        gamePanel.add(ButtonCar3, Integer.valueOf(2)); // Add Car 3 to the game panel
+        gamePanel.add(ButtonCar3, Integer.valueOf(2));
     }
+    
 
     /**
     * Resets the kilometers for all cars to zero.
@@ -1032,33 +1042,34 @@ public class WindowGame {
             Rectangle position = Car.getBounds(); // Get the current position of the car
             int movementY = 0; // Vertical movement of the car
             int percentageX = 0; // Horizontal movement of the car
+            
             // Calculate the final position of the car
             if(distance <= 25){
                 movementY = (circuit.getIconHeight() * 9 / 100); // Small vertical movement
                 position.setBounds((int)position.getX(), (int)position.getY() - movementY, 1, 1);
-            } else if(Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle haut.gif").toString()) == 0){ 
+            } else if(Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle haut.gif").toString())){ 
                 // Between 50 and 150 km, car moves upward
                 movementY = (((newDistance - 25) / 25)) * (circuit.getIconHeight() * 7 / 100);
                 if(zero){
                     movementY += (circuit.getIconHeight() * 9 / 100); // Adjust movement if car starts from zero
                 }
                 position.setBounds((int)position.getX(), (int)position.getY() - movementY, 1, 1);
-            } else if(Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle gauche.gif").toString()) == 0 && distance > 175){
+            } else if(Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle gauche.gif").toString()) && distance > 175){
                 // Between 175 and 375 km, car moves to the left
                 percentageX = ((newDistance - kilo) / 25 ) * (circuit.getIconWidth() * 40 / 1000);
                 position.setBounds((int)position.getX() - percentageX, (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
-            } else if(Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle bas.gif").toString()) == 0 && distance > 400){
+            } else if(Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle bas.gif").toString()) && distance > 400){
                 // Between 400 and 525 km, car moves downward
                 movementY = (((newDistance - kilo) / 25)) * (circuit.getIconHeight() * 7 / 100);
                 position.setBounds((int)position.getX(), (int)position.getY() + movementY, (int)position.getWidth(), (int)position.getHeight());
-            } else if(Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle droite.gif").toString()) == 0 && distance > 550){
+            } else if(Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle droite.gif").toString()) && distance > 550){
                 // Between 550 and 700 km, car moves to the right
                 percentageX = ((newDistance - kilo) / 25 ) * (circuit.getIconWidth() * 40 / 1000);
                 position.setBounds((int)position.getX() + percentageX, (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
             }
-            
+
             // Move the car based on the calculated direction
-            if(Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle haut.gif").toString()) == 0){
+            if(Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle haut.gif").toString())){
                 // Car starts moving upward
                 ImageIcon Car1 = new ImageIcon(getClass().getResource("/Images/voiture " + color + " démarrage haut.gif"));
                 Car.setIcon(Car1);
@@ -1080,7 +1091,9 @@ public class WindowGame {
                         
                                 if(distance >= 175 && (Car.getY() - (circuit.getIconHeight() * 82 / 1000) <= (int)position.getY() - ((Car.getIcon().getIconHeight() * 50 / 100) * player) | y < (circuit.getIconHeight() * 125 / 1000) - player * (circuit.getIconHeight() * 50 / 1000))) {
                                     ((javax.swing.Timer) e.getSource()).stop(); // Stop the timer
-                                    ImageIcon Car1 = new ImageIcon(getClass().getResource("/Images/voiture" + color + " idle haut.gif"));
+                                    
+                                    ImageIcon Car1 = new ImageIcon(getClass().getResource("/Images/voiture " + color + " idle haut.gif"));
+                                    
                                     Car.setIcon(Car1);
                                     if(player == 0){
                                         kilometersV1 = 175;
@@ -1149,7 +1162,8 @@ public class WindowGame {
                         timer.start();
                     }
                 }, 2500);
-            }else if (Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle gauche.gif").toString()) == 0) {
+                
+            }else if (Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle gauche.gif").toString())){
                 // Car starting left
                 int temps = 0;
                 if (turbo) {
@@ -1245,8 +1259,7 @@ public class WindowGame {
                         timer.start();
                     }
                 }, temps); // Delay for turbo animation if applicable
-
-            } else if (Car.getIcon().toString().compareTo(getClass().getResource("/Images/voiture " + color + " idle bas.gif").toString()) == 0) {
+            } else if (Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle bas.gif").toString())) {
                 // Car starting downwards
                 int temps = 0;
                 if (turbo) {
@@ -1342,7 +1355,7 @@ public class WindowGame {
                         timer.start();
                     }
                 }, temps); // Delay for turbo animation if applicable
-            } else if (Car.getIcon().toString().compareTo(getClass().getResource("Images/voiture " + color + " idle droite.gif").toString()) == 0) {
+            } else if (Car.getIcon().toString().equals(getClass().getResource("/Images/voiture " + color + " idle droite.gif").toString())) {
                 // Car starting right
                 int temps = 0;
                 if (turbo) {
