@@ -482,7 +482,7 @@ public class WindowGame {
         round = new File(saveDirectory, "round_" + j + ".txt");
         while (round.exists()) {
             final String path = round.getAbsolutePath(); // Utiliser le chemin absolu
-            JButton Buttonfile = new JButton("round " + j);
+            JButton Buttonfile = new JButton("Manche " + j);
             Buttonfile.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100));
             Buttonfile.addActionListener(e -> printContentFile(path));
             grid.gridx = 1;
@@ -561,7 +561,7 @@ public class WindowGame {
         }
 
         // Button to return to the save menu
-        JButton returnButtonMenu = new JButton("History menu");
+        JButton returnButtonMenu = new JButton("Menu d'historiques");
         returnButtonMenu.setPreferredSize(new Dimension(width * 25 / 100, height * 10 / 100)); 
         returnButtonMenu.addActionListener(e -> createWindowSaves());
         grid.gridx = 0;
