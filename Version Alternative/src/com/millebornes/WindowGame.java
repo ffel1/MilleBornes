@@ -133,7 +133,7 @@ public class WindowGame {
         buttonHandPlayer = new ArrayList<JButton>();
         env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         screen = env.getDefaultScreenDevice();
-        kilometersV1 = 0;
+        kilometersV1 = 500;
         kilometersV2 = 0;
         kilometersV3 = 0;
         turboV1 = true;

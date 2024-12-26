@@ -105,8 +105,6 @@ public class Controler {
      * @param endGameForced If true, forces the end of the game without saving.
      */
     private void newGame(boolean b, boolean endGameForced) {
-
-
         String appPath = System.getProperty("user.dir");
         String directoryPath = appPath + File.separator + "resources" + File.separator + "save.ser";
         File file = new File(directoryPath);
@@ -720,6 +718,19 @@ public class Controler {
         vue.moveForwadCar(modele.getPlayer3().getKilometers(), 2, this);
     }
 
+    public void deleteRounds(){
+        int i = 1;
+        String appPath = System.getProperty("user.dir");
+        String directoryPath = appPath + File.separator + "resources" + File.separator +"SauvegardeDesHistoriques";
+        // Check for available file name by incrementing the index
+        File file = new File(directoryPath + File.separator + "round_" + i + ".txt");
+        while(file.exists()) {
+            file.delete();
+            i++;
+            file = new File(directoryPath + File.separator + "round_" + i + ".txt");
+        }
+    }
+
     /**
      * Starts a new round in the game.
      * 
@@ -779,6 +790,7 @@ public class Controler {
             
                 // Save game history and reset the game
                 saveManagement();
+                deleteRounds();
                 modele = new Game();
                 Timer chrono = new Timer();
                 chrono.schedule(new TimerTask(){
